@@ -33,6 +33,9 @@ export const metadata: Metadata = {
   creator: 'Miguel Angelo',
   publisher: 'Miguel Angelo',
   metadataBase: new URL('https://miguelangelo.tech'),
+  icons: {
+    icon: '/favicon.svg',
+  },
   openGraph: {
     title: 'Miguel Angelo - Product Designer',
     description: 'Product Designer with 10+ years building B2B SaaS and AI-driven products',

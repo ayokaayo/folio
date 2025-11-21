@@ -31,6 +31,13 @@ module.exports = {
           light: '#666666',
           muted: '#999999',
         },
+        // Brand surface palette for cards and supporting UI
+        brand: {
+          beige: '#EEEEEE', // Light neutral (cards hover / light surfaces)
+          card: '#F0EEE6', // Default card background
+          green: '#BCD1CA', // Soft green
+          lilac: '#CBCADB', // Soft lilac
+        },
       },
       fontFamily: {
         sans: ['var(--font-ibm-plex-sans)', 'sans-serif'],

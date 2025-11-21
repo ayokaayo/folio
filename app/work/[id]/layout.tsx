@@ -48,3 +48,4 @@ export default function WorkDetailLayout({ children }: WorkDetailLayoutProps) {
   return children
 }
 
+

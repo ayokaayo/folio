@@ -45,7 +45,7 @@ export default function CaseStudyCard({ caseStudy, index = 0 }: CaseStudyCardPro
         >
           {/* Left Section - Text Content */}
           <div 
-            className="flex-1 bg-[#F5E6D3] p-8 md:p-10 lg:p-12 transition-colors duration-300 group-hover:bg-[#F0DDC4]"
+            className="flex-1 bg-brand-card p-8 md:p-10 lg:p-12 transition-colors duration-300 group-hover:bg-brand-beige"
           >
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <span className="px-3 py-1 bg-white border border-text/20 rounded-full text-sm font-medium text-text">

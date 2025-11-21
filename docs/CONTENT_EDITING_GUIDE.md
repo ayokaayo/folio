@@ -277,3 +277,4 @@ imageAlt: 'Descriptive alt text for accessibility',
 
 Need help? Check the existing entries in each file for examples of the correct structure!
 
+
