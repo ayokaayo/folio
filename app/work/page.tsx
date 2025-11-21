@@ -1,0 +1,46 @@
+'use client'
+
+import { motion } from 'framer-motion'
+import { caseStudies } from '@/lib/caseStudies'
+import CaseStudyCard from '@/components/CaseStudyCard'
+import { ANIMATION, VIEWPORT } from '@/lib/constants'
+import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
+
+export default function WorkPage() {
+  const prefersReducedMotion = useReducedMotion()
+
+  return (
+    <main id="main-content" className="pt-20 md:pt-24">
+      {/* Header */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 md:py-24">
+        <motion.div
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
+        >
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-4">
+            Work
+          </h1>
+          <p className="text-base md:text-lg text-text/70 max-w-2xl">
+            Here are some examples of how I combine workshop, data and a growth mindset to design products.
+          </p>
+        </motion.div>
+      </section>
+
+      {/* Case Studies List - Cards Only */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20">
+        <motion.div
+          initial={prefersReducedMotion ? {} : "hidden"}
+          whileInView={prefersReducedMotion ? {} : "visible"}
+          viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
+          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
+          className="space-y-8"
+        >
+          {caseStudies.map((caseStudy, index) => (
+            <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} index={index} />
+          ))}
+        </motion.div>
+      </section>
+    </main>
+  )
+}
