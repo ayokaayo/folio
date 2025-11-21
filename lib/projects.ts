@@ -52,6 +52,30 @@ export const projects: SideProject[] = [
     title: 'Accessibility Audit & Implementation',
     description: 'Conducted comprehensive accessibility audit and implemented WCAG 2.1 AA compliance across entire platform, improving usability for all users.',
   },
+  {
+    id: 'exotica-radio',
+    hashtag: '#Side Project',
+    year: 'Ongoing',
+    title: 'Exotica Radio',
+    description:
+      'An online radio station playing curated ambient, world music, and eclectic sounds. Designed and built the platform end-to-end, from UI to streaming setup and playlist curation.',
+  },
+  {
+    id: 'norma-ai-assistant',
+    hashtag: '#AI / LegalTech',
+    year: 'Ongoing',
+    title: 'Norma — AI Assistant for Law Firms',
+    description:
+      'AI-powered assistant helping legal teams automate document review, case research, and client communication, with product strategy and UX flows tailored for legal workflows.',
+  },
+  {
+    id: 'codex-tarot',
+    hashtag: '#Generative AI',
+    year: 'Ongoing',
+    title: 'Codex Tarot',
+    description:
+      'Online oracle blending traditional tarot with generative AI interpretations, designing the reading experience, visual system, and prompting logic for personalised readings.',
+  },
 ]
 
 // Side projects shown on homepage (first 3)

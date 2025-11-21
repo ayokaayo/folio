@@ -3,10 +3,10 @@ import { SITE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'About - Miguel Angelo',
-  description: 'Learn about Miguel Angelo, a Product Designer with 10+ years of experience in B2B SaaS, AI-driven products, and design systems. Background, skills, and journey.',
+  description: 'Natural problem solver specializing in product design, systems thinking, and multi-market platforms.',
   openGraph: {
     title: 'About - Miguel Angelo',
-    description: 'Learn about Miguel Angelo, a Product Designer with 10+ years of experience in B2B SaaS, AI-driven products, and design systems.',
+    description: 'Natural problem solver specializing in product design, systems thinking, and multi-market platforms.',
     url: `${SITE.URL}/about`,
     images: [
       {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'About - Miguel Angelo',
-    description: 'Learn about Miguel Angelo, a Product Designer with 10+ years of experience in B2B SaaS, AI-driven products, and design systems.',
+    description: 'Natural problem solver specializing in product design, systems thinking, and multi-market platforms.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },
 }

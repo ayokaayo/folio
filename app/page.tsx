@@ -6,10 +6,8 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import CaseStudyCard from '@/components/CaseStudyCard'
 import ProjectCard from '@/components/ProjectCard'
-import ArticleCard from '@/components/ArticleCard'
 import { caseStudies } from '@/lib/caseStudies'
 import { sideProjects } from '@/lib/projects'
-import { popularArticles } from '@/lib/articles'
 import { ANIMATION, ROUTES, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 
@@ -31,16 +29,13 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-4 leading-tight">
             Hi. I am Miguel Angelo.
           </h1>
-          <p className="text-lg md:text-xl text-text/70 max-w-2xl mb-8">
-          A Senior Product Designer with 10+ years building complex B2B systems for high-stakes industries. Specialized in AI/ML integration, multi-market platforms, and design at scale.
+          <p className="text-xl md:text-2xl text-text/70 max-w-2xl mb-8">
+            Senior Product Designer. 10+ years building B2B platforms for localization, iGaming, and AI-powered systems. I design for scale, across markets and cultures.
           </p>
-          <Link
-            href={ROUTES.WORK}
-            className="text-primary hover:underline text-base font-medium inline-flex items-center gap-2"
-          >
+          <Link href={ROUTES.WORK} className="btn-cta group">
             Explore my projects
             <svg
-              className="w-4 h-4"
+              className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -72,6 +67,24 @@ export default function Home() {
               <CaseStudyCard key={work.id} caseStudy={work} index={index} />
             ))}
           </div>
+          <div className="mt-8">
+            <Link href={ROUTES.WORK} className="btn-cta group">
+              View all work
+              <svg
+                className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </Link>
+          </div>
         </motion.div>
       </section>
 
@@ -87,12 +100,6 @@ export default function Home() {
             <h2 className="text-2xl md:text-3xl font-serif font-bold text-text">
               Projects
             </h2>
-          <Link
-            href={ROUTES.PROJECTS}
-              className="text-text/70 hover:text-primary transition-colors text-sm font-medium"
-            >
-              Explore more apps
-            </Link>
           </div>
           <p className="text-base text-text/70 mb-8 max-w-2xl">
             I am passionate about building products that solve everyday problems for people—it&apos;s what motivates me every day. Here are some of the recent apps I&apos;ve developed
@@ -106,10 +113,28 @@ export default function Home() {
               />
             ))}
           </div>
+          <div className="mt-8">
+            <Link href={ROUTES.PROJECTS} className="btn-cta group">
+              View all projects
+              <svg
+                className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </Link>
+          </div>
         </motion.div>
       </section>
 
-      {/* Popular Articles Section */}
+      {/* Thoughts & Words Section */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16 border-t border-text/10">
         <motion.div
           initial={prefersReducedMotion ? {} : "hidden"}
@@ -118,61 +143,61 @@ export default function Home() {
           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
         >
           <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-8">
-            Popular articles
+            Thoughts &amp; Words
           </h2>
-          <p className="text-sm text-text/60 mb-8">
-            Lately, I&apos;ve been writing to share my thoughts on product design and growth.
-          </p>
-          <div className="space-y-6">
-            {popularArticles.map((article, index) => (
-              <ArticleCard key={article.id} article={article} index={index} />
-            ))}
+          <div className="space-y-4">
+            <article className="border border-text/10 rounded-xl px-5 py-4 cursor-pointer transition-colors hover:bg-text/5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-base md:text-lg font-semibold text-text mb-1">
+                    Designing for Global Operations
+                  </h3>
+                  <p className="text-sm text-text/70">
+                    Lessons from scaling products across three continents and operating across timezones.
+                  </p>
+                </div>
+                <span className="text-xs uppercase tracking-wide text-text/50">
+                  Soon
+                </span>
+              </div>
+            </article>
+            <article className="border border-text/10 rounded-xl px-5 py-4 cursor-pointer transition-colors hover:bg-text/5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-base md:text-lg font-semibold text-text mb-1">
+                    AI Product Design Before and After the Hype
+                  </h3>
+                  <p className="text-sm text-text/70">
+                    What seven years of working with AI products actually taught me about building for the real world.
+                  </p>
+                </div>
+                <span className="text-xs uppercase tracking-wide text-text/50">
+                  Soon
+                </span>
+              </div>
+            </article>
+          </div>
+          <div className="mt-8">
+            <Link href={ROUTES.ABOUT} className="btn-cta group">
+              More about how I think
+              <svg
+                className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </Link>
           </div>
         </motion.div>
       </section>
 
-      {/* About Intro Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16 border-t border-text/10">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-          transition={{ duration: ANIMATION.DURATION.SLOW }}
-          className="max-w-4xl"
-        >
-          <p className="text-lg md:text-xl text-text/80 leading-relaxed mb-6">
-            I enjoy designing for growth or any products that make the world a bit better.
-          </p>
-          <p className="text-base md:text-lg text-text/70 leading-relaxed mb-6">
-            Designers are problem solvers at heart—I truly believe that by leveraging our skills, we can make the world a better place.
-          </p>
-          <p className="text-base md:text-lg text-text/70 leading-relaxed mb-8">
-            My goal is to contribute to these ideals in any way I can. If you feel the same, I&apos;d love to talk.
-          </p>
-          <p className="text-base md:text-lg text-text/70 leading-relaxed">
-            Below are a few Q&As to help you determine if I am the right fit.
-          </p>
-          <Link
-            href={ROUTES.ABOUT}
-            className="text-primary hover:underline text-base font-medium inline-flex items-center gap-2 mt-6"
-          >
-            Learn more about me
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </Link>
-        </motion.div>
-      </section>
     </main>
   )
 }

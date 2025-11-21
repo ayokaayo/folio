@@ -27,7 +27,7 @@ const ibmPlexSerif = IBM_Plex_Serif({
 
 export const metadata: Metadata = {
   title: 'Miguel Angelo - Product Designer',
-  description: 'Product Designer with 10+ years building B2B SaaS and AI-driven products. Led design through 15× revenue growth at Fast Track AI.',
+  description: 'Senior Product Designer with 10+ years building B2B platforms for localization, iGaming, and AI-powered systems.',
   keywords: 'product design, UX design, UI design, B2B SaaS, iGaming, enterprise software, design systems',
   authors: [{ name: 'Miguel Angelo' }],
   creator: 'Miguel Angelo',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Miguel Angelo - Product Designer',
-    description: 'Product Designer with 10+ years building B2B SaaS and AI-driven products',
+    description: 'Senior Product Designer with 10+ years building B2B platforms for localization, iGaming, and AI-powered systems.',
     url: SITE.URL,
     siteName: 'Miguel Angelo Portfolio',
     locale: 'en_US',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Miguel Angelo - Product Designer',
-    description: 'Product Designer with 10+ years building B2B SaaS and AI-driven products',
+    description: 'Senior Product Designer with 10+ years building B2B platforms for localization, iGaming, and AI-powered systems.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },
   robots: {

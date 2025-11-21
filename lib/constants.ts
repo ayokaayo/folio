@@ -34,7 +34,7 @@ export function getWorkRoute(id: string): string {
 export const SITE = {
   NAME: 'Miguel Angelo',
   TITLE: 'Miguel Angelo - Product Designer',
-  DESCRIPTION: 'Product Designer with 10+ years building B2B SaaS and AI-driven products. Led design through 15× revenue growth at Fast Track AI.',
+  DESCRIPTION: 'Senior Product Designer with 10+ years building B2B platforms for localization, iGaming, and AI-powered systems.',
   URL: 'https://miguelangelo.tech',
   EMAIL: 'hi@miguelangelo.tech',
   LINKEDIN: 'https://linkedin.com/in/ferreiramiguelangelo',
@@ -47,7 +47,7 @@ export const SITE = {
 export const NAV_ITEMS = [
   { name: 'Work', href: ROUTES.WORK },
   { name: 'Projects', href: ROUTES.PROJECTS },
-  { name: 'About me', href: ROUTES.ABOUT },
+  { name: 'About', href: ROUTES.ABOUT },
 ] as const
 
 // Viewport settings for animations
