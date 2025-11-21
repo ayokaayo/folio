@@ -39,13 +39,13 @@ export default function CaseStudyCard({ caseStudy, index = 0 }: CaseStudyCardPro
         className="group block overflow-hidden rounded-2xl"
       >
         <motion.div 
-          className="flex flex-col lg:flex-row gap-0 overflow-hidden rounded-2xl bg-background border-2 border-text/10 transition-all duration-300 group-hover:border-[#E8D5C4]"
-          whileHover={prefersReducedMotion ? {} : { y: -4 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="flex flex-col lg:flex-row gap-0 overflow-hidden rounded-2xl bg-background border-2 border-text/10 transition-all duration-500 group-hover:border-[#E8D5C4]"
+          whileHover={prefersReducedMotion ? {} : { y: -2 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
         >
           {/* Left Section - Text Content */}
           <div 
-            className="flex-1 bg-brand-card p-8 md:p-10 lg:p-12 transition-colors duration-300 group-hover:bg-brand-beige"
+            className="flex-1 bg-brand-card p-8 md:p-10 lg:p-12 transition-colors duration-500 group-hover:bg-brand-cardHover"
           >
             <div className="flex items-center gap-3 mb-4 flex-wrap">
               <span className="px-3 py-1 bg-white border border-text/20 rounded-full text-sm font-medium text-text">
@@ -85,8 +85,8 @@ export default function CaseStudyCard({ caseStudy, index = 0 }: CaseStudyCardPro
           >
             <motion.div
               className="w-full min-h-[300px] md:min-h-[400px] lg:min-h-full"
-              whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-              transition={{ duration: 0.2, ease: 'easeOut' }}
+              whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
             >
               <CardImage
                 imageUrl={caseStudy.imageUrl}

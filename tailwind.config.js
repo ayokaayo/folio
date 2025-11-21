@@ -35,6 +35,7 @@ module.exports = {
         brand: {
           beige: '#EEEEEE', // Light neutral (cards hover / light surfaces)
           card: '#F0EEE6', // Default card background
+          cardHover: '#F5E6D3', // Card hover background
           green: '#BCD1CA', // Soft green
           lilac: '#CBCADB', // Soft lilac
         },
