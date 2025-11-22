@@ -1,9 +1,30 @@
 /**
  * Calculate reading time from text content
- * Standard reading speed: ~250 words per minute
+ * Enhanced with variable reading speeds and automatic image type detection
  */
 
-const WORDS_PER_MINUTE = 250
+// Variable reading speeds based on content type
+// Slower speeds to achieve: Quick read ~3+ min, Deep dive ~7-9+ min
+const READING_SPEEDS = {
+  HEADER: 56, // Headers/titles scanned quickly
+  BULLET: 31, // Bullet points read slightly faster
+  PARAGRAPH: 24, // Paragraphs read at realistic technical content speed
+  SHORT: 44, // Short strings (< 20 words) scanned quickly
+} as const
+
+// Image viewing times (in seconds) based on automatically detected type
+const IMAGE_VIEWING_TIMES = {
+  cover: 3, // Cover images - quick glance
+  screenshot: 5, // Simple screenshots
+  mockup: 8, // UI mockups/previews
+  annotated: 15, // Annotated screenshots
+  chart: 25, // Charts/graphs - data interpretation
+  diagram: 50, // Diagrams (flowcharts, architecture, system diagrams)
+  map: 50, // Maps (geographic, user flows, journey maps)
+  default: 12, // Default/unknown - medium complexity
+} as const
+
+type ImageType = keyof typeof IMAGE_VIEWING_TIMES
 
 /**
  * Count words in a string
@@ -14,27 +35,141 @@ function countWords(text: string): number {
 }
 
 /**
- * Calculate reading time in minutes from word count
+ * Detect image type from URL and alt text
+ * Automatically classifies images based on keywords
  */
-function calculateReadingTimeMinutes(wordCount: number): number {
-  return Math.ceil(wordCount / WORDS_PER_MINUTE)
+function detectImageType(imageUrl?: string, imageAlt?: string): ImageType {
+  if (!imageUrl && !imageAlt) return 'default'
+
+  const searchText = `${imageUrl || ''} ${imageAlt || ''}`.toLowerCase()
+
+  // Check for complex visual content first (diagrams, maps)
+  if (
+    searchText.includes('diagram') ||
+    searchText.includes('architecture') ||
+    searchText.includes('flowchart') ||
+    searchText.includes('system diagram') ||
+    searchText.includes('component diagram')
+  ) {
+    return 'diagram'
+  }
+
+  if (
+    searchText.includes('map') ||
+    searchText.includes('user flow') ||
+    searchText.includes('journey map') ||
+    searchText.includes('user journey')
+  ) {
+    return 'map'
+  }
+
+  // Check for charts and graphs
+  if (
+    searchText.includes('chart') ||
+    searchText.includes('graph') ||
+    searchText.includes('analytics')
+  ) {
+    return 'chart'
+  }
+
+  // Check for annotated content
+  if (
+    searchText.includes('annotated') ||
+    searchText.includes('labeled') ||
+    searchText.includes('marked up')
+  ) {
+    return 'annotated'
+  }
+
+  // Check for cover images (must be explicit - header in path is usually a cover)
+  if (
+    searchText.includes('cover') ||
+    (imageUrl?.toLowerCase().includes('header') && !searchText.includes('diagram') && !searchText.includes('map'))
+  ) {
+    return 'cover'
+  }
+
+  // Check for mockups
+  if (
+    searchText.includes('mockup') ||
+    searchText.includes('preview') ||
+    searchText.includes('design')
+  ) {
+    return 'mockup'
+  }
+
+  // Default to screenshot for simple images
+  if (searchText.includes('screenshot') || searchText.includes('interface')) {
+    return 'screenshot'
+  }
+
+  return 'default'
+}
+
+/**
+ * Get viewing time in seconds for an image based on its type
+ */
+function getImageViewingTime(imageType: ImageType): number {
+  return IMAGE_VIEWING_TIMES[imageType]
+}
+
+/**
+ * Calculate reading time in minutes from word count and content type
+ * Returns raw decimal value (will be rounded at the end)
+ */
+function calculateReadingTimeMinutes(
+  wordCount: number,
+  contentType: 'header' | 'bullet' | 'paragraph' | 'short' = 'paragraph'
+): number {
+  const wpm = READING_SPEEDS[contentType.toUpperCase() as keyof typeof READING_SPEEDS] || READING_SPEEDS.PARAGRAPH
+  return wordCount / wpm
+}
+
+/**
+ * Determine content type based on text characteristics
+ */
+function detectContentType(text: string): 'header' | 'bullet' | 'paragraph' | 'short' {
+  const wordCount = countWords(text)
+  
+  // Short strings are scanned quickly
+  if (wordCount < 20) {
+    return 'short'
+  }
+  
+  // Headers are typically short and in title case or all caps
+  if (wordCount < 10 && (text === text.toUpperCase() || /^[A-Z]/.test(text))) {
+    return 'header'
+  }
+  
+  // Bullet points are typically medium length
+  if (wordCount < 50) {
+    return 'bullet'
+  }
+  
+  // Longer content is paragraph
+  return 'paragraph'
 }
 
 /**
  * Format reading time as a human-readable string
  * Returns format like "90 sec" or "4 min"
+ * Always rounds to whole numbers
  */
 export function formatReadingTime(minutes: number): string {
-  if (minutes < 1) {
-    return '< 1 min'
-  } else if (minutes === 1) {
+  // Round to nearest minute (or second for short times)
+  const roundedMinutes = Math.round(minutes)
+  
+  if (roundedMinutes < 1) {
+    // For less than 1 minute, show in seconds
+    const seconds = Math.round(minutes * 60)
+    if (seconds < 1) {
+      return '< 1 min'
+    }
+    return `${seconds} sec`
+  } else if (roundedMinutes === 1) {
     return '1 min'
-  } else if (minutes < 2) {
-    // For times between 1-2 minutes, show in seconds
-    const seconds = minutes * 60
-    return `${Math.round(seconds)} sec`
   } else {
-    return `${minutes} min`
+    return `${roundedMinutes} min`
   }
 }
 
@@ -43,26 +178,76 @@ export function formatReadingTime(minutes: number): string {
  */
 export function calculateReadingTime(text: string): string {
   const wordCount = countWords(text)
-  const minutes = calculateReadingTimeMinutes(wordCount)
+  const contentType = detectContentType(text)
+  const minutes = calculateReadingTimeMinutes(wordCount, contentType)
   return formatReadingTime(minutes)
 }
 
 /**
  * Calculate reading time from multiple text strings (e.g., array of items)
+ * Uses appropriate reading speed for each item
  */
 export function calculateReadingTimeFromArray(texts: string[]): string {
-  const totalWords = texts.reduce((sum, text) => sum + countWords(text), 0)
-  const minutes = calculateReadingTimeMinutes(totalWords)
-  return formatReadingTime(minutes)
+  let totalMinutes = 0
+
+  texts.forEach((text) => {
+    const wordCount = countWords(text)
+    const contentType = detectContentType(text)
+    totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+  })
+
+  return formatReadingTime(totalMinutes)
+}
+
+/**
+ * Calculate total image viewing time for a case study
+ */
+function calculateImageTime(
+  caseStudy: {
+    imageUrl?: string
+    imageAlt?: string
+    coverImageUrl?: string
+    coverImageAlt?: string
+  },
+  mode: 'quick' | 'deep'
+): number {
+  let totalSeconds = 0
+
+  // In quick mode, only count cover image (or main image if no cover)
+  if (mode === 'quick') {
+    if (caseStudy.coverImageUrl) {
+      const imageType = detectImageType(caseStudy.coverImageUrl, caseStudy.coverImageAlt)
+      totalSeconds += getImageViewingTime(imageType)
+    } else if (caseStudy.imageUrl) {
+      const imageType = detectImageType(caseStudy.imageUrl, caseStudy.imageAlt)
+      totalSeconds += getImageViewingTime(imageType)
+    }
+  } else {
+    // In deep mode, count all images
+    if (caseStudy.coverImageUrl) {
+      const imageType = detectImageType(caseStudy.coverImageUrl, caseStudy.coverImageAlt)
+      totalSeconds += getImageViewingTime(imageType)
+    }
+    if (caseStudy.imageUrl) {
+      const imageType = detectImageType(caseStudy.imageUrl, caseStudy.imageAlt)
+      totalSeconds += getImageViewingTime(imageType)
+    }
+  }
+
+  return totalSeconds
 }
 
 /**
  * Calculate reading time from a case study based on visible content
- * This is a helper that extracts all text content from a case study object
+ * Enhanced with variable reading speeds and automatic image detection
  */
 export function calculateCaseStudyReadingTime(
   caseStudy: {
     subtitle?: string
+    imageUrl?: string
+    imageAlt?: string
+    coverImageUrl?: string
+    coverImageAlt?: string
     impact?: { items?: string[]; quickItems?: string[]; deepItems?: string[] }
     problem?: {
       context?: string
@@ -101,94 +286,182 @@ export function calculateCaseStudyReadingTime(
   mode: 'quick' | 'deep'
 ): string {
   const texts: string[] = []
+  let totalMinutes = 0
 
-  // Always include subtitle
+  // Always include subtitle (treated as short/header)
   if (caseStudy.subtitle) {
-    texts.push(caseStudy.subtitle)
+    const wordCount = countWords(caseStudy.subtitle)
+    const contentType = detectContentType(caseStudy.subtitle)
+    totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
   }
 
   // Impact section
   if (caseStudy.impact) {
-    if (mode === 'quick' && caseStudy.impact.quickItems) {
-      texts.push(...caseStudy.impact.quickItems)
-    } else if (mode === 'deep' && caseStudy.impact.deepItems) {
-      texts.push(...caseStudy.impact.deepItems)
-    } else {
-      texts.push(...(caseStudy.impact.items || []))
-    }
+    const impactItems =
+      mode === 'quick' && caseStudy.impact.quickItems
+        ? caseStudy.impact.quickItems
+        : mode === 'deep' && caseStudy.impact.deepItems
+        ? caseStudy.impact.deepItems
+        : caseStudy.impact.items || []
+
+    impactItems.forEach((item) => {
+      const wordCount = countWords(item)
+      const contentType = detectContentType(item)
+      totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+    })
   }
 
   // Problem section
   if (caseStudy.problem) {
-    if (mode === 'quick' && caseStudy.problem.quickContext) {
-      texts.push(caseStudy.problem.quickContext)
-    } else {
-      texts.push(caseStudy.problem.context || '')
+    const context =
+      mode === 'quick' && caseStudy.problem.quickContext
+        ? caseStudy.problem.quickContext
+        : caseStudy.problem.context || ''
+
+    if (context) {
+      const wordCount = countWords(context)
+      const contentType = detectContentType(context)
+      totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
     }
 
-    if (mode === 'quick' && caseStudy.problem.quickIssues) {
-      texts.push(...caseStudy.problem.quickIssues)
-    } else {
-      texts.push(...(caseStudy.problem.issues || []))
-    }
+    const issues =
+      mode === 'quick' && caseStudy.problem.quickIssues
+        ? caseStudy.problem.quickIssues
+        : caseStudy.problem.issues || []
+
+    issues.forEach((issue) => {
+      const wordCount = countWords(issue)
+      const contentType = detectContentType(issue)
+      totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+    })
   }
 
   // Approach section
   if (caseStudy.approach?.decisions) {
     caseStudy.approach.decisions.forEach((decision) => {
-      texts.push(decision.title || '')
-      texts.push(decision.decision || '')
-      if (mode === 'deep') {
-        texts.push(decision.rationale || '')
+      // Title (header)
+      if (decision.title) {
+        const wordCount = countWords(decision.title)
+        totalMinutes += calculateReadingTimeMinutes(wordCount, 'header')
       }
-      texts.push(decision.result || '')
+      // Decision (short/bullet)
+      if (decision.decision) {
+        const wordCount = countWords(decision.decision)
+        const contentType = detectContentType(decision.decision)
+        totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+      }
+      // Rationale (paragraph, only in deep mode)
+      if (mode === 'deep' && decision.rationale) {
+        const wordCount = countWords(decision.rationale)
+        totalMinutes += calculateReadingTimeMinutes(wordCount, 'paragraph')
+      }
+      // Result (short/bullet)
+      if (decision.result) {
+        const wordCount = countWords(decision.result)
+        const contentType = detectContentType(decision.result)
+        totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+      }
     })
   }
 
   // Design decisions (only in deep mode)
   if (mode === 'deep' && caseStudy.designDecisions) {
     caseStudy.designDecisions.forEach((decision) => {
-      texts.push(decision.title || '')
-      texts.push(decision.description || '')
+      // Title (header)
+      if (decision.title) {
+        const wordCount = countWords(decision.title)
+        totalMinutes += calculateReadingTimeMinutes(wordCount, 'header')
+      }
+      // Description (paragraph)
+      if (decision.description) {
+        const wordCount = countWords(decision.description)
+        totalMinutes += calculateReadingTimeMinutes(wordCount, 'paragraph')
+      }
     })
   }
 
   // Implementation section
   if (caseStudy.implementation) {
-    if (mode === 'quick' && caseStudy.implementation.quickTechnical) {
-      texts.push(...caseStudy.implementation.quickTechnical)
-    } else {
-      texts.push(...(caseStudy.implementation.technical || []))
-    }
-    if (mode === 'deep') {
-      texts.push(...(caseStudy.implementation.rollout || []))
+    const technicalItems =
+      mode === 'quick' && caseStudy.implementation.quickTechnical
+        ? caseStudy.implementation.quickTechnical
+        : caseStudy.implementation.technical || []
+
+    technicalItems.forEach((item) => {
+      const wordCount = countWords(item)
+      const contentType = detectContentType(item)
+      totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+    })
+
+    if (mode === 'deep' && caseStudy.implementation.rollout) {
+      caseStudy.implementation.rollout.forEach((item) => {
+        const wordCount = countWords(item)
+        const contentType = detectContentType(item)
+        totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+      })
     }
   }
 
   // Validation section
   if (caseStudy.validation) {
-    if (mode === 'quick' && caseStudy.validation.quickOutcomes) {
-      texts.push(...caseStudy.validation.quickOutcomes)
-    } else {
-      texts.push(...(caseStudy.validation.outcomes || []))
-    }
+    const outcomes =
+      mode === 'quick' && caseStudy.validation.quickOutcomes
+        ? caseStudy.validation.quickOutcomes
+        : caseStudy.validation.outcomes || []
+
+    outcomes.forEach((item) => {
+      const wordCount = countWords(item)
+      const contentType = detectContentType(item)
+      totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+    })
+
     if (mode === 'deep') {
-      texts.push(...(caseStudy.validation.feedback || []))
-      texts.push(...(caseStudy.validation.technical || []))
+      if (caseStudy.validation.feedback) {
+        caseStudy.validation.feedback.forEach((item) => {
+          const wordCount = countWords(item)
+          const contentType = detectContentType(item)
+          totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+        })
+      }
+      if (caseStudy.validation.technical) {
+        caseStudy.validation.technical.forEach((item) => {
+          const wordCount = countWords(item)
+          const contentType = detectContentType(item)
+          totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+        })
+      }
     }
   }
 
   // Learned section
   if (caseStudy.learned) {
     if (mode === 'quick' && caseStudy.learned.quickInsight) {
-      texts.push(caseStudy.learned.quickInsight)
+      const wordCount = countWords(caseStudy.learned.quickInsight)
+      const contentType = detectContentType(caseStudy.learned.quickInsight)
+      totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
     } else {
-      texts.push(...(caseStudy.learned.worked || []))
-      texts.push(caseStudy.learned.insight || '')
+      if (caseStudy.learned.worked) {
+        caseStudy.learned.worked.forEach((item) => {
+          const wordCount = countWords(item)
+          const contentType = detectContentType(item)
+          totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+        })
+      }
+      if (caseStudy.learned.insight) {
+        const wordCount = countWords(caseStudy.learned.insight)
+        totalMinutes += calculateReadingTimeMinutes(wordCount, 'paragraph')
+      }
       if (mode === 'deep' && caseStudy.learned.challenges) {
         caseStudy.learned.challenges.forEach((challenge) => {
-          texts.push(challenge.challenge || '')
-          texts.push(challenge.solution || '')
+          if (challenge.challenge) {
+            const wordCount = countWords(challenge.challenge)
+            const contentType = detectContentType(challenge.challenge)
+            totalMinutes += calculateReadingTimeMinutes(wordCount, contentType)
+          }
+          if (challenge.solution) {
+            const wordCount = countWords(challenge.solution)
+            totalMinutes += calculateReadingTimeMinutes(wordCount, 'paragraph')
+          }
         })
       }
     }
@@ -196,9 +469,18 @@ export function calculateCaseStudyReadingTime(
 
   // Process section (only in deep mode)
   if (mode === 'deep' && caseStudy.process?.content) {
-    texts.push(...caseStudy.process.content)
+    caseStudy.process.content.forEach((item) => {
+      const wordCount = countWords(item)
+      totalMinutes += calculateReadingTimeMinutes(wordCount, 'paragraph')
+    })
   }
 
-  return calculateReadingTimeFromArray(texts)
-}
+  // Add image viewing time
+  const imageSeconds = calculateImageTime(caseStudy, mode)
+  const imageMinutes = imageSeconds / 60
+  totalMinutes += imageMinutes
 
+  // Round to nearest 0.1 minute for more reasonable display, then format
+  const roundedMinutes = Math.round(totalMinutes * 10) / 10
+  return formatReadingTime(roundedMinutes)
+}
