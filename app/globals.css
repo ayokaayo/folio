@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @layer components {
   .btn-cta {
-    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium border transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-normal border transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
     background-color: #BCD1CA;
     color: #000000;
     border-color: transparent;

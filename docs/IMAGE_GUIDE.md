@@ -79,3 +79,4 @@ Use descriptive, kebab-case names:
 If you don't add an `imageUrl`, the card will show a placeholder with dimensions displayed. This helps you know what size to prepare your images.
 
 
+

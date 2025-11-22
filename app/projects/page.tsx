@@ -12,7 +12,7 @@ export default function ProjectsPage() {
   return (
     <main id="main-content" className="pt-20 md:pt-24">
       {/* Header */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 md:py-24">
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <motion.div
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
@@ -37,6 +37,31 @@ export default function ProjectsPage() {
               index={index}
             />
           ))}
+        </div>
+
+        {/* Behance CTA */}
+        <div className="mt-14 pt-4">
+          <a
+            href="https://www.behance.net/miguelangeloferreira"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-cta group"
+          >
+            View earlier work on Behance
+            <svg
+              className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </a>
         </div>
       </section>
     </main>

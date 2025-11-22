@@ -27,10 +27,10 @@ export default function Home() {
           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW, ease: ANIMATION.EASING.EASE_OUT }}
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-4 leading-tight">
-            Hi. I am Miguel Angelo.
+            Hi, I am Miguel Angelo.
           </h1>
           <p className="text-xl md:text-2xl text-text/70 max-w-2xl mb-8">
-            Senior Product Designer. 10+ years building B2B platforms for localization, iGaming, and AI-powered systems. I design for scale, across markets and cultures.
+            Senior Product Designer with 10+ years building B2B platforms for localization, iGaming, and AI-powered systems. Designing for scale, across markets and cultures.
           </p>
           <Link href={ROUTES.WORK} className="btn-cta group">
             Explore my projects

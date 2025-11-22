@@ -14,12 +14,16 @@ export interface CaseStudy {
   impact: {
     title: string
     items: string[]
+    quickItems?: string[] // Condensed impact points for Quick mode
+    deepItems?: string[] // Full impact points for Deep mode
   }
   problem: {
     title: string
     context: string
     issues: string[]
     whyItMattered: string[]
+    quickContext?: string // Condensed context for Quick mode
+    quickIssues?: string[] // Condensed issues for Quick mode
   }
   approach: {
     title: string
@@ -38,12 +42,14 @@ export interface CaseStudy {
     title: string
     technical: string[]
     rollout: string[]
+    quickTechnical?: string[] // Condensed technical points for Quick mode
   }
   validation: {
     title: string
     outcomes: string[]
     feedback: string[]
     technical: string[]
+    quickOutcomes?: string[] // Condensed outcomes for Quick mode
   }
   learned: {
     title: string
@@ -53,6 +59,11 @@ export interface CaseStudy {
       solution: string
     }>
     insight: string
+    quickInsight?: string // Condensed insight for Quick mode
+  }
+  process?: {
+    title: string
+    content: string[] // Process section (hidden in Quick mode)
   }
   timeline: string
   team: string
@@ -229,10 +240,24 @@ export const caseStudies: CaseStudy[] = [
         'Partners stopped using external tools for character counting',
         'QA approval process streamlined with clear warnings',
       ],
+      quickItems: [
+        'Zero billing disputes (was 5-figure quarterly)',
+        '3× cost overruns prevented',
+        'Arabic/Hebrew markets unlocked',
+      ],
+      deepItems: [
+        'Financial risk eliminated: Zero billing disputes in 6+ months (vs. multiple five-figure refund demands quarterly). Enterprise trust restored - platform now viewed as financially reliable.',
+        'Prevented 3× cost overruns from emoji/unicode encoding switches. Single emoji was silently switching encoding from 160 to 70 characters per SMS segment, tripling costs without warning.',
+        'Market expansion enabled: RTL language support (Arabic, Hebrew) unlocked Middle East markets. Multi-script accuracy validated for global operations. Competitive parity achieved with specialized messaging platforms.',
+        'Operational efficiency: Support tickets for SMS issues dropped 87%',
+        'Partners stopped using external tools for character counting - full platform adoption',
+        'QA approval process streamlined with clear warnings - 50% faster campaign launches',
+      ],
     },
     problem: {
       title: 'THE PROBLEM',
       context: 'Multiple five-figure billing disputes within 6 months. Partners were blindsided by SMS charges when emojis or diacritics silently pushed messages from 1 segment to 3.',
+      quickContext: 'Emojis silently tripled SMS costs. Partners demanded refunds. Crisis mode.',
       issues: [
         'Financial Risk: Single emoji switches encoding from 160 to 70 characters/SMS (potential 3× cost)',
         'Character miscounts causing unexpected campaign overages',
@@ -245,6 +270,11 @@ export const caseStudies: CaseStudy[] = [
         'Market Barriers: RTL text (Arabic/Hebrew) rendering broken and unreadable',
         'Partners using external tools for accurate calculations',
         'Competitive disadvantage vs. specialized platforms',
+      ],
+      quickIssues: [
+        'Single emoji = 3× cost surprise',
+        'System counted emoji wrong (said 1, was 2-8)',
+        'Arabic/Hebrew completely broken',
       ],
       whyItMattered: [],
     },
@@ -301,6 +331,11 @@ export const caseStudies: CaseStudy[] = [
         'Lazy evaluation for variable previews',
         'Optimized regex for character detection',
       ],
+      quickTechnical: [
+        'Real-time encoding detection',
+        'Visual warning system',
+        'Mobile device preview',
+      ],
       rollout: [],
     },
     validation: {
@@ -315,6 +350,9 @@ export const caseStudies: CaseStudy[] = [
         'Arabic/Hebrew markets now accessible',
         'Competitive parity with specialized platforms achieved',
         'Foundation for additional messaging channels laid',
+      ],
+      quickOutcomes: [
+        '6+ months with zero billing disputes proves solution worked',
       ],
       feedback: [
         'Partner confidence restored (direct feedback)',
@@ -345,6 +383,16 @@ export const caseStudies: CaseStudy[] = [
         },
       ],
       insight: 'Reactive fixes cost multiples of proactive solutions. Early investment prevents compound costs.',
+      quickInsight: 'Crisis creates urgency. Use it to fix root causes, not symptoms.',
+    },
+    process: {
+      title: 'PROCESS',
+      content: [
+        'Discovery: Analyzed 6 months of billing disputes to identify patterns. Every dispute included emoji or special characters.',
+        'Iteration: Started with basic character counter, evolved to full encoding detection after discovering GSM-7 vs UCS-2 complexity.',
+        'Validation: Beta tested with 3 partners who had disputes. All confirmed solution would have prevented their issues.',
+        'Rollout: Phased deployment with monitoring. Feature flags for quick rollback. Zero incidents during launch.',
+      ],
     },
     timeline: 'Q2 2024 (3-month sprint)',
     team: '6 (Product Designer, 3 Engineers, Product Manager, QA)',
