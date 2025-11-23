@@ -3,6 +3,7 @@
 import { notFound } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyDetail from '@/components/CaseStudyDetail'
 import DensityToggle from '@/components/DensityToggle'
@@ -83,6 +84,18 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
           <p className="text-lg md:text-xl text-text/80 max-w-3xl leading-relaxed">
             {caseStudy.subtitle}
           </p>
+          {caseStudy.imageUrl && (
+            <div className="mt-8 mb-12">
+              <Image
+                src={caseStudy.imageUrl}
+                alt={caseStudy.imageAlt || caseStudy.title}
+                width={2400}
+                height={1600}
+                className="w-full rounded-lg"
+                quality={90}
+              />
+            </div>
+          )}
         </motion.div>
       </section>
 

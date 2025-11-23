@@ -78,3 +78,4 @@ export const dropdownBuilder: CaseStudy = {
 - Use consistent naming: `feature-name-description.png`
 - Group related images together in the array
 
+

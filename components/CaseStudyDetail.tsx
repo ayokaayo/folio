@@ -6,7 +6,12 @@ import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import TimelineTeam from './TimelineTeam'
 import ImageGallery from './ImageGallery'
+import dynamic from 'next/dynamic'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
+
+const BeforeAfterImage = dynamic(() => import('./BeforeAfterImage'), {
+  ssr: false
+})
 
 interface CaseStudyDetailProps {
   caseStudy: CaseStudy
@@ -16,9 +21,46 @@ interface CaseStudyDetailProps {
 /**
  * Helper component to render section images with consistent styling
  * Handles optional images arrays and returns null if empty
+ * Automatically detects before/after pairs and renders BeforeAfterImage component
  */
 function SectionImageGallery({ images }: { images?: ImageWithCaption[] }) {
   if (!images || !Array.isArray(images) || images.length === 0) return null
+  
+  // Inline detection with proper error handling and optional chaining
+  const isBeforeAfterPair = images.length === 2 && 
+    images.some(img => 
+      (img.caption?.toLowerCase().includes('before') || 
+       img.url?.toLowerCase().includes('before') ||
+       img.alt?.toLowerCase().includes('before'))
+    ) &&
+    images.some(img => 
+      (img.caption?.toLowerCase().includes('after') || 
+       img.url?.toLowerCase().includes('after') ||
+       img.alt?.toLowerCase().includes('after'))
+    )
+  
+  if (isBeforeAfterPair) {
+    const before = images.find(img => 
+      img.caption?.toLowerCase().includes('before') || 
+      img.url?.toLowerCase().includes('before') ||
+      img.alt?.toLowerCase().includes('before')
+    )
+    const after = images.find(img => 
+      img.caption?.toLowerCase().includes('after') || 
+      img.url?.toLowerCase().includes('after') ||
+      img.alt?.toLowerCase().includes('after')
+    )
+    
+    if (before && after) {
+      return (
+        <div className="mt-8">
+          <BeforeAfterImage before={before} after={after} />
+        </div>
+      )
+    }
+  }
+  
+  // Otherwise, render as regular gallery
   return (
     <div className="mt-8">
       <ImageGallery images={images} />

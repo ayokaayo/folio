@@ -80,19 +80,14 @@ export const timeManagement: CaseStudy = {
     ],
     images: [
       {
-        url: '/img/localisation/problem-before-calendar.png',
+        url: '/img/localisation/before-calendar.png',
         alt: 'Old calendar interface showing single timezone, English only',
         caption: 'Before: Users leaving platform to manually convert times',
       },
       {
-        url: '/img/localisation/before-calendar-english.png',
+        url: '/img/localisation/after-calendar.png',
         alt: 'Calendar widget in English with single timezone',
-        caption: 'English-only interface with no timezone context',
-      },
-      {
-        url: '/img/localisation/before-single-clock.png',
-        alt: 'Sidebar showing only system time',
-        caption: 'Single clock with no local time option',
+        caption: 'After: Fully localised calendar with dual timezone',
       },
     ],
   },
