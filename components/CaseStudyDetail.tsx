@@ -44,23 +44,49 @@ export default function CaseStudyDetail({
     if (densityMode === 'quick' && caseStudy.problem.quickIssues) {
       return caseStudy.problem.quickIssues
     }
-    return caseStudy.problem.issues
+    return caseStudy.problem.issues || []
+  }
+
+  // Helper to get text from item (string or object)
+  const getItemText = (item: any): string => {
+    if (typeof item === 'string') return item
+    if (typeof item === 'object' && item !== null) {
+      // For issue objects, return description
+      if (item.description) return item.description
+      // For feedback objects, return quote
+      if (item.quote) return item.quote
+      // Fallback to stringified version
+      return JSON.stringify(item)
+    }
+    return String(item)
+  }
+
+  // Helper to get key from item (for React keys)
+  const getItemKey = (item: any, index: number, prefix: string): string => {
+    if (typeof item === 'string') {
+      return `${prefix}-${index}-${item.substring(0, 20)}`
+    }
+    if (typeof item === 'object' && item !== null) {
+      const text = getItemText(item)
+      return `${prefix}-${index}-${text.substring(0, 20)}`
+    }
+    return `${prefix}-${index}`
   }
 
   // Helper to get implementation technical items based on mode
   const getImplementationTechnical = () => {
-    if (densityMode === 'quick' && caseStudy.implementation.quickTechnical) {
+    if (densityMode === 'quick' && caseStudy.implementation?.quickTechnical) {
       return caseStudy.implementation.quickTechnical
     }
-    return caseStudy.implementation.technical
+    return caseStudy.implementation?.technical || []
   }
 
   // Helper to get validation outcomes based on mode
   const getValidationOutcomes = () => {
-    if (densityMode === 'quick' && caseStudy.validation.quickOutcomes) {
+    if (densityMode === 'quick' && caseStudy.validation?.quickOutcomes) {
       return caseStudy.validation.quickOutcomes
     }
-    return caseStudy.validation.outcomes
+    return caseStudy.validation?.outcomes || []
   }
 
   // Helper to get learned insight based on mode
@@ -117,18 +143,39 @@ export default function CaseStudyDetail({
           <div>
             <h3 className="font-semibold text-text mb-2">Core Issues:</h3>
             <ul className="list-none space-y-2">
-              {getProblemIssues().map((issue, index) => (
-                <li
-                  key={`issue-${index}-${issue.substring(0, 20)}`}
-                  className="flex items-start"
-                >
-                  <span className="text-primary mr-3">•</span>
-                  <span>{issue}</span>
-                </li>
-              ))}
+              {getProblemIssues().map((issue: any, index: number) => {
+                const issueText = getItemText(issue)
+                return (
+                  <li
+                    key={getItemKey(issue, index, 'issue')}
+                    className="flex items-start"
+                  >
+                    <span className="text-primary mr-3">•</span>
+                    <div className="flex-1">
+                      {typeof issue === 'object' && issue !== null ? (
+                        <div className="space-y-1">
+                          {issue.category && (
+                            <div className="font-semibold text-text">{issue.category}</div>
+                          )}
+                          {issue.description && (
+                            <div>{issue.description}</div>
+                          )}
+                          {issue.impact && (
+                            <div className="text-text/70 text-sm italic">Impact: {issue.impact}</div>
+                          )}
+                        </div>
+                      ) : (
+                        <span>{issueText}</span>
+                      )}
+                    </div>
+                  </li>
+                )
+              })}
             </ul>
           </div>
           {densityMode === 'deep' &&
+            caseStudy.problem.whyItMattered &&
+            Array.isArray(caseStudy.problem.whyItMattered) &&
             caseStudy.problem.whyItMattered.length > 0 && (
               <div>
                 <h3 className="font-semibold text-text mb-2">Why It Mattered:</h3>
@@ -178,7 +225,7 @@ export default function CaseStudyDetail({
       </motion.section>
 
       {/* Design Decisions - Only in Deep mode */}
-      {densityMode === 'deep' && caseStudy.designDecisions.length > 0 && (
+      {densityMode === 'deep' && caseStudy.designDecisions && caseStudy.designDecisions.length > 0 && (
         <motion.section
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
@@ -229,19 +276,43 @@ export default function CaseStudyDetail({
             </div>
           )}
           {densityMode === 'deep' &&
-            caseStudy.implementation.rollout.length > 0 && (
+            caseStudy.implementation.rollout &&
+            (Array.isArray(caseStudy.implementation.rollout) ? caseStudy.implementation.rollout.length > 0 : true) && (
               <div>
                 <h3 className="font-semibold text-text mb-2">Rollout Strategy:</h3>
-                <ul className="list-none space-y-2">
-                  {caseStudy.implementation.rollout.map((item, index) => (
-                    <li
-                      key={`rollout-${index}-${item.substring(0, 20)}`}
-                      className="flex items-start"
-                    >
-                      <span className="text-primary mr-3">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
+                <ul className="list-none space-y-4">
+                  {(Array.isArray(caseStudy.implementation.rollout) ? caseStudy.implementation.rollout : []).map((item: any, index: number) => {
+                    if (typeof item === 'string') {
+                      return (
+                        <li
+                          key={getItemKey(item, index, 'rollout')}
+                          className="flex items-start"
+                        >
+                          <span className="text-primary mr-3">•</span>
+                          <span>{item}</span>
+                        </li>
+                      )
+                    } else if (typeof item === 'object' && item !== null) {
+                      return (
+                        <li key={getItemKey(item, index, 'rollout')} className="space-y-2">
+                          {item.phase && (
+                            <div className="font-semibold text-text">{item.phase}</div>
+                          )}
+                          {Array.isArray(item.activities) && (
+                            <ul className="list-none space-y-1 ml-4">
+                              {item.activities.map((activity: string, actIndex: number) => (
+                                <li key={`activity-${index}-${actIndex}`} className="flex items-start">
+                                  <span className="text-primary mr-2">◦</span>
+                                  <span>{activity}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      )
+                    }
+                    return null
+                  })}
                 </ul>
               </div>
             )}
@@ -287,37 +358,79 @@ export default function CaseStudyDetail({
           {getValidationOutcomes().length > 0 && (
             <div>
               <h3 className="font-semibold text-text mb-2">Measured Outcomes:</h3>
-              <ul className="list-none space-y-2">
-                {getValidationOutcomes().map((item, index) => (
-                  <li
-                    key={`outcome-${index}-${item.substring(0, 20)}`}
-                    className="flex items-start"
-                  >
-                    <span className="text-primary mr-3">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
+              <ul className="list-none space-y-4">
+                {getValidationOutcomes().map((item: any, index: number) => {
+                  if (typeof item === 'string') {
+                    return (
+                      <li
+                        key={getItemKey(item, index, 'outcome')}
+                        className="flex items-start"
+                      >
+                        <span className="text-primary mr-3">•</span>
+                        <span>{item}</span>
+                      </li>
+                    )
+                  } else if (typeof item === 'object' && item !== null) {
+                    return (
+                      <li key={getItemKey(item, index, 'outcome')} className="space-y-2">
+                        {item.category && (
+                          <div className="font-semibold text-text">{item.category}</div>
+                        )}
+                        {Array.isArray(item.results) && (
+                          <ul className="list-none space-y-1 ml-4">
+                            {item.results.map((result: string, resIndex: number) => (
+                              <li key={`result-${index}-${resIndex}`} className="flex items-start">
+                                <span className="text-primary mr-2">◦</span>
+                                <span>{result}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    )
+                  }
+                  return null
+                })}
               </ul>
             </div>
           )}
           {densityMode === 'deep' &&
-            caseStudy.validation.feedback.length > 0 && (
+            caseStudy.validation.feedback &&
+            (Array.isArray(caseStudy.validation.feedback) ? caseStudy.validation.feedback.length > 0 : true) && (
               <div>
                 <h3 className="font-semibold text-text mb-2">Partner Feedback:</h3>
-                <ul className="list-none space-y-2">
-                  {caseStudy.validation.feedback.map((item, index) => (
-                    <li
-                      key={`feedback-${index}-${item.substring(0, 20)}`}
-                      className="flex items-start"
-                    >
-                      <span className="text-primary mr-3">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
+                <ul className="list-none space-y-3">
+                  {(Array.isArray(caseStudy.validation.feedback) ? caseStudy.validation.feedback : []).map((item: any, index: number) => {
+                    if (typeof item === 'string') {
+                      return (
+                        <li
+                          key={getItemKey(item, index, 'feedback')}
+                          className="flex items-start"
+                        >
+                          <span className="text-primary mr-3">•</span>
+                          <span>{item}</span>
+                        </li>
+                      )
+                    } else if (typeof item === 'object' && item !== null) {
+                      return (
+                        <li key={getItemKey(item, index, 'feedback')} className="space-y-1">
+                          {item.quote && (
+                            <div className="italic text-text/90">&ldquo;{item.quote}&rdquo;</div>
+                          )}
+                          {item.source && (
+                            <div className="text-sm text-text/60">— {item.source}</div>
+                          )}
+                        </li>
+                      )
+                    }
+                    return null
+                  })}
                 </ul>
               </div>
             )}
           {densityMode === 'deep' &&
+            caseStudy.validation.technical &&
+            Array.isArray(caseStudy.validation.technical) &&
             caseStudy.validation.technical.length > 0 && (
               <div>
                 <h3 className="font-semibold text-text mb-2">Technical Success:</h3>
@@ -349,7 +462,7 @@ export default function CaseStudyDetail({
           {caseStudy.learned.title}
         </h2>
         <div className="space-y-6 text-text/80">
-          {densityMode === 'deep' && caseStudy.learned.worked.length > 0 && (
+          {densityMode === 'deep' && caseStudy.learned.worked && Array.isArray(caseStudy.learned.worked) && caseStudy.learned.worked.length > 0 && (
             <div>
               <h3 className="font-semibold text-text mb-2">What Worked:</h3>
               <ul className="list-none space-y-2">
@@ -365,7 +478,7 @@ export default function CaseStudyDetail({
               </ul>
             </div>
           )}
-          {densityMode === 'deep' && caseStudy.learned.challenges.length > 0 && (
+          {densityMode === 'deep' && caseStudy.learned.challenges && Array.isArray(caseStudy.learned.challenges) && caseStudy.learned.challenges.length > 0 && (
             <div>
               <h3 className="font-semibold text-text mb-2">Challenges Solved:</h3>
               <ul className="list-none space-y-2">
