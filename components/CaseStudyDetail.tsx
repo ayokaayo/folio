@@ -6,10 +6,24 @@ import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import TimelineTeam from './TimelineTeam'
 import ImageGallery from './ImageGallery'
+import type { ImageWithCaption } from '@/lib/caseStudies/types'
 
 interface CaseStudyDetailProps {
   caseStudy: CaseStudy
   densityMode: 'quick' | 'deep'
+}
+
+/**
+ * Helper component to render section images with consistent styling
+ * Handles optional images arrays and returns null if empty
+ */
+function SectionImageGallery({ images }: { images?: ImageWithCaption[] }) {
+  if (!images || !Array.isArray(images) || images.length === 0) return null
+  return (
+    <div className="mt-8">
+      <ImageGallery images={images} />
+    </div>
+  )
 }
 
 export default function CaseStudyDetail({
@@ -123,6 +137,7 @@ export default function CaseStudyDetail({
             </li>
           ))}
         </ul>
+        <SectionImageGallery images={caseStudy.impact?.images} />
         <TimelineTeam timeline={caseStudy.timeline} team={caseStudy.team} />
       </motion.section>
 
@@ -192,6 +207,7 @@ export default function CaseStudyDetail({
               </div>
             )}
         </div>
+        <SectionImageGallery images={caseStudy.problem?.images} />
       </motion.section>
 
       {/* Approach */}
@@ -221,6 +237,7 @@ export default function CaseStudyDetail({
             </div>
           ))}
         </div>
+        <SectionImageGallery images={caseStudy.approach?.images} />
       </motion.section>
 
       {/* Design Decisions - Only in Deep mode */}
@@ -316,6 +333,7 @@ export default function CaseStudyDetail({
               </div>
             )}
         </div>
+        <SectionImageGallery images={caseStudy.implementation?.images} />
       </motion.section>
 
       {/* Process - Only in Deep mode */}
@@ -339,6 +357,7 @@ export default function CaseStudyDetail({
               <p key={`process-${index}-${item.substring(0, 20)}`}>{item}</p>
             ))}
           </div>
+          <SectionImageGallery images={caseStudy.process?.images} />
         </motion.section>
       )}
 
@@ -447,6 +466,7 @@ export default function CaseStudyDetail({
               </div>
             )}
         </div>
+        <SectionImageGallery images={caseStudy.validation?.images} />
       </motion.section>
 
       {/* What I Learned */}
@@ -502,6 +522,7 @@ export default function CaseStudyDetail({
             </div>
           )}
         </div>
+        <SectionImageGallery images={caseStudy.learned?.images} />
       </motion.section>
 
       {/* Image Gallery */}

@@ -52,7 +52,7 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
           className="w-full"
         >
           <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
-            <div className="relative w-full" style={{ minHeight: '200px' }}>
+            <div className="relative w-full">
               <Image
                 src={image.url}
                 alt={image.alt}

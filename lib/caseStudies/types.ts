@@ -23,14 +23,16 @@ export interface CaseStudy {
     items: string[]
     quickItems?: string[]
     deepItems?: string[]
+    images?: ImageWithCaption[]
   }
   problem: {
     title: string
     context: string
-    issues: string[]
+    issues: Array<string | { category?: string; description: string; impact?: string }>
     whyItMattered: string[]
     quickContext?: string
     quickIssues?: string[]
+    images?: ImageWithCaption[]
   }
   approach: {
     title: string
@@ -40,6 +42,7 @@ export interface CaseStudy {
       rationale: string
       result: string
     }>
+    images?: ImageWithCaption[]
   }
   designDecisions: Array<{
     title: string
@@ -48,15 +51,17 @@ export interface CaseStudy {
   implementation: {
     title: string
     technical: string[]
-    rollout: string[]
+    rollout: Array<string | { phase: string; activities: string[] }>
     quickTechnical?: string[]
+    images?: ImageWithCaption[]
   }
   validation: {
     title: string
-    outcomes: string[]
-    feedback: string[]
+    outcomes: Array<string | { category: string; results: string[] }>
+    feedback: Array<string | { quote: string; source?: string }>
     technical: string[]
     quickOutcomes?: string[]
+    images?: ImageWithCaption[]
   }
   learned: {
     title: string
@@ -67,10 +72,12 @@ export interface CaseStudy {
     }>
     insight: string
     quickInsight?: string
+    images?: ImageWithCaption[]
   }
   process?: {
     title: string
     content: string[]
+    images?: ImageWithCaption[]
   }
   timeline: string
   team: string

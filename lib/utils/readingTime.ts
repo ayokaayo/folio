@@ -18,9 +18,9 @@ function countWords(text: string | any): number {
   
   // Handle string
   if (typeof text === 'string') {
-    return text.trim().split(/\s+/).filter((word) => word.length > 0).length
-  }
-  
+  return text.trim().split(/\s+/).filter((word) => word.length > 0).length
+}
+
   // Handle objects - extract text from common properties
   if (typeof text === 'object' && text !== null) {
     let combinedText = ''
@@ -60,7 +60,7 @@ export function formatReadingTime(minutes: number): string {
     // For less than 1 minute, show in seconds
     const seconds = Math.round(minutes * 60)
     if (seconds < 1) {
-      return '< 1 min'
+    return '< 1 min'
     }
     return `${seconds} sec`
   } else if (roundedMinutes === 1) {
@@ -104,7 +104,7 @@ export function calculateCaseStudyReadingTime(
     problem?: {
       context?: string
       quickContext?: string
-      issues?: string[]
+      issues?: Array<string | { category?: string; description: string; impact?: string }>
       quickIssues?: string[]
       whyItMattered?: string[]
     }
@@ -120,12 +120,12 @@ export function calculateCaseStudyReadingTime(
     implementation?: {
       technical?: string[]
       quickTechnical?: string[]
-      rollout?: string[]
+      rollout?: Array<string | { phase: string; activities: string[] }>
     }
     validation?: {
-      outcomes?: string[]
+      outcomes?: Array<string | { category: string; results: string[] }>
       quickOutcomes?: string[]
-      feedback?: string[]
+      feedback?: Array<string | { quote: string; source?: string }>
       technical?: string[]
     }
     learned?: {
@@ -286,7 +286,7 @@ export function calculateCaseStudyReadingTime(
               totalWords += countWords(result)
             }
           })
-        }
+    }
       }
     })
 

@@ -27,12 +27,8 @@ export default function Navigation() {
     return () => document.removeEventListener('keydown', handleEscape)
   }, [isMobileMenuOpen])
 
-  // Focus management for mobile menu
-  useEffect(() => {
-    if (isMobileMenuOpen && firstMenuItemRef.current) {
-      firstMenuItemRef.current.focus()
-    }
-  }, [isMobileMenuOpen])
+  // Focus management for mobile menu - removed auto-focus to prevent focus ring on touch
+  // Focus will be managed naturally by keyboard navigation only
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-text/10">
@@ -56,7 +52,7 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.href
+              const isActive = pathname === item.href || (item.href === '/work' && pathname.startsWith('/work'))
               return (
                 <Link
                   key={item.href}
@@ -119,9 +115,9 @@ export default function Navigation() {
               transition={{ duration: ANIMATION.DURATION.FAST }}
               className="md:hidden border-t border-text/10"
             >
-              <div className="py-4 space-y-4">
+              <div className="py-4 space-y-1">
                 {NAV_ITEMS.map((item, index) => {
-                  const isActive = pathname === item.href
+                  const isActive = pathname === item.href || (item.href === '/work' && pathname.startsWith('/work'))
                   return (
                     <Link
                       key={item.href}
@@ -129,13 +125,20 @@ export default function Navigation() {
                       href={item.href}
                       aria-current={isActive ? 'page' : undefined}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`block px-4 py-2 text-base font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+                      className={`relative block px-4 py-3 text-base font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] flex items-center ${
                         isActive
-                          ? 'text-primary border-l-4 border-primary'
-                          : 'text-text/70 hover:text-text'
+                          ? 'text-primary'
+                          : 'text-text/70 hover:text-text active:text-primary'
                       }`}
                     >
                       {item.name}
+                      {isActive && (
+                        <motion.div
+                          layout
+                          className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary"
+                          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                        />
+                      )}
                     </Link>
                   )
                 })}
