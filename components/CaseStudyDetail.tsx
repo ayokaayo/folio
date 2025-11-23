@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { CaseStudy } from '@/lib/caseStudies'
 import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
+import TimelineTeam from './TimelineTeam'
 
 interface CaseStudyDetailProps {
   caseStudy: CaseStudy
@@ -121,10 +122,7 @@ export default function CaseStudyDetail({
             </li>
           ))}
         </ul>
-        <div className="mt-6 text-sm text-text/60">
-          <p><strong>Timeline:</strong> {caseStudy.timeline}</p>
-          <p><strong>Team:</strong> {caseStudy.team}</p>
-        </div>
+        <TimelineTeam timeline={caseStudy.timeline} team={caseStudy.team} />
       </motion.section>
 
       {/* Problem */}
@@ -234,7 +232,7 @@ export default function CaseStudyDetail({
           className="mb-16 border-t border-text/10 pt-16"
         >
           <h2 className="text-2xl font-serif font-bold text-text mb-6">
-            KEY DESIGN DECISIONS
+            Key Design Decisions
           </h2>
           <div className="space-y-8">
             {caseStudy.designDecisions.map((decision, index) => (

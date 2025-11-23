@@ -11,7 +11,7 @@ export const smsCharacters: CaseStudy = {
   imageUrl: '/img/sms/HeadSMSWide.png',
   imageAlt: 'SMS Characters interface showing encoding detection and preview',
   impact: {
-    title: 'IMPACT',
+    title: 'Impact',
     items: [
       'Financial risk eliminated: Zero billing disputes in 6+ months (vs. multiple five-figure refund demands quarterly)',
       'Prevented 3× cost overruns from emoji/unicode encoding switches',
@@ -38,7 +38,7 @@ export const smsCharacters: CaseStudy = {
     ],
   },
   problem: {
-    title: 'THE PROBLEM',
+    title: 'The Problem',
     context: 'Multiple five-figure billing disputes within 6 months. Partners were blindsided by SMS charges when emojis or diacritics silently pushed messages from 1 segment to 3.',
     quickContext: 'Emojis silently tripled SMS costs. Partners demanded refunds. Crisis mode.',
     issues: [
@@ -66,7 +66,7 @@ export const smsCharacters: CaseStudy = {
     ],
   },
   approach: {
-    title: 'MY APPROACH',
+    title: 'My Approach',
     decisions: [
       {
         title: '1. Real-Time Detection vs Post-Composition',
@@ -103,7 +103,7 @@ export const smsCharacters: CaseStudy = {
     },
   ],
   implementation: {
-    title: 'THE SOLUTION',
+    title: 'The Solution',
     technical: [
       'Real-time character analysis as you type',
       'Encoding detection (GSM-7, Extended GSM, UCS-2)',
@@ -128,7 +128,7 @@ export const smsCharacters: CaseStudy = {
     ],
   },
   validation: {
-    title: 'VALIDATION & RESULTS',
+    title: 'Validation & Results',
     outcomes: [
       'Zero billing disputes in 6+ months post-launch',
       'Reduced financial exposure from SMS campaigns',
@@ -157,7 +157,7 @@ export const smsCharacters: CaseStudy = {
     ],
   },
   learned: {
-    title: 'WHAT I LEARNED',
+    title: 'What I Learned',
     worked: [
       'Crisis as catalyst: Financial impact created urgency where user complaints hadn\'t',
       'Defensive design: "Estimated" labeling prevented new issues while solving core problem',
@@ -181,7 +181,7 @@ export const smsCharacters: CaseStudy = {
     quickInsight: 'Crisis creates urgency. Use it to fix root causes, not symptoms.',
   },
   process: {
-    title: 'PROCESS',
+    title: 'Process',
     content: [
       'Discovery: Analyzed 6 months of billing disputes to identify patterns. Every dispute included emoji or special characters.',
       'Technical Research: Deep dive into GSM-7 vs UCS-2 encoding standards. Discovered the 160→70 character threshold.',

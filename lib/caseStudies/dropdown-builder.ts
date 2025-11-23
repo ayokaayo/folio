@@ -11,7 +11,7 @@ export const dropdownBuilder: CaseStudy = {
   imageUrl: '/img/dropdown/HeaderDropdownWide.png',
   imageAlt: 'Advanced Dropdown Builder interface showing progressive disclosure interface',
   impact: {
-    title: 'IMPACT',
+    title: 'Impact',
     items: [
       'Selection efficiency: Single-field picks: 60+ seconds → <5 seconds (typical flow)',
       'Multi-condition segments: Minutes saved per build',
@@ -36,7 +36,7 @@ export const dropdownBuilder: CaseStudy = {
     ],
   },
   problem: {
-    title: 'THE PROBLEM',
+    title: 'The Problem',
     context: "Fast Track AI's iGaming CRM processes millions in daily transactions. Our data selection interface had become a bottleneck:",
     quickContext: '200+ fields in one dropdown. Users lost, errors common, complaints rising.',
     issues: [
@@ -60,7 +60,7 @@ export const dropdownBuilder: CaseStudy = {
     ],
   },
   approach: {
-    title: 'MY APPROACH',
+    title: 'My Approach',
     decisions: [
       {
         title: '1. Progressive disclosure over all-at-once',
@@ -97,7 +97,7 @@ export const dropdownBuilder: CaseStudy = {
     },
   ],
   implementation: {
-    title: 'IMPLEMENTATION',
+    title: 'Implementation',
     technical: [
       'Built as reusable component with full specs and API contract',
       'Design system integration with accessibility notes',
@@ -117,7 +117,7 @@ export const dropdownBuilder: CaseStudy = {
     ],
   },
   validation: {
-    title: 'VALIDATION & RESULTS',
+    title: 'Validation & Results',
     outcomes: [
       'Selection speed dramatically improved (qualitative feedback + usage telemetry)',
       'Support tickets for field selection essentially disappeared',
@@ -141,7 +141,7 @@ export const dropdownBuilder: CaseStudy = {
     ],
   },
   learned: {
-    title: 'WHAT I LEARNED',
+    title: 'What I Learned',
     worked: [
       'Card sorting revealed operator mental models - categories became obvious',
       'Progressive disclosure reduced noise - faster decisions',
@@ -170,7 +170,7 @@ export const dropdownBuilder: CaseStudy = {
     quickInsight: 'Progressive disclosure beats comprehensive display every time.',
   },
   process: {
-    title: 'PROCESS',
+    title: 'Process',
     content: [
       'Discovery: Conducted card sorting with 12 operators to understand mental models. Combined database exports with manual review to document all 200+ fields.',
       'Design: Prototyped three approaches - search-first, browse-first, hybrid. Browse-first won in testing.',

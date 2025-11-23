@@ -11,7 +11,7 @@ export const timeManagement: CaseStudy = {
   imageUrl: '/img/localisation/HeaderLocalisationWide.png',
   imageAlt: 'Time Management & Localization Tools interface',
   impact: {
-    title: 'IMPACT',
+    title: 'Impact',
     items: [
       'Market expansion delivered: Brazil (pt-BR) - Onboarded major regional operators',
       'LatAm (es-ES) - Multiple partners across Central/South America',
@@ -37,7 +37,7 @@ export const timeManagement: CaseStudy = {
     ],
   },
   problem: {
-    title: 'THE PROBLEM',
+    title: 'The Problem',
     context: "Fast Track AI's iGaming CRM serves teams from US East Coast to New Zealand (24+ timezones), but shipped with fundamental limitations:",
     quickContext: 'English-only UI. Single timezone. Markets blocked. Operators confused.',
     issues: [
@@ -65,7 +65,7 @@ export const timeManagement: CaseStudy = {
     ],
   },
   approach: {
-    title: 'MY APPROACH',
+    title: 'My Approach',
     decisions: [
       {
         title: '1. Dual-Track Development',
@@ -102,7 +102,7 @@ export const timeManagement: CaseStudy = {
     },
   ],
   implementation: {
-    title: 'IMPLEMENTATION',
+    title: 'Implementation',
     technical: [
       'Display-layer architecture - UTC unchanged in database',
       'Translation pipeline: 20,000+ strings managed',
@@ -127,7 +127,7 @@ export const timeManagement: CaseStudy = {
     ],
   },
   validation: {
-    title: 'VALIDATION & RESULTS',
+    title: 'Validation & Results',
     outcomes: [
       'Production stability: Zero critical incidents post-launch',
       'Performance maintained: No degradation from new features',
@@ -155,7 +155,7 @@ export const timeManagement: CaseStudy = {
     ],
   },
   learned: {
-    title: 'WHAT I LEARNED',
+    title: 'What I Learned',
     worked: [
       'Domain expertise as research proxy: Deep operational knowledge replaced traditional user research',
       'Dual-track development: Parallel workstreams accelerated delivery without compromising quality',
@@ -179,7 +179,7 @@ export const timeManagement: CaseStudy = {
     quickInsight: 'Markets don\'t wait. Localization is expansion strategy, not nice-to-have.',
   },
   process: {
-    title: 'PROCESS',
+    title: 'Process',
     content: [
       'Audit: Mapped every timezone touchpoint and translatable string in the system. Found 8 unique time components and 20,000+ strings.',
       'Strategy: Decided on display-layer approach to minimize risk. Chose 3 pilot markets based on revenue potential.',
