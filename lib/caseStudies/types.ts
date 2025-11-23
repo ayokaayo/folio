@@ -1,3 +1,9 @@
+export interface ImageWithCaption {
+  url: string // Path to image in /public folder (e.g., '/img/case-study/image1.png')
+  caption?: string // Optional caption displayed below image
+  alt: string // Required alt text for accessibility
+}
+
 export interface CaseStudy {
   id: string
   title: string
@@ -11,6 +17,7 @@ export interface CaseStudy {
   imageAlt?: string
   coverImageUrl?: string
   coverImageAlt?: string
+  images?: ImageWithCaption[] // Gallery of images with captions to display in case study
   impact: {
     title: string
     items: string[]

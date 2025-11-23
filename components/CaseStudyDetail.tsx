@@ -5,6 +5,7 @@ import { CaseStudy } from '@/lib/caseStudies'
 import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import TimelineTeam from './TimelineTeam'
+import ImageGallery from './ImageGallery'
 
 interface CaseStudyDetailProps {
   caseStudy: CaseStudy
@@ -502,6 +503,19 @@ export default function CaseStudyDetail({
           )}
         </div>
       </motion.section>
+
+      {/* Image Gallery */}
+      {caseStudy.images && caseStudy.images.length > 0 && (
+        <motion.section
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+          viewport={{ once: VIEWPORT.ONCE }}
+          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE * 4 }}
+          className="mb-16 border-t border-text/10 pt-16"
+        >
+          <ImageGallery images={caseStudy.images} />
+        </motion.section>
+      )}
     </div>
   )
 }
