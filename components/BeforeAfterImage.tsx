@@ -46,7 +46,7 @@ export default function BeforeAfterImage({ before, after, className = '' }: Befo
             aria-label="Show before image"
             className={`px-3 py-1.5 text-xs font-medium rounded transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
               activeView === 'before'
-                ? 'bg-text/10 text-text border border-text/20'
+                ? 'bg-brand-lilac text-text'
                 : 'text-text/70 hover:text-text hover:bg-text/5'
             }`}
           >
@@ -57,7 +57,7 @@ export default function BeforeAfterImage({ before, after, className = '' }: Befo
             aria-label="Show after image"
             className={`px-3 py-1.5 text-xs font-medium rounded transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
               activeView === 'after'
-                ? 'bg-text/10 text-text border border-text/20'
+                ? 'bg-brand-lilac text-text'
                 : 'text-text/70 hover:text-text hover:bg-text/5'
             }`}
           >
