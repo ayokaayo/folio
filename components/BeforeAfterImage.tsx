@@ -8,6 +8,7 @@ interface BeforeAfterImageProps {
   before: ImageWithCaption
   after: ImageWithCaption
   className?: string
+  defaultView?: 'before' | 'after'
 }
 
 /**
@@ -31,8 +32,8 @@ interface BeforeAfterImageProps {
  * 
  * The component will automatically detect and render as before/after toggle.
  */
-export default function BeforeAfterImage({ before, after, className = '' }: BeforeAfterImageProps) {
-  const [activeView, setActiveView] = useState<'before' | 'after'>('before')
+export default function BeforeAfterImage({ before, after, className = '', defaultView = 'before' }: BeforeAfterImageProps) {
+  const [activeView, setActiveView] = useState<'before' | 'after'>(defaultView)
 
   const activeImage = activeView === 'before' ? before : after
 

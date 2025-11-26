@@ -7,6 +7,7 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import TimelineTeam from './TimelineTeam'
 import ImageGallery from './ImageGallery'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 
 const BeforeAfterImage = dynamic(() => import('./BeforeAfterImage'), {
@@ -22,48 +23,91 @@ interface CaseStudyDetailProps {
  * Helper component to render section images with consistent styling
  * Handles optional images arrays and returns null if empty
  * Automatically detects before/after pairs and renders BeforeAfterImage component
+ * Supports mixed arrays with both regular images and before/after pairs
  */
 function SectionImageGallery({ images }: { images?: ImageWithCaption[] }) {
   if (!images || !Array.isArray(images) || images.length === 0) return null
   
-  // Inline detection with proper error handling and optional chaining
-  const isBeforeAfterPair = images.length === 2 && 
-    images.some(img => 
-      (img.caption?.toLowerCase().includes('before') || 
-       img.url?.toLowerCase().includes('before') ||
-       img.alt?.toLowerCase().includes('before'))
-    ) &&
-    images.some(img => 
-      (img.caption?.toLowerCase().includes('after') || 
-       img.url?.toLowerCase().includes('after') ||
-       img.alt?.toLowerCase().includes('after'))
-    )
+  // Helper to check if an image is a "before" image
+  const isBeforeImage = (img: ImageWithCaption) => 
+    img.caption?.toLowerCase().includes('before') || 
+    img.url?.toLowerCase().includes('before') ||
+    img.alt?.toLowerCase().includes('before')
   
-  if (isBeforeAfterPair) {
-    const before = images.find(img => 
-      img.caption?.toLowerCase().includes('before') || 
-      img.url?.toLowerCase().includes('before') ||
-      img.alt?.toLowerCase().includes('before')
-    )
-    const after = images.find(img => 
-      img.caption?.toLowerCase().includes('after') || 
-      img.url?.toLowerCase().includes('after') ||
-      img.alt?.toLowerCase().includes('after')
-    )
+  // Helper to check if an image is an "after" image
+  const isAfterImage = (img: ImageWithCaption) => 
+    img.caption?.toLowerCase().includes('after') || 
+    img.url?.toLowerCase().includes('after') ||
+    img.alt?.toLowerCase().includes('after')
+  
+  // Find all before/after pairs
+  const pairs: Array<{ before: ImageWithCaption; after: ImageWithCaption; defaultView?: 'before' | 'after' }> = []
+  const usedIndices = new Set<number>()
+  const regularImages: ImageWithCaption[] = []
+  
+  // First pass: find all before/after pairs
+  for (let i = 0; i < images.length; i++) {
+    if (usedIndices.has(i)) continue
     
-    if (before && after) {
-      return (
-        <div className="mt-8">
-          <BeforeAfterImage before={before} after={after} />
-        </div>
-      )
+    const img = images[i]
+    if (isBeforeImage(img)) {
+      // Find matching "after" image
+      for (let j = i + 1; j < images.length; j++) {
+        if (usedIndices.has(j)) continue
+        
+        const afterImg = images[j]
+        if (isAfterImage(afterImg)) {
+          // Found a pair
+          const defaultView = img.url?.toLowerCase().includes('dashboard') || 
+                             afterImg.url?.toLowerCase().includes('dashboard') 
+                             ? 'after' : undefined
+          pairs.push({ before: img, after: afterImg, defaultView })
+          usedIndices.add(i)
+          usedIndices.add(j)
+          break
+        }
+      }
+    } else if (isAfterImage(img)) {
+      // Find matching "before" image
+      for (let j = i + 1; j < images.length; j++) {
+        if (usedIndices.has(j)) continue
+        
+        const beforeImg = images[j]
+        if (isBeforeImage(beforeImg)) {
+          // Found a pair
+          const defaultView = img.url?.toLowerCase().includes('dashboard') || 
+                             beforeImg.url?.toLowerCase().includes('dashboard') 
+                             ? 'after' : undefined
+          pairs.push({ before: beforeImg, after: img, defaultView })
+          usedIndices.add(i)
+          usedIndices.add(j)
+          break
+        }
+      }
     }
   }
   
-  // Otherwise, render as regular gallery
+  // Collect remaining regular images
+  for (let i = 0; i < images.length; i++) {
+    if (!usedIndices.has(i)) {
+      regularImages.push(images[i])
+    }
+  }
+  
+  // Render regular images first, then pairs (to maintain array order)
   return (
-    <div className="mt-8">
-      <ImageGallery images={images} />
+    <div className="mt-8 space-y-8">
+      {regularImages.length > 0 && (
+        <ImageGallery images={regularImages} />
+      )}
+      {pairs.map((pair, index) => (
+        <BeforeAfterImage 
+          key={`before-after-${index}`}
+          before={pair.before} 
+          after={pair.after}
+          {...(pair.defaultView && { defaultView: pair.defaultView })}
+        />
+      ))}
     </div>
   )
 }
@@ -168,18 +212,63 @@ export default function CaseStudyDetail({
         <h2 className="text-2xl font-serif font-bold text-text mb-6">
           {caseStudy.impact.title}
         </h2>
-        <ul className="list-none space-y-3">
-          {getImpactItems().map((item, index) => (
-            <li
-              key={`impact-${index}-${item.substring(0, 20)}`}
-              className="text-text/80 flex items-start"
-            >
-              <span className="text-primary mr-3">•</span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-        <SectionImageGallery images={caseStudy.impact?.images} />
+        {(() => {
+          const awardsImage = caseStudy.impact?.images?.find(img => 
+            img.url?.includes('awards') || img.caption?.toLowerCase().includes('award')
+          )
+          const otherImages = caseStudy.impact?.images?.filter(img => 
+            !(img.url?.includes('awards') || img.caption?.toLowerCase().includes('award'))
+          )
+          
+          return (
+            <>
+              <ul className="list-none space-y-3">
+                {getImpactItems().map((item, index) => {
+                  const isAwardsItem = item.toLowerCase().includes('awards') || item.toLowerCase().includes('aibc') || item.toLowerCase().includes('sbc') || item.toLowerCase().includes('sigma')
+                  
+                  return (
+                    <li key={`impact-${index}-${item.substring(0, 20)}`}>
+                      <div className="text-text/80 flex items-start">
+                        <span className="text-primary mr-3">•</span>
+                        <span>{item}</span>
+                      </div>
+                      {isAwardsItem && awardsImage && (
+                        <motion.figure
+                          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                          viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
+                          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: 0.2 }}
+                          className="mt-6 mb-8 w-full"
+                        >
+                          <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                            <div className="relative w-full">
+                              <Image
+                                src={awardsImage.url}
+                                alt={awardsImage.alt}
+                                width={2400}
+                                height={1600}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                                className="object-contain w-full h-auto"
+                                quality={90}
+                                unoptimized={false}
+                              />
+                            </div>
+                          </div>
+                          {awardsImage.caption && (
+                            <figcaption className="mt-3 text-sm text-text/60 text-center italic">
+                              {awardsImage.caption}
+                            </figcaption>
+                          )}
+                        </motion.figure>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+              <SectionImageGallery images={otherImages} />
+            </>
+          )
+        })()}
         <TimelineTeam timeline={caseStudy.timeline} team={caseStudy.team} />
       </motion.section>
 

@@ -43,6 +43,16 @@ export const timeManagement: CaseStudy = {
         alt: 'Three industry award badges from AIBC, SBC Latin America, and SiGMA Americas',
         caption: 'All three awards won following localization rollout',
       },
+      {
+        url: '/img/localisation/after-dashboard.png',
+        alt: 'English only dashboard interface',
+        caption: 'Before: English only dashboard',
+      },
+      {
+        url: '/img/localisation/before-dashboard.png',
+        alt: 'Fully localised dashboard in Simplified Chinese with data and currency information',
+        caption: 'After: Fully localised in Simplified Chinese, including data and currency information',
+      },
     ],
   },
 
