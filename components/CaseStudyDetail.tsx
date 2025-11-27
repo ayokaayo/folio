@@ -388,6 +388,20 @@ export default function CaseStudyDetail({
               <div key={`design-${index}-${decision.title.substring(0, 20)}`}>
                 <h3 className="font-semibold text-text mb-2">{decision.title}</h3>
                 <p className="text-text/80">{decision.description}</p>
+                {decision.image && (
+                  <div className="mt-4">
+                    <Image
+                      src={decision.image.url}
+                      alt={decision.image.alt}
+                      width={1200}
+                      height={800}
+                      className="rounded-lg border border-text/10"
+                    />
+                    {decision.image.caption && (
+                      <p className="text-sm text-text/60 mt-2 italic text-center">{decision.image.caption}</p>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -544,40 +558,6 @@ export default function CaseStudyDetail({
             </div>
           )}
           {densityMode === 'deep' &&
-            caseStudy.validation.feedback &&
-            (Array.isArray(caseStudy.validation.feedback) ? caseStudy.validation.feedback.length > 0 : true) && (
-              <div>
-                <h3 className="font-semibold text-text mb-2">Partner Feedback:</h3>
-                <ul className="list-none space-y-3">
-                  {(Array.isArray(caseStudy.validation.feedback) ? caseStudy.validation.feedback : []).map((item: any, index: number) => {
-                    if (typeof item === 'string') {
-                      return (
-                        <li
-                          key={getItemKey(item, index, 'feedback')}
-                          className="flex items-start"
-                        >
-                          <span className="text-primary mr-3">•</span>
-                          <span>{item}</span>
-                        </li>
-                      )
-                    } else if (typeof item === 'object' && item !== null) {
-                      return (
-                        <li key={getItemKey(item, index, 'feedback')} className="space-y-1">
-                          {item.quote && (
-                            <div className="italic text-text/90">&ldquo;{item.quote}&rdquo;</div>
-                          )}
-                          {item.source && (
-                            <div className="text-sm text-text/60">— {item.source}</div>
-                          )}
-                        </li>
-                      )
-                    }
-                    return null
-                  })}
-                </ul>
-              </div>
-            )}
-          {densityMode === 'deep' &&
             caseStudy.validation.technical &&
             Array.isArray(caseStudy.validation.technical) &&
             caseStudy.validation.technical.length > 0 && (
@@ -647,9 +627,16 @@ export default function CaseStudyDetail({
             </div>
           )}
           {getLearnedInsight() && (
-            <div className="bg-text/5 p-6 rounded-lg border-l-4 border-primary">
-              <p className="font-semibold text-text mb-2">Strategic Insight:</p>
-              <p>{getLearnedInsight()}</p>
+            <div className="relative mt-8 pt-4">
+              <div 
+                className="bg-[#FFF9C4] p-6 rounded-sm shadow-lg transform rotate-[-1.5deg] border border-[#FDD835]/30"
+                style={{
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+                }}
+              >
+                <p className="font-semibold text-text mb-2">Strategic Insight:</p>
+                <p className="text-text/90 leading-relaxed text-lg">{getLearnedInsight()}</p>
+              </div>
             </div>
           )}
         </div>

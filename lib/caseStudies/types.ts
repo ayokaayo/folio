@@ -47,6 +47,7 @@ export interface CaseStudy {
   designDecisions: Array<{
     title: string
     description: string
+    image?: ImageWithCaption
   }>
   implementation: {
     title: string
@@ -58,7 +59,7 @@ export interface CaseStudy {
   validation: {
     title: string
     outcomes: Array<string | { category: string; results: string[] }>
-    feedback: Array<string | { quote: string; source?: string }>
+    feedback?: Array<string | { quote: string; source?: string }>
     technical: string[]
     quickOutcomes?: string[]
     images?: ImageWithCaption[]

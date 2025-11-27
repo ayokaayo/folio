@@ -58,7 +58,7 @@ export const timeManagement: CaseStudy = {
 
   problem: {
     title: 'The Problem',
-    context: "Fast Track AI's iGaming CRM serves teams from US East Coast to New Zealand, spanning more than 24 timezones, but the platform shipped with fundamental limitations that were actively blocking our expansion efforts and creating operational friction on a daily basis.",
+    context: "Fast Track AI's iGaming CRM serves teams from US East Coast to New Zealand, spanning more than 24 timezones, but shipped with limitations actively blocking expansion and creating daily operational friction.",
     quickContext: 'English-only UI blocking three major markets. Single timezone causing daily scheduling errors. DST transitions breaking campaign timing.',
     issues: [
       {
@@ -130,6 +130,13 @@ export const timeManagement: CaseStudy = {
         result: 'Partners caught terminology issues, regional format preferences, and workflow gaps that would have caused problems at scale. Their validation gave us confidence for the full launch.',
       },
     ],
+    images: [
+      {
+        url: '/img/localisation/approach-strategy-flow.png',
+        alt: 'Design strategy diagram showing domain knowledge, partner feedback, and technical analysis converging into design strategy and deliverables',
+        caption: 'Research triangulation: Domain expertise + partner feedback + technical analysis informed strategic decisions',
+      },
+    ],
   },
 
   designDecisions: [
@@ -148,11 +155,17 @@ export const timeManagement: CaseStudy = {
     {
       title: 'Complete UI Localization',
       description: 'Platform-wide translation of all interface text, metrics and calculations, help documentation, and error messages. Regional formats applied consistently for dates (DD/MM vs MM/DD), numbers (comma vs period separators), and currency displays. Each market gets native-feeling interface rather than mechanical translation.',
+      image: {
+        url: '/img/localisation/settings-interface.png',
+        alt: 'Localization settings interface showing language and timezone configuration options',
+        caption: 'Settings interface with language and timezone preferences',
+      },
     },
     {
       title: 'Font System for Non-Latin Scripts',
       description: 'Dedicated font implementation for Simplified Chinese with proper fallback hierarchy for missing glyphs. Tested to ensure zero performance impact despite additional font assets. Future-ready for Arabic and Hebrew when we expand to RTL languages.',
     },
+
   ],
 
   implementation: {
@@ -254,20 +267,6 @@ export const timeManagement: CaseStudy = {
       '3 industry awards won after localization rollout',
       'Zero post-launch critical incidents',
     ],
-    feedback: [
-      {
-        quote: 'Finally we can serve our Brazilian clients properly',
-        source: 'Enterprise partner, Brazil',
-      },
-      {
-        quote: 'The Chinese localization is better than competitors',
-        source: 'APAC strategic account',
-      },
-      {
-        quote: 'Timezone features should have existed from day one',
-        source: 'Operations team feedback',
-      },
-    ],
     technical: [
       'We maintained 99.9% uptime during the entire rollout, which kept user trust high even as we deployed major changes',
       'Language switching performance consistently achieved the under-100ms target, making the transitions feel instant',
@@ -275,25 +274,32 @@ export const timeManagement: CaseStudy = {
       'Zero rollback events were needed across the staged deployment, which suggested our validation process caught issues before they reached production',
     ],
     images: [
+      // Missing: validation-usage-stats.png
+      // {
+      //   url: '/img/localisation/validation-usage-stats.png',
+      //   alt: 'Chart showing adoption rates across three markets',
+      //   caption: 'Market activation timeline and adoption rates',
+      // },
       {
-        url: '/img/localisation/validation-usage-stats.png',
-        alt: 'Chart showing adoption rates across three markets',
-        caption: 'Market activation timeline and adoption rates',
-      },
-      {
-        url: '/img/localisation/after-calendar-chinese.png',
+        url: '/img/localisation/after-clock.png',
         alt: 'Calendar widget in Simplified Chinese with dual timezone display',
-        caption: 'After: Fully localized with dual timezone display',
+        caption: 'Fully localized system clock with dual timezone display',
       },
       {
         url: '/img/localisation/after-dual-clock.png',
         alt: 'Sidebar showing both system and local time with color coding',
         caption: 'Dual clock system solving timezone confusion',
       },
+      // Missing: after-calendar-spanish.png
+      // {
+      //   url: '/img/localisation/after-calendar-spanish.png',
+      //   alt: 'Calendar in Spanish showing AM/PM format',
+      //   caption: 'Spanish localization with regional date formats',
+      // },
       {
-        url: '/img/localisation/after-calendar-spanish.png',
-        alt: 'Calendar in Spanish showing AM/PM format',
-        caption: 'Spanish localization with regional date formats',
+        url: '/img/localisation/translation-backoffice.png',
+        alt: 'Backoffice interface showing translation and localization features',
+        caption: 'Translation pipeline: Machine-generated strings tracked through human validation workflow',
       },
     ],
   },
@@ -319,8 +325,8 @@ export const timeManagement: CaseStudy = {
         solution: 'Built a flexible CSS grid system with defined expansion zones, then tested every single layout with the longest language to catch issues before deployment. This took extra time upfront but prevented a cascade of layout fixes later.',
       },
     ],
-    insight: 'The real barrier was not the language itself, but rather the confidence gap that language barriers created. Operators need to trust the platform when they are committing campaign budgets, and seeing their native language immediately removes a layer of doubt that is hard to quantify but very real. Understanding that localization was coming up as an explicit dealbreaker in actual sales conversations - not just a nice-to-have feature request - created the urgency and executive buy-in we needed to prioritize this work properly.',
-    quickInsight: 'Localization is not translation. It is removing friction from every interaction. Markets do not wait.',
+    insight: "Localization isn't translation, it's trust infrastructure. When operators commit six-figure campaign budgets, their native language isn't a nice-to-have; it's the signal that this platform was built for them. The interface speaks before you do.",
+    quickInsight: "Localization isn't translation—it's the signal that the platform was built for them.",
   },
 
   process: {
