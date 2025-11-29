@@ -6,11 +6,13 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyDetail from '@/components/CaseStudyDetail'
-import DensityToggle from '@/components/DensityToggle'
 import { ANIMATION } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import Link from 'next/link'
-import { ROUTES } from '@/lib/constants'
+import { ROUTES, getWorkRoute } from '@/lib/constants'
+import { getNextItem } from '@/lib/utils/getNextItem'
+import { calculateCaseStudyReadingTime } from '@/lib/utils/readingTime'
+import NextItemCard from '@/components/NextItemCard'
 
 interface WorkDetailPageProps {
   params: {
@@ -22,6 +24,9 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
   const prefersReducedMotion = useReducedMotion()
   const caseStudy = caseStudies.find((cs) => cs.id === params.id)
   const [densityMode, setDensityMode] = useState<'quick' | 'deep'>('quick')
+
+  // Get next case study for navigation
+  const nextCaseStudy = caseStudy ? getNextItem(caseStudy.id, caseStudies) : null
 
   useEffect(() => {
     // Load preference from sessionStorage
@@ -46,13 +51,8 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
           animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
         >
-          {/* Top bar with toggle and back button */}
-          <div className="flex items-center justify-between mb-8">
-            <DensityToggle
-              caseStudy={caseStudy}
-              mode={densityMode}
-              onModeChange={setDensityMode}
-            />
+          {/* Top bar with back button */}
+          <div className="flex items-center justify-end mb-8">
             <Link
               href={ROUTES.WORK}
               className="inline-flex items-center gap-2 text-sm text-text/70 hover:text-text transition-colors duration-200"
@@ -85,7 +85,7 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
             {caseStudy.subtitle}
           </p>
           {caseStudy.imageUrl && (
-            <div className="mt-8 mb-12">
+            <div className="mt-8 mb-6">
               <Image
                 src={caseStudy.imageUrl}
                 alt={caseStudy.imageAlt || caseStudy.title}
@@ -100,8 +100,26 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
       </section>
 
       {/* Case Study Details */}
-      <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pb-20">
-        <CaseStudyDetail caseStudy={caseStudy} densityMode={densityMode} />
+      <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 pt-4">
+        <CaseStudyDetail 
+          caseStudy={caseStudy} 
+          densityMode={densityMode}
+          onModeChange={setDensityMode}
+        />
+        
+        {/* Next Case Study Navigation */}
+        {nextCaseStudy && (
+          <div className="mt-16 pt-16 border-t border-text/10">
+            <NextItemCard
+              title={nextCaseStudy.title}
+              description={nextCaseStudy.subtitle}
+              href={getWorkRoute(nextCaseStudy.id)}
+              quickReadTime={calculateCaseStudyReadingTime(nextCaseStudy, 'quick')}
+              deepReadTime={calculateCaseStudyReadingTime(nextCaseStudy, 'deep')}
+              type="case-study"
+            />
+          </div>
+        )}
       </section>
     </main>
   )

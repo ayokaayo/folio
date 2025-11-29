@@ -11,8 +11,13 @@ import { sideProjects } from '@/lib/projects'
 import { ANIMATION, ROUTES, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 
-// Selected works (first 2) - showcasing the most impactful projects
-const selectedWorks = caseStudies.slice(0, 2)
+// Selected works for homepage: Time Management first, then SMS Characters
+// Dropdown Builder stays in works folder only
+const timeManagement = caseStudies.find((cs) => cs.id === 'time-management')
+const smsCharacters = caseStudies.find((cs) => cs.id === 'sms-characters')
+const selectedWorks = [timeManagement, smsCharacters].filter(
+  (cs): cs is NonNullable<typeof cs> => cs !== undefined
+)
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion()
