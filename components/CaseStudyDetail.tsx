@@ -9,6 +9,7 @@ import ImageGallery from './ImageGallery'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
+import DensityToggle from './DensityToggle'
 
 const BeforeAfterImage = dynamic(() => import('./BeforeAfterImage'), {
   ssr: false
@@ -17,6 +18,7 @@ const BeforeAfterImage = dynamic(() => import('./BeforeAfterImage'), {
 interface CaseStudyDetailProps {
   caseStudy: CaseStudy
   densityMode: 'quick' | 'deep'
+  onModeChange?: (mode: 'quick' | 'deep') => void
 }
 
 /**
@@ -115,6 +117,7 @@ function SectionImageGallery({ images }: { images?: ImageWithCaption[] }) {
 export default function CaseStudyDetail({
   caseStudy,
   densityMode,
+  onModeChange,
 }: CaseStudyDetailProps) {
   const prefersReducedMotion = useReducedMotion()
 
@@ -201,6 +204,16 @@ export default function CaseStudyDetail({
 
   return (
     <div className="prose prose-lg max-w-none">
+      {/* Density Toggle */}
+      {onModeChange && (
+        <div className="mb-6">
+          <DensityToggle
+            caseStudy={caseStudy}
+            mode={densityMode}
+            onModeChange={onModeChange}
+          />
+        </div>
+      )}
       {/* Impact */}
       <motion.section
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}

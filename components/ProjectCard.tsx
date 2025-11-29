@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { SideProject } from '@/lib/projects'
 import CardImage from './CardImage'
-import { ANIMATION, VIEWPORT } from '@/lib/constants'
+import { ANIMATION, VIEWPORT, getProjectRoute } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 
 interface ProjectCardProps {
@@ -23,7 +23,11 @@ interface ProjectCardProps {
  */
 export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const prefersReducedMotion = useReducedMotion()
-  const cardUrl = project.linkUrl || `#${project.id}`
+  // Use project detail page route for internal navigation
+  // Only use linkUrl if it's an external URL (starts with http)
+  const cardUrl = project.linkUrl && project.linkUrl.startsWith('http') 
+    ? project.linkUrl 
+    : getProjectRoute(project.id)
 
   return (
     <motion.div

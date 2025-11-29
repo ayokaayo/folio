@@ -30,6 +30,11 @@ export function getWorkRoute(id: string): string {
   return `${ROUTES.WORK}/${id}`
 }
 
+// Helper function to generate project detail route
+export function getProjectRoute(id: string): string {
+  return `${ROUTES.PROJECTS}/${id}`
+}
+
 // Site configuration
 export const SITE = {
   NAME: 'Miguel Angelo',
