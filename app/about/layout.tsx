@@ -3,10 +3,10 @@ import { SITE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'About - Miguel Angelo',
-  description: 'Natural problem solver specializing in product design, systems thinking, and multi-market platforms.',
+  description: 'Senior Product Designer with 10+ years shipping B2B platforms at scale. Systems thinking, AI products, and multi-market expertise.',
   openGraph: {
     title: 'About - Miguel Angelo',
-    description: 'Natural problem solver specializing in product design, systems thinking, and multi-market platforms.',
+    description: 'Senior Product Designer with 10+ years shipping B2B platforms at scale. Systems thinking, AI products, and multi-market expertise.',
     url: `${SITE.URL}/about`,
     images: [
       {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'About - Miguel Angelo',
-    description: 'Natural problem solver specializing in product design, systems thinking, and multi-market platforms.',
+    description: 'Senior Product Designer with 10+ years shipping B2B platforms at scale. Systems thinking, AI products, and multi-market expertise.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },
 }
@@ -32,4 +32,3 @@ export default function AboutLayout({
 }) {
   return children
 }
-
