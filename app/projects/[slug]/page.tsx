@@ -145,7 +145,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW, delay: 0.1 }}
-          className="space-y-16"
+          className="space-y-12"
         >
           {/* Mission Section */}
           {project.mission && (
@@ -213,21 +213,33 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                         {feature.description}
                       </p>
                       {feature.image && (
-                        <div className="mt-4">
-                          <Image
-                            src={feature.image.url}
-                            alt={feature.image.alt}
-                            width={1200}
-                            height={800}
-                            className="w-full rounded-lg"
-                            quality={90}
-                          />
+                        <motion.figure
+                          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                          viewport={{ once: true, margin: '-100px' }}
+                          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                          className="mt-6 w-full"
+                        >
+                          <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                            <div className="relative w-full">
+                              <Image
+                                src={feature.image.url}
+                                alt={feature.image.alt}
+                                width={2400}
+                                height={1600}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                                className="object-contain w-full h-auto"
+                                quality={90}
+                                unoptimized={false}
+                              />
+                            </div>
+                          </div>
                           {feature.image.caption && (
-                            <p className="text-sm text-text/60 mt-2">
+                            <figcaption className="mt-3 text-sm text-text/60 text-center italic">
                               {feature.image.caption}
-                            </p>
+                            </figcaption>
                           )}
-                        </div>
+                        </motion.figure>
                       )}
                     </div>
                   ))}
@@ -235,23 +247,36 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               )}
 
               {project.creation.images && project.creation.images.length > 0 && (
-                <div className="mt-8 space-y-4">
+                <div className="mt-8 space-y-8">
                   {project.creation.images.map((img, index) => (
-                    <div key={index}>
-                      <Image
-                        src={img.url}
-                        alt={img.alt}
-                        width={1200}
-                        height={800}
-                        className="w-full rounded-lg"
-                        quality={90}
-                      />
+                    <motion.figure
+                      key={index}
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-100px' }}
+                      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                      className="w-full"
+                    >
+                      <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                        <div className="relative w-full">
+                          <Image
+                            src={img.url}
+                            alt={img.alt}
+                            width={2400}
+                            height={1600}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                            className="object-contain w-full h-auto"
+                            quality={90}
+                            unoptimized={false}
+                          />
+                        </div>
+                      </div>
                       {img.caption && (
-                        <p className="text-sm text-text/60 mt-2">
+                        <figcaption className="mt-3 text-sm text-text/60 text-center italic">
                           {img.caption}
-                        </p>
+                        </figcaption>
                       )}
-                    </div>
+                    </motion.figure>
                   ))}
                 </div>
               )}
@@ -280,21 +305,33 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 </p>
               )}
               {project.craft.image && (
-                <div>
-                  <Image
-                    src={project.craft.image.url}
-                    alt={project.craft.image.alt}
-                    width={1200}
-                    height={800}
-                    className="w-full rounded-lg"
-                    quality={90}
-                  />
+                <motion.figure
+                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                  whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                  className="mt-6 w-full"
+                >
+                  <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                    <div className="relative w-full">
+                      <Image
+                        src={project.craft.image.url}
+                        alt={project.craft.image.alt}
+                        width={2400}
+                        height={1600}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                        className="object-contain w-full h-auto"
+                        quality={90}
+                        unoptimized={false}
+                      />
+                    </div>
+                  </div>
                   {project.craft.image.caption && (
-                    <p className="text-sm text-text/60 mt-2">
+                    <figcaption className="mt-3 text-sm text-text/60 text-center italic">
                       {project.craft.image.caption}
-                    </p>
+                    </figcaption>
                   )}
-                </div>
+                </motion.figure>
               )}
             </div>
           )}
@@ -317,6 +354,33 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     </li>
                   ))}
                 </ul>
+              )}
+              {project.id === 'exotica-radio' && (
+                <motion.figure
+                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                  whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                  className="mt-6 w-full m-0"
+                >
+                  <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                    <div className="relative w-full">
+                      <Image
+                        src="/img/projects/exotica-radio/google-ranking.png"
+                        alt="Google search results showing exotica.radio ranking first"
+                        width={2400}
+                        height={1600}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                        className="object-contain w-full h-auto"
+                        quality={90}
+                        unoptimized={false}
+                      />
+                    </div>
+                  </div>
+                  <figcaption className="mt-3 text-sm text-text/60 text-center italic">
+                    First place with zero SEO effort
+                  </figcaption>
+                </motion.figure>
               )}
             </div>
           )}
@@ -365,23 +429,36 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-6">
                 Gallery
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 items-start">
                 {project.gallery.map((img, index) => (
-                  <div key={index}>
-                    <Image
-                      src={img.url}
-                      alt={img.alt}
-                      width={800}
-                      height={600}
-                      className="w-full rounded-lg"
-                      quality={90}
-                    />
+                  <motion.figure
+                    key={index}
+                    initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                    whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-100px' }}
+                    transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                    className="w-full m-0"
+                  >
+                    <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                      <div className="relative w-full">
+                        <Image
+                          src={img.url}
+                          alt={img.alt}
+                          width={1600}
+                          height={1200}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                          className="object-contain w-full h-auto"
+                          quality={90}
+                          unoptimized={false}
+                        />
+                      </div>
+                    </div>
                     {img.caption && (
-                      <p className="text-sm text-text/60 mt-2">
+                      <figcaption className="mt-3 text-sm text-text/60 text-center italic">
                         {img.caption}
-                      </p>
+                      </figcaption>
                     )}
-                  </div>
+                  </motion.figure>
                 ))}
               </div>
             </div>

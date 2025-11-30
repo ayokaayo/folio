@@ -13,14 +13,17 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 
 // Selected works for homepage: Time Management first, then SMS Characters
 // Dropdown Builder stays in works folder only
-const timeManagement = caseStudies.find((cs) => cs.id === 'time-management')
-const smsCharacters = caseStudies.find((cs) => cs.id === 'sms-characters')
-const selectedWorks = [timeManagement, smsCharacters].filter(
-  (cs): cs is NonNullable<typeof cs> => cs !== undefined
-)
+// Moved inside component to avoid hydration issues
 
 export default function Home() {
   const prefersReducedMotion = useReducedMotion()
+  
+  // Find case studies inside component to avoid hydration issues
+  const timeManagement = caseStudies?.find((cs) => cs.id === 'time-management')
+  const smsCharacters = caseStudies?.find((cs) => cs.id === 'sms-characters')
+  const selectedWorks = [timeManagement, smsCharacters].filter(
+    (cs): cs is NonNullable<typeof cs> => cs !== undefined
+  )
 
   return (
     <main id="main-content" className="pt-20 md:pt-24">
@@ -68,9 +71,13 @@ export default function Home() {
             Selected Works
           </h2>
           <div className="space-y-8">
-            {selectedWorks.map((work, index) => (
-              <CaseStudyCard key={work.id} caseStudy={work} index={index} />
-            ))}
+            {selectedWorks && selectedWorks.length > 0 ? (
+              selectedWorks.map((work, index) => (
+                <CaseStudyCard key={work.id} caseStudy={work} index={index} />
+              ))
+            ) : (
+              <p className="text-text/70">No case studies available.</p>
+            )}
           </div>
           <div className="mt-8">
             <Link href={ROUTES.WORK} className="btn-cta group">
@@ -110,13 +117,17 @@ export default function Home() {
             I am passionate about building products that solve everyday problems for people—it&apos;s what motivates me every day. Here are some of the recent apps I&apos;ve developed
           </p>
           <div className="space-y-8">
-            {sideProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-              />
-            ))}
+            {sideProjects && sideProjects.length > 0 ? (
+              sideProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index}
+                />
+              ))
+            ) : (
+              <p className="text-text/70">No projects available.</p>
+            )}
           </div>
           <div className="mt-8">
             <Link href={ROUTES.PROJECTS} className="btn-cta group">

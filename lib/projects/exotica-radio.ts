@@ -1,112 +1,176 @@
 import type { SideProject } from './types'
 
-/**
- * Exotica Radio - An online radio station
- * 
- * A curated ambient, world music, and eclectic sounds streaming platform.
- * Built from the ground up - UI, streaming setup, and playlist curation.
- */
-
 export const exoticaRadio: SideProject = {
   // ─────────────────────────────────────────────────────────────
   // CORE METADATA
   // ─────────────────────────────────────────────────────────────
   id: 'exotica-radio',
-  hashtag: '#Radio',
-  year: '2024',
+  hashtag: '#Music',
+  year: '2017–Present',
   title: 'Exotica Radio',
-  subtitle: 'A curated online radio station for ambient and world music',
+  subtitle: 'A global music stream built on conviction, given freely to the world',
   status: 'live',
-  
+
   // ─────────────────────────────────────────────────────────────
   // CARD DISPLAY
-  // This appears on the /projects listing page
   // ─────────────────────────────────────────────────────────────
-  description: 'An online radio station playing curated ambient, world music, and eclectic sounds. Designed and built the platform end-to-end, from UI to streaming setup and playlist curation.',
+  description: 'An independent internet radio station streaming my personal music collection 24/7. Built to share music on my own terms, now played worldwide. Ranks #1 on Google despite breaking every SEO convention.',
   imageUrl: '/img/projects/exotica-radio/hero.png',
-  imageAlt: 'Exotica Radio interface showing the player and current track',
-  
+  imageAlt: 'Exotica Radio interface showing play button with rotating travel photography background',
+
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
-  // Quick context for the detail page header
   // ─────────────────────────────────────────────────────────────
-  timeline: '2024 (Ongoing)',
-  role: 'Design, Development & Curation',
-  techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Icecast', 'Liquidsoap'],
-  
+  timeline: '2017–Present (8 years running)',
+  role: 'Creator, Curator, Developer',
+  techStack: ['HTML', 'CSS', 'JavaScript', 'PHP', 'Shoutcast'],
+
   // ─────────────────────────────────────────────────────────────
   // EXTERNAL LINKS
-  // Side projects live outside portfolios - these get prominence
   // ─────────────────────────────────────────────────────────────
   links: [
     {
-      label: 'Live Radio',
+      label: 'Listen Live',
       url: 'https://www.exotica.radio',
       type: 'live',
     },
+    {
+      label: 'Instagram',
+      url: 'https://www.instagram.com/exotica.radio/',
+      type: 'other',
+    },
+    {
+      label: 'YouTube',
+      url: 'https://www.youtube.com/exoticaradio',
+      type: 'other',
+    },
   ],
-  
+
   // ─────────────────────────────────────────────────────────────
-  // MISSION SECTION
-  // Why does this exist? What's the creative intent?
+  // MISSION
   // ─────────────────────────────────────────────────────────────
   mission: {
-    statement: 'To create a space for discovery through carefully curated soundscapes that blend ambient textures with world music traditions.',
-    
-    spark: 'I found myself constantly searching for music that matched a specific mood - something that could be background but also engaging. Most streaming services push you toward popular tracks, but I wanted something more intentional, more curated.',
-    
+    statement: 'To share my music collection with the world, freely and without compromise.',
+
+    spark: 'In 2017, promoters were asking for Spotify playlists but I couldn\'t find half the music I owned on vinyl. Worse, when I searched for what Spotify did have, my playlists barely surfaced despite having traffic. I started digging into why. What I found was a system built for major labels, not independent curators. Even dead artists were being monetised by corporations that had nothing to do with the music. I realised if I wanted to share music properly, I\'d have to build the platform myself.',
+
     intent: [
-      'Build a platform that prioritizes curation over algorithms',
-      'Create a listening experience that encourages discovery',
-      'Explore the intersection of ambient and world music traditions',
+      'Create a space where the music I love could exist outside the streaming economy',
+      'Share a lifetime of digging and collecting with anyone who wanted to listen',
+      'Prove that independent radio could compete without playing by platform rules',
     ],
   },
-  
+
   // ─────────────────────────────────────────────────────────────
-  // CONTEXT SECTION
-  // The space this project lives in.
+  // CONTEXT
   // ─────────────────────────────────────────────────────────────
   context: {
-    background: 'Streaming services are great for finding specific songs, but they\'re not great for creating atmosphere. I wanted something that felt more like tuning into a radio station - where you trust the curation and let it take you somewhere.',
-    
-    opportunity: 'What if there was a radio station that played music you didn\'t know you wanted to hear? Something that blended ambient soundscapes with world music in a way that felt natural, not forced.',
-    
-    audience: 'People who want music for focus, relaxation, or just want to discover something new without the pressure of choosing.',
+    background: 'I travel constantly for work, for pleasure, and increasingly to dig for records. Every city has crates worth exploring. Over the years this turned into a collection that spans funk, disco, boogie, Afrobeat, bossa nova, space-age pop, and music from corners of the world most streaming services don\'t know exist. The collection outgrew any single playlist format.',
+
+    opportunity: 'Internet radio felt like the honest format. No algorithm deciding what gets heard. No royalty shell game. Just a stream, running 24/7, playing what I think sounds good together. The idea that someone in Tokyo and someone in Buenos Aires could be hearing the same obscure track at the same moment felt worth building.',
+
+    audience: 'Anyone who wants music that isn\'t fed to them by an algorithm. Coffee shops and bars that need a background vibe without ads. People who remember what radio used to feel like.',
   },
-  
+
   // ─────────────────────────────────────────────────────────────
-  // CREATION SECTION
-  // What you built and how you approached it.
+  // CREATION
   // ─────────────────────────────────────────────────────────────
   creation: {
-    approach: 'Started with the streaming infrastructure - setting up Icecast server and Liquidsoap for playlist management. Then built a minimal web interface that puts the music first. The design is intentionally sparse, letting the music be the focus.',
-    
+    approach: 'I wanted the site to be as simple as the idea: press play, hear music. No sign-ups, no trackers, no content marketing. Just a big play button over rotating images from Unsplash that evoke travel and distant places. Everything hand-coded: HTML, CSS, JavaScript hooked to a Shoutcast server. The backoffice is PHP, also hand-built, so I have complete control over the stream. All the branding, from the logo to the visual identity, is designed by me.',
+
     features: [
       {
-        title: 'Live Player Interface',
-        description: 'A minimal player that shows the current track and artist. No playlists, no skip buttons - just what\'s playing now. The interface updates in real-time as tracks change.',
+        title: 'Single-Page Interface',
+        description: 'One page. One button. Background images rotate through curated photography from Unsplash, evoking the feeling of travel and discovery. No about page, no contact form, no text to scroll through. The music is the content.',
       },
       {
-        title: 'Curated Playlists',
-        description: 'Hand-picked tracks that blend ambient textures with world music. Each playlist is crafted to create a specific mood or atmosphere, not just a collection of similar songs.',
+        title: 'Weighted Playlist System',
+        description: 'The stream isn\'t random. I built a system that picks from genre-weighted crates and distributes tracks throughout the day. Office hours get medium energy and steady drive. Nights shift toward deeper cuts and higher intensity. It sounds human because the rules are based on how I\'d actually DJ.',
       },
       {
-        title: 'Streaming Infrastructure',
-        description: 'Built on Icecast for reliable streaming and Liquidsoap for playlist management. The system runs 24/7, automatically transitioning between tracks and playlists.',
+        title: 'Custom Backoffice',
+        description: 'A PHP dashboard I built to monitor everything: current listeners, geographic spread, most-played tracks, peak times. The Shoutcast ASCI configuration feeds it all. Total control, no third-party analytics.',
+      },
+    ],
+
+    images: [
+      {
+        url: '/img/projects/exotica-radio/interface.png',
+        alt: 'Exotica Radio main interface with play button and travel photography',
+        caption: 'The entire site: a play button and the world',
+      },
+      {
+        url: '/img/projects/exotica-radio/backoffice.png',
+        alt: 'Custom PHP backoffice showing listener stats and track history',
+        caption: 'Hand-built backoffice for complete stream control',
       },
     ],
   },
-  
+
+  // ─────────────────────────────────────────────────────────────
+  // CRAFT
+  // ─────────────────────────────────────────────────────────────
+  craft: {
+    decisions: [
+      'No text content, no blog, no SEO optimisation. Just the stream. I figured if the music was good and the site stayed up, the right people would find it.',
+      'Hand-coded everything instead of using a CMS or framework. More work upfront, but zero dependencies and complete control over every detail.',
+      'Weighted playlists over pure random. True shuffle sounds chaotic. The energy curve throughout the day makes it feel curated even when I\'m not touching it.',
+      'Self-hosted Shoutcast instead of using a streaming platform. More infrastructure to manage, but no middleman, no fees, no terms of service that could change.',
+    ],
+
+    exploration: 'The hardest part was making 2,000+ tracks from wildly different genres sound cohesive. Funk into Afrobeat into space-age pop into Turkish psych. It can feel jarring if sequenced wrong. I spent months tweaking the weighting system, adjusting energy curves, and learning what transitions work. The solution wasn\'t technical; it was curatorial. I had to think like a DJ programming a radio station, not an engineer building a shuffle algorithm.',
+
+    image: {
+      url: '/img/projects/exotica-radio/listeners.png',
+      alt: 'World map showing listener distribution across continents',
+      caption: 'A genuinely global audience. The music reaches every continent.',
+    },
+  },
+
+  // ─────────────────────────────────────────────────────────────
+  // OUTCOME
+  // ─────────────────────────────────────────────────────────────
+  outcome: {
+    summary: 'Exotica Radio ranks #1 on Google for "exotica radio", beating myTuner, Live365, AccuRadio, and every other aggregator. A single-page site with no text content, competing against platforms with thousands of pages and dedicated SEO teams. I still don\'t fully understand how, but eight years of consistency and a .radio domain probably helped.',
+
+    notes: [
+      'Bars and coffee shops have written to say they\'ve been playing it nonstop for years and consider it their official station',
+      'Listeners from every continent. The metrics dashboard shows a genuinely global spread',
+      'Gig invitations came through the radio that never would have happened through Spotify playlists',
+      'Listed on myTuner, liveonlineradio.net, and other aggregators. They found me, I didn\'t pitch them',
+    ],
+  },
+
   // ─────────────────────────────────────────────────────────────
   // REFLECTION
-  // What you took away personally.
   // ─────────────────────────────────────────────────────────────
   reflection: {
-    insight: 'Sometimes the best projects are the ones that solve your own problem. Building something I actually wanted to use made all the technical challenges worth it.',
-    
+    insight: 'The best SEO strategy turned out to be having no SEO strategy. Build something real, keep it running, and let the aggregators do the backlink work. Eight years of consistency beats any optimisation hack.',
+
     openQuestions: [
-      'How do you balance curation with discovery?',
-      'What makes a good radio station in the age of on-demand streaming?',
+      'What would it take to make this sustainable without it becoming a business?',
+      'Is there a way to support the original artists more directly through the stream?',
+    ],
+
+    nextSteps: [
+      'Keep digging, keep travelling, keep adding to the collection',
+      'The radio will run as long as I have music to share',
     ],
   },
+
+  // ─────────────────────────────────────────────────────────────
+  // GALLERY
+  // ─────────────────────────────────────────────────────────────
+  gallery: [
+    {
+      url: '/img/projects/exotica-radio/dj-set.png',
+      alt: 'Live DJ set with Exotica Radio branding',
+      caption: 'The radio extends into live sets',
+    },
+    {
+      url: '/img/projects/exotica-radio/digging.png',
+      alt: 'Record crates in a shop during a digging session',
+      caption: 'Digging in New York City. The collection grows with every trip.',
+    },
+  ],
 }
