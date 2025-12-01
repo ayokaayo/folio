@@ -248,36 +248,39 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
               {project.creation.images && project.creation.images.length > 0 && (
                 <div className="mt-8 space-y-8">
-                  {project.creation.images.map((img, index) => (
-                    <motion.figure
-                      key={index}
-                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: '-100px' }}
-                      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
-                      className="w-full"
-                    >
-                      <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
-                        <div className="relative w-full">
-                          <Image
-                            src={img.url}
-                            alt={img.alt}
-                            width={2400}
-                            height={1600}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                            className="object-contain w-full h-auto"
-                            quality={90}
-                            unoptimized={false}
-                          />
+                  {project.creation.images.map((img, index) => {
+                    const isReadingImage = img.url.includes('reading.png')
+                    return (
+                      <motion.figure
+                        key={index}
+                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-100px' }}
+                        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                        className={isReadingImage ? "w-full max-w-[400px] mx-auto" : "w-full"}
+                      >
+                        <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                          <div className="relative w-full">
+                            <Image
+                              src={img.url}
+                              alt={img.alt}
+                              width={isReadingImage ? 400 : 2400}
+                              height={isReadingImage ? 815 : 1600}
+                              sizes={isReadingImage ? "400px" : "(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"}
+                              className="object-contain w-full h-auto"
+                              quality={90}
+                              unoptimized={false}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      {img.caption && (
-                        <figcaption className="mt-3 text-sm text-text/60 text-center italic">
-                          {img.caption}
-                        </figcaption>
-                      )}
-                    </motion.figure>
-                  ))}
+                        {img.caption && (
+                          <figcaption className="mt-3 text-sm text-text/60 text-center italic">
+                            {img.caption}
+                          </figcaption>
+                        )}
+                      </motion.figure>
+                    )
+                  })}
                 </div>
               )}
             </div>
@@ -430,36 +433,39 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 Gallery
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 items-start">
-                {project.gallery.map((img, index) => (
-                  <motion.figure
-                    key={index}
-                    initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                    whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-100px' }}
-                    transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
-                    className="w-full m-0"
-                  >
-                    <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
-                      <div className="relative w-full">
-                        <Image
-                          src={img.url}
-                          alt={img.alt}
-                          width={1600}
-                          height={1200}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-                          className="object-contain w-full h-auto"
-                          quality={90}
-                          unoptimized={false}
-                        />
+                {project.gallery.map((img, index) => {
+                  const isMobileImage = img.url.includes('mobile.png')
+                  return (
+                    <motion.figure
+                      key={index}
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-100px' }}
+                      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                      className={`w-full m-0 ${isMobileImage ? 'md:col-span-2 max-w-[400px] mx-auto' : ''}`}
+                    >
+                      <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                        <div className="relative w-full">
+                          <Image
+                            src={img.url}
+                            alt={img.alt}
+                            width={isMobileImage ? 400 : 1600}
+                            height={isMobileImage ? 815 : 1200}
+                            sizes={isMobileImage ? "400px" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"}
+                            className="object-contain w-full h-auto"
+                            quality={90}
+                            unoptimized={false}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    {img.caption && (
-                      <figcaption className="mt-3 text-sm text-text/60 text-center italic">
-                        {img.caption}
-                      </figcaption>
-                    )}
-                  </motion.figure>
-                ))}
+                      {img.caption && (
+                        <figcaption className="mt-3 text-sm text-text/60 text-center italic">
+                          {img.caption}
+                        </figcaption>
+                      )}
+                    </motion.figure>
+                  )
+                })}
               </div>
             </div>
           )}

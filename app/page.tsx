@@ -7,11 +7,11 @@ import Link from 'next/link'
 import CaseStudyCard from '@/components/CaseStudyCard'
 import ProjectCard from '@/components/ProjectCard'
 import { caseStudies } from '@/lib/caseStudies'
-import { sideProjects } from '@/lib/projects'
+import { projects as sideProjects } from '@/lib/projects'
 import { ANIMATION, ROUTES, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 
-// Selected works for homepage: Time Management first, then SMS Characters
+// Selected works for homepage: Time Management and Fast Track AI
 // Dropdown Builder stays in works folder only
 // Moved inside component to avoid hydration issues
 
@@ -20,10 +20,16 @@ export default function Home() {
   
   // Find case studies inside component to avoid hydration issues
   const timeManagement = caseStudies?.find((cs) => cs.id === 'time-management')
-  const smsCharacters = caseStudies?.find((cs) => cs.id === 'sms-characters')
-  const selectedWorks = [timeManagement, smsCharacters].filter(
+  const fastTrackAI = caseStudies?.find((cs) => cs.id === 'fast-track-ai')
+  const selectedWorks = [timeManagement, fastTrackAI].filter(
     (cs): cs is NonNullable<typeof cs> => cs !== undefined
   )
+  
+  // Filter and order projects for homepage: norma, exotica-radio
+  const selectedProjects = [
+    sideProjects?.find((p) => p.id === 'norma'),
+    sideProjects?.find((p) => p.id === 'exotica-radio'),
+  ].filter((p): p is NonNullable<typeof p> => p !== undefined)
 
   return (
     <main id="main-content" className="pt-20 md:pt-24">
@@ -41,7 +47,7 @@ export default function Home() {
             Senior Product Designer with 10+ years building B2B platforms for localization, iGaming, and AI-powered systems. Designing for scale, across markets and cultures.
           </p>
           <Link href={ROUTES.WORK} className="btn-cta group">
-            Explore my projects
+            View my work
             <svg
               className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
               fill="none"
@@ -118,8 +124,8 @@ export default function Home() {
           Smaller products, faster cycles, full creative control.
           </p>
           <div className="space-y-8">
-            {sideProjects && sideProjects.length > 0 ? (
-              sideProjects.map((project, index) => (
+            {selectedProjects && selectedProjects.length > 0 ? (
+              selectedProjects.map((project, index) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
@@ -152,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* Thoughts & Words Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16 border-t border-text/10">
+      <section className="hidden max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16 border-t border-text/10">
         <motion.div
           initial={prefersReducedMotion ? {} : "hidden"}
           whileInView={prefersReducedMotion ? {} : "visible"}

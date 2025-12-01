@@ -16,7 +16,7 @@ export const codexTarot: SideProject = {
   // ─────────────────────────────────────────────────────────────
   description: 'A web app that generates Marseilles Tarot readings. Trained on hand-written card analyses. Built because every tarot app I found was either soulless copy-paste or ignored the classic deck entirely. Users ask real questions and get readings that feel human.',
   imageUrl: '/img/projects/codex-tarot/hero.png',
-  imageAlt: 'Codex Tarot interface showing a five-card spread with atmospheric fog background',
+  imageAlt: 'Codex Tarot landing page with purple atmospheric fog background, spread selection buttons, and question input field',
 
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
@@ -40,7 +40,7 @@ export const codexTarot: SideProject = {
   // MISSION
   // ─────────────────────────────────────────────────────────────
   mission: {
-    statement: 'To build a tarot reader that thinks like a reader, not a database.',
+    statement: 'To build a tarot reader that interprets cards like a person, not a database.',
 
     spark: 'I started studying tarot for the symbology. Archetypes, visual language, the way meaning layers across cards when you put them next to each other. Not divination, just exploration. Around the same time, I wanted to build something with LLMs that went beyond chat interfaces. My best friend mentioned he couldn\'t find a decent tarot app anywhere, something that felt alive and let you ask actual questions. Most apps just spit out canned text. They don\'t accept context. They don\'t articulate. I realised training an AI to read cards properly would force me to understand the cards deeply myself. The project became both the tool and the study.',
 
@@ -83,21 +83,21 @@ export const codexTarot: SideProject = {
         description: 'After the individual card interpretations and spread synthesis, the system generates a final "oracle" message. This is more poetic, weaving together the monologues I wrote for each card into a unified voice. It feels like the deck is speaking directly.',
       },
       {
-        title: 'Study Mode',
-        description: 'Browse all 78 cards with filtering and search. Each card has its full data visible: meanings, keywords, descriptions. Built as much for my own learning as for users who want to go deeper.',
+        title: 'Custom Reading Mode',
+        description: 'Users can manually pick specific cards instead of drawing randomly, then add their own prompt. This turns the app into an exploration tool. Want to understand how The Fool and The Tower interact? Select them, add context, and see how the AI weaves their relationship. Great for learning how cards affect each other.',
       },
     ],
 
     images: [
       {
         url: '/img/projects/codex-tarot/reading.png',
-        alt: 'A three-card spread reading with contextual interpretation',
-        caption: 'Readings respond to the question asked, not generic meanings',
+        alt: 'Five-card spread reading with contextual interpretation about relocating to Singapore',
+        caption: 'The same cards tell different stories depending on the question',
       },
       {
-        url: '/img/projects/codex-tarot/study.png',
-        alt: 'Study mode showing card browser with filtering options',
-        caption: 'All 78 cards documented with searchable metadata',
+        url: '/img/projects/codex-tarot/custom.png',
+        alt: 'Custom reading mode showing manual card selection across Past, Present, and Future positions',
+        caption: 'Pick specific cards to explore how they interact with each other',
       },
     ],
   },
@@ -117,8 +117,8 @@ export const codexTarot: SideProject = {
 
     image: {
       url: '/img/projects/codex-tarot/data.png',
-      alt: 'YAML file structure showing card data organisation',
-      caption: 'Hand-written documentation for every card in the deck',
+      alt: 'VS Code editor showing YAML documentation for court cards with keywords, interpretations, and monologues',
+      caption: 'Every card documented by hand: meanings, keywords, visual details, and a first-person monologue',
     },
   },
 
@@ -159,13 +159,13 @@ export const codexTarot: SideProject = {
   gallery: [
     {
       url: '/img/projects/codex-tarot/cards.png',
-      alt: 'Selection of Marseilles Tarot cards from the Jodorowsky-Camoin restoration',
-      caption: 'The Jodorowsky-Camoin restored Marseilles deck',
+      alt: 'Mobile three-card reading showing Eight of Pentacles, Knight of Wands, and The Devil with interpretation text',
+      caption: 'Full readings on mobile, no features stripped',
     },
     {
       url: '/img/projects/codex-tarot/mobile.png',
-      alt: 'Codex Tarot on mobile showing responsive card layout',
-      caption: 'Responsive design for readings anywhere',
+      alt: 'Codex Tarot mobile interface with spread selection and question input',
+      caption: 'The same minimal interface, wherever you are',
     },
   ],
 }

@@ -9,6 +9,13 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 export default function ProjectsPage() {
   const prefersReducedMotion = useReducedMotion()
 
+  // Order projects: norma, exotica-radio, codex-tarot
+  const orderedProjects = [
+    projects.find((p) => p.id === 'norma'),
+    projects.find((p) => p.id === 'exotica-radio'),
+    projects.find((p) => p.id === 'codex-tarot'),
+  ].filter((p): p is NonNullable<typeof p> => p !== undefined)
+
   return (
     <main id="main-content" className="pt-20 md:pt-24">
       {/* Header */}
@@ -31,7 +38,7 @@ export default function ProjectsPage() {
       {/* Projects List */}
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20">
         <div className="space-y-8">
-          {projects.map((project, index) => (
+          {orderedProjects.map((project, index) => (
             <ProjectCard
               key={project.id}
               project={project}
