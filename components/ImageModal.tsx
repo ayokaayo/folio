@@ -89,7 +89,7 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
             animate={{ scale: 1, opacity: 1 }}
             exit={prefersReducedMotion ? { scale: 1 } : { scale: 0.9, opacity: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
-            className="relative w-full h-full flex items-center justify-center"
+            className="relative flex items-center justify-center"
           >
             <Image
               src={image.url}
@@ -97,9 +97,10 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
               width={2400}
               height={1600}
               sizes="95vw"
-              className="object-contain w-full h-auto max-h-[90vh] max-w-full rounded-lg"
+              className="object-contain max-w-[95vw] max-h-[90vh] w-auto h-auto rounded-lg"
               quality={90}
               priority
+              unoptimized={false}
             />
           </motion.div>
           {image.caption && (
