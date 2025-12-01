@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
+import ImageModal from './ImageModal'
 
 interface BeforeAfterImageProps {
   before: ImageWithCaption
@@ -34,60 +35,64 @@ interface BeforeAfterImageProps {
  */
 export default function BeforeAfterImage({ before, after, className = '', defaultView = 'before' }: BeforeAfterImageProps) {
   const [activeView, setActiveView] = useState<'before' | 'after'>(defaultView)
+  const [selectedImage, setSelectedImage] = useState<ImageWithCaption | null>(null)
 
   const activeImage = activeView === 'before' ? before : after
 
   return (
-    <figure className={`w-full ${className}`}>
-      <div className="relative w-full rounded-lg border border-text/10 bg-text/5 p-1">
-        {/* Toggle Buttons - Upper Right Corner */}
-        <div className="absolute top-3 right-3 z-10 flex gap-1 bg-background/90 backdrop-blur-sm rounded-lg border border-text/10 p-1">
-          <button
-            onClick={() => setActiveView('before')}
-            aria-label="Show before image"
-            className={`px-3 py-1.5 text-xs font-medium rounded transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
-              activeView === 'before'
-                ? 'bg-brand-lilac text-text'
-                : 'text-text/70 hover:text-text hover:bg-text/5'
-            }`}
-          >
-            Before
-          </button>
-          <button
-            onClick={() => setActiveView('after')}
-            aria-label="Show after image"
-            className={`px-3 py-1.5 text-xs font-medium rounded transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
-              activeView === 'after'
-                ? 'bg-brand-lilac text-text'
-                : 'text-text/70 hover:text-text hover:bg-text/5'
-            }`}
-          >
-            After
-          </button>
-        </div>
+    <>
+      <figure className={`w-full ${className}`}>
+        <div className="relative w-full rounded-lg border border-text/10 bg-text/5 p-1 cursor-pointer transition-transform hover:scale-[1.01]" onClick={() => setSelectedImage(activeImage)}>
+          {/* Toggle Buttons - Upper Right Corner */}
+          <div className="absolute top-3 right-3 z-10 flex gap-1 bg-background/90 backdrop-blur-sm rounded-lg border border-text/10 p-1" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setActiveView('before')}
+              aria-label="Show before image"
+              className={`px-3 py-1.5 text-xs font-medium rounded transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
+                activeView === 'before'
+                  ? 'bg-brand-lilac text-text'
+                  : 'text-text/70 hover:text-text hover:bg-text/5'
+              }`}
+            >
+              Before
+            </button>
+            <button
+              onClick={() => setActiveView('after')}
+              aria-label="Show after image"
+              className={`px-3 py-1.5 text-xs font-medium rounded transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1 ${
+                activeView === 'after'
+                  ? 'bg-brand-lilac text-text'
+                  : 'text-text/70 hover:text-text hover:bg-text/5'
+              }`}
+            >
+              After
+            </button>
+          </div>
 
-        {/* Image Container - Wraps naturally around image */}
-        <div className="relative w-full">
-          <Image
-            src={activeImage.url}
-            alt={activeImage.alt}
-            width={2400}
-            height={1600}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-            className="object-contain w-full h-auto"
-            quality={90}
-            unoptimized={false}
-          />
+          {/* Image Container */}
+          <div className="relative w-full">
+            <Image
+              src={activeImage.url}
+              alt={activeImage.alt}
+              width={2400}
+              height={1600}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+              className="object-contain w-full h-auto"
+              quality={90}
+              unoptimized={false}
+            />
+          </div>
         </div>
-      </div>
-      
-      {/* Caption */}
-      {activeImage.caption && (
-        <figcaption className="mt-3 text-sm text-text/60 text-center italic">
-          {activeImage.caption}
-        </figcaption>
-      )}
-    </figure>
+        
+        {/* Caption */}
+        {activeImage.caption && (
+          <figcaption className="mt-3 text-sm text-text/60 text-center italic">
+            {activeImage.caption}
+          </figcaption>
+        )}
+      </figure>
+      <ImageModal image={selectedImage} onClose={() => setSelectedImage(null)} />
+    </>
   )
 }
 

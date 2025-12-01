@@ -1,10 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
+import ImageModal from './ImageModal'
 
 interface ImageGalleryProps {
   images: ImageWithCaption[]
@@ -35,44 +37,49 @@ interface ImageGalleryProps {
  */
 export default function ImageGallery({ images, className = '' }: ImageGalleryProps) {
   const prefersReducedMotion = useReducedMotion()
+  const [selectedImage, setSelectedImage] = useState<ImageWithCaption | null>(null)
 
   if (!images || images.length === 0) {
     return null
   }
 
   return (
-    <div className={`space-y-8 ${className}`}>
-      {images.map((image, index) => (
-        <motion.figure
-          key={`image-${index}-${image.url}`}
-          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
-          className="w-full"
-        >
-          <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
-            <div className="relative w-full">
-              <Image
-                src={image.url}
-                alt={image.alt}
-                width={2400}
-                height={1600}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                className="object-contain w-full h-auto"
-                quality={90}
-                unoptimized={false}
-              />
+    <>
+      <div className={`space-y-8 ${className}`}>
+        {images.map((image, index) => (
+          <motion.figure
+            key={`image-${index}-${image.url}`}
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+            whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
+            transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+            className="w-full cursor-pointer"
+            onClick={() => setSelectedImage(image)}
+          >
+            <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
+              <div className="relative w-full">
+                <Image
+                  src={image.url}
+                  alt={image.alt}
+                  width={2400}
+                  height={1600}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                  className="object-contain w-full h-auto"
+                  quality={90}
+                  unoptimized={false}
+                />
+              </div>
             </div>
-          </div>
-          {image.caption && (
-            <figcaption className="mt-3 text-sm text-text/60 text-center italic">
-              {image.caption}
-            </figcaption>
-          )}
-        </motion.figure>
-      ))}
-    </div>
+            {image.caption && (
+              <figcaption className="mt-3 text-sm text-text/60 text-center italic">
+                {image.caption}
+              </figcaption>
+            )}
+          </motion.figure>
+        ))}
+      </div>
+      <ImageModal image={selectedImage} onClose={() => setSelectedImage(null)} />
+    </>
   )
 }
 

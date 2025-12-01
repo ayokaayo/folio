@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { CaseStudy } from '@/lib/caseStudies'
 import { ANIMATION, VIEWPORT } from '@/lib/constants'
@@ -10,6 +11,7 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import DensityToggle from './DensityToggle'
+import ImageModal from './ImageModal'
 
 const BeforeAfterImage = dynamic(() => import('./BeforeAfterImage'), {
   ssr: false
@@ -120,6 +122,7 @@ export default function CaseStudyDetail({
   onModeChange,
 }: CaseStudyDetailProps) {
   const prefersReducedMotion = useReducedMotion()
+  const [selectedImage, setSelectedImage] = useState<ImageWithCaption | null>(null)
 
   // Helper to get impact items based on mode
   const getImpactItems = () => {
@@ -251,9 +254,10 @@ export default function CaseStudyDetail({
                           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                           viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
                           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: 0.2 }}
-                          className="mt-6 mb-8 w-full"
+                          className="mt-6 mb-8 w-full cursor-pointer"
+                          onClick={() => setSelectedImage(awardsImage)}
                         >
-                          <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                          <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                             <div className="relative w-full">
                               <Image
                                 src={awardsImage.url}
@@ -402,13 +406,13 @@ export default function CaseStudyDetail({
                 <h3 className="font-semibold text-text mb-2">{decision.title}</h3>
                 <p className="text-text/80">{decision.description}</p>
                 {decision.image && (
-                  <div className="mt-4">
+                  <div className="mt-4 cursor-pointer" onClick={() => setSelectedImage(decision.image!)}>
                     <Image
                       src={decision.image.url}
                       alt={decision.image.alt}
                       width={1200}
                       height={800}
-                      className="rounded-lg border border-text/10"
+                      className="rounded-lg border border-text/10 transition-transform hover:scale-[1.01]"
                     />
                     {decision.image.caption && (
                       <p className="text-sm text-text/60 mt-2 italic text-center">{decision.image.caption}</p>
@@ -668,6 +672,9 @@ export default function CaseStudyDetail({
           <ImageGallery images={caseStudy.images} />
         </motion.section>
       )}
+
+      {/* Image Modal */}
+      <ImageModal image={selectedImage} onClose={() => setSelectedImage(null)} />
     </div>
   )
 }

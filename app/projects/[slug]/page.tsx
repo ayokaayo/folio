@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { notFound } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -9,6 +10,7 @@ import { ANIMATION, ROUTES, getProjectRoute } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import { getNextItem } from '@/lib/utils/getNextItem'
 import NextItemCard from '@/components/NextItemCard'
+import ImageModal from '@/components/ImageModal'
 
 interface ProjectDetailPageProps {
   params: {
@@ -19,6 +21,7 @@ interface ProjectDetailPageProps {
 export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const prefersReducedMotion = useReducedMotion()
   const project = getProjectBySlug(params.slug)
+  const [selectedImage, setSelectedImage] = useState<{ url: string; alt: string; caption?: string } | null>(null)
 
   // Get next project for navigation
   const nextProject = project ? getNextItem(project.id, projects) : null
@@ -125,13 +128,13 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           )}
 
           {project.imageUrl && (
-            <div className="mt-8 mb-6">
+            <div className="mt-8 mb-6 cursor-pointer" onClick={() => setSelectedImage({ url: project.imageUrl, alt: project.imageAlt || project.title })}>
               <Image
                 src={project.imageUrl}
                 alt={project.imageAlt || project.title}
                 width={2400}
                 height={1600}
-                className="w-full rounded-lg"
+                className="w-full rounded-lg transition-transform hover:scale-[1.01]"
                 quality={90}
               />
             </div>
@@ -218,9 +221,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                           whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: '-100px' }}
                           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
-                          className="mt-6 w-full"
+                          className="mt-6 w-full cursor-pointer"
+                          onClick={() => setSelectedImage({ url: feature.image.url, alt: feature.image.alt, caption: feature.image.caption })}
                         >
-                          <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                          <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                             <div className="relative w-full">
                               <Image
                                 src={feature.image.url}
@@ -257,9 +261,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                         whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-100px' }}
                         transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
-                        className={isReadingImage ? "w-full max-w-[400px] mx-auto" : "w-full"}
+                        className={`${isReadingImage ? "w-full max-w-[400px] mx-auto" : "w-full"} cursor-pointer`}
+                        onClick={() => setSelectedImage({ url: img.url, alt: img.alt, caption: img.caption })}
                       >
-                        <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                        <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                           <div className="relative w-full">
                             <Image
                               src={img.url}
@@ -313,9 +318,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-100px' }}
                   transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
-                  className="mt-6 w-full"
+                  className="mt-6 w-full cursor-pointer"
+                  onClick={() => setSelectedImage({ url: project.craft.image.url, alt: project.craft.image.alt, caption: project.craft.image.caption })}
                 >
-                  <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                  <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                     <div className="relative w-full">
                       <Image
                         src={project.craft.image.url}
@@ -364,9 +370,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-100px' }}
                   transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
-                  className="mt-6 w-full m-0"
+                  className="mt-6 w-full m-0 cursor-pointer"
+                  onClick={() => setSelectedImage({ url: '/img/projects/exotica-radio/google-ranking.png', alt: 'Google search results showing exotica.radio ranking first', caption: 'First place with zero SEO effort' })}
                 >
-                  <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                  <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                     <div className="relative w-full">
                       <Image
                         src="/img/projects/exotica-radio/google-ranking.png"
@@ -442,9 +449,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-100px' }}
                       transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
-                      className={`w-full m-0 ${isMobileImage ? 'md:col-span-2 max-w-[400px] mx-auto' : ''}`}
+                      className={`w-full m-0 ${isMobileImage ? 'md:col-span-2 max-w-[400px] mx-auto' : ''} cursor-pointer`}
+                      onClick={() => setSelectedImage({ url: img.url, alt: img.alt, caption: img.caption })}
                     >
-                      <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                      <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                         <div className="relative w-full">
                           <Image
                             src={img.url}
@@ -483,6 +491,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           </div>
         )}
       </section>
+
+      {/* Image Modal */}
+      <ImageModal image={selectedImage} onClose={() => setSelectedImage(null)} />
     </main>
   )
 }
