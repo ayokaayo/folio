@@ -9,7 +9,7 @@ export const norma: SideProject = {
   year: '2024',
   title: 'Norma',
   subtitle: 'Legal workflow automation built for Philippine law firms that actually need it',
-  status: 'building',
+  status: 'prototype',
 
   // ─────────────────────────────────────────────────────────────
   // CARD DISPLAY
@@ -30,7 +30,7 @@ export const norma: SideProject = {
   // ─────────────────────────────────────────────────────────────
   links: [
     {
-      label: 'View Prototype',
+      label: 'Test the Prototype',
       url: 'https://norma-orcin.vercel.app/',
       type: 'live',
     },
@@ -91,14 +91,24 @@ export const norma: SideProject = {
 
     images: [
       {
-        url: '/img/projects/norma/workflow.png',
-        alt: 'Step-by-step workflow showing form selection, variable input, and AI enhancement',
-        caption: 'User selects a demand letter template, fills in case details, triggers AI enhancement',
+        url: '/img/projects/norma/library.png',
+        alt: 'Forms library showing categorized legal templates across practice areas',
+        caption: 'Template library organized by practice area with search and filtering. Each form shows category tags and descriptions so lawyers find what they need in seconds instead of scrolling through generic document lists.',
       },
       {
-        url: '/img/projects/norma/editor.png',
-        alt: 'Text editor with legal formatting controls and document structure',
-        caption: 'Custom editor handles Philippine legal document formatting standards',
+        url: '/img/projects/norma/form-filled.png',
+        alt: 'Employment agreement form with variable fields populated',
+        caption: 'Variables filled but not yet enhanced. Left panel captures case-specific details while the right panel shows the document structure in real time. This is the baseline before AI refinement.',
+      },
+      {
+        url: '/img/projects/norma/form-processing.png',
+        alt: 'AI processing indicator showing document generation in progress',
+        caption: 'Claude processes the document on the server. Takes 2-5 seconds. Users see progress instead of waiting blind. Transparency builds trust when dealing with legal work.',
+      },
+      {
+        url: '/img/projects/norma/form-enhanced.png',
+        alt: 'AI-enhanced document showing professional legal structure and citations',
+        caption: 'Enhanced output with proper legal structure, citations, and professional language. AI adds succession provisions, triggering event definitions, and standard legal phrasing that would take 30+ minutes to draft manually.',
       },
     ],
   },
@@ -120,8 +130,8 @@ export const norma: SideProject = {
 
     image: {
       url: '/img/projects/norma/architecture.png',
-      alt: 'Database schema showing modular structure with forms, matters, and documents',
-      caption: 'Modular architecture allows feature expansion without schema rewrites',
+      alt: 'Database schema showing modular structure with forms, matters, documents, and user tables',
+      caption: 'Modular schema designed for expansion from day one. Forms, matters, and documents connect logically but remain independent. Adding calendar or billing modules later requires zero schema rewrites. This architecture decision saved weeks of refactoring.',
     },
   },
 
@@ -166,19 +176,34 @@ export const norma: SideProject = {
   // ─────────────────────────────────────────────────────────────
   gallery: [
     {
-      url: '/img/projects/norma/forms-library.png',
-      alt: 'Forms library showing categorized legal templates',
-      caption: 'Template library organized by practice area',
+      url: '/img/projects/norma/editor.png',
+      alt: 'Professional text editor showing employment agreement with variable substitution',
+      caption: 'Custom editor built specifically for legal formatting requirements. Handles numbered articles, proper indentation, signature blocks, and variable substitution. Font flexibility ensures documents print correctly regardless of system settings. This component took the longest to get right but makes everything else possible.',
     },
     {
-      url: '/img/projects/norma/matter-detail.png',
-      alt: 'Matter detail page showing client info, documents, and saved variables',
-      caption: 'Matter management centralizes case information and documents',
+      url: '/img/projects/norma/documents-detail.png',
+      alt: 'Document detail panel showing version history and status management',
+      caption: 'Full document lifecycle tracking. Version history shows every edit with timestamps and attribution. Status progression from draft to reviewed to executed to filed. Download as PDF or TXT. Small firms lose track of which version was sent to court. This prevents that entirely.',
     },
     {
-      url: '/img/projects/norma/ai-enhancement.png',
-      alt: 'Before and after comparison of document text with AI enhancement',
-      caption: 'AI enhancement refines language while maintaining legal accuracy',
+      url: '/img/projects/norma/matter-light.png',
+      alt: 'Matter creation modal for organizing cases and clients',
+      caption: 'Matter management connects documents to cases and clients. Auto-generated matter numbers, practice area tagging, status tracking. Once you create a matter, all its variables carry forward to future documents. No retyping client names or addresses across multiple filings.',
+    },
+    {
+      url: '/img/projects/norma/matter-dark.png',
+      alt: 'Matter management interface in dark mode showing case organization and client details',
+      caption: 'Dark mode interface for extended work sessions. Same matter management with reduced eye strain. Lawyers working late nights on case prep appreciate the visual comfort without sacrificing functionality.',
+    },
+    {
+      url: '/img/projects/norma/new-template.png',
+      alt: 'Template creation interface with variable detection and firm-wide sharing',
+      caption: 'Lawyers can create their own templates with variable placeholders. System auto-detects variables from the text or lets you add them manually. Share firm-wide or keep private. This turns institutional knowledge into reusable infrastructure instead of locked in senior partner brains.',
+    },
+    {
+      url: '/img/projects/norma/settings.png',
+      alt: 'Settings panel showing font customization and AI prompt configuration',
+      caption: 'Font control and AI prompt customization. Users pick their preferred typeface for document rendering. Advanced users can modify the AI enhancement prompts to match their firm\'s style. Most legal software forces one way of working. This adapts to how each firm actually operates.',
     },
   ],
 }

@@ -90,9 +90,9 @@ const exampleProject: SideProject = {
 // Add your imported projects here in display order
 // ─────────────────────────────────────────────────────────────
 export const projects: SideProject[] = [
+  norma,
   exoticaRadio,
   codexTarot,
-  norma,
   // Add more projects here:
   // myProject,
   // anotherProject,

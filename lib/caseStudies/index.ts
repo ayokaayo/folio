@@ -11,9 +11,9 @@ export { dropdownBuilder, smsCharacters, timeManagement, fastTrackAI }
 
 // Export aggregated array
 export const caseStudies: CaseStudy[] = [
-  dropdownBuilder,
-  smsCharacters,
-  timeManagement,
   fastTrackAI,
+  timeManagement,
+  smsCharacters,
+  dropdownBuilder,
 ]
 
