@@ -1,12 +1,23 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
+import { copyEmailToClipboard } from '@/lib/utils/email'
 
 export default function AboutPage() {
   const prefersReducedMotion = useReducedMotion()
+  const [copied, setCopied] = useState(false)
+
+  const handleCopyEmail = async () => {
+    const success = await copyEmailToClipboard()
+    if (success) {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
 
   return (
     <main id="main-content" className="pt-20 md:pt-24">
@@ -161,15 +172,26 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-4">
-              <a
-                href="mailto:hi@miguelangelo.tech"
+              <button
+                onClick={handleCopyEmail}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-text/10 bg-background hover:bg-text/5 hover:border-text/20 transition-colors duration-200 text-base font-medium text-text"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                Email me
-              </a>
+                {copied ? (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    Copy email
+                  </>
+                )}
+              </button>
               <a
                 href="https://www.linkedin.com/in/ferreiramiguelangelo/"
                 target="_blank"

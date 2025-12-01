@@ -114,7 +114,8 @@ export default function Home() {
             </h2>
           </div>
           <p className="text-base text-text/70 mb-8 max-w-2xl">
-            I am passionate about building products that solve everyday problems for people—it&apos;s what motivates me every day. Here are some of the recent apps I&apos;ve developed
+          Things I build when the constraints are my own.<br />
+          Smaller products, faster cycles, full creative control.
           </p>
           <div className="space-y-8">
             {sideProjects && sideProjects.length > 0 ? (

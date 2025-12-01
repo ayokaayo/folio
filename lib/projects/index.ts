@@ -16,6 +16,7 @@ import type { SideProject, SideProjectCard } from './types'
 // IMPORT YOUR PROJECTS HERE
 // ─────────────────────────────────────────────────────────────
 import { exoticaRadio } from './exotica-radio'
+import { codexTarot } from './codex-tarot'
 // import { anotherProject } from './another-project'
 
 // ─────────────────────────────────────────────────────────────
@@ -24,6 +25,7 @@ import { exoticaRadio } from './exotica-radio'
 // ─────────────────────────────────────────────────────────────
 export const projects: SideProject[] = [
   exoticaRadio,
+  codexTarot,
   // Add more projects here:
   // myProject,
   // anotherProject,
