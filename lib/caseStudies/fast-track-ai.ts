@@ -3,7 +3,7 @@ import type { CaseStudy } from './types'
 export const fastTrackAI: CaseStudy = {
   id: 'fast-track-ai',
   title: 'Fast Track AI',
-  subtitle: 'Inside the AI flagship that stopped being a demo and started running campaigns',
+  subtitle: `“It's not a module or a feature; it's a platform. And it's the industry's first natural language CRM” — [Simon Lidzén, CEO](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/)`,
   hashtag: '#AI Product',
   company: 'Fast Track AI',
   year: '2025',

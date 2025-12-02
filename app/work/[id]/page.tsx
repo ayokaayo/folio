@@ -13,6 +13,7 @@ import { ROUTES, getWorkRoute } from '@/lib/constants'
 import { getNextItem } from '@/lib/utils/getNextItem'
 import { calculateCaseStudyReadingTime } from '@/lib/utils/readingTime'
 import NextItemCard from '@/components/NextItemCard'
+import { parseMarkdownLinks } from '@/lib/utils/parseMarkdownLinks'
 
 interface WorkDetailPageProps {
   params: {
@@ -82,7 +83,7 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
             {caseStudy.title}
           </h1>
           <p className="text-lg md:text-xl text-text/80 max-w-3xl leading-relaxed">
-            {caseStudy.subtitle}
+            {parseMarkdownLinks(caseStudy.subtitle)}
           </p>
           {caseStudy.imageUrl && (
             <div className="mt-8 mb-6">
