@@ -40,11 +40,11 @@ export default function Navigation() {
             aria-label="Miguel Angelo home"
           >
             <Image
-              src="/img/brand/logo.svg"
-              alt="Miguel Angelo logo"
-              width={190}
-              height={115}
-              className="h-6 w-auto"
+              src="/cv/MAF.jpg"
+              alt="Miguel Angelo Ferreira"
+              width={50}
+              height={50}
+              className="w-[50px] h-[50px] rounded-full object-cover"
               priority
             />
           </Link>

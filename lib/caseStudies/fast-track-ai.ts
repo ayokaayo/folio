@@ -31,7 +31,7 @@ export const fastTrackAI: CaseStudy = {
     deepItems: [
       'Shipped a functional MVP in approximately 2 months, working alongside CPO, CTO, Head of Product, and a team of engineers including a data scientist and four developers. This timeline required ruthless prioritization and clear scope boundaries from day one, with daily syncs keeping everyone aligned.',
       'The rollout reached all live partners, with roughly 25% actively using the feature within the first days after launch. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
-      'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting," capturing the dual benefit of faster insights and simpler workflows.',
+      'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting,"',
       'Campaign creation now supports automatic content generation and translation across markets, turning what was hours of configuration into a single request. The AI generates SMS content, schedules activities per market with appropriate local timing, and pre-fills existing modals so users can review before committing.',
     ],
     images: [
@@ -181,10 +181,6 @@ export const fastTrackAI: CaseStudy = {
         caption: 'Trust infrastructure: Every error has a conversational explanation and a specific recovery path, AI takes responsibility',
       },
     },
-    {
-      title: 'Contextual Next Steps and Follow-ups',
-      description: 'After any AI response, contextual action buttons appear based on what was just completed, reducing the gap between insight and next action. After analysis: chips for "Compare with previous months", "Player behavior analysis", "Game performance details". The suggestions are contextually relevant rather than generic, anticipating what users typically want to know after seeing specific types of results. This keeps users in flow rather than requiring them to formulate follow-up queries from scratch.',
-    },
   ],
 
   implementation: {
@@ -329,7 +325,7 @@ export const fastTrackAI: CaseStudy = {
   process: {
     title: 'Process',
     content: [
-      'Strategy: Participated in ideation sessions during weeks one through three. Defined scope boundaries early with reporting and analysis as Phase 1 focus, campaign creation as Phase 2. Established extension architecture over replacement as the core principle that would guide all subsequent decisions.',
+      'Strategy: Participated in ideation sessions during weeks one through three. Defined scope boundaries early with reporting and analysis as Phase 1 focus, campaign creation as Phase 2. Established extension architecture over replacement as the core principle that would guide all following decisions.',
       'Research: Used LangChain testing sessions as design research, treating every failure mode as a requirement for error handling. Partner feedback from adjacent features informed expectations about what CRM teams wanted to do but could not. No formal user research timeline was available given speed requirements, so we relied on internal expertise and rapid iteration.',
       'Design: Rapid prototyping with daily engineering feedback kept design and development synchronized. Focused on trust patterns first including error handling, scope communication, and confirmation flows because these had to be right from day one. Visual polish was explicitly deferred to post-MVP iteration.',
       'Development: Eight-week sprint with continuous designer-engineer collaboration. Decisions made in prototype reviews rather than specification handoffs, which accelerated the feedback loop. Scope adjusted weekly based on technical reality and testing findings, with clear communication about what was shipping versus deferred.',
