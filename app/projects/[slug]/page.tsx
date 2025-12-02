@@ -128,7 +128,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           )}
 
           {project.imageUrl && (
-            <div className="mt-8 mb-6 cursor-pointer" onClick={() => setSelectedImage({ url: project.imageUrl, alt: project.imageAlt || project.title })}>
+            <div className="mt-8 mb-6 cursor-pointer" onClick={() => setSelectedImage({ url: project.imageUrl!, alt: project.imageAlt || project.title })}>
               <Image
                 src={project.imageUrl}
                 alt={project.imageAlt || project.title}
@@ -222,7 +222,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                           viewport={{ once: true, margin: '-100px' }}
                           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
                           className="mt-6 w-full cursor-pointer"
-                          onClick={() => setSelectedImage({ url: feature.image.url, alt: feature.image.alt, caption: feature.image.caption })}
+                          onClick={() => setSelectedImage({ url: feature.image!.url, alt: feature.image!.alt, caption: feature.image!.caption })}
                         >
                           <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                             <div className="relative w-full">
@@ -319,7 +319,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   viewport={{ once: true, margin: '-100px' }}
                   transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
                   className="mt-6 w-full cursor-pointer"
-                  onClick={() => setSelectedImage({ url: project.craft.image.url, alt: project.craft.image.alt, caption: project.craft.image.caption })}
+                  onClick={() => setSelectedImage({ url: project.craft!.image!.url, alt: project.craft!.image!.alt, caption: project.craft!.image!.caption })}
                 >
                   <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                     <div className="relative w-full">
