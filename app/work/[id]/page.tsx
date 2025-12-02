@@ -23,7 +23,7 @@ interface WorkDetailPageProps {
 export default function WorkDetailPage({ params }: WorkDetailPageProps) {
   const prefersReducedMotion = useReducedMotion()
   const caseStudy = caseStudies.find((cs) => cs.id === params.id)
-  const [densityMode, setDensityMode] = useState<'quick' | 'deep'>('quick')
+  const [densityMode, setDensityMode] = useState<'quick' | 'deep'>('deep')
 
   // Get next case study for navigation
   const nextCaseStudy = caseStudy ? getNextItem(caseStudy.id, caseStudies) : null

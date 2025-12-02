@@ -12,6 +12,7 @@ import Image from 'next/image'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import DensityToggle from './DensityToggle'
 import ImageModal from './ImageModal'
+import { parseMarkdownLinks } from '@/lib/utils/parseMarkdownLinks'
 
 const BeforeAfterImage = dynamic(() => import('./BeforeAfterImage'), {
   ssr: false
@@ -246,7 +247,7 @@ export default function CaseStudyDetail({
                     <li key={`impact-${index}-${item.substring(0, 20)}`}>
                       <div className="text-text/80 flex items-start">
                         <span className="text-primary mr-3">•</span>
-                        <span>{item}</span>
+                        <span>{parseMarkdownLinks(item)}</span>
                       </div>
                       {isAwardsItem && awardsImage && (
                         <motion.figure
@@ -515,9 +516,23 @@ export default function CaseStudyDetail({
             {caseStudy.process.title}
           </h2>
           <div className="space-y-4 text-text/80">
-            {caseStudy.process.content.map((item, index) => (
-              <p key={`process-${index}-${item.substring(0, 20)}`}>{item}</p>
-            ))}
+            {caseStudy.process.content.map((item, index) => {
+              // Split at the first colon to separate label from content
+              const colonIndex = item.indexOf(':')
+              if (colonIndex > 0) {
+                const label = item.substring(0, colonIndex + 1)
+                const content = item.substring(colonIndex + 1).trim()
+                return (
+                  <p key={`process-${index}-${item.substring(0, 20)}`}>
+                    <span className="font-bold text-text">{label}</span> {parseMarkdownLinks(content)}
+                  </p>
+                )
+              }
+              // Fallback if no colon found
+              return (
+                <p key={`process-${index}-${item.substring(0, 20)}`}>{parseMarkdownLinks(item)}</p>
+              )
+            })}
           </div>
           <SectionImageGallery images={caseStudy.process?.images} />
         </motion.section>

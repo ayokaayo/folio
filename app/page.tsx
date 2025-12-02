@@ -2,6 +2,7 @@
 
 // Home page - Miguel Angelo's portfolio landing
 // Every pixel here was crafted with intention. Welcome! 👋
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import CaseStudyCard from '@/components/CaseStudyCard'
@@ -18,18 +19,21 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 export default function Home() {
   const prefersReducedMotion = useReducedMotion()
   
-  // Find case studies inside component to avoid hydration issues
-  const timeManagement = caseStudies?.find((cs) => cs.id === 'time-management')
-  const fastTrackAI = caseStudies?.find((cs) => cs.id === 'fast-track-ai')
-  const selectedWorks = [timeManagement, fastTrackAI].filter(
-    (cs): cs is NonNullable<typeof cs> => cs !== undefined
-  )
+  // Find case studies inside component with stable order to avoid hydration issues
+  const selectedWorks = useMemo(() => {
+    const order = ['time-management', 'fast-track-ai']
+    return order
+      .map(id => caseStudies.find(cs => cs.id === id))
+      .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)
+  }, [])
   
   // Filter and order projects for homepage: norma, exotica-radio
-  const selectedProjects = [
-    sideProjects?.find((p) => p.id === 'norma'),
-    sideProjects?.find((p) => p.id === 'exotica-radio'),
-  ].filter((p): p is NonNullable<typeof p> => p !== undefined)
+  const selectedProjects = useMemo(() => {
+    const order = ['norma', 'exotica-radio']
+    return order
+      .map(id => sideProjects?.find(p => p.id === id))
+      .filter((p): p is NonNullable<typeof p> => p !== undefined)
+  }, [])
 
   return (
     <main id="main-content" className="pt-20 md:pt-24">

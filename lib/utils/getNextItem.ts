@@ -1,26 +1,26 @@
 /**
- * Generic utility function to get a random next item from an array
- * Excludes the current item by ID
+ * Generic utility function to get the next item from an array in a deterministic order
+ * Excludes the current item by ID and returns the next item in the array
  * 
  * @param currentId - The ID of the current item to exclude
  * @param items - Array of items with an `id` field
- * @returns A random item from the array (excluding current), or null if no other items exist
+ * @returns The next item in the array (excluding current), wrapping to the first if at the end, or null if no other items exist
  */
 export function getNextItem<T extends { id: string }>(
   currentId: string,
   items: T[]
 ): T | null {
-  // Filter out the current item
-  const otherItems = items.filter((item) => item.id !== currentId)
+  // Find the index of the current item
+  const currentIndex = items.findIndex((item) => item.id === currentId)
   
-  // Return null if no other items exist
-  if (otherItems.length === 0) {
+  // Return null if current item not found or no other items exist
+  if (currentIndex === -1 || items.length <= 1) {
     return null
   }
   
-  // Randomly select from remaining items
-  const randomIndex = Math.floor(Math.random() * otherItems.length)
-  return otherItems[randomIndex]
+  // Get the next item, wrapping around to the first if at the end
+  const nextIndex = (currentIndex + 1) % items.length
+  return items[nextIndex]
 }
 
 

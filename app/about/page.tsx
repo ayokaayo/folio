@@ -39,8 +39,7 @@ export default function AboutPage() {
             </p>
             <p>
               My path started in graphic design but my strongest contributions have been in design ops, product
-              strategy, and systems thinking. I can code and speak developer fluently, which helps when you&apos;re the
-              only designer working with engineering teams.
+              strategy, and systems thinking. I can code and "speak dev" fluently, which helps a lot when working with engineering teams.
             </p>
             <p>
               I tend to stay long at companies despite moving countries frequently. Unbabel (ML-powered localization),
