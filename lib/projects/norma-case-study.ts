@@ -9,7 +9,7 @@ export const norma: SideProject = {
   year: '2024',
   title: 'Norma',
   subtitle: 'Legal workflow automation built for Philippine law firms that actually need it',
-  status: 'prototype',
+  status: 'building',
 
   // ─────────────────────────────────────────────────────────────
   // CARD DISPLAY
