@@ -45,11 +45,19 @@ Long tenure despite frequent relocations. Stability in chaotic environments.
 ### **Fast Track AI** — *Senior Product Designer*
 **Barcelona / Malta · Feb 2021 – Present**  
 https://www.fasttrack.ai  
-*iGaming CRM platform serving 100+ global operators*
+*iGaming CRM platform serving 160+ live global operators*
 
 • **Scaled product design through 15x revenue growth** and 5x team expansion (40 to 200 people) while maintaining NPS 90+ across enterprise client base
 
 • **Contributed to multiple industry awards** including AIBC 2025 Best AI Solution, SiGMA Americas 2025 Best Retention Partner, and SBC Latin America 2024 Best Acquisition & Retention
+
+• **Acted as UI quality gate for the back-office product**; product leadership explicitly routed all UI-impacting tasks through me for review to maintain visual consistency
+
+• **Led design mentorship** hosting knowledge-sharing sessions on design review for PMs, QA, and front-end developers to improve cross-functional quality
+
+• **Drove 25% partner adoption within days** of Fast Track AI launch (42 of 160 live partners), with "sticky" daily usage reported as partners returned daily
+
+• **Reduced support ticket volume** through UX and flow improvements; internal metrics showed significant decrease in both absolute tickets and tickets per environment
 
 • **Led localization strategy for South America and APAC market entries**, designing timezone management, multi-language support (pt-BR, es-ES, zh-CN), and regional compliance features
 
@@ -57,11 +65,11 @@ https://www.fasttrack.ai
 
 • **Shipped the first AI agent integration** dedicated to iGaming CRM, capable of real-time data analysis, reporting, and campaign creation
 
-• **Rebuilt critical product flows and design system components** while managing extensive technical debt, modernizing UI across CRM modules and improving development velocity through systematic component documentation
+• **Owned UX for safety-critical flows** including dangerous time triggers, reliability scoring, and complex feature states (Meta audiences, Singularity segment criteria)
 
-• **Improved internal operations** through tool redesign and workflow automation, reducing content production costs and support burden on customer success teams
+• **Rebuilt critical product flows and design system components** while managing extensive technical debt, modernizing UI across CRM modules
 
-• **Collaborated directly with senior management** on flagship feature roadmap, balancing business priorities, technical constraints, and user needs across a complex enterprise product
+• **Collaborated directly with senior management** on flagship feature roadmap, balancing business priorities, technical constraints, and user needs
 
 ---
 

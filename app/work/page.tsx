@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyCard from '@/components/CaseStudyCard'
@@ -8,6 +9,14 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 
 export default function WorkPage() {
   const prefersReducedMotion = useReducedMotion()
+
+  // Ensure stable order: fast-track-ai, time-management, sms-characters, dropdown-builder
+  const orderedCaseStudies = useMemo(() => {
+    const order = ['fast-track-ai', 'time-management', 'sms-characters', 'dropdown-builder']
+    return order
+      .map(id => caseStudies.find(cs => cs.id === id))
+      .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)
+  }, [])
 
   return (
     <main id="main-content" className="pt-20 md:pt-24">
@@ -36,7 +45,7 @@ export default function WorkPage() {
           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
           className="space-y-8"
         >
-          {caseStudies.map((caseStudy, index) => (
+          {orderedCaseStudies.map((caseStudy, index) => (
             <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} index={index} />
           ))}
         </motion.div>
