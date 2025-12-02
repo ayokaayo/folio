@@ -81,7 +81,7 @@ export const exoticaRadio: SideProject = {
     features: [
       {
         title: 'Single-Page Interface',
-        description: 'One page. One button. Background images rotate through curated photography from Unsplash, evoking the feeling of travel and discovery. No about page, no contact form, no text to scroll through. The music is the content.',
+        description: 'One page. One button. Background images rotate through curated photography from Unsplash, feeling of travel and discovery. No about page, no contact form, no text to scroll through. The music is the content.',
       },
       {
         title: 'Weighted Playlist System',
@@ -118,7 +118,7 @@ export const exoticaRadio: SideProject = {
       'Self-hosted Shoutcast instead of using a streaming platform. More infrastructure to manage, but no middleman, no fees, no terms of service that could change.',
     ],
 
-    exploration: 'The hardest part was making 2,000+ tracks from wildly different genres sound cohesive. Funk into Afrobeat into space-age pop into Turkish psych. It can feel jarring if sequenced wrong. I spent months tweaking the weighting system, adjusting energy curves, and learning what transitions work. The solution wasn\'t technical; it was curatorial. I had to think like a DJ programming a radio station, not an engineer building a shuffle algorithm.',
+    exploration: 'The hardest part was making 2,000+ tracks from wildly different genres sound cohesive. Funk into Afrobeat into space-age pop into Turkish psych. It can feel jarring if sequenced wrong. I spent months tweaking the weighting system, adjusting energy curves, and learning what transitions work. The solution wasn\'t technical, it was curatorial. I had to think like a DJ programming a radio station, not an engineer building a shuffle algorithm.',
 
     image: {
       url: '/img/projects/exotica-radio/listeners.png',
@@ -135,7 +135,7 @@ export const exoticaRadio: SideProject = {
 
     notes: [
       'Bars and coffee shops have written to say they\'ve been playing it nonstop for years and consider it their official station',
-      'Listeners from every continent. The metrics dashboard shows a genuinely global spread',
+      'Listeners from every continent. The metrics dashboard shows a global spread',
       'Gig invitations came through the radio that never would have happened through Spotify playlists',
       'Listed on myTuner, liveonlineradio.net, and other aggregators. They found me, I didn\'t pitch them',
     ],

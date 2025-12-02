@@ -56,7 +56,7 @@ export const codexTarot: SideProject = {
   // CONTEXT
   // ─────────────────────────────────────────────────────────────
   context: {
-    background: 'Most tarot apps are stuck in the early 2000s. Generic text generators that repeat the same descriptions regardless of what you ask or what cards appear together. Worse, almost none focus on the Marseilles Tarot, the older tradition with richer visual symbolism. Everything caters to Rider-Waite, which is more mainstream but, to me, less interesting. The gap wasn\'t just quality. It was the complete absence of context-awareness. A reading should respond to your question, not just list card meanings.',
+    background: 'Most tarot apps are stuck in the early 2000s. Generic text generators that repeat the same descriptions regardless of what you ask or what cards appear together. Worse, almost none focus on the Marseilles Tarot, the older tradition with richer visual symbolism. Everything seems to be about the Rider-Waite deck, which is more mainstream but less interesting.. The gap wasn\'t just quality. It was the complete absence of context-awareness. A reading should respond to your question, not just list card meanings.',
 
     opportunity: 'LLMs finally made it possible to build what I had in mind. Not a lookup table, but a system that could articulate relationships between cards, notice patterns, and respond to the specific situation a user describes. The challenge was training it properly. Generic prompts produce generic readings. I\'d need to write the training material myself.',
 
@@ -113,7 +113,7 @@ export const codexTarot: SideProject = {
       'Abandoned an initial vector/embedding approach. It hallucinated badly. Structured YAML with explicit card data fed directly into prompts worked far better.',
     ],
 
-    exploration: 'The hardest part wasn\'t the code. It was the research. Writing accurate, nuanced documentation for 78 cards across multiple dimensions: upright meaning, reversed implications, numerology, suit relationships, visual symbolism. I had to become a competent reader myself to write training material that would produce competent readings. The books I went through disagreed with each other constantly. Synthesising a coherent system from contradictory sources was its own challenge.',
+    exploration: 'The hardest part wasn\'t the code. It was the research. Writing accurate, nuanced documentation for 78 cards across multiple dimensions: upright meaning, reversed implications, numerology, suit relationships, visual symbolism. I became a decent reader myself to write material that would produce good readings. The books I went through disagreed with each other constantly. Synthesising a coherent system from contradictory sources was its own challenge.',
 
     image: {
       url: '/img/projects/codex-tarot/data.png',
