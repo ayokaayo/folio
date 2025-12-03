@@ -31,7 +31,7 @@ export default function WorkPage() {
             Work
           </h1>
           <p className="text-base md:text-lg text-text/70 max-w-2xl">
-            Here's what I've been recently working on.
+            Here’s what I’ve been recently working on.
           </p>
         </motion.div>
       </section>
