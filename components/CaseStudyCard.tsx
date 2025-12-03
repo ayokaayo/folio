@@ -59,7 +59,7 @@ export default function CaseStudyCard({ caseStudy, index = 0 }: CaseStudyCardPro
             <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-text mb-4">
               {caseStudy.title}
             </h3>
-            <p className="text-base md:text-lg text-text/80 mb-6 leading-relaxed">
+            <p className="text-base md:text-lg text-text/80 leading-relaxed">
               {stripMarkdownLinks(caseStudy.subtitle)}
             </p>
             <div className="inline-flex items-center gap-2 text-text font-semibold text-sm uppercase tracking-wide group-hover:gap-3 transition-all duration-300">

@@ -31,7 +31,7 @@ export default function WorkPage() {
             Work
           </h1>
           <p className="text-base md:text-lg text-text/70 max-w-2xl">
-            Here are some examples of how I combine workshop, data and a growth mindset to design products.
+            Here's what I've been recently working on.
           </p>
         </motion.div>
       </section>
