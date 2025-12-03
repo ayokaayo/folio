@@ -3,7 +3,7 @@ import type { CaseStudy } from './types'
 export const fastTrackAI: CaseStudy = {
   id: 'fast-track-ai',
   title: 'Fast Track AI',
-  subtitle: `"It's not a module or a feature; it's a platform. And it's the industry's first natural language CRM" — Simon Lidzén, CEO`,
+  subtitle: '“It’s not a module or a feature; it’s a platform. And it’s the industry’s first natural language CRM” — Simon Lidzén, CEO, quoted fom [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/)',
   hashtag: '#AI Product',
   company: 'Fast Track AI',
   year: '2025',
@@ -20,7 +20,7 @@ export const fastTrackAI: CaseStudy = {
       'Rolled out platform-wide, with roughly 25% of partners actively using the feature within the first days after launch and returning daily',
       'Partners report that data analysis which previously took days passing between CRM and BI teams now happens in minutes through natural conversation',
       'Campaign creation across multiple markets simplified from hours of manual configuration to a single natural language request with automatic localization',
-      'Featured in iGaming Future and EngageHut following the September 2025 launch',
+      'Featured in [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/) and [EngageHut](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/) following the September 2025 launch',
     ],
     quickItems: [
       '2-month MVP with CPO, CTO, Head of Product',
@@ -331,7 +331,7 @@ export const fastTrackAI: CaseStudy = {
       'Design: Rapid prototyping with daily engineering feedback kept design and development synchronized. Focused on trust patterns first including error handling, scope communication, and confirmation flows because these had to be right from day one. Visual polish was explicitly deferred to post-MVP iteration.',
       'Development: Eight-week sprint with continuous designer-engineer collaboration. Decisions made in prototype reviews rather than specification handoffs, accelerating the feedback loop. Scope adjusted weekly based on technical reality and testing findings.',
       'Validation: Rolled out platform-wide to all live partners in September 2025 with monitoring. Feedback collected via Slack and direct partner communication. Observed roughly 25% of partners active within first days and sticky daily usage patterns.',
-      'Post-launch: Featured in iGaming Future and reviewed by EngageHut following launch. Phase 2 campaign creation capabilities now released. Continuous iteration based on usage data and partner feedback continues.',
+      'Post-launch: Featured in [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/) and reviewed by [EngageHut](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/) following launch. Phase 2 campaign creation capabilities now released. Continuous iteration based on usage data and partner feedback continues.',
     ],
   },
 }
