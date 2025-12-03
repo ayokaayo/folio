@@ -34,8 +34,7 @@ export default function AboutPage() {
           <div className="space-y-6 text-base md:text-lg text-text/80 leading-relaxed">
             <p>
               I&apos;m a Senior Product Designer with 10+ years building B2B platforms. I&apos;ve worked
-              across startups and enterprises, from founding designer roles to leading design on products serving 24+
-              timezones globally.
+              across startups and enterprises, from founding designer roles to leading design on products serving globally.
             </p>
             <p>
               My path started in graphic design but I&apos;ve grown into design ops, product

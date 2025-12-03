@@ -6,7 +6,7 @@ import { CaseStudy } from '@/lib/caseStudies'
 import CardImage from './CardImage'
 import { ANIMATION, VIEWPORT, getWorkRoute } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
-import { parseMarkdownLinks } from '@/lib/utils/parseMarkdownLinks'
+import { stripMarkdownLinks } from '@/lib/utils/parseMarkdownLinks'
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy
@@ -60,7 +60,7 @@ export default function CaseStudyCard({ caseStudy, index = 0 }: CaseStudyCardPro
               {caseStudy.title}
             </h3>
             <p className="text-base md:text-lg text-text/80 mb-6 leading-relaxed">
-              {parseMarkdownLinks(caseStudy.subtitle)}
+              {stripMarkdownLinks(caseStudy.subtitle)}
             </p>
             <div className="inline-flex items-center gap-2 text-text font-semibold text-sm uppercase tracking-wide group-hover:gap-3 transition-all duration-300">
               {caseStudy.linkText.toUpperCase()}

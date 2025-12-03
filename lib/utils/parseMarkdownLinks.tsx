@@ -70,3 +70,12 @@ export function parseMarkdownLinks(text: string): React.ReactNode[] {
   return parts
 }
 
+/**
+ * Strips markdown link syntax [text](url) down to just "text".
+ * Useful when you want plain text (e.g. inside a clickable card)
+ * to avoid nested <a> tags that break hydration.
+ */
+export function stripMarkdownLinks(text: string): string {
+  return text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')
+}
+
