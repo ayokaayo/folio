@@ -12,7 +12,7 @@ import { projects as sideProjects } from '@/lib/projects'
 import { ANIMATION, ROUTES, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 
-// Selected works for homepage: Time Management and Fast Track AI
+// Selected works for homepage: Fast Track AI and Time Management
 // Dropdown Builder stays in works folder only
 // Moved inside component to avoid hydration issues
 
@@ -21,7 +21,7 @@ export default function Home() {
   
   // Find case studies inside component with stable order to avoid hydration issues
   const selectedWorks = useMemo(() => {
-    const order = ['time-management', 'fast-track-ai']
+    const order = ['fast-track-ai', 'time-management']
     return order
       .map(id => caseStudies.find(cs => cs.id === id))
       .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)
@@ -48,7 +48,7 @@ export default function Home() {
             Hi, I am Miguel Angelo.
           </h1>
           <p className="text-xl md:text-2xl text-text/70 max-w-2xl mb-8">
-            Senior Product Designer with 10+ years building B2B platforms for localization, iGaming, and AI-powered systems. Designing for scale, across markets and cultures.
+            Senior Product Designer with 10+ years building B2B platforms. Localization, iGaming, AI. Currently designing for scale across 24+ timezones.
           </p>
           <Link href={ROUTES.WORK} className="btn-cta group">
             View my work
