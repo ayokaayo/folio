@@ -48,7 +48,7 @@ export default function Home() {
             Hi, I am Miguel Angelo.
           </h1>
           <p className="text-xl md:text-2xl text-text/70 max-w-2xl mb-8">
-            Senior Product Designer with 10+ years building B2B platforms. Localization, iGaming, AI. Currently designing for scale across 24+ timezones.
+            Senior Product Designer | 10+ Years Crafting B2B Gaming & AI Solutions | Scaling User-Centric Design for Global Teams | Open to Collaborations
           </p>
           <Link href={ROUTES.WORK} className="btn-cta group">
             View my work

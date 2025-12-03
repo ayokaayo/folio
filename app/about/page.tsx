@@ -33,13 +33,13 @@ export default function AboutPage() {
 
           <div className="space-y-6 text-base md:text-lg text-text/80 leading-relaxed">
             <p>
-              I&apos;m a Senior Product Designer with 10+ years shipping B2B platforms at scale. I&apos;ve worked
+              I&apos;m a Senior Product Designer with 10+ years building B2B platforms. I&apos;ve worked
               across startups and enterprises, from founding designer roles to leading design on products serving 24+
               timezones globally.
             </p>
             <p>
-              My path started in graphic design but my strongest contributions have been in design ops, product
-              strategy, and systems thinking. I can code and &ldquo;speak dev&rdquo; fluently, which helps a lot when working with engineering teams.
+              My path started in graphic design but I&apos;ve grown into design ops, product
+              strategy, and systems thinking. I code and speak dev fluently, which changes how I collaborate with engineering.
             </p>
             <p>
               I tend to stay long at companies despite moving countries frequently. Unbabel (ML-powered localization),
@@ -74,7 +74,7 @@ export default function AboutPage() {
                 <h3 className="text-lg font-semibold text-text">Systems thinking &amp; strategy</h3>
               </div>
               <p className="text-base text-text/80 leading-relaxed">
-                I design for the whole system, not just the interface. My work on design foundations has reduced technical debt while shipping new features in parallel.
+                I design for the whole system, not just the screen in front of me. My work on design foundations has reduced technical debt while shipping new features in parallel.
               </p>
             </motion.div>
 
@@ -164,7 +164,7 @@ export default function AboutPage() {
                 <h3 className="text-lg font-semibold text-text">Cross-functional leadership</h3>
               </div>
               <p className="text-base text-text/80 leading-relaxed">
-                I act as the UI quality gate for our back-office product. Product leadership routes design decisions through me and asked me to run knowledge-sharing sessions on design review for PMs, QA, and engineers.
+                I act as the UI quality gate for our back-office product. Leadership asked me to run design review sessions for PMs, QA, and engineers.
               </p>
             </motion.div>
           </div>
@@ -182,8 +182,8 @@ export default function AboutPage() {
           <div className="space-y-6">
             <div className="p-6 rounded-lg border border-text/10 bg-brand-lilac">
               <p className="text-base md:text-lg text-text/80 leading-relaxed mb-4">
-                Based in Barcelona, open to remote positions. Relocating to Southeast Asia is on the horizon and will
-                happen for the right opportunity.
+                Based in Barcelona, open to remote positions. Relocating to Southeast Asia is on the horizon for
+                the right opportunity.
               </p>
               <p className="text-base md:text-lg text-text/80 leading-relaxed">
                 Looking for Senior Product Design roles in localization, iGaming, or B2B SaaS.

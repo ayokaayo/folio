@@ -18,7 +18,7 @@ export const smsCharacters: CaseStudy = {
     items: [
       'Zero billing disputes in 6+ months vs. multiple five-figure disputes previously',
       'Instant calculation, preview, and troubleshooting for all message types',
-      'Delivered a trustworthy solution fit for enterprise-grade operations',
+      'Built something partners actually trust for production campaigns',
       'New markets enabled through right-to-left text support (Arabic, Hebrew)',
       'Support tickets for SMS issues decreased notably',
       'Partner self-service improved dramatically with self-documenting interface',
@@ -29,7 +29,7 @@ export const smsCharacters: CaseStudy = {
       'SMS support tickets essentially eliminated',
     ],
     deepItems: [
-      'We went from multiple five-figure billing disputes in a six-month period to zero disputes in the six months after launch. The best metric for prevention is absence.',
+      'We went from multiple five-figure billing disputes in a six-month period to zero disputes in the six months after launch.',
       'The solution enabled instant calculation, preview, and troubleshooting for all message types, including complex scenarios with emojis, variables, and special characters.',
       'RTL text support opened Arabic and Hebrew markets that had previously been inaccessible. Partners who were composing messages externally could now work entirely within the platform.',
       'Support tickets for SMS issues dropped significantly, and partner self-service improved dramatically because the interface now documented itself through contextual tooltips and warnings.',
@@ -96,7 +96,7 @@ export const smsCharacters: CaseStudy = {
       {
         title: '1. Crisis as Business Case',
         decision: 'Leveraged billing disputes to secure resources for comprehensive solution rather than band-aid fixes',
-        rationale: 'Senior management initially viewed this as a minor technical issue until billing disputes revealed enterprise-level financial risk and market expansion barriers. Financial impact created undeniable urgency where user complaints had not. I continued development during regular sprints and kept working on a comprehensive solution, being ready when crisis struck validated the foresight.',
+        rationale: 'Senior management initially viewed this as a minor technical issue until billing disputes revealed enterprise-level financial risk and market expansion barriers. Financial impact created undeniable urgency where user complaints had not. I continued development during regular sprints and kept working on a comprehensive solution, so when crisis struck, we were ready.',
         result: 'Secured full team allocation for three-month sprint instead of incremental patches that would have created new vulnerabilities.',
       },
       {
@@ -296,7 +296,7 @@ export const smsCharacters: CaseStudy = {
   learned: {
     title: 'What I Learned',
     worked: [
-      'Crisis as business case proved essential. Financial impact created undeniable urgency where user complaints had not moved the needle. Quantifiable loss in five-figure disputes drove prioritisation in a way that usability concerns never had.',
+      'Using the crisis as a business case worked. Financial impact created undeniable urgency where user complaints had not moved the needle. Quantifiable loss in five-figure disputes drove prioritisation in a way that usability concerns never had.',
       'Defensive design philosophy paid off significantly. Estimated labelling and comprehensive warnings prevented new issues while solving the core problem. Building for worst-case scenarios prevented the cascading issues that partial fixes would have created.',
       'Constraint-driven research worked better than expected. Support tickets and billing disputes as primary data gave us real-world failure modes with business impact already quantified. We essentially crowdsourced usability testing from actual problems.',
     ],
@@ -314,8 +314,8 @@ export const smsCharacters: CaseStudy = {
         solution: 'Self-documenting interface reduced dependency on support team understanding GSM versus UCS-2 encoding. The tooltips taught users directly rather than requiring support escalation.',
       },
     ],
-    insight: "Prevention economics matter more than most teams realise. Reactive fixes cost multiples of proactive solutions, and early investment prevents compound costs. Simple surface features can hide significant technical depth affecting enterprise relationships. This project also taught me that constraints focus innovation: limited resources forced us to build only essential features, and that comprehensive approach prevented the partial-fix problems that plague incremental work. The foundation we built now enables future expansion into MMS with media preview, WhatsApp Business API integration, template libraries with pre-validated content, and eventually AI-powered message optimisation.",
-    quickInsight: "Prevention economics: reactive fixes cost multiples of proactive solutions. The best metric for prevention is absence.",
+    insight: "Prevention economics matter more than most teams realise. Reactive fixes cost multiples of proactive solutions, and early investment prevents compound costs. Simple surface features can hide significant technical depth affecting enterprise relationships. Constraints also focus innovation; limited resources forced us to build only essential features, and that comprehensive approach prevented the partial-fix problems that plague incremental work. The foundation now enables future expansion: MMS with media preview, WhatsApp Business API, template libraries with pre-validated content, eventually AI-powered message optimisation.",
+    quickInsight: "Prevention economics: reactive fixes cost multiples of proactive solutions.",
   },
 
   process: {

@@ -14,7 +14,7 @@ export const norma: SideProject = {
   // ─────────────────────────────────────────────────────────────
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
-  description: 'AI-powered practice management for small Philippine law firms. Handles document generation, matter tracking, and client management. Built because my wife\'s lawyer colleagues were using ChatGPT for legal work with zero awareness of compliance risks. Started as a weekend project, now closing in on something launchable.',
+  description: 'AI-powered practice management for small Philippine law firms. Handles document generation, matter tracking, and client management. Built because my wife\'s lawyer colleagues were using ChatGPT for legal work with zero awareness of compliance risks. Started as a side project, now a working proof of concept.',
   imageUrl: '/img/projects/norma/hero.png',
   imageAlt: 'Norma interface showing a demand letter being generated with AI enhancement',
 
@@ -42,7 +42,7 @@ export const norma: SideProject = {
   mission: {
     statement: 'Build legal automation that small Philippine firms can actually afford and trust.',
 
-    spark: 'My wife studied law. Over the years, conversations with her lawyer colleagues kept circling back to the same frustration: they wanted to adopt AI tools but had no idea where to start. Some were using ChatGPT, copying and pasting legal documents with zero awareness of compliance issues or data security. Others were just drowning in repetitive work. When a Canadian lawyer friend visited Barcelona and described the same problems, something clicked. I could build this. I had access to real users, real feedback, and the technical skills. Two months in, I have a prototype that makes lawyers say "when is this ready?" instead of "interesting idea."',
+    spark: 'My wife studied law. Over the years, conversations with her lawyer colleagues kept circling back to the same frustration: they wanted to adopt AI tools but had no idea where to start. Some were using ChatGPT, copying and pasting legal documents with zero awareness of compliance issues or data security. Others were just drowning in repetitive work. When a Canadian lawyer friend visited Barcelona and described the same problems, something clicked. I could build this. I had access to real users, real feedback, and the technical skills. Two months in, I have a working proof of concept and access to real users for feedback when it\'s ready.',
 
     intent: [
       'Create something purpose-built for Philippine law firms, not a patched-together Western tool',
@@ -57,7 +57,7 @@ export const norma: SideProject = {
   // CONTEXT
   // ─────────────────────────────────────────────────────────────
   context: {
-    background: 'Small law firms in the Philippines run on Word documents, Excel spreadsheets, and manual processes. The lawyers I spoke with juggle client management, document drafting, deadline tracking, and billing with no integrated system. Enterprise legal software exists but costs thousands of dollars per month and is built for US firms with different workflows and legal standards. Generic AI tools like ChatGPT are free and powerful, but lawyers paste sensitive client information into public interfaces with no encryption, no audit trails, and no understanding of the compliance risks. The gap is not features. It is trust, affordability, and local context.',
+    background: 'Small law firms in the Philippines run on Word documents, Excel spreadsheets, and manual processes. The lawyers I spoke with juggle client management, document drafting, deadline tracking, and billing with no integrated system. Enterprise legal software exists but costs thousands of dollars per month and is built for US firms with different workflows and legal standards. Generic AI tools like ChatGPT are free and powerful, but lawyers paste sensitive client information into public interfaces with no encryption, no audit trails, and no understanding of the compliance risks. The gap is not features; it\'s trust, affordability, and local context.',
 
     opportunity: 'Claude Sonnet 4 made this possible. Previous models either hallucinated legal citations or produced generic corporate language. Sonnet 4 can maintain Philippine jurisdiction awareness, understand local legal terminology, and generate documents that sound like they came from an actual lawyer. Combine that with a purpose-built interface, proper security, and local pricing, and suddenly small firms have access to tools that were only realistic for enterprise before.',
 
@@ -85,7 +85,7 @@ export const norma: SideProject = {
       },
       {
         title: 'Professional Text Editor',
-        description: 'This took longer than expected. Tried multiple solutions before landing on one that handles Philippine legal formatting requirements: proper indentation, numbered paragraphs, signature blocks, and font flexibility so documents print correctly. Legal documents have strict formatting standards. Generic rich text editors break those standards constantly.',
+        description: 'Tried multiple solutions before landing on one that handles Philippine legal formatting requirements: proper indentation, numbered paragraphs, signature blocks, and font flexibility so documents print correctly. Legal documents have strict formatting standards. Generic rich text editors break those standards constantly.',
       },
     ],
 
@@ -126,7 +126,7 @@ export const norma: SideProject = {
       'Next.js and Vercel for deployment. Zero infrastructure management. Focus on features, not servers.',
     ],
 
-    exploration: 'The text editor was brutal. Legal documents require specific formatting: numbered paragraphs, proper indentation, signature blocks positioned exactly right, font consistency for printing. Generic rich text editors failed these requirements constantly. I tried three solutions before finding one that worked. Added font flexibility so documents render and print impeccably regardless of system. This is not glamorous work, but it is the difference between a prototype and something lawyers will actually trust with client documents.',
+    exploration: 'The text editor was brutal. Legal documents require specific formatting: numbered paragraphs, proper indentation, signature blocks positioned exactly right, font consistency for printing. Generic rich text editors failed these requirements constantly. I tried three solutions before finding one that worked. Added font flexibility so documents render and print impeccably regardless of system. Not glamorous work, but it is the difference between a prototype and something lawyers will actually trust with client documents.',
 
     image: {
       url: '/img/projects/norma/architecture.png',
@@ -139,13 +139,12 @@ export const norma: SideProject = {
   // OUTCOME
   // ─────────────────────────────────────────────────────────────
   outcome: {
-    summary: 'Two lawyers have seen the prototype. Both asked when it will be ready. The system generates professional documents that match Philippine legal standards. The AI enhancement produces output that feels like it came from an experienced lawyer, not a template engine. Still needs more testing before I am comfortable releasing it for real casework. Legal work has zero tolerance for errors, so I am taking the validation phase seriously.',
+    summary: 'Working proof of concept that generates professional documents matching Philippine legal standards. The AI enhancement produces output that feels like it came from an experienced lawyer, not a template engine. Still building and testing before showing it to law firms. Legal work has zero tolerance for errors, so I am taking the validation phase seriously.',
 
     notes: [
-      'Consistent feedback: "This is amazing" and "When is it ready?" Not "interesting" or "maybe." Actual urgency.',
-      'The forms library concept landed immediately. Lawyers understood it in seconds.',
+      'The forms library concept makes sense immediately. Lawyers understand it in seconds.',
       'Text editor quality matters more than I expected. Lawyers notice formatting details.',
-      'Pricing model needs refinement. ₱2,500/month ($50 USD) feels fair but requires market validation.',
+      'Pricing model still being figured out. Needs to be affordable for solo practitioners but sustainable.',
     ],
   },
 
@@ -156,10 +155,9 @@ export const norma: SideProject = {
     insight: 'Building for a specific market with local context is a competitive advantage, not a limitation. Generic legal software ignores the Philippines. That creates opportunity. The lawyers I spoke with deserve tools built for them, not patchy Western software adapted poorly. That sentiment drove every design decision. Also, AI quality is downstream of implementation quality. The same Claude API that produces generic summaries can generate professional legal documents if you design the prompts and context correctly.',
 
     openQuestions: [
-      'Can this sustain itself financially at ₱2,500 ($50 USD) per month per user?',
+      'What price point works for solo practitioners while keeping this sustainable?',
       'How much testing is enough before launching with real law firms?',
       'Should I expand features before launch or ship minimal and iterate?',
-      'What is the right balance between affordability and profitability?',
     ],
 
     nextSteps: [

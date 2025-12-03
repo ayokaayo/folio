@@ -18,12 +18,12 @@ export const dropdownBuilder: CaseStudy = {
     items: [
       'Selection efficiency: Single-field picks dropped from 60+ seconds to under 5 seconds',
       'Multi-condition segments now save minutes per build compared to before',
-      'System-wide adoption: Zero support documentation needed, interface is self-explanatory',
+      'No separate documentation needed, the interface explains itself',
       'Became the platform standard for complex selections across all modules',
       'Quality improvements: Eliminated mis-selections through clear previews and validation',
       'Reduced training overhead for new operators significantly',
       '12+ months stable post-launch with no material rework required',
-      'Converted long-standing technical debt into a competitive advantage',
+      'Turned years of technical debt into something we\'re proud of',
     ],
     quickItems: [
       'Selection time: 60+ seconds to under 5 seconds',
@@ -48,7 +48,7 @@ export const dropdownBuilder: CaseStudy = {
 
   problem: {
     title: 'The Problem',
-    context: "Fast Track AI's iGaming CRM processes millions in daily transactions. Our data selection interface had become a bottleneck that was actively hurting both user productivity and data accuracy. With over 200 data fields scattered across an alphabetical dropdown, users spent too much time hunting for their metrics. In a data-driven iGaming environment where operators make complex decisions daily, second-guesses often compound into lost money and productivity time.",
+    context: "Fast Track AI's iGaming CRM processes millions in daily transactions. Our data selection interface had become a bottleneck that was actively hurting both user productivity and data accuracy. With over 200 data fields scattered across an alphabetical dropdown, users spent too much time hunting for their metrics. In iGaming, second-guessing costs money.",
     quickContext: '200+ fields in alphabetical chaos. No search, no grouping, no context. Users scrolling endlessly, making errors, leaving the platform frustrated.',
     issues: [
       {
@@ -100,7 +100,7 @@ export const dropdownBuilder: CaseStudy = {
         title: '1. Progressive Disclosure Over All-at-Once',
         decision: 'Three-step flow: category, then field, then values',
         rationale: 'Operators told us they do not always remember exact field names. They want to browse. By breaking the selection into logical steps, users could navigate by intent rather than needing to recall specific terminology. This mirrors natural decision-making: broad to specific.',
-        result: 'The interface teaches as you use it, reducing cognitive load. Users discovered adjacent fields they did not know existed, leading to better segmentation.',
+        result: 'The interface teaches as you use it. Users discovered fields they didn\'t know existed, which led to better segments.',
       },
       {
         title: '2. Real-Time Context at Decision Point',
@@ -118,7 +118,7 @@ export const dropdownBuilder: CaseStudy = {
         title: '4. Browse-First with Search as Assist',
         decision: 'Prioritize category browsing over search-first interface',
         rationale: 'Most users did not know the exact field name they needed. Active discovery of adjacent fields led to better segmentation than going directly to a known field. Search is present but not primary.',
-        result: 'Users learned the data model while selecting, improving their long-term platform literacy.',
+        result: 'Users learned the data model while selecting, not just before.',
       },
     ],
     images: [
@@ -319,7 +319,7 @@ export const dropdownBuilder: CaseStudy = {
   learned: {
     title: 'What I Learned',
     worked: [
-      'Card sorting surfaced natural mental models, making category decisions obvious rather than arbitrary. The exercise paid for itself many times over in reduced iteration later.',
+      'Card sorting surfaced how people actually think, making category decisions obvious instead of arbitrary. The exercise paid for itself many times over in reduced iteration later.',
       'Progressive disclosure slashed cognitive load. Users made faster decisions because they only saw relevant options at each step.',
       'Proactive caching eliminated performance concerns before they became user-facing issues. The investment in virtualization meant we never had to apologize for slow interactions.',
       'Cross-team collaboration on the field dictionary created alignment that extended beyond this project. It became a shared asset that other teams referenced.',
@@ -342,7 +342,7 @@ export const dropdownBuilder: CaseStudy = {
         solution: 'Reframed the work as platform modernization rather than criticism of the existing system. Demonstrated value with small wins before the full rollout.',
       },
     ],
-    insight: 'Infrastructure improvements compound. One taxonomy, one component, one source of truth: this consistency drove reuse across every team that touched data selection. The pattern set a higher bar for how we handle complexity across the product. Performance should be felt, not seen; documentation is leverage, not overhead.',
+    insight: 'Infrastructure improvements compound. One taxonomy, one component, one source of truth; this consistency drove reuse across every team that touched data selection. The pattern set a higher bar for how we handle complexity. Performance should be felt, not seen. Documentation is leverage, not overhead.',
     quickInsight: 'Progressive disclosure beats comprehensive display every time. Show only what is needed at each step.',
   },
 

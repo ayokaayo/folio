@@ -35,7 +35,6 @@ export const timeManagement: CaseStudy = {
       'Market expansion delivered across three regions: Brazil (pt-BR) with major regional operators onboarded, LatAm (es-ES) with multiple partners across Central and South America, and APAC (zh-CN) with strategic accounts activated.',
       'The work earned industry recognition through three awards: AIBC Awards 2024 (Best AI Solution), SBC Latin America 2024 (Best Acquisition & Retention), and SiGMA Americas 2025 (Best Retention Partner).',
       'Operationally, timezone issues dropped from being a top-10 support category to barely registering, we had zero critical incidents post-launch, and the platform remained stable with no performance degradation.',
-      'Market activation represents significant revenue opportunity across three high-value regions.',
     ],
     images: [
       {
@@ -109,7 +108,7 @@ export const timeManagement: CaseStudy = {
         title: '1. Dual-Track Development',
         decision: 'Parallel development of timezone tools and localization features',
         rationale: 'Different teams could work simultaneously without creating dependencies between the two efforts. Both features were needed for market entry, but they served different immediate needs, so keeping them parallel made sense from both a timeline and resource perspective.',
-        result: 'We delivered both features in the same release, which maximized impact while avoiding the bottlenecks that would have come from sequential work.',
+        result: 'We delivered both features in the same release, avoiding the bottlenecks that would have come from sequential work.',
       },
       {
         title: '2. Display-Layer Architecture',
@@ -239,8 +238,8 @@ export const timeManagement: CaseStudy = {
       {
         category: 'Production Stability',
         results: [
-          'Zero critical incidents occurred post-launch, which validated our careful approach to risk management',
-          'No performance degradation from the new features, confirming that our optimization work paid off',
+          'Zero critical incidents post-launch',
+          'No performance degradation from the new features',
           'Seamless integration with existing workflows meant users adopted the features naturally rather than experiencing disruption',
         ],
       },
@@ -249,7 +248,7 @@ export const timeManagement: CaseStudy = {
         results: [
           'Brazil saw multiple enterprise partners successfully onboarded once the Portuguese interface removed their primary objection',
           'LatAm partners across 5 countries activated and started using the Spanish interface daily in production',
-          'APAC strategic accounts onboarded with the Chinese localization, which opened doors that had been completely closed before',
+          'APAC strategic accounts onboarded with the Chinese localization, opening accounts that weren\'t possible before',
           'The SiGMA Americas trade show demo generated 12 qualified leads, largely because prospects could see the localization working in their own language',
         ],
       },
@@ -274,12 +273,6 @@ export const timeManagement: CaseStudy = {
       'Zero rollback events were needed across the staged deployment, which suggested our validation process caught issues before they reached production',
     ],
     images: [
-      // Missing: validation-usage-stats.png
-      // {
-      //   url: '/img/localisation/validation-usage-stats.png',
-      //   alt: 'Chart showing adoption rates across three markets',
-      //   caption: 'Market activation timeline and adoption rates',
-      // },
       {
         url: '/img/localisation/after-clock.png',
         alt: 'Calendar widget in Simplified Chinese with dual timezone display',
@@ -290,12 +283,6 @@ export const timeManagement: CaseStudy = {
         alt: 'Sidebar showing both system and local time with color coding',
         caption: 'Dual clock system solving timezone confusion',
       },
-      // Missing: after-calendar-spanish.png
-      // {
-      //   url: '/img/localisation/after-calendar-spanish.png',
-      //   alt: 'Calendar in Spanish showing AM/PM format',
-      //   caption: 'Spanish localization with regional date formats',
-      // },
       {
         url: '/img/localisation/translation-backoffice.png',
         alt: 'Backoffice interface showing translation and localization features',

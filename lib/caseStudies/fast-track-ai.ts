@@ -3,7 +3,7 @@ import type { CaseStudy } from './types'
 export const fastTrackAI: CaseStudy = {
   id: 'fast-track-ai',
   title: 'Fast Track AI',
-  subtitle: `“It's not a module or a feature; it's a platform. And it's the industry's first natural language CRM” — [Simon Lidzén, CEO](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/)`,
+  subtitle: `"It's not a module or a feature; it's a platform. And it's the industry's first natural language CRM" — Simon Lidzén, CEO`,
   hashtag: '#AI Product',
   company: 'Fast Track AI',
   year: '2025',
@@ -20,7 +20,7 @@ export const fastTrackAI: CaseStudy = {
       'Rolled out platform-wide, with roughly 25% of partners actively using the feature within the first days after launch and returning daily',
       'Partners report that data analysis which previously took days passing between CRM and BI teams now happens in minutes through natural conversation',
       'Campaign creation across multiple markets simplified from hours of manual configuration to a single natural language request with automatic localization',
-      'Featured in [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/) and [EngageHut](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/) following the September 2025 launch',
+      'Featured in iGaming Future and EngageHut following the September 2025 launch',
     ],
     quickItems: [
       '2-month MVP with CPO, CTO, Head of Product',
@@ -31,8 +31,9 @@ export const fastTrackAI: CaseStudy = {
     deepItems: [
       'Shipped a functional MVP in approximately 2 months, working alongside CPO, CTO, Head of Product, and a team of engineers including a data scientist and four developers. This timeline required ruthless prioritization and clear scope boundaries from day one, with daily syncs keeping everyone aligned.',
       'The rollout reached all live partners, with roughly 25% actively using the feature within the first days after launch. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
-      'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting,"',
+      'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting."',
       'Campaign creation now supports automatic content generation and translation across markets, turning what was hours of configuration into a single request. The AI generates SMS content, schedules activities per market with appropriate local timing, and pre-fills existing modals so users can review before committing.',
+      'Industry reviewers called it "one of Fast Track\'s most disruptive innovations in CRM," noting that natural language AI opens up advanced capabilities to teams who previously needed technical support for every campaign.',
     ],
     images: [
       {
@@ -45,12 +46,12 @@ export const fastTrackAI: CaseStudy = {
 
   problem: {
     title: 'The Problem',
-    context: "CRM teams at iGaming operators were bottlenecked by technical complexity that prevented them from acting on their own ideas. Getting insights required BI expertise or hours of manual Data Studio configuration involving measures, dimensions, filters, and time groupings that most CRM professionals never learned to navigate. Campaign creation meant understanding segment logic, configuring triggers across channels, and managing timing for multiple markets. Ideas sat in queues waiting for technical resources, and by the time answers arrived, the moment had often passed. Meanwhile, competitors were adding 'AI' as a checkbox feature without genuine capability, creating pressure to deliver something that actually transformed how CRM teams work rather than just adding to the noise.",
+    context: "CRM teams at iGaming operators were bottlenecked by technical complexity that prevented them from acting on their own ideas. This pressure wasn't just internal. At a recent industry panel, CEOs from Flutter, Super Group, Betsson, and Betfred all emphasized the same point: workflow automation and advanced AI adoption are now core priorities. The shift from idea to execution is where the industry is heading. Getting insights required BI expertise or hours of manual Data Studio configuration involving measures, dimensions, filters, and time groupings that most CRM professionals never learned to navigate. Campaign creation meant understanding segment logic, configuring triggers across channels, and managing timing for multiple markets. Ideas sat in queues waiting for technical resources, and by the time answers arrived, the moment had often passed. Fast Track already offered Singularity (algorithmic one-to-one player experiences) and Greco (gameplay risk engine). AI needed to complement these existing modules, not compete with them. Meanwhile, competitors were adding 'AI' as a checkbox feature without genuine capability, creating pressure to deliver something that actually transformed how CRM teams work.",
     quickContext: 'Data analysis required BI expertise. Campaign creation took hours. CRM teams bottlenecked by technical barriers. Ideas died in queues.',
     issues: [
       {
         category: 'BI Bottleneck',
-        description: 'To analyze player performance, users navigated to Data Studio, selected measures and dimensions from extensive lists, configured filters and time groupings with options ranging from seconds to years, understood query logic well enough to combine multiple conditions, ran queries, and interpreted raw results without guidance. This required BI expertise that most CRM teams simply did not have, which meant questions sat in queues between departments for days while operators waited for answers.',
+        description: 'To analyze player performance, users navigated to Data Studio, selected measures and dimensions from extensive lists, configured filters and time groupings with options ranging from seconds to years, understood query logic well enough to combine multiple conditions, ran queries, and interpreted raw results without guidance. This required BI expertise that most CRM teams simply did not have, so questions sat in queues between departments for days while operators waited for answers.',
         impact: 'Days of delay between question and answer, missed opportunities for timely intervention, and CRM teams unable to self-serve the insights they needed to do their jobs effectively.',
       },
       {
@@ -60,7 +61,7 @@ export const fastTrackAI: CaseStudy = {
       },
       {
         category: 'Technical Debt Reality',
-        description: 'The existing platform had accumulated complexity over years of feature additions serving diverse partner needs. Any new capability had to integrate cleanly without creating a parallel system that would confuse users or adding more cognitive load to an already dense interface. We could not break what was already working to add something new, which constrained how AI could be introduced.',
+        description: 'The existing platform had accumulated complexity over years of feature additions serving diverse partner needs. Any new capability had to integrate cleanly without creating a parallel system that would confuse users or adding more cognitive load to an already dense interface. We could not break what was already working to add something new.',
         impact: 'Constraint on integration approach that required extension architecture rather than replacement, respecting existing user knowledge while adding new capabilities.',
       },
     ],
@@ -74,7 +75,7 @@ export const fastTrackAI: CaseStudy = {
       'CRM teams had ideas but lacked the technical ability to execute them without depending on other departments',
       'BI teams were bottlenecked serving multiple departments simultaneously, creating delays that reduced the value of insights',
       'Competitors adding AI as a marketing checkbox created pressure to deliver genuine capability rather than feature theater',
-      'Platform needed differentiation for the next growth phase, and natural language interaction represented a genuine step change',
+      'The industry is entering a period of major digital transformation. Platform needed differentiation, and natural language interaction represented a genuine step change in how CRM teams get from idea to execution',
     ],
     images: [
       {
@@ -96,32 +97,32 @@ export const fastTrackAI: CaseStudy = {
       {
         title: '1. Extension Over Replacement',
         decision: 'AI as amplifier of existing platform, not a parallel system that would fragment user workflows',
-        rationale: 'I advocated for integration over isolation from the earliest strategy sessions. Adding AI as a separate product would create two ways to do everything, neither complete, forcing users to context-switch constantly and never build confidence in either path. Instead, I designed AI to use existing modals and patterns wherever possible, so the new capability felt like a natural extension of what partners already knew rather than something they had to learn from scratch.',
-        result: 'Partners adopted AI alongside existing workflows immediately. When AI creates activities, it populates the same Activity modal users already know, complete with segment targeting, market selection, and timing configuration. New entry point, familiar execution, no retraining required for the confirmation step.',
+        rationale: 'I advocated for integration over isolation from the earliest strategy sessions. Adding AI as a separate product would create two ways to do everything, neither complete, forcing users to context-switch constantly and never build confidence in either path. Instead, I designed AI to use existing modals and patterns wherever possible, so the new capability felt like a natural extension of what partners already knew.',
+        result: 'Partners adopted AI alongside existing workflows immediately. When AI creates activities, it populates the same Activity modal users already know, complete with segment targeting, market selection, and timing configuration. New entry point, familiar execution, no retraining required.',
       },
       {
         title: '2. Dedicated Space Over Scattered Entry Points',
         decision: 'Single AI interface in the main navigation rather than contextual AI buttons scattered throughout the platform',
-        rationale: 'I evaluated three options during the strategy phase: a global command palette similar to Spotlight that could be invoked anywhere, contextual AI buttons on every relevant screen, or a dedicated AI space accessed from the main navigation. I chose dedicated space because enterprise users committing real budgets needed clear scope boundaries, and scattered entry points would create confusion about what AI could do in each context. A dedicated space lets users build accurate mental models of AI capabilities before investing time.',
-        result: 'Users understand AI as a distinct capability with clear boundaries. The welcome screen chips communicate exactly what is possible before users type anything, which prevents the frustration that comes from discovering limitations only after attempting something the system cannot do.',
+        rationale: 'I evaluated three options during the strategy phase: a global command palette similar to Spotlight that could be invoked anywhere, contextual AI buttons on every relevant screen, or a dedicated AI space accessed from the main navigation. I chose dedicated space because enterprise users committing real budgets needed clear scope boundaries. Scattered entry points would create confusion about what AI could do in each context.',
+        result: 'Users understand AI as a distinct capability with clear boundaries. The welcome screen chips communicate exactly what is possible before users type anything, preventing the frustration that comes from discovering limitations after attempting something.',
       },
       {
         title: '3. Multimodal Input for Flexibility',
         decision: 'Support text, voice dictation, and file uploads as input methods from the start',
-        rationale: 'Different users have different preferences and contexts. Some want to type precise queries, others prefer dictating while reviewing other screens, and some need to upload files like sales reports for AI analysis. I designed the input to support all three modes because restricting to text-only would have limited adoption among users who find typing cumbersome or who work with external data sources.',
+        rationale: 'Different users have different preferences and contexts. Some want to type precise queries, others prefer dictating while reviewing other screens, and some need to upload files like sales reports for AI analysis. Restricting to text-only would have limited adoption among users who find typing cumbersome or who work with external data sources.',
         result: 'Voice transcription works reliably for users who prefer dictation, and file uploads enable workflows like generating detailed reports from uploaded PDFs that would be impossible with text-only input.',
       },
       {
         title: '4. Honest Boundaries Over Confident Promises',
         decision: 'Constrain scope aggressively and communicate limits clearly upfront rather than letting users discover them through failure',
-        rationale: 'Early prototypes let AI attempt any query, which seemed user-friendly but caused problems in testing. Users were confused and frustrated when AI confidently attempted questions outside its actual capabilities. I redesigned the welcome experience to show specific capabilities through labeled chips (Data Mining & Analysis, Reporting & Visualisation) rather than open-ended "Ask anything" framing that set unrealistic expectations.',
-        result: 'Usage errors dropped significantly after the redesign. Partners understood what AI could and could not do before investing time, which meant the attempts they made were more likely to succeed and their overall impression of the system was more positive.',
+        rationale: 'Early prototypes let AI attempt any query, which seemed user-friendly but caused problems in testing. Users were confused and frustrated when AI confidently attempted questions outside its actual capabilities. I redesigned the welcome experience to show specific capabilities through labeled chips (Data Mining & Analysis, Reporting & Visualisation) rather than open-ended "Ask anything" framing.',
+        result: 'Usage errors dropped significantly after the redesign. Partners understood what AI could and could not do before investing time, so their attempts were more likely to succeed and their overall impression more positive.',
       },
       {
         title: '5. Conversational Error Recovery',
         decision: 'Errors as dialogue opportunities with clear recovery paths, not dead ends that require starting over',
-        rationale: 'Enterprise users committing real budgets need to trust the system even when it fails, because failures are inevitable with AI. I designed comprehensive error states where AI takes responsibility using first-person language ("I will simplify and retry", "This turned into more than I could handle") and always provides a specific recovery action. The tone is collaborative rather than blaming, treating the error as a shared problem to solve rather than a user mistake.',
-        result: 'Partners reported feeling in control even when things went wrong. Trust was maintained through transparency about what happened and clear guidance on what to do next, which prevented individual failures from undermining overall confidence in the system.',
+        rationale: 'Enterprise users committing real budgets need to trust the system even when it fails, because failures are inevitable with AI. I designed comprehensive error states where AI takes responsibility using first-person language ("I will simplify and retry", "This turned into more than I could handle") and always provides a specific recovery action. The tone is collaborative rather than blaming.',
+        result: 'Partners reported feeling in control even when things went wrong. Trust was maintained through transparency about what happened and clear guidance on what to do next.',
       },
     ],
   },
@@ -129,7 +130,7 @@ export const fastTrackAI: CaseStudy = {
   designDecisions: [
     {
       title: 'Natural Language Entry Point with Multimodal Input',
-      description: 'Clean welcome screen with personalized greeting, open input field supporting text entry, voice dictation via microphone button, and file attachments for document-based queries. Capability chips below the input serve dual purpose: quick-starts for common tasks and scope communication showing what the system can actually do. Persistent disclaimer about AI limitations visible from the start builds appropriate trust calibration rather than setting users up for disappointment.',
+      description: 'Clean welcome screen with personalized greeting, open input field supporting text entry, voice dictation via microphone button, and file attachments for document-based queries. Capability chips below the input serve dual purpose: quick-starts for common tasks and scope communication showing what the system can actually do. Persistent disclaimer about AI limitations visible from the start builds appropriate trust calibration.',
       image: {
         url: '/img/ftai/chat-voice.png',
         alt: 'Fast Track AI welcome interface showing input field with attachment and microphone icons, plus capability chips',
@@ -156,7 +157,7 @@ export const fastTrackAI: CaseStudy = {
     },
     {
       title: 'Existing Modal Integration',
-      description: 'AI-generated content populates existing platform modals rather than creating new confirmation interfaces that users would need to learn. Campaign creation uses the same Activity modal users already know, pre-filled with AI-generated settings including activity name, type, trigger date, segment targeting with player origins and markets, and placeholder for actions. Users can review, modify any field, and save using familiar patterns. This architectural decision means AI handles the complexity of configuration while existing UI handles the trust of final confirmation.',
+      description: 'AI-generated content populates existing platform modals rather than creating new confirmation interfaces. Campaign creation uses the same Activity modal users already know, pre-filled with AI-generated settings including activity name, type, trigger date, segment targeting with player origins and markets, and placeholder for actions. Users can review, modify any field, and save using familiar patterns. AI handles the complexity of configuration while existing UI handles the trust of final confirmation.',
       image: {
         url: '/img/ftai/dd-modal-integration.png',
         alt: 'Split view showing AI conversation on left with created activities, and existing Activity modal on right pre-filled with Thailand Market campaign settings',
@@ -165,7 +166,7 @@ export const fastTrackAI: CaseStudy = {
     },
     {
       title: 'Intelligent Analysis with Actionable Output',
-      description: 'Complex analyses return structured reports with clear visual hierarchy: summary sections with key metrics, highlighted values for critical findings (revenue figures, status indicators using color-coded badges), strategic recommendations with specific next steps, and suggested follow-up queries as clickable chips. Chat history preserved in sidebar shows previous queries for context continuity. The goal is actionable insight that tells users what to do, not just raw data that requires interpretation.',
+      description: 'Complex analyses return structured reports with clear visual hierarchy: summary sections with key metrics, highlighted values for critical findings (revenue figures, status indicators using color-coded badges), strategic recommendations with specific next steps, and suggested follow-up queries as clickable chips. Chat history preserved in sidebar shows previous queries for context continuity. The goal is actionable insight that tells users what to do, not just raw data requiring interpretation.',
       image: {
         url: '/img/ftai/dd-analysis.png',
         alt: 'Analysis output showing Summary with September 2025 Performance, strategic considerations, and follow-up suggestions with chat history sidebar',
@@ -174,7 +175,7 @@ export const fastTrackAI: CaseStudy = {
     },
     {
       title: 'Comprehensive Error Handling System',
-      description: 'Categorized error states for generic issues (query too complex, compilation failures), connection problems (dropped mid-run, fetch failures), and capacity limits (token caps, rate limiting). Each error type uses conversational first-person language where AI takes responsibility ("I will simplify and retry", "I have stopped myself to learn from it") and provides a specific recovery action with a clear button. Every error is a path forward with guidance, not a wall that forces users to figure out what went wrong on their own.',
+      description: 'Categorized error states for generic issues (query too complex, compilation failures), connection problems (dropped mid-run, fetch failures), and capacity limits (token caps, rate limiting). Each error type uses conversational first-person language where AI takes responsibility ("I will simplify and retry", "I have stopped myself to learn from it") and provides a specific recovery action with a clear button. Every error is a path forward with guidance, not a wall.',
       image: {
         url: '/img/ftai/dd-errors.png',
         alt: 'Error handling documentation showing Generic Issues, Connection Check, and Capacity and Rate Limits categories with recovery buttons',
@@ -295,42 +296,42 @@ export const fastTrackAI: CaseStudy = {
   learned: {
     title: 'What I Learned',
     worked: [
-      'Extension beats replacement when introducing new capabilities to a mature platform. Using existing modals for AI-generated content meant partners learned one new entry point rather than an entirely new system, and the familiar confirmation step maintained trust even when the generation step was novel. I will apply this pattern to future AI integrations where users already have established workflows.',
-      'Scope communication prevents frustration more effectively than graceful failure handling. Redesigning the welcome screen to show specific capabilities upfront through labeled chips changed user expectations before they invested time, which meant their attempts were more likely to succeed and their overall impression more positive. Constraints communicated clearly become features rather than limitations.',
-      'Error handling is trust infrastructure that deserves significant investment. Comprehensive, conversational error states with specific recovery paths prevented individual failures from undermining overall confidence in the system. Users forgive mistakes when they understand what happened and have clear guidance on what to do next. The time I spent mapping failure modes to recovery flows paid off in sustained adoption.',
-      'Multimodal input expands utility without adding complexity when implemented thoughtfully. Supporting voice dictation and file uploads alongside text made the feature accessible to users with different preferences and enabled workflows that text-only input would have blocked entirely. The key was making each input mode discoverable but not distracting.',
+      'Extension beats replacement when introducing new capabilities to a mature platform. Using existing modals for AI-generated content meant partners learned one new entry point rather than an entirely new system, and the familiar confirmation step maintained trust even when the generation step was novel.',
+      'Scope communication prevents frustration more effectively than graceful failure handling. Redesigning the welcome screen to show specific capabilities upfront through labeled chips changed user expectations before they invested time. Constraints communicated clearly become features rather than limitations.',
+      'Error handling is trust infrastructure that deserves significant investment. Comprehensive, conversational error states with specific recovery paths prevented individual failures from undermining overall confidence. Users forgive mistakes when they understand what happened and have clear guidance on what to do next.',
+      'Multimodal input expands utility without adding complexity when implemented thoughtfully. Supporting voice dictation and file uploads alongside text made the feature accessible to users with different preferences and enabled workflows that text-only input would have blocked entirely.',
     ],
     challenges: [
       {
         challenge: 'Hallucination control with large database access where AI could confidently state incorrect information',
-        solution: 'Tightened scope aggressively after observing early testing issues. Redesigned welcome experience to communicate boundaries clearly through specific capability chips. Changed AI behavior to question when uncertain rather than guessing confidently, and added baseline defaults for ambiguous situations that could not be resolved through clarification.',
+        solution: 'Tightened scope aggressively after observing early testing issues. Redesigned welcome experience to communicate boundaries clearly through specific capability chips. Changed AI behavior to question when uncertain rather than guessing confidently, and added baseline defaults for ambiguous situations.',
       },
       {
         challenge: 'Integrating with existing platform technical debt while shipping on a 2-month timeline',
-        solution: 'Chose extension architecture over replacement, which meant AI uses existing modals and patterns wherever possible rather than building parallel interfaces. New entry point, familiar execution patterns. This avoided creating divergent systems while respecting the user knowledge partners had already built.',
+        solution: 'Chose extension architecture over replacement. AI uses existing modals and patterns wherever possible rather than building parallel interfaces. New entry point, familiar execution patterns. This avoided creating divergent systems while respecting the user knowledge partners had already built.',
       },
       {
         challenge: 'Building enterprise trust for AI that takes real actions affecting campaigns and player communications',
-        solution: 'Structured confirmations showing exactly what will happen before execution, using existing modals for final review to give users a familiar control point. Clear display of what was created with visual hierarchy for quick scanning. Persistent disclaimer about AI limitations. Every design decision filtered through the question: does this increase or decrease user control?',
+        solution: 'Structured confirmations showing exactly what will happen before execution, using existing modals for final review. Clear display of what was created with visual hierarchy for quick scanning. Persistent disclaimer about AI limitations. Every design decision filtered through the question: does this increase or decrease user control?',
       },
       {
         challenge: 'Cross-functional alignment under time pressure with multiple stakeholders having different priorities',
-        solution: 'Daily syncs with engineering team kept everyone aligned on what was shipping and what was deferred. Active participation in strategy sessions with CPO and CTO rather than receiving requirements passively. Prototype-driven communication replaced specification documents, which accelerated decisions and surfaced issues earlier.',
+        solution: 'Daily syncs with engineering team kept everyone aligned on what was shipping and what was deferred. Active participation in strategy sessions with CPO and CTO rather than receiving requirements passively. Prototype-driven communication replaced specification documents, accelerating decisions and surfacing issues earlier.',
       },
     ],
-    insight: "The real product is not the AI capability itself but the confidence users feel when using it. Partners commit real budgets through this system, targeting real players with real money at stake. Every design decision must answer: does the user feel in control? Do they understand what will happen before it happens? Can they recover from mistakes without losing their work or their trust? AI capability means nothing without the trust infrastructure to support it, and building that infrastructure requires treating error states, scope communication, and confirmation flows as first-class design problems rather than edge cases to handle later.",
+    insight: "The real product is not the AI capability itself but the confidence users feel when using it. Partners commit real budgets through this system, targeting real players with real money at stake. Every design decision must answer: does the user feel in control? Do they understand what will happen before it happens? Can they recover from mistakes without losing their work or their trust? AI capability means nothing without the trust infrastructure to support it. The goal is empowering CRM professionals to unleash their creativity without the constant technical barriers that have historically slowed them down.",
     quickInsight: 'AI that acts requires different trust patterns than AI that answers. The real product is confidence, not capability.',
   },
 
   process: {
     title: 'Process',
     content: [
-      'Strategy: Participated in ideation sessions during weeks one through three. Defined scope boundaries early with reporting and analysis as Phase 1 focus, campaign creation as Phase 2. Established extension architecture over replacement as the core principle that would guide all following decisions.',
+      'Strategy: Participated in ideation sessions during weeks one through three. Defined scope boundaries early with reporting and analysis as Phase 1 focus, campaign creation as Phase 2. Established extension architecture over replacement as the core principle.',
       'Research: Used LangChain testing sessions as design research, treating every failure mode as a requirement for error handling. Partner feedback from adjacent features informed expectations about what CRM teams wanted to do but could not. No formal user research timeline was available given speed requirements, so we relied on internal expertise and rapid iteration.',
       'Design: Rapid prototyping with daily engineering feedback kept design and development synchronized. Focused on trust patterns first including error handling, scope communication, and confirmation flows because these had to be right from day one. Visual polish was explicitly deferred to post-MVP iteration.',
-      'Development: Eight-week sprint with continuous designer-engineer collaboration. Decisions made in prototype reviews rather than specification handoffs, which accelerated the feedback loop. Scope adjusted weekly based on technical reality and testing findings, with clear communication about what was shipping versus deferred.',
-      'Validation: Rolled out platform-wide to all live partners in September 2025 with monitoring. Feedback collected via Slack and direct partner communication. Observed roughly 25% of partners active within first days and sticky daily usage patterns. Iteration priorities set by actual partner needs rather than assumptions.',
-      'Post-launch: Featured in [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/) and reviewed by [EngageHut](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/) following launch. Phase 2 campaign creation capabilities now released. Continuous iteration based on usage data and partner feedback continues.',
+      'Development: Eight-week sprint with continuous designer-engineer collaboration. Decisions made in prototype reviews rather than specification handoffs, accelerating the feedback loop. Scope adjusted weekly based on technical reality and testing findings.',
+      'Validation: Rolled out platform-wide to all live partners in September 2025 with monitoring. Feedback collected via Slack and direct partner communication. Observed roughly 25% of partners active within first days and sticky daily usage patterns.',
+      'Post-launch: Featured in iGaming Future and reviewed by EngageHut following launch. Phase 2 campaign creation capabilities now released. Continuous iteration based on usage data and partner feedback continues.',
     ],
   },
 }
