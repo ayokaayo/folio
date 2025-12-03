@@ -48,7 +48,7 @@ export default function Home() {
             Hi, I am Miguel Angelo.
           </h1>
           <p className="text-xl md:text-2xl text-text/70 max-w-2xl mb-8">
-            Systems thinker. Pragmatic designer. 10+ years designing for iGaming, localization, and enterprise SaaS. Let's build something we're proud of.
+            Systems thinker. Pragmatic designer. 10+ years designing for iGaming, localization, and enterprise SaaS. Let’s build something we’re proud of.
           </p>
           <Link href={ROUTES.WORK} className="btn-cta group">
             View my work
