@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
@@ -16,6 +16,12 @@ interface ImageModalProps {
 
 export default function ImageModal({ image, onClose }: ImageModalProps) {
   const prefersReducedMotion = useReducedMotion()
+  const [naturalSize, setNaturalSize] = useState<{ width: number; height: number } | null>(null)
+
+  // Reset cached dimensions whenever a different asset is opened
+  useEffect(() => {
+    setNaturalSize(null)
+  }, [image?.url])
 
   // Close on ESC key
   useEffect(() => {
@@ -38,6 +44,33 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
   }, [image, onClose])
 
   if (!image) return null
+
+  // Calculate the constrained display dimensions
+  const getDisplayDimensions = () => {
+    if (!naturalSize) return { width: '90vw', height: '80vh' }
+
+    const maxWidth = Math.min(window.innerWidth * 0.95, naturalSize.width)
+    const maxHeight = Math.min(window.innerHeight * 0.90, naturalSize.height)
+
+    // Calculate aspect-ratio-constrained dimensions
+    const aspectRatio = naturalSize.width / naturalSize.height
+    
+    let displayWidth = maxWidth
+    let displayHeight = displayWidth / aspectRatio
+
+    // If height exceeds max, constrain by height instead
+    if (displayHeight > maxHeight) {
+      displayHeight = maxHeight
+      displayWidth = displayHeight * aspectRatio
+    }
+
+    return {
+      width: `${displayWidth}px`,
+      height: `${displayHeight}px`,
+    }
+  }
+
+  const displayDimensions = getDisplayDimensions()
 
   return (
     <AnimatePresence>
@@ -81,7 +114,7 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
 
         {/* Image container - click outside to close */}
         <div
-          className="relative z-10 w-full max-w-[95vw] max-h-[95vh] flex flex-col items-center justify-center"
+          className="relative z-10 flex flex-col items-center justify-center"
           onClick={(e) => e.stopPropagation()}
         >
           <motion.div
@@ -89,18 +122,23 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
             animate={{ scale: 1, opacity: 1 }}
             exit={prefersReducedMotion ? { scale: 1 } : { scale: 0.9, opacity: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
-            className="relative flex items-center justify-center"
+            className="relative"
+            style={{
+              width: displayDimensions.width,
+              height: displayDimensions.height,
+            }}
           >
             <Image
+              fill
               src={image.url}
               alt={image.alt}
-              width={2400}
-              height={1600}
               sizes="95vw"
-              className="object-contain max-w-[95vw] max-h-[90vh] w-auto h-auto rounded-lg"
+              className="object-contain rounded-lg"
               quality={90}
               priority
-              unoptimized={false}
+              onLoadingComplete={({ naturalWidth, naturalHeight }) =>
+                setNaturalSize({ width: naturalWidth, height: naturalHeight })
+              }
             />
           </motion.div>
           {image.caption && (
