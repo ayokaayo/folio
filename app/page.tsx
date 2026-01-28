@@ -27,9 +27,9 @@ export default function Home() {
       .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)
   }, [])
   
-  // Filter and order projects for homepage: norma, exotica-radio
+  // Filter and order projects for homepage: kallax, norma
   const selectedProjects = useMemo(() => {
-    const order = ['norma', 'exotica-radio']
+    const order = ['kallax', 'norma']
     return order
       .map(id => sideProjects?.find(p => p.id === id))
       .filter((p): p is NonNullable<typeof p> => p !== undefined)
@@ -47,8 +47,9 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-4 leading-tight">
             Hi, I am Miguel Angelo.
           </h1>
-          <p className="text-xl md:text-2xl text-text/70 max-w-2xl mb-8">
-            Systems thinker. Pragmatic designer. 10+ years designing for iGaming, localization, and enterprise SaaS. Let’s build something we’re proud of.
+          <p className="text-xl md:text-2xl text-text/70 max-w-3xl mb-8">
+            Systems thinker, designing infrastructure for high-stakes operations.
+            Pragmatic builder. 10+ years in regulated industries: localization, iGaming, and enterprise SaaS.
           </p>
           <Link href={ROUTES.WORK} className="btn-cta group">
             View my work
@@ -66,47 +67,6 @@ export default function Home() {
               />
             </svg>
           </Link>
-        </motion.div>
-      </section>
-
-      {/* Selected Work Section */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16 border-t border-text/10">
-        <motion.div
-          initial={prefersReducedMotion ? {} : "hidden"}
-          whileInView={prefersReducedMotion ? {} : "visible"}
-          viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
-        >
-          <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-8">
-            Selected Works
-          </h2>
-          <div className="space-y-8">
-            {selectedWorks && selectedWorks.length > 0 ? (
-              selectedWorks.map((work, index) => (
-                <CaseStudyCard key={work.id} caseStudy={work} index={index} />
-              ))
-            ) : (
-              <p className="text-text/70">No case studies available.</p>
-            )}
-          </div>
-          <div className="mt-8">
-            <Link href={ROUTES.WORK} className="btn-cta group">
-              View all work
-              <svg
-                className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Link>
-          </div>
         </motion.div>
       </section>
 
@@ -143,6 +103,47 @@ export default function Home() {
           <div className="mt-8">
             <Link href={ROUTES.PROJECTS} className="btn-cta group">
               View all projects
+              <svg
+                className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Selected Work Section */}
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16 border-t border-text/10">
+        <motion.div
+          initial={prefersReducedMotion ? {} : "hidden"}
+          whileInView={prefersReducedMotion ? {} : "visible"}
+          viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
+          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
+        >
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-8">
+            Selected Works
+          </h2>
+          <div className="space-y-8">
+            {selectedWorks && selectedWorks.length > 0 ? (
+              selectedWorks.map((work, index) => (
+                <CaseStudyCard key={work.id} caseStudy={work} index={index} />
+              ))
+            ) : (
+              <p className="text-text/70">No case studies available.</p>
+            )}
+          </div>
+          <div className="mt-8">
+            <Link href={ROUTES.WORK} className="btn-cta group">
+              View all work
               <svg
                 className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
                 fill="none"
