@@ -6,7 +6,7 @@ export const kallax: SideProject = {
   // ─────────────────────────────────────────────────────────────
   id: 'kallax',
   hashtag: '#Mobile · Product',
-  year: 'Q42025–Q12026',
+  year: '2026',
   title: 'Kallax',
   subtitle: 'Vinyl companion for DJs who own their records and their data',
   status: 'live',

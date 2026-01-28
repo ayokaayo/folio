@@ -6,7 +6,7 @@ export const kallax: SideProject = {
   // ─────────────────────────────────────────────────────────────
   id: 'kallax',
   hashtag: '#Mobile',
-  year: '2024–2025',
+  year: '2026',
   title: 'Kallax',
   subtitle: 'A vinyl DJ companion built for crates, not clouds',
   status: 'live',
@@ -21,7 +21,7 @@ export const kallax: SideProject = {
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
   // ─────────────────────────────────────────────────────────────
-  timeline: 'December 2024 – January 2025 (6 weeks)',
+  timeline: 'December 2025 – January 2026 (6 weeks)',
   role: 'Solo: design, development, brand, distribution',
   techStack: ['React Native', 'Figma', 'Expo', 'SQLite', 'Discogs API', 'GetSongBPM API'],
 
@@ -157,7 +157,7 @@ export const kallax: SideProject = {
       'Skip authentication in the MVP. Building OAuth flows and backend infrastructure would have delayed launch by weeks. But the choice became philosophical. DJs own physical records, they should own their data with the same certainty. Local-first architecture means the app works offline by default, never phones home.',
     ],
 
-    exploration: 'Sketched ideas around December 12. First commit December 24. Six weeks from that commit to live on both app stores. Building Kallax alone meant every choice was mine to make and mine to live with. Design, development, API integration, database schema, deployment, marketing site, app store presence. This forced a particular kind of clarity. If I could not explain why a feature mattered in one sentence, it probably did not matter enough to build. Some features got cut. Collaborative playlists, too complex for the timeline. Spotify preview integration, nice-to-have but not essential. Advanced filtering by genre or year, can add later if usage shows demand. What remained was the tightest possible loop. Sync collection, build playlists, run live sets. Solo building also meant accepting imperfection strategically. Good enough to be immediately useful shipped in six weeks beats theoretically perfect that never launches.',
+    exploration: 'Sketched ideas around December 12, 2025. First commit December 24, 2025. Six weeks from that commit to live on both app stores. Building Kallax alone meant every choice was mine to make and mine to live with. Design, development, API integration, database schema, deployment, marketing site, app store presence. This forced a particular kind of clarity. If I could not explain why a feature mattered in one sentence, it probably did not matter enough to build. Some features got cut. Collaborative playlists, too complex for the timeline. Spotify preview integration, nice-to-have but not essential. Advanced filtering by genre or year, can add later if usage shows demand. What remained was the tightest possible loop. Sync collection, build playlists, run live sets. Solo building also meant accepting imperfection strategically. Good enough to be immediately useful shipped in six weeks beats theoretically perfect that never launches.',
 
     image: {
       url: '/img/projects/kallax/booth-context.png',
