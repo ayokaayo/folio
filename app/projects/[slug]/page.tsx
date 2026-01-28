@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { notFound } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -11,6 +11,7 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import { getNextItem } from '@/lib/utils/getNextItem'
 import NextItemCard from '@/components/NextItemCard'
 import ImageModal from '@/components/ImageModal'
+import DensityToggle from '@/components/DensityToggle'
 
 interface ProjectDetailPageProps {
   params: {
@@ -22,6 +23,16 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const prefersReducedMotion = useReducedMotion()
   const project = getProjectBySlug(params.slug)
   const [selectedImage, setSelectedImage] = useState<{ url: string; alt: string; caption?: string } | null>(null)
+  const [densityMode, setDensityMode] = useState<'quick' | 'deep'>('deep')
+
+  // Load density preference (same key as work entries)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const saved = window.sessionStorage.getItem('density-preference')
+    if (saved === 'quick' || saved === 'deep') {
+      setDensityMode(saved)
+    }
+  }, [])
 
   // Get next project for navigation
   const nextProject = project ? getNextItem(project.id, projects) : null
@@ -71,7 +82,76 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-4">
             {project.title}
           </h1>
-          
+
+          {/* Density toggle for kallax – reuse same component & session logic as work entries */}
+          {project.id === 'kallax' && (
+            <div className="mt-2 mb-4">
+              <DensityToggle
+                caseStudy={{
+                  subtitle: project.subtitle || project.description,
+                  impact: {
+                    items: project.outcome
+                      ? [project.outcome.summary, ...(project.outcome.notes || [])]
+                      : [],
+                  },
+                  problem: {
+                    title: '',
+                    context: project.context?.background || '',
+                    issues: [],
+                    whyItMattered: [],
+                  },
+                  approach: {
+                    title: '',
+                    decisions:
+                      project.creation?.features?.map((feature) => ({
+                        title: feature.title,
+                        decision: feature.description,
+                        rationale: '',
+                        result: '',
+                      })) || [],
+                    images: [],
+                  },
+                  designDecisions:
+                    project.craft?.decisions.map((decision) => ({
+                      title: '',
+                      description: decision,
+                    })) || [],
+                  implementation: {
+                    title: '',
+                    technical: project.techStack || [],
+                    rollout: [],
+                    images: [],
+                  },
+                  validation: {
+                    title: '',
+                    outcomes: [],
+                    feedback: [],
+                    technical: [],
+                    images: [],
+                  },
+                  learned: {
+                    title: '',
+                    worked: [],
+                    challenges: [],
+                    insight: project.reflection?.insight || '',
+                    images: [],
+                  },
+                  process: undefined,
+                  timeline: project.timeline || '',
+                  team: project.role || '',
+                  images: project.images || [],
+                  id: project.id,
+                  title: project.title,
+                  hashtag: project.hashtag,
+                  company: '',
+                  year: project.year,
+                  linkText: '',
+                } as any}
+                mode={densityMode}
+                onModeChange={setDensityMode}
+              />
+            </div>
+          )}
           {project.subtitle && (
             <p className="text-lg md:text-xl text-text/80 max-w-3xl leading-relaxed mb-6">
               {project.subtitle}
@@ -159,12 +239,18 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <p className="text-lg text-text/80 mb-4 font-medium">
                 {project.mission.statement}
               </p>
-              <p className="text-base text-text/70 mb-6 leading-relaxed">
-                {project.mission.spark}
-              </p>
+              {/* In quick mode for kallax, hide the long spark paragraph and trim intents */}
+              {!(project.id === 'kallax' && densityMode === 'quick') && (
+                <p className="text-base text-text/70 mb-6 leading-relaxed">
+                  {project.mission.spark}
+                </p>
+              )}
               {project.mission.intent && project.mission.intent.length > 0 && (
                 <ul className="space-y-2">
-                  {project.mission.intent.map((intent, index) => (
+                  {(project.id === 'kallax' && densityMode === 'quick'
+                    ? project.mission.intent.slice(0, 2)
+                    : project.mission.intent
+                  ).map((intent, index) => (
                     <li key={index} className="text-base text-text/70 flex items-start">
                       <span className="mr-2">•</span>
                       <span>{intent}</span>
@@ -184,10 +270,12 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <p className="text-base text-text/70 mb-4 leading-relaxed">
                 {project.context.background}
               </p>
-              <p className="text-base text-text/70 mb-4 leading-relaxed">
-                {project.context.opportunity}
-              </p>
-              {project.context.audience && (
+              {!(project.id === 'kallax' && densityMode === 'quick') && (
+                <p className="text-base text-text/70 mb-4 leading-relaxed">
+                  {project.context.opportunity}
+                </p>
+              )}
+              {project.context.audience && !(project.id === 'kallax' && densityMode === 'quick') && (
                 <p className="text-base text-text/70 leading-relaxed">
                   {project.context.audience}
                 </p>
@@ -207,7 +295,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               
               {project.creation.features && project.creation.features.length > 0 && (
                 <div className="space-y-8">
-                  {project.creation.features.map((feature, index) => (
+                  {(project.id === 'kallax' && densityMode === 'quick'
+                    ? project.creation.features.slice(0, 2)
+                    : project.creation.features
+                  ).map((feature, index) => (
                     <div key={index}>
                       <h3 className="text-xl font-serif font-semibold text-text mb-3">
                         {feature.title}
@@ -299,7 +390,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </h2>
               {project.craft.decisions && project.craft.decisions.length > 0 && (
                 <ul className="space-y-3 mb-6">
-                  {project.craft.decisions.map((decision, index) => (
+                  {(project.id === 'kallax' && densityMode === 'quick'
+                    ? project.craft.decisions.slice(0, 3)
+                    : project.craft.decisions
+                  ).map((decision, index) => (
                     <li key={index} className="text-base text-text/70 flex items-start">
                       <span className="mr-2">•</span>
                       <span>{decision}</span>
@@ -307,7 +401,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   ))}
                 </ul>
               )}
-              {project.craft.exploration && (
+              {project.craft.exploration && !(project.id === 'kallax' && densityMode === 'quick') && (
                 <p className="text-base text-text/70 leading-relaxed mb-6">
                   {project.craft.exploration}
                 </p>
@@ -356,7 +450,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </p>
               {project.outcome.notes && project.outcome.notes.length > 0 && (
                 <ul className="space-y-2">
-                  {project.outcome.notes.map((note, index) => (
+                  {(project.id === 'kallax' && densityMode === 'quick'
+                    ? project.outcome.notes.slice(0, 2)
+                    : project.outcome.notes
+                  ).map((note, index) => (
                     <li key={index} className="text-base text-text/70 flex items-start">
                       <span className="mr-2">•</span>
                       <span>{note}</span>
@@ -408,7 +505,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold text-text mb-3">Open Questions</h3>
                   <ul className="space-y-2">
-                    {project.reflection.openQuestions.map((question, index) => (
+                    {(project.id === 'kallax' && densityMode === 'quick'
+                      ? project.reflection.openQuestions.slice(0, 2)
+                      : project.reflection.openQuestions
+                    ).map((question, index) => (
                       <li key={index} className="text-base text-text/70 flex items-start">
                         <span className="mr-2">•</span>
                         <span>{question}</span>

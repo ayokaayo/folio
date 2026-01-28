@@ -121,6 +121,29 @@ export default function KallaxPage() {
                         {children}
                       </a>
                     ),
+                    img: ({ src, alt }) => {
+                      if (!src) return null
+
+                      const lowerSrc = src.toLowerCase()
+
+                      // Hide common GitHub-style badges (e.g. shields.io, GitHub stats, etc.)
+                      const isBadge =
+                        lowerSrc.includes('shields.io') ||
+                        lowerSrc.includes('github-readme-stats') ||
+                        lowerSrc.includes('badge') ||
+                        lowerSrc.includes('github.com')
+
+                      if (isBadge) return null
+
+                      return (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={src}
+                          alt={alt ?? ''}
+                          className="max-w-full h-auto rounded-lg"
+                        />
+                      )
+                    },
                     code: ({ children }) => (
                       <code className="bg-text/5 px-1.5 py-0.5 rounded text-sm font-mono text-text/90">
                         {children}

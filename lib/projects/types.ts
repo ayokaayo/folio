@@ -74,7 +74,5 @@ export interface SideProjectCard {
   imageAlt?: string
   status?: ProjectStatus
   linkUrl: string
-}
-
-// Re-export for convenience
+}// Re-export for convenience
 export type { ImageWithCaption } from '@/lib/caseStudies/types'

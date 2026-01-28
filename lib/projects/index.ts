@@ -18,6 +18,7 @@ import type { SideProject, SideProjectCard } from './types'
 import { exoticaRadio } from './exotica-radio'
 import { codexTarot } from './codex-tarot'
 import { norma } from './norma-case-study'
+import { kallax } from './kallax'
 // import { anotherProject } from './another-project'
 
 // Example placeholder - remove when adding real projects
@@ -90,6 +91,7 @@ const exampleProject: SideProject = {
 // Add your imported projects here in display order
 // ─────────────────────────────────────────────────────────────
 export const projects: SideProject[] = [
+  kallax,
   norma,
   exoticaRadio,
   codexTarot,
