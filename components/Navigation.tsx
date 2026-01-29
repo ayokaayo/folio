@@ -1,19 +1,24 @@
 'use client'
 
-// Navigation component with smooth transitions and accessibility features
-// Built with attention to detail - because great UX is in the details ✨
+/**
+ * Navigation — MONO EDITION
+ * 
+ * - Height: 80px
+ * - Logo: MIGUEL ANGELO in IBM Plex Mono, 11px, uppercase
+ * - Links: IBM Plex Mono, 11px, 40px spacing
+ * - Active: 2px forest green underline, offset 8px below text
+ * - Background: --bg-surface with 1px border-bottom --border-subtle
+ * - Mobile: "Menu" / "×" toggle, NO animations
+ */
+
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
-import { NAV_ITEMS, ANIMATION } from '@/lib/constants'
+import { useState, useEffect } from 'react'
+import { NAV_ITEMS } from '@/lib/constants'
 
 export default function Navigation() {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const mobileMenuRef = useRef<HTMLDivElement>(null)
-  const firstMenuItemRef = useRef<HTMLAnchorElement>(null)
 
   // Close mobile menu on ESC key
   useEffect(() => {
@@ -27,126 +32,109 @@ export default function Navigation() {
     return () => document.removeEventListener('keydown', handleEscape)
   }, [isMobileMenuOpen])
 
-  // Focus management for mobile menu - removed auto-focus to prevent focus ring on touch
-  // Focus will be managed naturally by keyboard navigation only
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
+
+  // Prevent scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMobileMenuOpen])
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-text/10">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Link
-            href="/"
-            className="flex items-center text-text hover:text-primary transition-colors"
-            aria-label="Miguel Angelo home"
-          >
-            <Image
-              src="/cv/MAF.jpg"
-              alt="Miguel Angelo Ferreira"
-              width={50}
-              height={50}
-              className="w-[50px] h-[50px] rounded-full object-cover"
-              priority
-            />
-          </Link>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+    <>
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 bg-bg-surface border-b border-border-subtle"
+        style={{ height: '80px' }}
+      >
+        <div className="max-w-content mx-auto px-6 sm:px-[5vw] h-full">
+          <div className="flex items-center justify-between h-full">
+            {/* Avatar */}
+            <Link
+              href="/"
+              className="flex items-center gap-3 group"
+              aria-label="Miguel Angelo home"
+            >
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-border-subtle group-hover:border-accent transition-colors duration-200">
+                <img
+                  src="/cv/MAF.jpg"
+                  alt="Miguel Angelo"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-200"
+                />
+              </div>
+            </Link>
+
+            {/* Desktop Navigation — aligned right */}
+            <div className="hidden md:flex items-center gap-10">
+              {NAV_ITEMS.map((item) => {
+                const isActive = pathname === item.href || pathname.startsWith(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={isActive ? 'page' : undefined}
+                    className="group relative font-mono text-label font-medium uppercase tracking-wide text-text-secondary hover:text-text-primary transition-colors duration-200"
+                  >
+                    {item.name}
+                    <span
+                      className={`absolute left-0 right-0 h-0.5 bg-accent transition-transform duration-200 origin-left ${
+                        isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                      }`}
+                      style={{ bottom: '-8px' }}
+                    />
+                  </Link>
+                )
+              })}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden font-mono text-label font-medium uppercase tracking-wide text-text-secondary hover:text-text-primary transition-colors duration-150 p-2 -mr-2"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileMenuOpen}
+            >
+              {isMobileMenuOpen ? '×' : 'Menu'}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Navigation Overlay — NO animations per spec */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-bg-surface md:hidden"
+          style={{ top: '80px' }}
+        >
+          <div className="px-6 py-8">
             {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.href || (item.href === '/work' && pathname.startsWith('/work'))
+              const isActive = pathname === item.href || pathname.startsWith(item.href)
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   aria-current={isActive ? 'page' : undefined}
-                  className="relative text-sm font-medium text-text/70 hover:text-text transition-colors duration-200"
+                  className={`block font-mono py-4 border-b border-border-subtle text-subhead ${
+                    isActive 
+                      ? 'text-accent' 
+                      : 'text-text-primary hover:text-accent transition-colors duration-150'
+                  }`}
                 >
                   {item.name}
-                  {isActive && (
-                    <motion.div
-                      layout
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                      transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                    />
-                  )}
                 </Link>
               )
             })}
           </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-text/70 hover:text-text transition-colors"
-            aria-label="Toggle menu"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
         </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              ref={mobileMenuRef}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: ANIMATION.DURATION.FAST }}
-              className="md:hidden border-t border-text/10"
-            >
-              <div className="py-4 space-y-1">
-                {NAV_ITEMS.map((item, index) => {
-                  const isActive = pathname === item.href || (item.href === '/work' && pathname.startsWith('/work'))
-                  return (
-                    <Link
-                      key={item.href}
-                      ref={index === 0 ? firstMenuItemRef : null}
-                      href={item.href}
-                      aria-current={isActive ? 'page' : undefined}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`relative block px-4 py-3 text-base font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] flex items-center ${
-                        isActive
-                          ? 'text-primary'
-                          : 'text-text/70 hover:text-text active:text-primary'
-                      }`}
-                    >
-                      {item.name}
-                      {isActive && (
-                        <motion.div
-                          layout
-                          className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary"
-                          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                        />
-                      )}
-                    </Link>
-                  )
-                })}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </nav>
+      )}
+    </>
   )
 }

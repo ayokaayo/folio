@@ -7,6 +7,7 @@ export const fastTrackAI: CaseStudy = {
   hashtag: '#AI Product',
   company: 'Fast Track AI',
   year: '2025',
+  cardSummary: 'Natural language AI for iGaming CRM. Partners ask questions and create campaigns in plain English. Shipped MVP in 2 months.',
   linkText: 'Read case study',
   imageUrl: '/img/ftai/hero-welcome.png',
   imageAlt: 'Fast Track AI welcome interface showing natural language input and capability chips',

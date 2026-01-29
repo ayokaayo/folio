@@ -12,6 +12,7 @@ import { getNextItem } from '@/lib/utils/getNextItem'
 import NextItemCard from '@/components/NextItemCard'
 import ImageModal from '@/components/ImageModal'
 import DensityToggle from '@/components/DensityToggle'
+import ZoomableImage from '@/components/ZoomableImage'
 
 interface ProjectDetailPageProps {
   params: {
@@ -221,14 +222,16 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {project.imageUrl && (
             <div className="mt-8 mb-6 cursor-pointer" onClick={() => setSelectedImage({ url: project.imageUrl!, alt: project.imageAlt || project.title })}>
-              <Image
-                src={project.imageUrl}
-                alt={project.imageAlt || project.title}
-                width={2400}
-                height={1600}
-                className="w-full rounded-lg transition-transform hover:scale-[1.01]"
-                quality={90}
-              />
+              <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
+                <Image
+                  src={project.imageUrl}
+                  alt={project.imageAlt || project.title}
+                  width={2400}
+                  height={1600}
+                  className="w-full rounded-lg"
+                  quality={90}
+                />
+              </div>
             </div>
           )}
         </motion.div>
@@ -360,6 +363,27 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 <div className="mt-8 space-y-8">
                   {project.creation.images.map((img, index) => {
                     const isReadingImage = img.url.includes('reading.png')
+
+                    // Zoomable images render in their own pan/zoom frame
+                    if (img.isZoomable) {
+                      return (
+                        <motion.div
+                          key={index}
+                          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                          viewport={{ once: true, margin: '-100px' }}
+                          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                          className="w-full"
+                        >
+                          <ZoomableImage
+                            src={img.url}
+                            alt={img.alt}
+                            caption={img.caption}
+                          />
+                        </motion.div>
+                      )
+                    }
+
                     return (
                       <motion.figure
                         key={index}
@@ -567,6 +591,27 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 items-start">
                 {project.gallery.map((img, index) => {
                   const isMobileImage = img.url.includes('mobile.png')
+
+                  // Zoomable images render in their own pan/zoom frame
+                  if (img.isZoomable) {
+                    return (
+                      <motion.div
+                        key={index}
+                        initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-100px' }}
+                        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                        className="md:col-span-2 w-full"
+                      >
+                        <ZoomableImage
+                          src={img.url}
+                          alt={img.alt}
+                          caption={img.caption}
+                        />
+                      </motion.div>
+                    )
+                  }
+
                   return (
                     <motion.figure
                       key={index}

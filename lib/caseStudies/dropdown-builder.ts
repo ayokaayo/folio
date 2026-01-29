@@ -7,6 +7,7 @@ export const dropdownBuilder: CaseStudy = {
   hashtag: '#New Feature',
   company: 'Fast Track AI',
   year: '2025',
+  cardSummary: 'Progressive disclosure pattern for 200+ data fields. Browse by category, see context before selecting, no more endless scrolling.',
   linkText: 'Read case study',
   imageUrl: '/img/dropdown/hero-dropdown-wide.png',
   imageAlt: 'Advanced dropdown builder interface showing category selection and field metadata',

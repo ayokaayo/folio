@@ -15,6 +15,7 @@ export const codexTarot: SideProject = {
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
   description: 'A mobile app for tarot exploration that turned a functional web tool into a daily meditation practice. Built with React Native, animated cosmic backgrounds, and a three-stage AI reading flow that unfolds like a conversation. Now live on Google Play with Apple approval pending, monetized through a freemium model that gives everyone access to single-card readings while reserving deeper spreads for subscribers.',
+  cardSummary: 'Daily tarot meditation app with AI-powered readings. Card of the Day ritual, animated reveals, freemium model. Live on Google Play.',
   imageUrl: '/img/projects/codex-tarot/hero.png',
   imageAlt: 'Codex Tarot mobile app showing a three-card spread with animated card reveals against a dark nebula background',
 
@@ -128,6 +129,7 @@ export const codexTarot: SideProject = {
         url: '/img/projects/codex-tarot/flow.png',
         alt: 'User flow diagram showing Card of the Day, reading selection, and paywall paths',
         caption: 'Three primary paths with monetization gates placed naturally. Daily card, guided spreads, or upgrade for more.',
+        isZoomable: true,
       },
     ],
   },

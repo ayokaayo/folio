@@ -15,6 +15,7 @@ export const norma: SideProject = {
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
   description: 'AI-powered practice management for small Philippine law firms. Handles document generation, matter tracking, and client management. Built because my wife\'s lawyer colleagues were using ChatGPT for legal work with zero awareness of compliance risks. Started as a side project, now a working proof of concept.',
+  cardSummary: 'AI-powered practice management for Philippine law firms. Document generation, matter tracking, client management. Currently in development.',
   imageUrl: '/img/projects/norma/hero.png',
   imageAlt: 'Norma interface showing a demand letter being generated with AI enhancement',
 

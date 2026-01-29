@@ -7,6 +7,7 @@ export const timeManagement: CaseStudy = {
   hashtag: '#Growth design',
   company: 'Fast Track AI',
   year: '2024',
+  cardSummary: 'Dual timezone display and full UI localization for global iGaming operations. Unlocked Brazil, LatAm, and APAC markets.',
   linkText: 'Read case study',
   imageUrl: '/img/localisation/hero-settings-interface.png',
   imageAlt: 'Localization settings interface showing language and timezone configuration options',

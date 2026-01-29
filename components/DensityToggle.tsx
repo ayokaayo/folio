@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 import { CaseStudy } from '@/lib/caseStudies'
 import { calculateCaseStudyReadingTime } from '@/lib/utils/readingTime'
 
@@ -18,6 +17,7 @@ export default function DensityToggle({
 }: DensityToggleProps) {
   const [quickTime, setQuickTime] = useState<string>('')
   const [deepTime, setDeepTime] = useState<string>('')
+  const [showTooltip, setShowTooltip] = useState(false)
 
   useEffect(() => {
     // Calculate reading times for both modes
@@ -34,14 +34,14 @@ export default function DensityToggle({
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-3">
       <div className="inline-flex bg-white border border-text/20 rounded-full overflow-hidden shadow-sm">
         <button
           onClick={() => handleModeChange('quick')}
           className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
             mode === 'quick'
-              ? 'bg-brand-lilac text-text'
-              : 'bg-transparent text-text/70 hover:text-text hover:bg-text/5'
+              ? 'bg-accent text-white'
+              : 'bg-transparent text-text/60 hover:text-text hover:bg-text/5'
           }`}
           aria-pressed={mode === 'quick'}
           aria-label="Quick Read mode"
@@ -62,7 +62,7 @@ export default function DensityToggle({
             </svg>
             <span>Quick Read</span>
             {quickTime && (
-              <span className="text-xs opacity-80">{quickTime}</span>
+              <span className={`text-xs ${mode === 'quick' ? 'opacity-90' : 'opacity-60'}`}>{quickTime}</span>
             )}
           </span>
         </button>
@@ -70,8 +70,8 @@ export default function DensityToggle({
           onClick={() => handleModeChange('deep')}
           className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
             mode === 'deep'
-              ? 'bg-brand-lilac text-text'
-              : 'bg-transparent text-text/70 hover:text-text hover:bg-text/5'
+              ? 'bg-accent text-white'
+              : 'bg-transparent text-text/60 hover:text-text hover:bg-text/5'
           }`}
           aria-pressed={mode === 'deep'}
           aria-label="Deep Dive mode"
@@ -92,10 +92,35 @@ export default function DensityToggle({
             </svg>
             <span>Deep Dive</span>
             {deepTime && (
-              <span className="text-xs opacity-80">{deepTime}</span>
+              <span className={`text-xs ${mode === 'deep' ? 'opacity-90' : 'opacity-60'}`}>{deepTime}</span>
             )}
           </span>
         </button>
+      </div>
+
+      {/* Info icon with tooltip */}
+      <div className="relative">
+        <button
+          type="button"
+          className="w-6 h-6 rounded-full border border-text/20 flex items-center justify-center text-text/50 hover:text-text/80 hover:border-text/40 transition-colors"
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
+          onFocus={() => setShowTooltip(true)}
+          onBlur={() => setShowTooltip(false)}
+          aria-label="Reading density info"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </button>
+
+        {showTooltip && (
+          <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-64 p-3 bg-text text-white text-xs rounded-lg shadow-lg z-50">
+            <p className="mb-1"><strong>Quick Read:</strong> Key points and highlights only.</p>
+            <p><strong>Deep Dive:</strong> Full context, process details, and rationale.</p>
+            <div className="absolute left-1/2 -translate-x-1/2 -top-1 w-2 h-2 bg-text rotate-45" />
+          </div>
+        )}
       </div>
     </div>
   )

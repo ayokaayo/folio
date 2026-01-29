@@ -2,6 +2,7 @@ export interface ImageWithCaption {
   url: string // Path to image in /public folder (e.g., '/img/case-study/image1.png')
   caption?: string // Optional caption displayed below image
   alt: string // Required alt text for accessibility
+  isZoomable?: boolean // If true, renders in a pan/zoom frame instead of opening in modal
 }
 
 export interface CaseStudy {
@@ -13,6 +14,7 @@ export interface CaseStudy {
   year: string
   linkText: string
   linkUrl?: string
+  cardSummary?: string // Short 1-2 sentence summary for card preview
   imageUrl?: string
   imageAlt?: string
   coverImageUrl?: string

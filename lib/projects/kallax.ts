@@ -15,6 +15,7 @@ export const kallax: SideProject = {
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
   description: 'Mobile app for vinyl DJs. Sync your Discogs collection, track BPMs, build playlists, run live sets. Offline-first, local storage, no subscriptions. Designed for dark booths and the people who dig through crates to fill them.',
+  cardSummary: 'Mobile companion for vinyl DJs. Sync Discogs, track BPMs, build playlists, run live sets. Offline-first, no subscriptions.',
   imageUrl: '/img/projects/kallax/hero.png',
   imageAlt: 'Kallax app interface showing collection grid with bold yellow accents against a dark background',
 
@@ -205,6 +206,7 @@ export const kallax: SideProject = {
       url: '/img/projects/kallax/flows.png',
       alt: 'User flow diagrams showing first-time setup, creating playlists, starting live sets, and managing collection',
       caption: 'User journey deliberately kept shallow. Three tabs, clear hierarchy. Collection to Playlists to Live Mode. No hidden features, no complex navigation patterns.',
+      isZoomable: true,
     },
     {
       url: '/img/projects/kallax/bangers-favourites.png',

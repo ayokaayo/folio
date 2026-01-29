@@ -24,6 +24,7 @@ export interface SideProject {
   subtitle?: string
   status?: ProjectStatus
   description: string
+  cardSummary?: string // Short 1-2 sentence summary for card preview (falls back to description if not set)
   imageUrl?: string // Path to image in /public folder (e.g., '/images/design-system.jpg')
   imageAlt?: string // Alt text for the image
   linkUrl?: string // Optional link to project details or external site

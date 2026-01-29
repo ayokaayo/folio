@@ -1,16 +1,19 @@
 'use client'
 
+/**
+ * Work Page — MONO EDITION
+ * 
+ * - All typography: IBM Plex Mono
+ * - Grid-aligned section headers
+ * - Case studies with forest green accent borders
+ */
+
 import { useMemo } from 'react'
-import { motion } from 'framer-motion'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyCard from '@/components/CaseStudyCard'
-import { ANIMATION, VIEWPORT } from '@/lib/constants'
-import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 
 export default function WorkPage() {
-  const prefersReducedMotion = useReducedMotion()
-
-  // Ensure stable order: fast-track-ai, time-management, sms-characters, dropdown-builder
+  // Ensure stable order
   const orderedCaseStudies = useMemo(() => {
     const order = ['fast-track-ai', 'time-management', 'sms-characters', 'dropdown-builder']
     return order
@@ -19,36 +22,43 @@ export default function WorkPage() {
   }, [])
 
   return (
-    <main id="main-content" className="pt-20 md:pt-24">
+    <main id="main-content" className="pt-20">
       {/* Header */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
-        <motion.div
-          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
-        >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-4">
-            Work
-          </h1>
-          <p className="text-base md:text-lg text-text/70 max-w-2xl">
-            Here’s what I’ve been recently working on.
-          </p>
-        </motion.div>
+      <section className="max-w-content mx-auto px-6 sm:px-[5vw] py-12 md:py-16">
+        <div className="grid grid-cols-12 gap-[2vw] items-end pb-4 border-b border-border-subtle mb-8">
+          <div className="col-span-8">
+            <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
+              Selected Works
+            </span>
+          </div>
+          <div className="col-span-4 text-right">
+            <span className="font-mono text-caption text-text-tertiary">
+              004
+            </span>
+          </div>
+        </div>
+        
+        <h1 className="font-mono font-medium text-text-primary text-headline">
+          Case studies
+        </h1>
+        <p className="font-mono text-body text-text-secondary max-w-2xl mt-6">
+          Deep dives into high-stakes product design. Systems thinking, 
+          technical constraints, and measurable outcomes.
+        </p>
       </section>
 
-      {/* Case Studies List - Cards Only */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 pb-20">
-        <motion.div
-          initial={prefersReducedMotion ? {} : "hidden"}
-          whileInView={prefersReducedMotion ? {} : "visible"}
-          viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
-          className="space-y-8"
-        >
+      {/* Case Studies List */}
+      <section className="max-w-content mx-auto px-6 sm:px-[5vw] pb-24">
+        <div className="space-y-8">
           {orderedCaseStudies.map((caseStudy, index) => (
-            <CaseStudyCard key={caseStudy.id} caseStudy={caseStudy} index={index} />
+            <CaseStudyCard 
+              key={caseStudy.id} 
+              caseStudy={caseStudy} 
+              index={index}
+              featured={caseStudy.id === 'fast-track-ai'}
+            />
           ))}
-        </motion.div>
+        </div>
       </section>
     </main>
   )

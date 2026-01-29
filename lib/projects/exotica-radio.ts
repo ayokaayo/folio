@@ -15,6 +15,7 @@ export const exoticaRadio: SideProject = {
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
   description: 'An independent internet radio station streaming my personal music collection 24/7. Built to share music on my own terms, now played worldwide. Ranks #1 on Google despite breaking every SEO convention.',
+  cardSummary: 'Independent internet radio streaming my music collection 24/7. Running since 2017, played worldwide. Ranks #1 on Google.',
   imageUrl: '/img/projects/exotica-radio/hero.png',
   imageAlt: 'Exotica Radio interface showing play button with rotating travel photography background',
 

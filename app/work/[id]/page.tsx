@@ -87,14 +87,16 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
           </p>
           {caseStudy.imageUrl && (
             <div className="mt-8 mb-6">
-              <Image
-                src={caseStudy.imageUrl}
-                alt={caseStudy.imageAlt || caseStudy.title}
-                width={2400}
-                height={1600}
-                className="w-full rounded-lg"
-                quality={90}
-              />
+              <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+                <Image
+                  src={caseStudy.imageUrl}
+                  alt={caseStudy.imageAlt || caseStudy.title}
+                  width={2400}
+                  height={1600}
+                  className="w-full rounded-lg"
+                  quality={90}
+                />
+              </div>
             </div>
           )}
         </motion.div>

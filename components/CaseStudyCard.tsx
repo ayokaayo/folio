@@ -1,105 +1,200 @@
 'use client'
 
+/**
+ * CaseStudyCard — MONO EDITION
+ * 
+ * Design spec:
+ * - Height: 280px desktop, auto mobile
+ * - Layout: Horizontal flex (30% metadata / 70% visual)
+ * - Background: --bg-surface
+ * - Border-left: 3px solid --accent (featured) or --bg-grid (standard)
+ * - All text: IBM Plex Mono
+ * - Trace System: SVG lines connect metadata on hover (>200ms delay)
+ */
+
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { useState, useRef } from 'react'
 import { CaseStudy } from '@/lib/caseStudies'
-import CardImage from './CardImage'
-import { ANIMATION, VIEWPORT, getWorkRoute } from '@/lib/constants'
-import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
-import { stripMarkdownLinks } from '@/lib/utils/parseMarkdownLinks'
+import { getWorkRoute } from '@/lib/constants'
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy
   index?: number
+  featured?: boolean
+  /** Trace connection target ID for SVG animation */
+  traceTargetId?: string
 }
 
-/**
- * CaseStudyCard - Displays a case study/work entry
- * 
- * Features:
- * - Fully clickable card with hover animations
- * - Supports real images or placeholders
- * - Responsive image sizing across all breakpoints
- * - Smooth hover effects on text and image
- */
-export default function CaseStudyCard({ caseStudy, index = 0 }: CaseStudyCardProps) {
-  const prefersReducedMotion = useReducedMotion()
+export default function CaseStudyCard({ 
+  caseStudy, 
+  index = 0, 
+  featured = false,
+  traceTargetId,
+}: CaseStudyCardProps) {
+  const [isHovered, setIsHovered] = useState(false)
+  const [showTrace, setShowTrace] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
   const cardUrl = caseStudy.linkUrl || getWorkRoute(caseStudy.id)
 
+  // Handle hover with 200ms delay for trace trigger
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+    hoverTimeoutRef.current = setTimeout(() => {
+      setShowTrace(true)
+    }, 200)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+    setShowTrace(false)
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+    }
+  }
+
+  // Use cardSummary for display, fallback to subtitle
+  const cardDescription = caseStudy.cardSummary || caseStudy.subtitle
+
   return (
-    <motion.div
-      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * ANIMATION.DELAY.STAGGER }}
-      className="mb-12"
+    <div
+      ref={cardRef}
+      className="group relative mb-12"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      data-case-study-id={caseStudy.id}
     >
-      {/* Fully clickable card wrapper */}
-      <Link 
-        href={cardUrl}
-        className="group block overflow-hidden rounded-2xl"
-      >
-        <motion.div 
-          className="flex flex-col lg:flex-row gap-0 overflow-hidden rounded-2xl bg-background border-2 border-text/10 transition-all duration-500 group-hover:border-[#E8D5C4]"
-          whileHover={prefersReducedMotion ? {} : { y: -2 }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
+      <Link href={cardUrl} className="block">
+        <article
+          className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary"
+          style={{ minHeight: '280px' }}
         >
-          {/* Left Section - Text Content */}
-          <div 
-            className="flex-1 bg-brand-card p-8 md:p-10 lg:p-12 transition-colors duration-500 group-hover:bg-brand-cardHover"
-          >
-            <div className="flex items-center gap-3 mb-4 flex-wrap">
-              <span className="px-3 py-1 bg-white border border-text/20 rounded-full text-sm font-medium text-text">
+          {/* Left Column - Metadata (35%) */}
+          <div className="lg:w-[35%] p-8 lg:p-10 flex flex-col justify-between">
+            <div>
+              {/* Category Tag */}
+              <span
+                id={`${caseStudy.id}-category`}
+                className="inline-block font-mono text-caption uppercase tracking-wide px-2 py-1 mb-4 border border-border-subtle text-text-secondary"
+              >
                 {caseStudy.hashtag}
               </span>
-              <span className="text-sm text-text/70 font-medium">
-                {caseStudy.company} ({caseStudy.year})
-              </span>
-            </div>
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-text mb-4">
-              {caseStudy.title}
-            </h3>
-            <p className="text-base md:text-lg text-text/80 leading-relaxed">
-              {stripMarkdownLinks(caseStudy.subtitle)}
-            </p>
-            <div className="inline-flex items-center gap-2 text-text font-semibold text-sm uppercase tracking-wide group-hover:gap-3 transition-all duration-300">
-              {caseStudy.linkText.toUpperCase()}
-              <svg
-                className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+
+              {/* Title — MONO */}
+              <h3 className="font-mono font-medium text-text-primary text-title-lg mb-4">
+                {caseStudy.title}
+              </h3>
+
+              {/* Year */}
+              <p 
+                id={`${caseStudy.id}-year`}
+                className="font-mono text-caption text-text-secondary mb-4"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+                {caseStudy.company} · {caseStudy.year}
+              </p>
+
+              {/* Card Summary */}
+              <p
+                id={`${caseStudy.id}-summary`}
+                className="font-mono text-body text-text-secondary leading-relaxed"
+              >
+                {cardDescription}
+              </p>
+            </div>
+
+            {/* View Link */}
+            <div className="mt-6 lg:mt-0">
+              <span className="inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                View project
+                <svg
+                  className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </span>
             </div>
           </div>
 
-          {/* Right Section - Image Wrapper */}
-          <div 
-            className="flex-1 w-full lg:w-auto lg:min-w-[400px] lg:max-w-[800px] xl:max-w-[900px] bg-background flex items-stretch p-0 overflow-hidden"
-          >
-            <motion.div
-              className="w-full min-h-[300px] md:min-h-[400px] lg:min-h-full"
-              whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-            >
-              <CardImage
-                imageUrl={caseStudy.imageUrl}
-                imageAlt={caseStudy.imageAlt}
-                title={caseStudy.title}
-                className="w-full h-full"
-              />
-            </motion.div>
+          {/* Right Column - Visual (65%) */}
+          <div className="lg:w-[65%] relative overflow-hidden">
+            {caseStudy.coverImageUrl || caseStudy.imageUrl ? (
+              <div className="relative w-full h-full min-h-[280px] lg:min-h-0">
+                <img
+                  src={caseStudy.coverImageUrl || caseStudy.imageUrl}
+                  alt={caseStudy.coverImageAlt || caseStudy.imageAlt || caseStudy.title}
+                  className="w-full h-full object-cover img-grayscale"
+                />
+                {/* Grain overlay */}
+                <div 
+                  className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                    mixBlendMode: 'multiply',
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="w-full h-full min-h-[280px] lg:min-h-0 bg-bg-grid flex items-center justify-center">
+                <span className="font-mono text-caption text-text-tertiary uppercase tracking-wide">
+                  No image
+                </span>
+              </div>
+            )}
+
           </div>
-        </motion.div>
+        </article>
       </Link>
-    </motion.div>
+
+      {/* Trace System SVG overlay */}
+      {traceTargetId && (
+        <TraceLines 
+          isVisible={showTrace}
+          cardId={caseStudy.id}
+          targetId={traceTargetId}
+        />
+      )}
+    </div>
   )
 }
 
+/**
+ * TraceLines - SVG connection lines for the Trace System
+ */
+interface TraceLinesProps {
+  isVisible: boolean
+  cardId: string
+  targetId: string
+}
+
+function TraceLines({ isVisible }: TraceLinesProps) {
+  return (
+    <svg
+      className="absolute inset-0 w-full h-full pointer-events-none z-20"
+      style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 0.15s ease' }}
+      aria-hidden="true"
+    >
+      {/* Horizontal trace line from card */}
+      <line
+        x1="0"
+        y1="50%"
+        x2={isVisible ? "-100" : "0"}
+        y2="50%"
+        stroke="var(--accent)"
+        strokeWidth="1"
+        fill="none"
+        style={{
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        }}
+      />
+    </svg>
+  )
+}

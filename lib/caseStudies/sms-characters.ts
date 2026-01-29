@@ -7,6 +7,7 @@ export const smsCharacters: CaseStudy = {
   hashtag: '#Risk elimination',
   company: 'Fast Track AI',
   year: '2024',
+  cardSummary: 'Real-time SMS encoding detection with mobile preview. Eliminated billing disputes caused by emoji and Unicode miscounts.',
   linkText: 'Read case study',
   imageUrl: '/img/sms/hero-dropdown-wide.png',
   imageAlt: 'SMS composer interface showing character count, encoding warnings, and mobile preview',

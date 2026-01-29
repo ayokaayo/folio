@@ -1,87 +1,111 @@
 'use client'
 
+/**
+ * ProjectCard — MONO EDITION
+ * 
+ * Design spec:
+ * - Background: --bg-surface
+ * - Border: 1px solid --border-subtle
+ * - Border-radius: 0px (brutalist)
+ * - Left border: 3px solid --accent (featured) or --bg-grid (standard)
+ * - All text: IBM Plex Mono
+ * - Image: 16:9, grayscale default
+ */
+
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { SideProject } from '@/lib/projects'
-import CardImage from './CardImage'
-import { ANIMATION, VIEWPORT, getProjectRoute } from '@/lib/constants'
-import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
+import { getProjectRoute } from '@/lib/constants'
 
 interface ProjectCardProps {
   project: SideProject
   index?: number
+  featured?: boolean
 }
 
-/**
- * ProjectCard - Displays a side project entry
- * 
- * Features:
- * - Fully clickable card with hover animations
- * - Supports real images or placeholders
- * - Responsive image sizing across all breakpoints
- * - Smooth hover effects on text and image
- */
-export default function ProjectCard({ project, index = 0 }: ProjectCardProps) {
-  const prefersReducedMotion = useReducedMotion()
-  // Use project detail page route for internal navigation
-  // Only use linkUrl if it's an external URL (starts with http)
-  const cardUrl = project.linkUrl && project.linkUrl.startsWith('http') 
-    ? project.linkUrl 
-    : getProjectRoute(project.id)
+export default function ProjectCard({
+  project,
+  index = 0,
+  featured = false,
+}: ProjectCardProps) {
+  // Always link to portfolio entry, external links are shown on project detail page
+  const cardUrl = getProjectRoute(project.id)
 
   return (
-    <motion.div
-      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * ANIMATION.DELAY.STAGGER }}
-      className="mb-12"
+    <article
+      className="group bg-bg-surface overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_4px_24px_rgba(0,0,0,0.06)] border border-border-subtle hover:border-text-tertiary"
     >
-      {/* Fully clickable card wrapper */}
-      <Link 
-        href={cardUrl}
-        className="group block overflow-hidden rounded-2xl"
-      >
-        <motion.div 
-          className="flex flex-col lg:flex-row gap-0 overflow-hidden rounded-2xl bg-background border-2 border-text/10 transition-all duration-500 group-hover:border-[#E8D5C4]"
-          whileHover={prefersReducedMotion ? {} : { y: -2 }}
-          transition={{ duration: 0.35, ease: 'easeOut' }}
-        >
-          {/* Left Section - Text Content */}
-          <div 
-            className="flex-1 bg-brand-card p-8 md:p-10 lg:p-12 transition-colors duration-500 group-hover:bg-brand-cardHover"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-sm text-text/60 font-medium">{project.hashtag}</span>
-              <span className="text-sm text-text/60 font-medium">{project.year}</span>
-            </div>
-            <h3 className="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-text mb-4">
-              {project.title}
-            </h3>
-            <p className="text-base md:text-lg text-text/80 leading-relaxed">
-              {project.description}
-            </p>
+      <Link href={cardUrl} className="block">
+        {/* Image */}
+        {project.imageUrl ? (
+          <div className="relative aspect-video overflow-hidden">
+            <img
+              src={project.imageUrl}
+              alt={project.imageAlt || project.title}
+              className="w-full h-full object-cover img-grayscale"
+            />
+            {/* Grain overlay */}
+            <div 
+              className="absolute inset-0 pointer-events-none opacity-[0.03]"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                mixBlendMode: 'multiply',
+              }}
+            />
+          </div>
+        ) : null}
+
+        {/* Content */}
+        <div className="p-8">
+          {/* Tags */}
+          <div className="flex items-center gap-2 mb-4">
+            <span className="tag font-mono text-caption uppercase tracking-wide">
+              {project.hashtag}
+            </span>
+            <span 
+              className="font-mono text-caption text-text-tertiary"
+              style={{ padding: '4px 10px' }}
+            >
+              {project.year}
+            </span>
+            {project.status && project.status !== 'live' && (
+              <span 
+                className="tag font-mono text-caption"
+                style={{ textTransform: 'capitalize' }}
+              >
+                {project.status}
+              </span>
+            )}
           </div>
 
-          {/* Right Section - Image Wrapper */}
-          <div 
-            className="flex-1 w-full lg:w-auto lg:min-w-[400px] lg:max-w-[800px] xl:max-w-[900px] bg-background flex items-stretch p-0 overflow-hidden"
-          >
-            <motion.div
-              className="w-full min-h-[300px] md:min-h-[400px] lg:min-h-full"
-              whileHover={prefersReducedMotion ? {} : { scale: 1.03 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
+          {/* Title — MONO */}
+          <h3 className="font-mono font-medium text-text-primary text-title-md mb-3">
+            {project.title}
+          </h3>
+
+          {/* Description */}
+          <p className="font-mono text-body text-text-secondary mb-6">
+            {project.cardSummary || project.description}
+          </p>
+
+          {/* View Link - hidden until hover */}
+          <span className="inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            View project
+            <svg
+              className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <CardImage
-                imageUrl={project.imageUrl}
-                imageAlt={project.imageAlt}
-                title={project.title}
-                className="w-full h-full"
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M9 5l7 7-7 7"
               />
-            </motion.div>
-          </div>
-        </motion.div>
+            </svg>
+          </span>
+        </div>
       </Link>
-    </motion.div>
+    </article>
   )
 }
