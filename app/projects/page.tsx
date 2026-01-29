@@ -10,9 +10,9 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 export default function ProjectsPage() {
   const prefersReducedMotion = useReducedMotion()
 
-  // Ensure stable order: kallax, norma, exotica-radio, codex-tarot
+  // Ensure stable order: kallax, codex-tarot, norma, exotica-radio
   const orderedProjects = useMemo(() => {
-    const order = ['kallax', 'norma', 'exotica-radio', 'codex-tarot']
+    const order = ['kallax', 'codex-tarot', 'norma', 'exotica-radio']
     return order
       .map(id => projects.find(p => p.id === id))
       .filter((p): p is NonNullable<typeof p> => p !== undefined)

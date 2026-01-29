@@ -83,8 +83,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             {project.title}
           </h1>
 
-          {/* Density toggle for kallax – reuse same component & session logic as work entries */}
-          {project.id === 'kallax' && (
+          {/* Density toggle for kallax & codex-tarot – reuse same component & session logic as work entries */}
+          {(project.id === 'kallax' || project.id === 'codex-tarot') && (
             <div className="mt-2 mb-4">
               <DensityToggle
                 caseStudy={{
@@ -93,10 +93,18 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     items: project.outcome
                       ? [project.outcome.summary, ...(project.outcome.notes || [])]
                       : [],
+                    // Add quickItems for codex-tarot quick mode reading time calculation
+                    ...(project.id === 'codex-tarot' && {
+                      quickItems: [project.outcome?.summary, ...(project.outcome?.notes?.slice(0, 2) || [])].filter(Boolean),
+                    }),
                   },
                   problem: {
                     title: '',
                     context: project.context?.background || '',
+                    // Add quickContext for codex-tarot
+                    ...(project.id === 'codex-tarot' && {
+                      quickContext: project.context?.background?.split('.').slice(0, 2).join('.') + '.',
+                    }),
                     issues: [],
                     whyItMattered: [],
                   },
@@ -134,6 +142,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     worked: [],
                     challenges: [],
                     insight: project.reflection?.insight || '',
+                    // Add quickInsight for codex-tarot
+                    ...(project.id === 'codex-tarot' && project.reflection?.insight && {
+                      quickInsight: project.reflection.insight.split('.').slice(0, 2).join('.') + '.',
+                    }),
                     images: [],
                   },
                   process: undefined,
@@ -239,15 +251,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <p className="text-lg text-text/80 mb-4 font-medium">
                 {project.mission.statement}
               </p>
-              {/* In quick mode for kallax, hide the long spark paragraph and trim intents */}
-              {!(project.id === 'kallax' && densityMode === 'quick') && (
+              {/* In quick mode, hide the long spark paragraph and trim intents */}
+              {!(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')) && (
                 <p className="text-base text-text/70 mb-6 leading-relaxed">
                   {project.mission.spark}
                 </p>
               )}
               {project.mission.intent && project.mission.intent.length > 0 && (
                 <ul className="space-y-2">
-                  {(project.id === 'kallax' && densityMode === 'quick'
+                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
                     ? project.mission.intent.slice(0, 2)
                     : project.mission.intent
                   ).map((intent, index) => (
@@ -270,12 +282,14 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <p className="text-base text-text/70 mb-4 leading-relaxed">
                 {project.context.background}
               </p>
+              {/* In quick mode, hide opportunity for kallax, show for codex-tarot as it's concise */}
               {!(project.id === 'kallax' && densityMode === 'quick') && (
                 <p className="text-base text-text/70 mb-4 leading-relaxed">
                   {project.context.opportunity}
                 </p>
               )}
-              {project.context.audience && !(project.id === 'kallax' && densityMode === 'quick') && (
+              {/* In quick mode, hide audience as it's supplementary context */}
+              {project.context.audience && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')) && (
                 <p className="text-base text-text/70 leading-relaxed">
                   {project.context.audience}
                 </p>
@@ -295,8 +309,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               
               {project.creation.features && project.creation.features.length > 0 && (
                 <div className="space-y-8">
-                  {(project.id === 'kallax' && densityMode === 'quick'
-                    ? project.creation.features.slice(0, 2)
+                  {/* Quick mode: show 2-4 core features; Deep mode: show all */}
+                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
+                    ? project.creation.features.slice(0, project.id === 'codex-tarot' ? 4 : 2)
                     : project.creation.features
                   ).map((feature, index) => (
                     <div key={index}>
@@ -390,7 +405,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </h2>
               {project.craft.decisions && project.craft.decisions.length > 0 && (
                 <ul className="space-y-3 mb-6">
-                  {(project.id === 'kallax' && densityMode === 'quick'
+                  {/* Quick mode: show first 3 decisions; Deep mode: show all */}
+                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
                     ? project.craft.decisions.slice(0, 3)
                     : project.craft.decisions
                   ).map((decision, index) => (
@@ -401,7 +417,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   ))}
                 </ul>
               )}
-              {project.craft.exploration && !(project.id === 'kallax' && densityMode === 'quick') && (
+              {/* In quick mode, hide exploration narrative to keep it concise */}
+              {project.craft.exploration && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')) && (
                 <p className="text-base text-text/70 leading-relaxed mb-6">
                   {project.craft.exploration}
                 </p>
@@ -450,7 +467,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </p>
               {project.outcome.notes && project.outcome.notes.length > 0 && (
                 <ul className="space-y-2">
-                  {(project.id === 'kallax' && densityMode === 'quick'
+                  {/* Quick mode: show first 2 outcome notes; Deep mode: show all */}
+                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
                     ? project.outcome.notes.slice(0, 2)
                     : project.outcome.notes
                   ).map((note, index) => (
@@ -505,7 +523,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold text-text mb-3">Open Questions</h3>
                   <ul className="space-y-2">
-                    {(project.id === 'kallax' && densityMode === 'quick'
+                    {/* Quick mode: show first 2 open questions; Deep mode: show all */}
+                    {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
                       ? project.reflection.openQuestions.slice(0, 2)
                       : project.reflection.openQuestions
                     ).map((question, index) => (
@@ -521,7 +540,13 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 <div>
                   <h3 className="text-lg font-semibold text-text mb-3">Next Steps</h3>
                   <ul className="space-y-2">
-                    {project.reflection.nextSteps.map((step, index) => (
+                    {/* Quick mode: hide next steps as they're forward-looking; Deep mode: show all */}
+                    {(densityMode === 'quick' && project.id === 'codex-tarot'
+                      ? project.reflection.nextSteps.slice(0, 0)
+                      : densityMode === 'quick' && project.id === 'kallax'
+                      ? project.reflection.nextSteps.slice(0, 2)
+                      : project.reflection.nextSteps
+                    ).map((step, index) => (
                       <li key={index} className="text-base text-text/70 flex items-start">
                         <span className="mr-2">•</span>
                         <span>{step}</span>

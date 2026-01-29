@@ -92,9 +92,9 @@ const exampleProject: SideProject = {
 // ─────────────────────────────────────────────────────────────
 export const projects: SideProject[] = [
   kallax,
+  codexTarot,
   norma,
   exoticaRadio,
-  codexTarot,
   // Add more projects here:
   // myProject,
   // anotherProject,
