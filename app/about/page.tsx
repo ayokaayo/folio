@@ -9,6 +9,7 @@
  * - Grid visible from bottom extending upward
  */
 
+import Image from 'next/image'
 import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
 import FigmaFrame from '@/components/FigmaFrame'
 
@@ -62,10 +63,12 @@ export default function AboutPage() {
             >
               <div className="group relative aspect-square overflow-hidden bg-bg-grid">
                 {/* Portrait: B&W by default, full colour on hover */}
-                <img
+                <Image
                   src="/cv/MAF.jpg"
                   alt="Miguel Angelo - Product Designer"
-                  className="w-full h-full object-cover object-center img-grayscale"
+                  fill
+                  sizes="(max-width: 1024px) 0px, 40vw"
+                  className="object-cover object-center img-grayscale"
                 />
                 {/* Accent tint overlay */}
                 <div

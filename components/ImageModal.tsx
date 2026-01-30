@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
@@ -83,15 +84,17 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
             animate={{ scale: 1, opacity: 1 }}
             exit={prefersReducedMotion ? { scale: 1 } : { scale: 0.95, opacity: 0 }}
             transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
-            className="relative"
+            className="relative w-full max-w-[95vw] max-h-[85vh] flex items-center justify-center"
           >
-            {/* Use native img for true full-size display */}
-            <img
-              src={image.url}
-              alt={image.alt}
-              className="max-w-[95vw] max-h-[85vh] w-auto h-auto object-contain shadow-2xl"
-              style={{ maxWidth: '95vw', maxHeight: '85vh' }}
-            />
+            <div className="relative w-[min(95vw,1200px)] h-[85vh]">
+              <Image
+                src={image.url}
+                alt={image.alt}
+                fill
+                sizes="95vw"
+                className="object-contain shadow-2xl"
+              />
+            </div>
           </motion.div>
           {image.caption && (
             <motion.p

@@ -10,6 +10,7 @@
  * - Image: 16:9, grayscale default
  */
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { SideProject } from '@/lib/projects'
 import { getProjectRoute } from '@/lib/constants'
@@ -40,10 +41,12 @@ export default function ProjectCard({
           {/* Image - height constrained to fit within grid-aligned card */}
           {project.imageUrl ? (
             <div className="relative overflow-hidden project-card-image flex-shrink-0">
-              <img
+              <Image
                 src={project.imageUrl}
                 alt={project.imageAlt || project.title}
-                className="w-full h-full object-cover img-grayscale"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover img-grayscale"
               />
               {/* Grain overlay */}
               <div

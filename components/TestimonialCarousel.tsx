@@ -62,7 +62,7 @@ export default function TestimonialCarousel({
               transition={{ duration: 0.25 }}
             >
               <blockquote className="font-mono text-body text-text-primary leading-relaxed mb-4">
-                "{currentTestimonial.quote}"
+                &ldquo;{currentTestimonial.quote}&rdquo;
               </blockquote>
               <div className="flex items-baseline gap-2">
                 <span className="font-mono text-label uppercase tracking-wide text-text-tertiary">

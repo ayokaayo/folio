@@ -9,6 +9,7 @@
  * - Mobile: hamburger icon (animates to X), smooth menu panel, Figma-style nav items
  */
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
@@ -113,11 +114,13 @@ export default function Navigation() {
               className="flex items-center gap-3 group"
               aria-label="Miguel Angelo home"
             >
-              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-border-subtle group-hover:border-accent transition-colors duration-200">
-                <img
+              <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-border-subtle group-hover:border-accent transition-colors duration-200 relative">
+                <Image
                   src="/cv/MAF.jpg"
                   alt="Miguel Angelo"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-200"
+                  width={40}
+                  height={40}
+                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-200"
                 />
               </div>
             </Link>

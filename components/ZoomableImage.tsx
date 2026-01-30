@@ -173,6 +173,7 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
             cursor: canPan ? (isDragging ? 'grabbing' : 'grab') : 'default',
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element -- Native img required for zoom/pan transform and onLoad dimensions */}
           <img
             src={src}
             alt={alt}

@@ -12,6 +12,7 @@
  * - Trace System: SVG lines connect metadata on hover (>200ms delay)
  */
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useRef, useMemo } from 'react'
 import { CaseStudy } from '@/lib/caseStudies'
@@ -147,10 +148,12 @@ export default function CaseStudyCard({
           <div className="case-study-visual-col lg:flex-1 relative overflow-hidden h-full">
             {caseStudy.coverImageUrl || caseStudy.imageUrl ? (
               <div className="relative w-full h-full min-h-[200px] lg:min-h-0 lg:h-full">
-                <img
-                  src={caseStudy.coverImageUrl || caseStudy.imageUrl}
+                <Image
+                  src={caseStudy.coverImageUrl || caseStudy.imageUrl!}
                   alt={caseStudy.coverImageAlt || caseStudy.imageAlt || caseStudy.title}
-                  className="w-full h-full object-cover object-center img-grayscale"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 70vw"
+                  className="object-cover object-center img-grayscale"
                 />
                 {/* Grain overlay */}
                 <div 
