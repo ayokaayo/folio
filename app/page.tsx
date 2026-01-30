@@ -147,7 +147,7 @@ export default function Home() {
         </GridRow>
 
         {/* Case Study Cards */}
-        <GridRow className="flex-col" style={{ gap: '32px' }}>
+        <GridRow className="flex-col -mt-px" style={{ gap: '32px' }}>
           {selectedWorks.map((work, index) => (
             <CaseStudyCard
               key={work.id}

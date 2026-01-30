@@ -92,8 +92,8 @@ export default function CaseStudyCard({
           className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary case-study-card-article"
           style={{ gap: `${GRID_GAP}px` }}
         >
-          {/* Left Column - Metadata: 4 grid columns on desktop so divider aligns with grid */}
-          <div className="case-study-meta-col p-4 flex flex-col justify-between min-h-0 overflow-hidden">
+          {/* Left Column - Metadata: 4 grid columns on desktop so divider aligns with grid. -ml-px aligns left edge with vertical grid (offsets card border). */}
+          <div className="case-study-meta-col -ml-px p-4 flex flex-col justify-between min-h-0 overflow-hidden">
             <div>
               {/* Category Tag - Figma-style label */}
               <div className="mb-3">
