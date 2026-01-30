@@ -9,10 +9,8 @@
  * - Grid visible from bottom extending upward
  */
 
-import { useState } from 'react'
-import { copyEmailToClipboard } from '@/lib/utils/email'
-import { SITE } from '@/lib/constants'
 import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
+import FigmaFrame from '@/components/FigmaFrame'
 
 interface SkillSectionProps {
   title: string
@@ -21,7 +19,7 @@ interface SkillSectionProps {
 
 function SkillSection({ title, description }: SkillSectionProps) {
   return (
-    <div className="py-6 border-b border-border-subtle last:border-b-0">
+    <div className="py-6">
       <h3 className="font-mono font-medium text-text-primary text-title-sm mb-3">
         {title}
       </h3>
@@ -38,16 +36,6 @@ function SkillSection({ title, description }: SkillSectionProps) {
 }
 
 export default function AboutPage() {
-  const [copied, setCopied] = useState(false)
-
-  const handleCopyEmail = async () => {
-    const success = await copyEmailToClipboard()
-    if (success) {
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    }
-  }
-
   return (
     <main id="main-content" className="pt-20 relative min-h-screen">
       {/* Grid visible from bottom - full height, behind content */}
@@ -60,45 +48,49 @@ export default function AboutPage() {
         className="relative max-w-content mx-auto py-12 md:py-16 pb-24"
         style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, zIndex: 1 }}
       >
-        {/* Using flexbox grid for split layout - 5 cols image, gap, 6 cols content */}
+        {/* Split layout: 4 cols image, gap, remaining cols content */}
         <div
           className="flex flex-col lg:flex-row"
           style={{ gap: `${GRID_GAP}px` }}
         >
-          {/* Left Column - Image (5 of 12 columns) */}
-          <div className="w-full lg:w-[calc((100%-11*16px)/12*5+4*16px)]">
-            <div
-              className="relative aspect-[3/4] overflow-hidden"
-              style={{ border: '5px solid var(--bg-grid)' }}
+          {/* Left Column - Image: visible only on desktop (12 cols), hidden on tablet (6) and mobile (4) */}
+          <div className="hidden lg:block w-full lg:w-[calc((100%-11*16px)/12*4+3*16px)] lg:shrink-0">
+            <FigmaFrame
+              label="That's me"
+              alwaysVisible
+              pillText="Hi, I'm Miguel. Pleased to meet you!"
             >
-              {/* Portrait with B&W + tint treatment */}
-              <img
-                src="/cv/1732891002696.jpeg"
-                alt="Miguel Angelo - Product Designer"
-                className="w-full h-full object-cover grayscale"
-              />
-              {/* Forest green tint overlay */}
-              <div
-                className="absolute inset-0 pointer-events-none mix-blend-overlay"
-                style={{ backgroundColor: 'rgba(45, 90, 76, 0.08)' }}
-              />
-              {/* Grain overlay */}
-              <div
-                className="absolute inset-0 pointer-events-none opacity-[0.03]"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-                  mixBlendMode: 'multiply',
-                }}
-              />
-            </div>
+              <div className="group relative aspect-square overflow-hidden bg-bg-grid">
+                {/* Portrait: B&W by default, full colour on hover */}
+                <img
+                  src="/cv/MAF.jpg"
+                  alt="Miguel Angelo - Product Designer"
+                  className="w-full h-full object-cover object-center img-grayscale"
+                />
+                {/* Accent tint overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none mix-blend-overlay"
+                  style={{ backgroundColor: 'rgba(0, 143, 240, 0.08)' }}
+                />
+                {/* Grain overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                    mixBlendMode: 'multiply',
+                  }}
+                />
+              </div>
+            </FigmaFrame>
           </div>
 
-          {/* Right Column - Content (6 of 12 columns, starting at col 7) */}
+          {/* Right Column - Content (gap + remaining columns) */}
           <div className="flex-1 mt-12 lg:mt-0">
             {/* Introduction */}
             <div className="mb-12">
               <h1 className="font-mono font-medium text-text-primary text-headline mb-8">
-                Systems thinker, pragmatic builder.
+                Systems Thinker,<br />
+                Pragmatic Builder.
               </h1>
 
               <div className="space-y-6 font-mono text-body text-text-secondary">
@@ -125,7 +117,7 @@ export default function AboutPage() {
                 What I Do Well
               </h2>
 
-              <div className="divide-y divide-border-subtle">
+              <div>
                 <SkillSection
                   title="Systems Thinking & Strategy"
                   description="Design for the whole system, not just the screen. Reduced technical debt while shipping parallel features through platform thinking."
@@ -155,44 +147,18 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-3 font-mono text-body">
                 <div className="flex gap-4">
-                  <span className="text-text-tertiary w-20">Based:</span>
+                  <span className="text-text-tertiary w-20 uppercase">Based:</span>
                   <span className="text-text-primary">Barcelona</span>
                 </div>
                 <div className="flex gap-4">
-                  <span className="text-text-tertiary w-20">Open:</span>
+                  <span className="text-text-tertiary w-20 uppercase">Open:</span>
                   <span className="text-text-primary">Remote, Senior Product Design</span>
                 </div>
                 <div className="flex gap-4">
-                  <span className="text-text-tertiary w-20">Sectors:</span>
+                  <span className="text-text-tertiary w-20 uppercase">Sectors:</span>
                   <span className="text-text-primary">Localization, iGaming, B2B SaaS, AI</span>
                 </div>
               </div>
-            </div>
-
-            {/* Contact */}
-            <div>
-              <h2 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-4">
-                Contact
-              </h2>
-              <div className="flex items-center gap-4">
-                <span className="font-mono text-body text-text-primary">
-                  {SITE.EMAIL}
-                </span>
-                <button
-                  onClick={handleCopyEmail}
-                  className="font-mono text-caption uppercase tracking-wide text-text-tertiary hover:text-accent transition-colors duration-150"
-                >
-                  {copied ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
-              <a
-                href={SITE.LINKEDIN}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-3 font-mono text-body text-text-primary hover:text-accent transition-colors duration-150"
-              >
-                LinkedIn →
-              </a>
             </div>
           </div>
         </div>

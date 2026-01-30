@@ -21,14 +21,15 @@ module.exports = {
         'text-secondary': '#6B6B6B',
         'text-tertiary': '#A3A3A3',
         
-        // Accent — Deep Forest Green (technical, not orange)
-        'accent': '#2D5A4C',
-        'accent-muted': 'rgba(45, 90, 76, 0.1)',
-        'accent-light': '#3D7A66',
+        // Accent — System Blue (Figma-style)
+        'accent': '#008FF0',
+        'accent-muted': 'rgba(0, 143, 240, 0.1)',
+        'accent-light': '#3DA8F5',
+        'accent-dark': '#0070C0',
         
         // Borders
         'border-subtle': '#E5E0D8',
-        'border-accent': '#2D5A4C',
+        'border-accent': '#008FF0',
         
         // Legacy compatibility
         background: {
@@ -41,8 +42,8 @@ module.exports = {
           muted: '#A3A3A3',
         },
         primary: {
-          DEFAULT: '#2D5A4C',
-          dark: '#1F3D33',
+          DEFAULT: '#008FF0',
+          dark: '#0070C0',
         },
         brand: {
           beige: '#F7F5F0',

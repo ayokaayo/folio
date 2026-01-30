@@ -7,7 +7,7 @@
  *
  * MONO EDITION:
  * - All typography: IBM Plex Mono
- * - Accent: Deep forest green (#2D5A4C)
+ * - Accent: System blue (#008FF0)
  * - Grid: Exposed 12-column with coordinate labels
  */
 
@@ -16,6 +16,8 @@ import Link from 'next/link'
 import CaseStudyCard from '@/components/CaseStudyCard'
 import ProjectCard from '@/components/ProjectCard'
 import ExposedGrid, { GridRow, GRID_GAP } from '@/components/ExposedGrid'
+import MillimetricPaper from '@/components/MillimetricPaper'
+import { CARD_GAP } from '@/components/CaseStudyCard'
 import { caseStudies } from '@/lib/caseStudies'
 import { projects as sideProjects } from '@/lib/projects'
 import { ROUTES } from '@/lib/constants'
@@ -92,21 +94,18 @@ export default function Home() {
 
       {/* PROJECTS SECTION */}
       <section className="relative pt-12 pb-24 border-t border-border-subtle">
+        <MillimetricPaper opacity={0.5} />
         {/* Section Header */}
         <GridRow className="mb-12">
           <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
-            <div className="pb-4 border-b border-border-subtle">
-              <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
-                Side Projects
-              </span>
-            </div>
+            <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
+              Side Projects
+            </span>
           </div>
-          <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%]">
-            <div className="pb-4 border-b border-border-subtle text-right">
-              <span className="font-mono text-caption text-text-tertiary">
-                004
-              </span>
-            </div>
+          <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%] text-right">
+            <span className="font-mono text-caption text-text-tertiary">
+              004
+            </span>
           </div>
         </GridRow>
 
@@ -137,27 +136,27 @@ export default function Home() {
       </section>
 
       {/* SELECTED WORKS SECTION */}
-      <section className="relative py-24 border-t border-border-subtle">
+      <section className="relative py-24 divider-dashed-grid">
+        <MillimetricPaper opacity={0.5} />
         {/* Section Header */}
         <GridRow className="mb-12">
           <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
-            <div className="pb-4 border-b border-border-subtle">
-              <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
-                Selected Works
-              </span>
-            </div>
+            <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
+              Selected Works
+            </span>
           </div>
-          <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%]">
-            <div className="pb-4 border-b border-border-subtle text-right">
-              <span className="font-mono text-caption text-text-tertiary">
-                004
-              </span>
-            </div>
+          <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%] text-right">
+            <span className="font-mono text-caption text-text-tertiary">
+              004
+            </span>
           </div>
         </GridRow>
 
         {/* Case Study Cards */}
-        <div className="max-w-content mx-auto" style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}>
+        <div
+          className="max-w-content mx-auto flex flex-col"
+          style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, gap: `${CARD_GAP}px` }}
+        >
           {selectedWorks.map((work, index) => (
             <CaseStudyCard
               key={work.id}

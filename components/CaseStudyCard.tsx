@@ -4,7 +4,7 @@
  * CaseStudyCard — MONO EDITION
  * 
  * Design spec:
- * - Height: 280px desktop, auto mobile
+ * - Height: 200px desktop, auto mobile
  * - Layout: Horizontal flex (30% metadata / 70% visual)
  * - Background: --bg-surface
  * - Border-left: 3px solid --accent (featured) or --bg-grid (standard)
@@ -16,6 +16,14 @@ import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { CaseStudy } from '@/lib/caseStudies'
 import { getWorkRoute } from '@/lib/constants'
+import FigmaFrame from './FigmaFrame'
+import { GRID_GAP } from './ExposedGrid'
+
+/** Card-to-card spacing: 2 grid units (use as gap on parent) */
+export const CARD_GAP = GRID_GAP * 2
+
+/** Max card height on desktop: ~15% less than 510px, golden-ratio friendly (432 ≈ 233φ) */
+const CARD_MAX_HEIGHT_DESKTOP = 432
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy
@@ -58,53 +66,54 @@ export default function CaseStudyCard({
   const cardDescription = caseStudy.cardSummary || caseStudy.subtitle
 
   return (
-    <div
-      ref={cardRef}
-      className="group relative mb-12"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      data-case-study-id={caseStudy.id}
-    >
-      <Link href={cardUrl} className="block">
+    <FigmaFrame label={`Work ${index + 1}`}>
+      <div
+        ref={cardRef}
+        className="group relative"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        data-case-study-id={caseStudy.id}
+      >
+        <Link href={cardUrl} className="block">
         <article
-          className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary"
-          style={{ minHeight: '280px' }}
+          className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary case-study-card-article"
+          style={{ minHeight: '200px', gap: `${GRID_GAP}px` }}
         >
-          {/* Left Column - Metadata (35%) */}
-          <div className="lg:w-[35%] p-8 lg:p-10 flex flex-col justify-between">
+          {/* Left Column - Metadata: 4 grid columns on desktop so divider aligns with grid. No w-full so Tailwind does not override .case-study-meta-col at lg. */}
+          <div className="lg:shrink-0 case-study-meta-col p-5 lg:p-6 flex flex-col justify-between min-h-0 overflow-hidden">
             <div>
               {/* Category Tag */}
               <span
                 id={`${caseStudy.id}-category`}
-                className="inline-block font-mono text-caption uppercase tracking-wide px-2 py-1 mb-4 border border-border-subtle text-text-secondary"
+                className="inline-block font-mono text-caption uppercase tracking-wide px-2 py-1 mb-3 border border-border-subtle text-text-secondary"
               >
                 {caseStudy.hashtag}
               </span>
 
               {/* Title — MONO */}
-              <h3 className="font-mono font-medium text-text-primary text-title-lg mb-4">
+              <h3 className="font-mono font-medium text-text-primary text-title-lg mb-2">
                 {caseStudy.title}
               </h3>
 
               {/* Year */}
               <p 
                 id={`${caseStudy.id}-year`}
-                className="font-mono text-caption text-text-secondary mb-4"
+                className="font-mono text-caption text-text-secondary mb-3"
               >
                 {caseStudy.company} · {caseStudy.year}
               </p>
 
-              {/* Card Summary */}
+              {/* Card Summary — line-clamp so card height stays within max */}
               <p
                 id={`${caseStudy.id}-summary`}
-                className="font-mono text-body text-text-secondary leading-relaxed"
+                className="font-mono text-body text-text-secondary leading-relaxed line-clamp-3"
               >
                 {cardDescription}
               </p>
             </div>
 
             {/* View Link */}
-            <div className="mt-6 lg:mt-0">
+            <div className="mt-4 lg:mt-0">
               <span className="inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                 View project
                 <svg
@@ -124,14 +133,14 @@ export default function CaseStudyCard({
             </div>
           </div>
 
-          {/* Right Column - Visual (65%) */}
-          <div className="lg:w-[65%] relative overflow-hidden">
+          {/* Right Column - Visual (remaining 8 cols on desktop). No lg:min-w-0 so .case-study-visual-col min-width wins. */}
+          <div className="case-study-visual-col lg:flex-1 relative overflow-hidden">
             {caseStudy.coverImageUrl || caseStudy.imageUrl ? (
-              <div className="relative w-full h-full min-h-[280px] lg:min-h-0">
+              <div className="relative w-full h-full min-h-[200px] lg:min-h-0">
                 <img
                   src={caseStudy.coverImageUrl || caseStudy.imageUrl}
                   alt={caseStudy.coverImageAlt || caseStudy.imageAlt || caseStudy.title}
-                  className="w-full h-full object-cover img-grayscale"
+                  className="w-full h-full object-cover object-center img-grayscale"
                 />
                 {/* Grain overlay */}
                 <div 
@@ -143,7 +152,7 @@ export default function CaseStudyCard({
                 />
               </div>
             ) : (
-              <div className="w-full h-full min-h-[280px] lg:min-h-0 bg-bg-grid flex items-center justify-center">
+              <div className="w-full h-full min-h-[200px] lg:min-h-0 bg-bg-grid flex items-center justify-center">
                 <span className="font-mono text-caption text-text-tertiary uppercase tracking-wide">
                   No image
                 </span>
@@ -152,17 +161,18 @@ export default function CaseStudyCard({
 
           </div>
         </article>
-      </Link>
+        </Link>
 
-      {/* Trace System SVG overlay */}
-      {traceTargetId && (
-        <TraceLines 
-          isVisible={showTrace}
-          cardId={caseStudy.id}
-          targetId={traceTargetId}
-        />
-      )}
-    </div>
+        {/* Trace System SVG overlay */}
+        {traceTargetId && (
+          <TraceLines 
+            isVisible={showTrace}
+            cardId={caseStudy.id}
+            targetId={traceTargetId}
+          />
+        )}
+      </div>
+    </FigmaFrame>
   )
 }
 
