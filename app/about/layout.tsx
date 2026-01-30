@@ -4,6 +4,9 @@ import { SITE } from '@/lib/constants'
 export const metadata: Metadata = {
   title: 'About - Miguel Angelo',
   description: 'Senior Product Designer with 10+ years shipping B2B platforms at scale. Systems thinking, AI products, and multi-market expertise.',
+  alternates: {
+    canonical: `${SITE.URL}/about`,
+  },
   openGraph: {
     title: 'About - Miguel Angelo',
     description: 'Senior Product Designer with 10+ years shipping B2B platforms at scale. Systems thinking, AI products, and multi-market expertise.',

@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   creator: 'Miguel Angelo',
   publisher: 'Miguel Angelo',
   metadataBase: new URL('https://miguelangelo.tech'),
+  alternates: {
+    canonical: SITE.URL,
+  },
   icons: {
     icon: '/cv/MAF.jpg',
   },

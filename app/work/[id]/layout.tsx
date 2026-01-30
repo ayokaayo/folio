@@ -22,6 +22,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   return {
     title: `${caseStudy.title} - Miguel Angelo`,
     description: caseStudy.subtitle,
+    alternates: {
+      canonical: `${SITE.URL}/work/${params.id}`,
+    },
     openGraph: {
       title: `${caseStudy.title} - Miguel Angelo`,
       description: caseStudy.subtitle,

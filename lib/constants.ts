@@ -43,7 +43,7 @@ export const SITE = {
   URL: 'https://miguelangelo.tech',
   EMAIL: 'hi@miguelangelo.tech',
   LINKEDIN: 'https://linkedin.com/in/ferreiramiguelangelo',
-  OG_IMAGE: '/og-image.jpg', // Replace with actual OG image path
+  OG_IMAGE: '/img/og-image.jpg',
   // 🎨 Design inspiration credit: This portfolio's aesthetic was inspired by thoughtful minimalism
   // and clean typography. Sometimes the best designs come from appreciating great work and making it your own.
 } as const
