@@ -13,12 +13,13 @@
  */
 
 import Link from 'next/link'
-import { useState, useRef } from 'react'
+import { useState, useRef, useMemo } from 'react'
 import { CaseStudy } from '@/lib/caseStudies'
 import { getWorkRoute } from '@/lib/constants'
 import FigmaFrame from './FigmaFrame'
 import { GRID_GAP } from './ExposedGrid'
 import GridLabel from './GridLabel'
+import { calculateCaseStudyReadingTime } from '@/lib/utils/readingTime'
 
 /** Card-to-card spacing: 2 grid gaps (32px) - will be grid-aligned via CSS */
 export const CARD_GAP = GRID_GAP * 2
@@ -47,6 +48,16 @@ export default function CaseStudyCard({
 
   const cardUrl = caseStudy.linkUrl || getWorkRoute(caseStudy.id)
 
+  // Calculate reading time range (quick to deep)
+  const readingTimeLabel = useMemo(() => {
+    const quickTime = calculateCaseStudyReadingTime(caseStudy, 'quick')
+    const deepTime = calculateCaseStudyReadingTime(caseStudy, 'deep')
+    // Extract just the number from formatted strings like "4 min"
+    const quickNum = parseInt(quickTime)
+    const deepNum = parseInt(deepTime)
+    return `${quickNum}–${deepNum} min read`
+  }, [caseStudy])
+
   // Handle hover with 200ms delay for trace trigger
   const handleMouseEnter = () => {
     setIsHovered(true)
@@ -67,7 +78,7 @@ export default function CaseStudyCard({
   const cardDescription = caseStudy.cardSummary || caseStudy.subtitle
 
   return (
-    <FigmaFrame label={`Work ${index + 1}`}>
+    <FigmaFrame label={readingTimeLabel}>
       <div
         ref={cardRef}
         className="group relative"

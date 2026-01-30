@@ -16,6 +16,7 @@ export const kallax: SideProject = {
   // ─────────────────────────────────────────────────────────────
   description: 'Mobile app for vinyl DJs. Sync your Discogs collection, track BPMs, build playlists, run live sets. Offline-first, local storage, no subscriptions. Designed for dark booths and the people who dig through crates to fill them.',
   cardSummary: 'Mobile companion for vinyl DJs. Sync Discogs, track BPMs, build playlists, run live sets. Offline-first, no subscriptions.',
+  readingTime: '4–7 min read',
   imageUrl: '/img/projects/kallax/hero.png',
   imageAlt: 'Kallax app interface showing collection grid with bold yellow accents against a dark background',
 

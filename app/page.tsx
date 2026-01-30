@@ -44,11 +44,11 @@ export default function Home() {
     <main id="main-content" className="pt-20">
       {/* HERO SECTION */}
       <section className="relative cursor-crosshair">
-        {/* EXPOSED GRID - 12 columns with coordinate labels */}
-        <ExposedGrid showColumns showLabels showGaps opacity={0.5} />
+        {/* EXPOSED GRID - 12 columns with coordinate labels - above content to capture mouse */}
+        <ExposedGrid showColumns showLabels showGaps opacity={0.5} interactive zIndex={5} />
 
-        {/* Hero Content */}
-        <div className="relative z-10 pt-12 pb-12 md:pt-16 md:pb-16">
+        {/* Hero Content - pointer-events-none to let grid receive mouse, but links need pointer-events-auto */}
+        <div className="relative z-10 pt-12 pb-12 md:pt-16 md:pb-16 pointer-events-none">
           <div
             className="max-w-content mx-auto"
             style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}
@@ -70,7 +70,7 @@ export default function Home() {
               <div className="mt-12">
                 <Link
                   href={ROUTES.WORK}
-                  className="btn-primary group inline-flex justify-between cta-2col"
+                  className="btn-primary group inline-flex justify-between cta-2col pointer-events-auto"
                 >
                   <span className="font-mono text-label uppercase tracking-wide">View Work</span>
                   <svg
@@ -93,10 +93,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROJECTS SECTION */}
-      <section className="relative border-t border-border-subtle" style={{ paddingTop: '64px', paddingBottom: '96px' }}>
+      {/* PROJECTS & SELECTED WORKS - Single continuous millimetric grid */}
+      <section className="relative" style={{ paddingTop: '64px', paddingBottom: '96px' }}>
         <MillimetricPaper opacity={0.5} zIndex={0} />
-        {/* Content wrapper - z-10 to appear above grid */}
+
+        {/* PROJECTS SECTION */}
         <div className="relative z-10">
         {/* Section Header - height aligned to grid (32px = 2 cells) */}
         <GridRow style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
@@ -133,13 +134,9 @@ export default function Home() {
           </div>
         </GridRow>
         </div>
-      </section>
 
-      {/* SELECTED WORKS SECTION */}
-      <section className="relative divider-dashed-grid" style={{ paddingTop: '96px', paddingBottom: '96px' }}>
-        <MillimetricPaper opacity={0.5} zIndex={0} />
-        {/* Content wrapper - z-10 to appear above grid */}
-        <div className="relative z-10">
+        {/* SELECTED WORKS SECTION */}
+        <div className="relative z-10" style={{ marginTop: '80px' }}>
         {/* Section Header - height aligned to grid (32px = 2 cells) */}
         <GridRow style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
           <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
