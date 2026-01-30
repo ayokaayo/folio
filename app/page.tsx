@@ -18,7 +18,6 @@ import ProjectCard from '@/components/ProjectCard'
 import ExposedGrid, { GridRow, GRID_GAP } from '@/components/ExposedGrid'
 import MillimetricPaper from '@/components/MillimetricPaper'
 import GridLabel, { GridLabelMuted } from '@/components/GridLabel'
-import { CARD_GAP } from '@/components/CaseStudyCard'
 import { caseStudies } from '@/lib/caseStudies'
 import { projects as sideProjects } from '@/lib/projects'
 import { ROUTES } from '@/lib/constants'
@@ -100,7 +99,7 @@ export default function Home() {
         {/* PROJECTS SECTION */}
         <div className="relative z-10">
         {/* Section Header - height aligned to grid (32px = 2 cells) */}
-        <GridRow style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
+        <GridRow style={{ marginBottom: '49px', height: '32px', alignItems: 'center' }}>
           <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
             <GridLabel>Side Projects</GridLabel>
           </div>
@@ -110,7 +109,7 @@ export default function Home() {
         </GridRow>
 
         {/* Project Cards - 2 cards side by side on tablet+, stacked on mobile */}
-        <GridRow className="flex-col md:flex-row">
+        <GridRow className="flex-col md:flex-row items-baseline">
           {selectedProjects.map((project, index) => (
             <div
               key={project.id}
@@ -136,7 +135,7 @@ export default function Home() {
         </div>
 
         {/* SELECTED WORKS SECTION */}
-        <div className="relative z-10" style={{ marginTop: '80px' }}>
+        <div className="relative z-10" style={{ marginTop: '72px' }}>
         {/* Section Header - height aligned to grid (32px = 2 cells) */}
         <GridRow style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
           <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
@@ -148,10 +147,7 @@ export default function Home() {
         </GridRow>
 
         {/* Case Study Cards */}
-        <div
-          className="max-w-content mx-auto flex flex-col"
-          style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, gap: `${CARD_GAP}px` }}
-        >
+        <GridRow className="flex-col" style={{ gap: '32px' }}>
           {selectedWorks.map((work, index) => (
             <CaseStudyCard
               key={work.id}
@@ -160,7 +156,7 @@ export default function Home() {
               featured={work.id === 'fast-track-ai'}
             />
           ))}
-        </div>
+        </GridRow>
 
         <GridRow style={{ marginTop: '48px' }}>
           <div style={{ flex: '1 1 0%' }}>

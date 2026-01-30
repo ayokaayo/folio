@@ -65,6 +65,11 @@ export interface CaseStudy {
     technical: string[]
     quickOutcomes?: string[]
     images?: ImageWithCaption[]
+    testimonials?: Array<{
+      quote: string
+      company: string
+      role?: string
+    }>
   }
   learned: {
     title: string

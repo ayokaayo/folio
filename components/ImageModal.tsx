@@ -89,7 +89,7 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
             <img
               src={image.url}
               alt={image.alt}
-              className="max-w-[95vw] max-h-[85vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+              className="max-w-[95vw] max-h-[85vh] w-auto h-auto object-contain shadow-2xl"
               style={{ maxWidth: '95vw', maxHeight: '85vh' }}
             />
           </motion.div>

@@ -87,13 +87,13 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
           </p>
           {caseStudy.imageUrl && (
             <div className="mt-8 mb-6">
-              <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1">
+              <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1">
                 <Image
                   src={caseStudy.imageUrl}
                   alt={caseStudy.imageAlt || caseStudy.title}
                   width={2400}
                   height={1600}
-                  className="w-full rounded-lg"
+                  className="w-full"
                   quality={90}
                 />
               </div>
@@ -112,7 +112,7 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
         
         {/* Next Case Study Navigation */}
         {nextCaseStudy && (
-          <div className="mt-16 pt-16 border-t border-text/10">
+          <div className="mt-16 pt-16 divider-dashed-grid">
             <NextItemCard
               title={nextCaseStudy.title}
               description={nextCaseStudy.subtitle}
@@ -120,6 +120,7 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
               quickReadTime={calculateCaseStudyReadingTime(nextCaseStudy, 'quick')}
               deepReadTime={calculateCaseStudyReadingTime(nextCaseStudy, 'deep')}
               type="case-study"
+              tags={[nextCaseStudy.hashtag, nextCaseStudy.year]}
             />
           </div>
         )}

@@ -252,26 +252,55 @@ a {
   }
   @media (min-width: 1024px) {
     .case-study-meta-col {
-      width: calc((100% - 11 * 16px) / 12 * 4 + 3 * 16px);
+      /* 4 columns out of 12, accounting for the single gap between meta/visual */
+      width: calc((100% - 16px) * 4 / 12);
+      flex-shrink: 0;
     }
   }
 
-  /* Case study card: right column min-width = 8 cols so image preview never collapses */
+  /* Case study card: right column takes remaining 8 columns */
   .case-study-visual-col {
     min-width: 0;
   }
   @media (min-width: 1024px) {
     .case-study-visual-col {
-      min-width: calc((100% - 11 * 16px) / 12 * 8 + 7 * 16px);
+      /* 8 columns out of 12 */
+      width: calc((100% - 16px) * 8 / 12);
+      flex-shrink: 0;
     }
   }
 
-  /* Case study card: height aligned to 16px baseline grid (26 cells = 416px) */
+  /* Case study card: height aligned to 16px baseline grid (24 cells = 384px) */
   @media (min-width: 1024px) {
     .case-study-card-article {
-      height: calc(16px * 26);
+      height: calc(16px * 24);
       max-height: none;
       box-sizing: border-box;
+    }
+  }
+
+  /* Case study card tablet: 20 cells = 320px */
+  @media (min-width: 641px) and (max-width: 1023px) {
+    .case-study-card-article {
+      height: calc(16px * 20);
+      box-sizing: border-box;
+    }
+  }
+
+  /* Case study card mobile: auto height, respects content */
+  @media (max-width: 640px) {
+    .case-study-card-article {
+      height: auto;
+      box-sizing: border-box;
+    }
+
+    /* Image container with fixed aspect ratio for grid alignment */
+    .case-study-visual-col {
+      aspect-ratio: 16/9;
+    }
+
+    .case-study-meta-col {
+      padding: 24px;
     }
   }
 
@@ -607,5 +636,20 @@ a {
   
   .no-print {
     display: none !important;
+  }
+}
+
+/* Golden Grid Spotlight Animation */
+@keyframes propagateGlow {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scaleY(0.8);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
   }
 }

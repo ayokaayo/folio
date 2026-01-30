@@ -42,9 +42,9 @@ export default function BeforeAfterImage({ before, after, className = '', defaul
   return (
     <>
       <figure className={`w-full ${className}`}>
-        <div className="relative w-full rounded-lg border border-text/10 bg-text/5 p-1 cursor-pointer transition-transform hover:scale-[1.01]" onClick={() => setSelectedImage(activeImage)}>
+        <div className="relative w-full border border-text/10 bg-text/5 p-1 cursor-pointer transition-transform hover:scale-[1.01]" onClick={() => setSelectedImage(activeImage)}>
           {/* Toggle Buttons - Upper Right Corner */}
-          <div className="absolute top-3 right-3 z-10 flex gap-1 bg-background/90 backdrop-blur-sm rounded-lg border border-text/10 p-1" onClick={(e) => e.stopPropagation()}>
+          <div className="absolute top-3 right-3 z-10 flex gap-1 bg-background/90 backdrop-blur-sm border border-text/10 p-1" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setActiveView('before')}
               aria-label="Show before image"

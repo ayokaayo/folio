@@ -27,7 +27,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-bg-surface border-t border-border-subtle relative z-10">
+    <footer className="bg-bg-surface divider-dashed-grid relative z-10">
       <div
         className="max-w-content mx-auto py-16"
         style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}
@@ -45,12 +45,13 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <span className="font-mono text-body text-text-primary">
-                  {SITE.EMAIL}
+                  *****@miguelangelo.tech
                 </span>
                 <button
                   onClick={handleCopyEmail}
-                  className="font-mono text-caption uppercase tracking-wide text-text-secondary hover:text-accent transition-colors duration-150"
+                  className="font-mono text-caption uppercase tracking-wide text-white bg-[#008FF0] hover:bg-[#0077CC] px-3 py-1.5 rounded transition-colors duration-150"
                   aria-label="Copy email to clipboard"
+                  title="Copy real email address"
                 >
                   {copied ? 'Copied!' : 'Copy'}
                 </button>
@@ -89,28 +90,20 @@ export default function Footer() {
             </h3>
             <div className="space-y-2 font-mono text-body">
               <p className="text-text-primary">
-                <span className="text-text-tertiary">Based:</span> Barcelona
+                <span className="text-text-tertiary uppercase tracking-wide text-label">BASED:</span> Barcelona
               </p>
               <p className="text-text-primary">
-                <span className="text-text-tertiary">Open:</span> Remote, Senior Product Design
+                <span className="text-text-tertiary uppercase tracking-wide text-label">OPEN:</span> Remote, Sr. Product Design, Design Ops
               </p>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-border-subtle">
-          <div
-            className="flex flex-col md:flex-row justify-between items-start md:items-center"
-            style={{ gap: `${GRID_GAP}px` }}
-          >
-            <p className="font-mono text-caption text-text-tertiary">
-              © {currentYear} Miguel Angelo
-            </p>
-            <p className="font-mono text-caption text-text-tertiary">
-              Systems thinking, crafted
-            </p>
-          </div>
+        <div className="mt-16 pt-8 divider-dashed-grid">
+          <p className="font-mono text-caption text-text-tertiary">
+            © {currentYear} miguelangelo.tech
+          </p>
         </div>
       </div>
     </footer>

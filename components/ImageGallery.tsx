@@ -56,7 +56,7 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
             className="w-full cursor-pointer"
             onClick={() => setSelectedImage(image)}
           >
-            <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
+            <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
               <div className="relative w-full">
                 <Image
                   src={image.url}

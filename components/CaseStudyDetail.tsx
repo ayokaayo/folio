@@ -13,6 +13,7 @@ import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import DensityToggle from './DensityToggle'
 import ImageModal from './ImageModal'
 import { parseMarkdownLinks } from '@/lib/utils/parseMarkdownLinks'
+import TestimonialCarousel from './TestimonialCarousel'
 
 const BeforeAfterImage = dynamic(() => import('./BeforeAfterImage'), {
   ssr: false
@@ -258,7 +259,7 @@ export default function CaseStudyDetail({
                           className="mt-6 mb-8 w-full cursor-pointer"
                           onClick={() => setSelectedImage(awardsImage)}
                         >
-                          <div className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
+                          <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                             <div className="relative w-full">
                               <Image
                                 src={awardsImage.url}
@@ -413,7 +414,7 @@ export default function CaseStudyDetail({
                       alt={decision.image.alt}
                       width={1200}
                       height={800}
-                      className="rounded-lg border border-text/10 transition-transform hover:scale-[1.01]"
+                      className="border border-text/10 transition-transform hover:scale-[1.01]"
                     />
                     {decision.image.caption && (
                       <p className="text-sm text-text/60 mt-2 italic text-center">{decision.image.caption}</p>
@@ -609,6 +610,13 @@ export default function CaseStudyDetail({
               </div>
             )}
         </div>
+        {/* Testimonials Carousel */}
+        {caseStudy.validation?.testimonials && caseStudy.validation.testimonials.length > 0 && (
+          <div className="mt-12">
+            <TestimonialCarousel testimonials={caseStudy.validation.testimonials} />
+          </div>
+        )}
+        
         <SectionImageGallery images={caseStudy.validation?.images} />
       </motion.section>
 
@@ -661,7 +669,7 @@ export default function CaseStudyDetail({
           {getLearnedInsight() && (
             <div className="relative mt-8 pt-4">
               <div 
-                className="bg-[#FFF9C4] p-6 rounded-sm shadow-lg transform rotate-[-1.5deg] border border-[#FDD835]/30"
+                className="bg-[#FFF9C4] p-6 shadow-lg transform rotate-[-1.5deg] border border-[#FDD835]/30"
                 style={{
                   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
                 }}

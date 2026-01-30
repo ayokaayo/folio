@@ -88,11 +88,11 @@ export default function CaseStudyCard({
       >
         <Link href={cardUrl} className="block h-full">
         <article
-          className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary case-study-card-article h-full"
+          className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary case-study-card-article"
           style={{ gap: `${GRID_GAP}px` }}
         >
-          {/* Left Column - Metadata: 4 grid columns on desktop so divider aligns with grid. No w-full so Tailwind does not override .case-study-meta-col at lg. */}
-          <div className="lg:shrink-0 case-study-meta-col p-5 flex flex-col justify-between min-h-0 overflow-hidden">
+          {/* Left Column - Metadata: 4 grid columns on desktop so divider aligns with grid */}
+          <div className="case-study-meta-col p-4 flex flex-col justify-between min-h-0 overflow-hidden">
             <div>
               {/* Category Tag - Figma-style label */}
               <div className="mb-3">

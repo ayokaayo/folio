@@ -17,10 +17,10 @@ interface TimelineTeamProps {
 export default function TimelineTeam({ timeline, team }: TimelineTeamProps) {
   return (
     <div className="mt-16 pt-12 pb-0 border-t border-text/10">
-      <div className="bg-white border border-text/10 rounded-lg p-6 flex flex-col sm:flex-row gap-6 sm:gap-8">
+      <div className="bg-white border border-text/10 p-6 flex flex-col sm:flex-row gap-6 sm:gap-8">
         {/* Timeline */}
         <div className="flex items-center gap-3 flex-1">
-          <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-bg-surface border border-text/10 flex items-center justify-center">
+          <div className="flex-shrink-0 w-10 h-10 bg-bg-surface border border-text/10 flex items-center justify-center">
             <svg
               className="w-5 h-5 text-primary"
               fill="none"
@@ -48,7 +48,7 @@ export default function TimelineTeam({ timeline, team }: TimelineTeamProps) {
 
         {/* Team */}
         <div className="flex items-center gap-3 flex-1">
-          <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-bg-surface border border-text/10 flex items-center justify-center">
+          <div className="flex-shrink-0 w-10 h-10 bg-bg-surface border border-text/10 flex items-center justify-center">
             <svg
               className="w-5 h-5 text-secondary"
               fill="none"

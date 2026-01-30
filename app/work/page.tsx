@@ -10,7 +10,7 @@
 
 import { useMemo } from 'react'
 import { caseStudies } from '@/lib/caseStudies'
-import CaseStudyCard from '@/components/CaseStudyCard'
+import CaseStudyCard, { CARD_GAP } from '@/components/CaseStudyCard'
 import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
 
 export default function WorkPage() {
@@ -53,7 +53,7 @@ export default function WorkPage() {
         className="relative max-w-content mx-auto pb-24"
         style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, zIndex: 1 }}
       >
-        <div className="space-y-8">
+        <div className="flex flex-col" style={{ gap: `${CARD_GAP}px` }}>
           {orderedCaseStudies.map((caseStudy, index) => (
             <CaseStudyCard
               key={caseStudy.id}

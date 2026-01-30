@@ -140,7 +140,7 @@ export default function KallaxPage() {
                         <img
                           src={src}
                           alt={alt ?? ''}
-                          className="max-w-full h-auto rounded-lg"
+                          className="max-w-full h-auto"
                         />
                       )
                     },

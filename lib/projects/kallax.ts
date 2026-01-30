@@ -33,7 +33,7 @@ export const kallax: SideProject = {
   links: [
     {
       label: 'App Store',
-      url: 'https://apps.apple.com/app/kallax/id6737292390',
+      url: 'https://apps.apple.com/us/app/kallax/id6758233437',
       type: 'live',
     },
     {

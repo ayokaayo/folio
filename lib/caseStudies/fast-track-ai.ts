@@ -292,6 +292,38 @@ export const fastTrackAI: CaseStudy = {
       'Foundation architecture confirmed capable of supporting Phase 2 expansion into additional action types',
     ],
     images: [],
+    testimonials: [
+      {
+        quote: 'What used to take days passing between CRM and BI now happens in minutes. We can correct any result instantly and move on.',
+        company: 'Bitsler',
+        role: 'CRM Team',
+      },
+      {
+        quote: "We're already seeing a lot of value from Fast Track AI and have been really impressed by the accuracy of the data and insights. Our vision for how we want to work is very aligned with what's on the roadmap.",
+        company: 'Leonbets',
+        role: 'CRM Team',
+      },
+      {
+        quote: "Really impressed with the accuracy of the churn report. It's spot on.",
+        company: 'Stanleybet Romania',
+      },
+      {
+        quote: 'Fast Track AI turned raw data into decisions we execute the same day.',
+        company: 'Suprema Bet',
+      },
+      {
+        quote: "I'm surprised how easy and fast it makes reports, followed by the extra valuable info that I wasn't asked for initially.",
+        company: 'Ambition Red',
+      },
+      {
+        quote: 'Fast Track AI gives us instant insight, enabling smarter, data-driven decisions and far less time spent digging through data.',
+        company: 'Playbook',
+      },
+      {
+        quote: 'Excellent work on delivering thorough analyses across both historical and ongoing campaign data.',
+        company: 'Treadstone',
+      },
+    ],
   },
 
   learned: {

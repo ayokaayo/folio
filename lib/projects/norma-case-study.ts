@@ -133,6 +133,7 @@ export const norma: SideProject = {
       url: '/img/projects/norma/architecture.png',
       alt: 'Database schema showing modular structure with forms, matters, documents, and user tables',
       caption: 'Modular schema designed for expansion from day one. Forms, matters, and documents connect logically but remain independent. Adding calendar or billing modules later requires zero schema rewrites. This architecture decision saved weeks of refactoring.',
+      isZoomable: true,
     },
   },
 

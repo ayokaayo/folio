@@ -113,7 +113,7 @@ export default function AboutPage() {
 
             {/* What I Do Well */}
             <div className="mb-12">
-              <h2 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-6">
+              <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-[#008FF0] px-4 py-2 rounded mb-6">
                 What I Do Well
               </h2>
 
@@ -147,12 +147,12 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-3 font-mono text-body">
                 <div className="flex gap-4">
-                  <span className="text-text-tertiary w-20 uppercase">Based:</span>
+                  <span className="text-text-tertiary w-20 uppercase tracking-wide text-label">BASED:</span>
                   <span className="text-text-primary">Barcelona</span>
                 </div>
                 <div className="flex gap-4">
-                  <span className="text-text-tertiary w-20 uppercase">Open:</span>
-                  <span className="text-text-primary">Remote, Senior Product Design</span>
+                  <span className="text-text-tertiary w-20 uppercase tracking-wide text-label">OPEN:</span>
+                  <span className="text-text-primary">Remote, Sr. Product Design, Design Ops</span>
                 </div>
                 <div className="flex gap-4">
                   <span className="text-text-tertiary w-20 uppercase">Sectors:</span>

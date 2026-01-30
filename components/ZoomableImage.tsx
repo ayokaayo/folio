@@ -156,7 +156,7 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
     <figure className="w-full">
       <div
         ref={containerRef}
-        className="relative w-full rounded-lg overflow-hidden border border-text/10 bg-white"
+        className="relative w-full overflow-hidden border border-text/10 bg-white"
         style={{ height: '500px' }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}

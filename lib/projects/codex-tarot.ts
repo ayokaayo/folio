@@ -130,6 +130,7 @@ export const codexTarot: SideProject = {
         url: '/img/projects/codex-tarot/flow.png',
         alt: 'User flow diagram showing Card of the Day, reading selection, and paywall paths',
         caption: 'Three primary paths with monetization gates placed naturally. Daily card, guided spreads, or upgrade for more.',
+        isZoomable: true,
       },
     ],
   },

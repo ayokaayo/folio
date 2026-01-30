@@ -35,7 +35,7 @@ export default function ProjectCard({
 
   return (
     <FigmaFrame label={readingTimeLabel}>
-      <article className="group bg-bg-surface overflow-hidden border border-border-subtle project-card-article h-full">
+      <article className="group bg-bg-surface overflow-hidden border border-border-subtle project-card-article">
         <Link href={cardUrl} className="block h-full flex flex-col">
           {/* Image - height constrained to fit within grid-aligned card */}
           {project.imageUrl ? (
