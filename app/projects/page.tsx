@@ -2,15 +2,15 @@
 
 /**
  * Projects Page — MONO EDITION
- * 
+ *
  * - All typography: IBM Plex Mono
- * - 4-column grid on desktop
+ * - Grid visible from bottom extending upward
  * - Filter bar with forest green active state
- * - No Trace interaction (exclusive to case studies)
  */
 
 import { useMemo, useState } from 'react'
 import ProjectCard from '@/components/ProjectCard'
+import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
 import { projects } from '@/lib/projects'
 
 type FilterCategory = 'all' | 'ai' | 'productivity' | 'experiments'
@@ -46,33 +46,36 @@ export default function ProjectsPage() {
   }, [orderedProjects, activeFilter])
 
   return (
-    <main id="main-content" className="pt-20">
+    <main id="main-content" className="pt-20 relative min-h-screen">
+      {/* Grid visible from bottom - full height, behind content */}
+      <div className="fixed inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+        <ExposedGrid showColumns showGaps opacity={0.3} showLabels={false} position="fixed" />
+      </div>
+
       {/* Header */}
-      <section className="max-w-content mx-auto px-6 sm:px-[5vw] py-12 md:py-16">
-        <div className="grid grid-cols-12 gap-[2vw] items-end pb-4 border-b border-border-subtle mb-8">
-          <div className="col-span-8">
-            <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
-              Side Projects
-            </span>
-          </div>
-          <div className="col-span-4 text-right">
-            <span className="font-mono text-caption text-text-tertiary">
-              004
-            </span>
-          </div>
+      <section
+        className="relative py-12 md:py-16"
+        style={{ zIndex: 1 }}
+      >
+        <div
+          className="max-w-content mx-auto"
+          style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}
+        >
+          <h1 className="font-mono font-medium text-text-primary text-headline">
+            Projects
+          </h1>
+          <p className="font-mono text-body text-text-secondary max-w-2xl mt-6">
+            Things I build when the constraints are my own.<br />
+            Smaller products, faster cycles, full creative control.
+          </p>
         </div>
-        
-        <h1 className="font-mono font-medium text-text-primary text-headline">
-          Projects
-        </h1>
-        <p className="font-mono text-body text-text-secondary max-w-2xl mt-6">
-          Things I build when the constraints are my own.<br />
-          Smaller products, faster cycles, full creative control.
-        </p>
       </section>
 
       {/* Filter Bar */}
-      <section className="max-w-content mx-auto px-6 sm:px-[5vw] mb-8">
+      <section
+        className="relative max-w-content mx-auto mb-8"
+        style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, zIndex: 1 }}
+      >
         <div className="flex items-center gap-3 flex-wrap">
           {FILTERS.map((filter) => (
             <button
@@ -94,19 +97,21 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Projects Grid */}
-      <section className="max-w-content mx-auto px-6 sm:px-[5vw] pb-24">
-        <div className="grid grid-cols-12 gap-[2vw]">
+      {/* Projects Grid - 2 columns on tablet, 3 on desktop */}
+      <section
+        className="relative max-w-content mx-auto pb-24"
+        style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, zIndex: 1 }}
+      >
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          style={{ gap: `${GRID_GAP}px` }}
+        >
           {filteredProjects.map((project, index) => (
-            <div
+            <ProjectCard
               key={project.id}
-              className="col-span-12 sm:col-span-6 lg:col-span-4"
-            >
-              <ProjectCard
-                project={project}
-                index={index}
-              />
-            </div>
+              project={project}
+              index={index}
+            />
           ))}
         </div>
 

@@ -1,31 +1,28 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 /**
- * ExposedGrid — Visual 12-column grid overlay — MONO EDITION
- * 
- * A signature element of the Tactile Minimal × Swiss Brutalism design system.
- * The grid is exposed, not hidden — celebrating structural logic.
- * 
- * Features:
- * - 12-column grid with coordinate labels (01-12)
- * - Vertical lines at 50% opacity
- * - Grid-aligned to max-content container
- * - All text: IBM Plex Mono
+ * ExposedGrid — Visual grid overlay
+ *
+ * Uses flexbox with explicit equal widths to guarantee all columns are identical.
+ * Shows column areas with subtle fill and gaps between them.
  */
 
+// Grid constants - exported for use in other components
+export const GRID_GAP = 16
+export const GRID_COLUMNS_DESKTOP = 12
+export const GRID_COLUMNS_TABLET = 6
+export const GRID_COLUMNS_MOBILE = 4
+
 interface ExposedGridProps {
-  /** Show vertical grid lines */
   showColumns?: boolean
-  /** Show horizontal baseline grid (4px) */
   showBaseline?: boolean
-  /** Grid line opacity (0-1) */
   opacity?: number
-  /** Fixed position (full viewport) or absolute (container) */
   position?: 'fixed' | 'absolute'
-  /** Z-index */
   zIndex?: number
-  /** Grid coordinate labels */
   showLabels?: boolean
+  showGaps?: boolean
 }
 
 export default function ExposedGrid({
@@ -35,47 +32,73 @@ export default function ExposedGrid({
   position = 'absolute',
   zIndex = 0,
   showLabels = true,
+  showGaps = true,
 }: ExposedGridProps) {
+  const [columnCount, setColumnCount] = useState(12)
+
+  useEffect(() => {
+    const updateColumnCount = () => {
+      const cols = getComputedStyle(document.documentElement)
+        .getPropertyValue('--grid-columns')
+        .trim()
+      setColumnCount(parseInt(cols, 10) || 12)
+    }
+
+    updateColumnCount()
+    window.addEventListener('resize', updateColumnCount)
+    return () => window.removeEventListener('resize', updateColumnCount)
+  }, [])
+
   return (
     <div
       className={`${position === 'fixed' ? 'fixed' : 'absolute'} inset-0 pointer-events-none select-none overflow-hidden`}
       style={{ zIndex }}
       aria-hidden="true"
     >
-      {/* 12-Column Grid */}
       {showColumns && (
-        <div className="w-full h-full max-w-content mx-auto px-6 sm:px-[5vw]">
-          <div className="grid grid-cols-12 gap-[2vw] h-full relative">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div key={i} className="relative h-full">
-                {/* Vertical grid line */}
-                <div 
-                  className="absolute inset-y-0 left-0 w-px bg-border-subtle"
-                  style={{ opacity }}
-                />
-                {/* Column coordinate label */}
-                {showLabels && (
-                  <span
-                    className="absolute top-4 left-2 font-mono text-caption text-text-tertiary"
-                    style={{ opacity: opacity * 0.8 }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                )}
-              </div>
-            ))}
-            {/* Right edge line */}
-            <div className="relative h-full">
-              <div 
-                className="absolute inset-y-0 right-0 w-px bg-border-subtle"
+        <div
+          className="h-full w-full max-w-content mx-auto"
+          style={{
+            display: 'flex',
+            gap: `${GRID_GAP}px`,
+            paddingLeft: `${GRID_GAP}px`,
+            paddingRight: `${GRID_GAP}px`,
+          }}
+        >
+          {Array.from({ length: columnCount }).map((_, i) => (
+            <div
+              key={i}
+              className="relative h-full"
+              style={{
+                flex: '1 1 0%',
+                // Subtle column fill to distinguish from gaps
+                backgroundColor: showGaps ? `rgba(45, 90, 76, ${opacity * 0.06})` : 'transparent',
+              }}
+            >
+              {/* Left edge line */}
+              <div
+                className="absolute left-0 top-0 bottom-0 w-px bg-border-subtle"
                 style={{ opacity }}
               />
+              {/* Right edge line */}
+              <div
+                className="absolute right-0 top-0 bottom-0 w-px bg-border-subtle"
+                style={{ opacity }}
+              />
+              {/* Column label */}
+              {showLabels && (
+                <span
+                  className="absolute top-4 left-2 font-mono text-caption text-text-tertiary"
+                  style={{ opacity: opacity * 0.8 }}
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              )}
             </div>
-          </div>
+          ))}
         </div>
       )}
 
-      {/* Baseline Grid (4px) */}
       {showBaseline && (
         <div
           className="absolute inset-0 w-full h-full"
@@ -94,28 +117,63 @@ export default function ExposedGrid({
   )
 }
 
-/**
- * GridContainer - Content wrapper with exposed grid
- */
-interface GridContainerProps {
+// Helper component to create grid-aligned layouts
+interface GridRowProps {
   children: React.ReactNode
   className?: string
-  showGrid?: boolean
-  as?: keyof JSX.IntrinsicElements
 }
 
-export function GridContainer({
-  children,
-  className = '',
-  showGrid = false,
-  as: Component = 'div',
-}: GridContainerProps) {
+export function GridRow({ children, className = '' }: GridRowProps) {
   return (
-    <Component className={`relative w-full ${className}`}>
-      {showGrid && <ExposedGrid showColumns opacity={0.4} />}
-      <div className="relative z-10 max-w-content mx-auto px-6 sm:px-[5vw]">
-        {children}
-      </div>
-    </Component>
+    <div
+      className={`max-w-content mx-auto w-full ${className}`}
+      style={{
+        display: 'flex',
+        gap: `${GRID_GAP}px`,
+        paddingLeft: `${GRID_GAP}px`,
+        paddingRight: `${GRID_GAP}px`,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+// Helper for spanning multiple columns
+// Supports responsive spans: span (desktop), spanTablet (6 cols), spanMobile (4 cols)
+interface GridColProps {
+  children: React.ReactNode
+  span?: number
+  spanTablet?: number
+  spanMobile?: number
+  className?: string
+}
+
+export function GridCol({
+  children,
+  span = 1,
+  spanTablet,
+  spanMobile,
+  className = '',
+}: GridColProps) {
+  // Default responsive behavior: clamp to available columns
+  const tablet = spanTablet ?? Math.min(span, 6)
+  const mobile = spanMobile ?? Math.min(span, 4)
+
+  return (
+    <div
+      className={className}
+      style={{
+        // Use CSS custom property for responsive flex
+        // Desktop: span, Tablet: tablet, Mobile: mobile
+        flex: `var(--col-span, ${span}) var(--col-span, ${span}) 0%`,
+        // @ts-ignore - CSS custom properties
+        '--col-span-desktop': span,
+        '--col-span-tablet': tablet,
+        '--col-span-mobile': mobile,
+      } as React.CSSProperties}
+    >
+      {children}
+    </div>
   )
 }

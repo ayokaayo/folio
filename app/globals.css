@@ -5,7 +5,12 @@
 :root {
   /* Tactile Minimal × Swiss Brutalism — MONO EDITION */
   /* Deep forest green accent, all monospace typography */
-  
+
+  /* Grid System - using px for predictability */
+  --grid-columns: 12;
+  --grid-gap: 16px;
+  --grid-margin: 16px;
+
   /* Backgrounds */
   --bg-primary: #F7F5F0;
   --bg-surface: #FFFCF8;
@@ -39,6 +44,19 @@
   /* Letter Spacing */
   --tracking-tight: -0.025em;
   --tracking-headline: -0.02em;
+}
+
+/* Responsive grid columns */
+@media (max-width: 1024px) {
+  :root {
+    --grid-columns: 6;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --grid-columns: 4;
+  }
 }
 
 /* Base styles */
@@ -227,6 +245,30 @@ a {
 
 /* Utility Classes */
 @layer utilities {
+  /* Responsive grid system using CSS variables */
+  .grid-content {
+    display: flex;
+    gap: 16px;
+  }
+
+  .grid-content > * {
+    flex: 1 1 0%;
+  }
+
+  .px-grid {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* CTA spanning exactly 2 grid columns */
+  .cta-2col {
+    /* Width = 2 columns + 1 gap */
+    /* Each column = (100vw - max-width-padding - 11 gaps) / 12 */
+    /* For simplicity, use a fixed width that matches 2 cols at common viewport */
+    width: calc((100vw - 32px - 176px) / 12 * 2 + 16px);
+    max-width: calc((1400px - 32px - 176px) / 12 * 2 + 16px); /* ~215px at max-width */
+  }
+
   .cursor-crosshair {
     cursor: crosshair;
   }

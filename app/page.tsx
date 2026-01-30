@@ -2,9 +2,9 @@
 
 /**
  * Home Page — Miguel Angelo Portfolio V2 (MONO EDITION)
- * 
+ *
  * Design System: Tactile Minimal × Swiss Brutalism
- * 
+ *
  * MONO EDITION:
  * - All typography: IBM Plex Mono
  * - Accent: Deep forest green (#2D5A4C)
@@ -15,7 +15,7 @@ import { useMemo } from 'react'
 import Link from 'next/link'
 import CaseStudyCard from '@/components/CaseStudyCard'
 import ProjectCard from '@/components/ProjectCard'
-import ExposedGrid from '@/components/ExposedGrid'
+import ExposedGrid, { GridRow, GRID_GAP } from '@/components/ExposedGrid'
 import { caseStudies } from '@/lib/caseStudies'
 import { projects as sideProjects } from '@/lib/projects'
 import { ROUTES } from '@/lib/constants'
@@ -28,7 +28,7 @@ export default function Home() {
       .map(id => caseStudies.find(cs => cs.id === id))
       .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)
   }, [])
-  
+
   // Filter and order projects for homepage
   const selectedProjects = useMemo(() => {
     const order = ['kallax', 'codex-tarot']
@@ -42,13 +42,16 @@ export default function Home() {
       {/* HERO SECTION */}
       <section className="relative cursor-crosshair">
         {/* EXPOSED GRID - 12 columns with coordinate labels */}
-        <ExposedGrid showColumns showLabels opacity={0.5} />
+        <ExposedGrid showColumns showLabels showGaps opacity={0.5} />
 
         {/* Hero Content */}
-        <div className="relative z-10 max-w-content mx-auto px-6 sm:px-[5vw] w-full pt-12 pb-12 md:pt-16 md:pb-16">
-          <div className="grid grid-cols-12 gap-[2vw]">
-            {/* Main Content (cols 1-8) */}
-            <div className="col-span-12 lg:col-span-8">
+        <div className="relative z-10 pt-12 pb-12 md:pt-16 md:pb-16">
+          <div
+            className="max-w-content mx-auto"
+            style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}
+          >
+            {/* Main Content - spans 8 of 12 columns on desktop */}
+            <div className="w-full lg:w-[calc((100%-11*16px)/12*8+7*16px)]">
               <h1 className="font-mono font-medium text-text-primary text-headline">
                 Systems thinker,<br />
                 designing infrastructure<br />
@@ -60,12 +63,15 @@ export default function Home() {
                 Localisation, iGaming, Enterprise SaaS.
               </p>
 
-              {/* CTA */}
+              {/* CTA - spans exactly 2 grid columns */}
               <div className="mt-12">
-                <Link href={ROUTES.WORK} className="btn-primary group">
+                <Link
+                  href={ROUTES.WORK}
+                  className="btn-primary group inline-flex justify-between cta-2col"
+                >
                   <span className="font-mono text-label uppercase tracking-wide">View Work</span>
                   <svg
-                    className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1"
+                    className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-1 ml-3"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -86,64 +92,72 @@ export default function Home() {
 
       {/* PROJECTS SECTION */}
       <section className="relative pt-12 pb-24 border-t border-border-subtle">
-        <div className="max-w-content mx-auto px-6 sm:px-[5vw] mb-12">
-          <div className="grid grid-cols-12 gap-[2vw] items-end pb-4 border-b border-border-subtle">
-            <div className="col-span-8">
+        {/* Section Header */}
+        <GridRow className="mb-12">
+          <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
+            <div className="pb-4 border-b border-border-subtle">
               <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
                 Side Projects
               </span>
             </div>
-            <div className="col-span-4 text-right">
+          </div>
+          <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%]">
+            <div className="pb-4 border-b border-border-subtle text-right">
               <span className="font-mono text-caption text-text-tertiary">
                 004
               </span>
             </div>
           </div>
-        </div>
+        </GridRow>
 
-        <div className="max-w-content mx-auto px-6 sm:px-[5vw]">
-          <div className="grid grid-cols-12 gap-[2vw]">
-            {selectedProjects.map((project, index) => (
-              <div 
-                key={project.id}
-                className="col-span-12 md:col-span-6"
-              >
-                <ProjectCard
-                  project={project}
-                  index={index}
-                  featured={project.id === 'norma'}
-                />
-              </div>
-            ))}
-          </div>
-          
-          <div className="mt-12">
+        {/* Project Cards - 2 cards side by side on tablet+, stacked on mobile */}
+        <GridRow className="flex-col md:flex-row">
+          {selectedProjects.map((project, index) => (
+            <div
+              key={project.id}
+              style={{ flex: '1 1 0%' }}
+            >
+              <ProjectCard
+                project={project}
+                index={index}
+                featured={project.id === 'norma'}
+              />
+            </div>
+          ))}
+        </GridRow>
+
+        <GridRow className="mt-12">
+          <div style={{ flex: '1 1 0%' }}>
             <Link href={ROUTES.PROJECTS} className="btn-tertiary group">
               <span className="font-mono text-label uppercase tracking-wide">View all projects</span>
               <span className="arrow">→</span>
             </Link>
           </div>
-        </div>
+        </GridRow>
       </section>
 
       {/* SELECTED WORKS SECTION */}
       <section className="relative py-24 border-t border-border-subtle">
-        <div className="max-w-content mx-auto px-6 sm:px-[5vw] mb-12">
-          <div className="grid grid-cols-12 gap-[2vw] items-end pb-4 border-b border-border-subtle">
-            <div className="col-span-8">
+        {/* Section Header */}
+        <GridRow className="mb-12">
+          <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
+            <div className="pb-4 border-b border-border-subtle">
               <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
                 Selected Works
               </span>
             </div>
-            <div className="col-span-4 text-right">
+          </div>
+          <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%]">
+            <div className="pb-4 border-b border-border-subtle text-right">
               <span className="font-mono text-caption text-text-tertiary">
                 004
               </span>
             </div>
           </div>
-        </div>
+        </GridRow>
 
-        <div className="max-w-content mx-auto px-6 sm:px-[5vw]">
+        {/* Case Study Cards */}
+        <div className="max-w-content mx-auto" style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}>
           {selectedWorks.map((work, index) => (
             <CaseStudyCard
               key={work.id}
@@ -152,14 +166,16 @@ export default function Home() {
               featured={work.id === 'fast-track-ai'}
             />
           ))}
-          
-          <div className="mt-12">
+        </div>
+
+        <GridRow className="mt-12">
+          <div style={{ flex: '1 1 0%' }}>
             <Link href={ROUTES.WORK} className="btn-tertiary group">
               <span className="font-mono text-label uppercase tracking-wide">View all work</span>
               <span className="arrow">→</span>
             </Link>
           </div>
-        </div>
+        </GridRow>
       </section>
     </main>
   )

@@ -55,7 +55,7 @@ export default function Navigation() {
         className="fixed top-0 left-0 right-0 z-50 bg-bg-surface border-b border-border-subtle"
         style={{ height: '80px' }}
       >
-        <div className="max-w-content mx-auto px-6 sm:px-[5vw] h-full">
+        <div className="max-w-content mx-auto h-full" style={{ paddingLeft: '16px', paddingRight: '16px' }}>
           <div className="flex items-center justify-between h-full">
             {/* Avatar */}
             <Link
