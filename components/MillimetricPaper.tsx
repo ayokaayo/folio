@@ -66,10 +66,23 @@ export default function MillimetricPaper({
             className="relative h-full"
             style={{ flex: '1 1 0%' }}
           >
-            {/* Vertical subdivision lines - 16px apart for consistency */}
+            {/* Left edge line - matches ExposedGrid exactly */}
             <div
-              className="absolute inset-0"
+              className="absolute left-0 top-0 bottom-0 w-px bg-border-subtle"
+              style={{ opacity }}
+            />
+            {/* Right edge line - matches ExposedGrid exactly */}
+            <div
+              className="absolute right-0 top-0 bottom-0 w-px bg-border-subtle"
+              style={{ opacity }}
+            />
+            
+            {/* Vertical subdivision lines - 16px apart, offset to avoid edge doubling */}
+            <div
+              className="absolute top-0 bottom-0"
               style={{
+                left: `${BASELINE_GRID}px`,
+                right: `${BASELINE_GRID}px`,
                 backgroundImage: `linear-gradient(to right, ${lineColor} 1px, transparent 1px)`,
                 backgroundSize: `${BASELINE_GRID}px 100%`,
               }}
