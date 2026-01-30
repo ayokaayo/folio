@@ -18,8 +18,9 @@ import { CaseStudy } from '@/lib/caseStudies'
 import { getWorkRoute } from '@/lib/constants'
 import FigmaFrame from './FigmaFrame'
 import { GRID_GAP } from './ExposedGrid'
+import GridLabel from './GridLabel'
 
-/** Card-to-card spacing: 2 grid units (use as gap on parent) */
+/** Card-to-card spacing: 2 grid gaps (32px) - will be grid-aligned via CSS */
 export const CARD_GAP = GRID_GAP * 2
 
 /** Max card height on desktop: ~15% less than 510px, golden-ratio friendly (432 ≈ 233φ) */
@@ -74,21 +75,18 @@ export default function CaseStudyCard({
         onMouseLeave={handleMouseLeave}
         data-case-study-id={caseStudy.id}
       >
-        <Link href={cardUrl} className="block">
+        <Link href={cardUrl} className="block h-full">
         <article
-          className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary case-study-card-article"
-          style={{ minHeight: '200px', gap: `${GRID_GAP}px` }}
+          className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary case-study-card-article h-full"
+          style={{ gap: `${GRID_GAP}px` }}
         >
           {/* Left Column - Metadata: 4 grid columns on desktop so divider aligns with grid. No w-full so Tailwind does not override .case-study-meta-col at lg. */}
-          <div className="lg:shrink-0 case-study-meta-col p-5 lg:p-6 flex flex-col justify-between min-h-0 overflow-hidden">
+          <div className="lg:shrink-0 case-study-meta-col p-5 flex flex-col justify-between min-h-0 overflow-hidden">
             <div>
-              {/* Category Tag */}
-              <span
-                id={`${caseStudy.id}-category`}
-                className="inline-block font-mono text-caption uppercase tracking-wide px-2 py-1 mb-3 border border-border-subtle text-text-secondary"
-              >
-                {caseStudy.hashtag}
-              </span>
+              {/* Category Tag - Figma-style label */}
+              <div className="mb-3">
+                <GridLabel size="sm">{caseStudy.hashtag}</GridLabel>
+              </div>
 
               {/* Title — MONO */}
               <h3 className="font-mono font-medium text-text-primary text-title-lg mb-2">
@@ -103,10 +101,11 @@ export default function CaseStudyCard({
                 {caseStudy.company} · {caseStudy.year}
               </p>
 
-              {/* Card Summary — line-clamp so card height stays within max */}
+              {/* Card Summary — line-clamp so card height stays within grid cell multiple */}
               <p
                 id={`${caseStudy.id}-summary`}
-                className="font-mono text-body text-text-secondary leading-relaxed line-clamp-3"
+                className="font-mono text-body text-text-secondary line-clamp-3"
+                style={{ lineHeight: '1.5' }}
               >
                 {cardDescription}
               </p>
@@ -134,9 +133,9 @@ export default function CaseStudyCard({
           </div>
 
           {/* Right Column - Visual (remaining 8 cols on desktop). No lg:min-w-0 so .case-study-visual-col min-width wins. */}
-          <div className="case-study-visual-col lg:flex-1 relative overflow-hidden">
+          <div className="case-study-visual-col lg:flex-1 relative overflow-hidden h-full">
             {caseStudy.coverImageUrl || caseStudy.imageUrl ? (
-              <div className="relative w-full h-full min-h-[200px] lg:min-h-0">
+              <div className="relative w-full h-full min-h-[200px] lg:min-h-0 lg:h-full">
                 <img
                   src={caseStudy.coverImageUrl || caseStudy.imageUrl}
                   alt={caseStudy.coverImageAlt || caseStudy.imageAlt || caseStudy.title}

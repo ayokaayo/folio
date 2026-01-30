@@ -72,7 +72,7 @@ export default function ExposedGrid({
               style={{
                 flex: '1 1 0%',
                 // Subtle column fill to distinguish from gaps
-                backgroundColor: showGaps ? `rgba(45, 90, 76, ${opacity * 0.06})` : 'transparent',
+                backgroundColor: showGaps ? `rgba(0, 143, 240, ${opacity * 0.04})` : 'transparent',
               }}
             >
               {/* Left edge line */}
@@ -107,8 +107,8 @@ export default function ExposedGrid({
               to bottom,
               transparent,
               transparent 3px,
-              rgba(45, 90, 76, ${opacity * 0.3}) 3px,
-              rgba(45, 90, 76, ${opacity * 0.3}) 4px
+              rgba(0, 143, 240, ${opacity * 0.3}) 3px,
+              rgba(0, 143, 240, ${opacity * 0.3}) 4px
             )`,
           }}
         />
@@ -121,9 +121,10 @@ export default function ExposedGrid({
 interface GridRowProps {
   children: React.ReactNode
   className?: string
+  style?: React.CSSProperties
 }
 
-export function GridRow({ children, className = '' }: GridRowProps) {
+export function GridRow({ children, className = '', style }: GridRowProps) {
   return (
     <div
       className={`max-w-content mx-auto w-full ${className}`}
@@ -132,6 +133,7 @@ export function GridRow({ children, className = '' }: GridRowProps) {
         gap: `${GRID_GAP}px`,
         paddingLeft: `${GRID_GAP}px`,
         paddingRight: `${GRID_GAP}px`,
+        ...style,
       }}
     >
       {children}

@@ -17,6 +17,7 @@ import CaseStudyCard from '@/components/CaseStudyCard'
 import ProjectCard from '@/components/ProjectCard'
 import ExposedGrid, { GridRow, GRID_GAP } from '@/components/ExposedGrid'
 import MillimetricPaper from '@/components/MillimetricPaper'
+import GridLabel, { GridLabelMuted } from '@/components/GridLabel'
 import { CARD_GAP } from '@/components/CaseStudyCard'
 import { caseStudies } from '@/lib/caseStudies'
 import { projects as sideProjects } from '@/lib/projects'
@@ -93,19 +94,17 @@ export default function Home() {
       </section>
 
       {/* PROJECTS SECTION */}
-      <section className="relative pt-12 pb-24 border-t border-border-subtle">
-        <MillimetricPaper opacity={0.5} />
-        {/* Section Header */}
-        <GridRow className="mb-12">
+      <section className="relative border-t border-border-subtle" style={{ paddingTop: '64px', paddingBottom: '96px' }}>
+        <MillimetricPaper opacity={0.5} zIndex={0} />
+        {/* Content wrapper - z-10 to appear above grid */}
+        <div className="relative z-10">
+        {/* Section Header - height aligned to grid (32px = 2 cells) */}
+        <GridRow style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
           <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
-            <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
-              Side Projects
-            </span>
+            <GridLabel>Side Projects</GridLabel>
           </div>
           <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%] text-right">
-            <span className="font-mono text-caption text-text-tertiary">
-              004
-            </span>
+            <GridLabelMuted size="sm">004</GridLabelMuted>
           </div>
         </GridRow>
 
@@ -125,7 +124,7 @@ export default function Home() {
           ))}
         </GridRow>
 
-        <GridRow className="mt-12">
+        <GridRow style={{ marginTop: '48px' }}>
           <div style={{ flex: '1 1 0%' }}>
             <Link href={ROUTES.PROJECTS} className="btn-tertiary group">
               <span className="font-mono text-label uppercase tracking-wide">View all projects</span>
@@ -133,22 +132,21 @@ export default function Home() {
             </Link>
           </div>
         </GridRow>
+        </div>
       </section>
 
       {/* SELECTED WORKS SECTION */}
-      <section className="relative py-24 divider-dashed-grid">
-        <MillimetricPaper opacity={0.5} />
-        {/* Section Header */}
-        <GridRow className="mb-12">
+      <section className="relative divider-dashed-grid" style={{ paddingTop: '96px', paddingBottom: '96px' }}>
+        <MillimetricPaper opacity={0.5} zIndex={0} />
+        {/* Content wrapper - z-10 to appear above grid */}
+        <div className="relative z-10">
+        {/* Section Header - height aligned to grid (32px = 2 cells) */}
+        <GridRow style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
           <div style={{ flex: '8 8 0%' }} className="flex-1 lg:flex-[8_8_0%]">
-            <span className="font-mono text-label uppercase tracking-wide text-text-secondary">
-              Selected Works
-            </span>
+            <GridLabel>Selected Works</GridLabel>
           </div>
           <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%] text-right">
-            <span className="font-mono text-caption text-text-tertiary">
-              004
-            </span>
+            <GridLabelMuted size="sm">004</GridLabelMuted>
           </div>
         </GridRow>
 
@@ -167,7 +165,7 @@ export default function Home() {
           ))}
         </div>
 
-        <GridRow className="mt-12">
+        <GridRow style={{ marginTop: '48px' }}>
           <div style={{ flex: '1 1 0%' }}>
             <Link href={ROUTES.WORK} className="btn-tertiary group">
               <span className="font-mono text-label uppercase tracking-wide">View all work</span>
@@ -175,6 +173,7 @@ export default function Home() {
             </Link>
           </div>
         </GridRow>
+        </div>
       </section>
     </main>
   )

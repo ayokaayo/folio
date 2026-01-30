@@ -14,6 +14,7 @@ import Link from 'next/link'
 import { SideProject } from '@/lib/projects'
 import { getProjectRoute } from '@/lib/constants'
 import FigmaFrame from './FigmaFrame'
+import GridLabel, { GridLabelMuted } from './GridLabel'
 
 interface ProjectCardProps {
   project: SideProject
@@ -31,11 +32,11 @@ export default function ProjectCard({
 
   return (
     <FigmaFrame label={`Project ${index + 1}`}>
-      <article className="group bg-bg-surface overflow-hidden border border-border-subtle">
-        <Link href={cardUrl} className="block">
-          {/* Image */}
+      <article className="group bg-bg-surface overflow-hidden border border-border-subtle project-card-article">
+        <Link href={cardUrl} className="block h-full">
+          {/* Image - height constrained to fit within grid-aligned card */}
           {project.imageUrl ? (
-            <div className="relative aspect-video overflow-hidden">
+            <div className="relative overflow-hidden project-card-image">
               <img
                 src={project.imageUrl}
                 alt={project.imageAlt || project.title}
@@ -52,26 +53,14 @@ export default function ProjectCard({
             </div>
           ) : null}
 
-          {/* Content */}
-          <div className="p-8">
-            {/* Tags */}
+          {/* Content - padding aligned to grid */}
+          <div className="project-card-content">
+            {/* Tags - Figma-style labels */}
             <div className="flex items-center gap-2 mb-4">
-              <span className="tag font-mono text-caption uppercase tracking-wide">
-                {project.hashtag}
-              </span>
-              <span
-                className="font-mono text-caption text-text-tertiary"
-                style={{ padding: '4px 10px' }}
-              >
-                {project.year}
-              </span>
+              <GridLabel size="sm">{project.hashtag}</GridLabel>
+              <GridLabelMuted size="sm">{project.year}</GridLabelMuted>
               {project.status && project.status !== 'live' && (
-                <span
-                  className="tag font-mono text-caption"
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {project.status}
-                </span>
+                <GridLabelMuted size="sm" className="capitalize">{project.status}</GridLabelMuted>
               )}
             </div>
 
@@ -80,8 +69,11 @@ export default function ProjectCard({
               {project.title}
             </h3>
 
-            {/* Description */}
-            <p className="font-mono text-body text-text-secondary mb-6">
+            {/* Description - line-clamp to fit within fixed height */}
+            <p 
+              className="font-mono text-body text-text-secondary line-clamp-3"
+              style={{ lineHeight: '1.5' }}
+            >
               {project.cardSummary || project.description}
             </p>
 
