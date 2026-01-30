@@ -1,9 +1,9 @@
 'use client'
 
-import Image from 'next/image'
 import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
+import ImageWithLoader from './ImageWithLoader'
 
 interface ImageModalProps {
   image: {
@@ -87,12 +87,15 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
             className="relative w-full max-w-[95vw] max-h-[85vh] flex items-center justify-center"
           >
             <div className="relative w-[min(95vw,1200px)] h-[85vh]">
-              <Image
+              <ImageWithLoader
                 src={image.url}
                 alt={image.alt}
                 fill
                 sizes="95vw"
-                className="object-contain shadow-2xl"
+                objectFit="contain"
+                className="shadow-2xl"
+                containerClassName="bg-black"
+                shimmerClassName="after:via-white/10"
               />
             </div>
           </motion.div>

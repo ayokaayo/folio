@@ -190,10 +190,13 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
           />
         </div>
 
-        {/* Loading state */}
+        {/* Loading state - shimmer */}
         {!isLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-sm text-text/50">Loading...</span>
+          <div 
+            className="absolute inset-0 bg-text/5 overflow-hidden"
+            aria-hidden="true"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
           </div>
         )}
 

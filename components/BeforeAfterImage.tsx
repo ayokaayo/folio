@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import ImageModal from './ImageModal'
+import ImageWithLoader from './ImageWithLoader'
 
 interface BeforeAfterImageProps {
   before: ImageWithCaption
@@ -71,15 +71,17 @@ export default function BeforeAfterImage({ before, after, className = '', defaul
 
           {/* Image Container */}
           <div className="relative w-full">
-            <Image
+            <ImageWithLoader
               src={activeImage.url}
               alt={activeImage.alt}
               width={2400}
               height={1600}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-              className="object-contain w-full h-auto"
+              objectFit="contain"
               quality={90}
-              unoptimized={false}
+              className="w-full h-auto"
+              containerClassName="bg-text/5"
+              shimmerClassName="after:via-white/10"
             />
           </div>
         </div>
@@ -95,4 +97,3 @@ export default function BeforeAfterImage({ before, after, className = '', defaul
     </>
   )
 }
-

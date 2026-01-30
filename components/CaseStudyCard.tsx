@@ -12,7 +12,6 @@
  * - Trace System: SVG lines connect metadata on hover (>200ms delay)
  */
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useRef, useMemo } from 'react'
 import { CaseStudy } from '@/lib/caseStudies'
@@ -21,6 +20,7 @@ import FigmaFrame from './FigmaFrame'
 import { GRID_GAP } from './ExposedGrid'
 import GridLabel from './GridLabel'
 import { calculateCaseStudyReadingTime } from '@/lib/utils/readingTime'
+import ImageWithLoader from './ImageWithLoader'
 
 /** Card-to-card spacing: 2 grid gaps (32px) - will be grid-aligned via CSS */
 export const CARD_GAP = GRID_GAP * 2
@@ -148,12 +148,13 @@ export default function CaseStudyCard({
           <div className="case-study-visual-col lg:flex-1 relative overflow-hidden h-full">
             {caseStudy.coverImageUrl || caseStudy.imageUrl ? (
               <div className="relative w-full h-full min-h-[200px] lg:min-h-0 lg:h-full">
-                <Image
+                <ImageWithLoader
                   src={caseStudy.coverImageUrl || caseStudy.imageUrl!}
                   alt={caseStudy.coverImageAlt || caseStudy.imageAlt || caseStudy.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 70vw"
-                  className="object-cover object-center img-grayscale"
+                  objectFit="cover"
+                  className="img-grayscale"
                 />
                 {/* Grain overlay */}
                 <div 

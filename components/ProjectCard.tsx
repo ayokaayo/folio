@@ -10,12 +10,12 @@
  * - Image: 16:9, grayscale default
  */
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { SideProject } from '@/lib/projects'
 import { getProjectRoute } from '@/lib/constants'
 import FigmaFrame from './FigmaFrame'
 import GridLabel, { GridLabelMuted } from './GridLabel'
+import ImageWithLoader from './ImageWithLoader'
 
 interface ProjectCardProps {
   project: SideProject
@@ -41,12 +41,13 @@ export default function ProjectCard({
           {/* Image - height constrained to fit within grid-aligned card */}
           {project.imageUrl ? (
             <div className="relative overflow-hidden project-card-image flex-shrink-0">
-              <Image
+              <ImageWithLoader
                 src={project.imageUrl}
                 alt={project.imageAlt || project.title}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover img-grayscale"
+                objectFit="cover"
+                className="img-grayscale"
               />
               {/* Grain overlay */}
               <div

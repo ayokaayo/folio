@@ -8,7 +8,7 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import TimelineTeam from './TimelineTeam'
 import ImageGallery from './ImageGallery'
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
+import ImageWithLoader from './ImageWithLoader'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import DensityToggle from './DensityToggle'
 import ImageModal from './ImageModal'
@@ -261,15 +261,17 @@ export default function CaseStudyDetail({
                         >
                           <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                             <div className="relative w-full">
-                              <Image
+                              <ImageWithLoader
                                 src={awardsImage.url}
                                 alt={awardsImage.alt}
                                 width={2400}
                                 height={1600}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                                className="object-contain w-full h-auto"
+                                objectFit="contain"
                                 quality={90}
-                                unoptimized={false}
+                                className="w-full h-auto"
+                                containerClassName="bg-text/5"
+                                shimmerClassName="after:via-white/10"
                               />
                             </div>
                           </div>
@@ -409,12 +411,15 @@ export default function CaseStudyDetail({
                 <p className="text-text/80">{decision.description}</p>
                 {decision.image && (
                   <div className="mt-4 cursor-pointer" onClick={() => setSelectedImage(decision.image!)}>
-                    <Image
+                    <ImageWithLoader
                       src={decision.image.url}
                       alt={decision.image.alt}
                       width={1200}
                       height={800}
+                      objectFit="contain"
                       className="border border-text/10 transition-transform hover:scale-[1.01]"
+                      containerClassName="bg-text/5"
+                      shimmerClassName="after:via-white/10"
                     />
                     {decision.image.caption && (
                       <p className="text-sm text-text/60 mt-2 italic text-center">{decision.image.caption}</p>

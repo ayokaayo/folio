@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react'
 import { notFound } from 'next/navigation'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import Link from 'next/link'
+import ImageWithLoader from '@/components/ImageWithLoader'
 import { getProjectBySlug, projects } from '@/lib/projects'
 import { ANIMATION, ROUTES, getProjectRoute } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
@@ -273,13 +273,16 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           {project.imageUrl && (
             <div className="mt-8 mb-6 cursor-pointer" onClick={() => setSelectedImage({ url: project.imageUrl!, alt: project.imageAlt || project.title })}>
               <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                <Image
+                <ImageWithLoader
                   src={project.imageUrl}
                   alt={project.imageAlt || project.title}
                   width={2400}
                   height={1600}
-                  className="w-full"
+                  className="w-full h-auto"
                   quality={90}
+                  objectFit="contain"
+                  containerClassName="bg-text/5"
+                  shimmerClassName="after:via-white/10"
                 />
               </div>
             </div>
@@ -385,15 +388,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                         >
                           <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                             <div className="relative w-full">
-                              <Image
+                              <ImageWithLoader
                                 src={feature.image.url}
                                 alt={feature.image.alt}
                                 width={2400}
                                 height={1600}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                                className="object-contain w-full h-auto"
+                                objectFit="contain"
                                 quality={90}
-                                unoptimized={false}
+                                className="w-full h-auto"
+                                containerClassName="bg-text/5"
+                                shimmerClassName="after:via-white/10"
                               />
                             </div>
                           </div>
@@ -446,15 +451,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       >
                         <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                           <div className="relative w-full">
-                            <Image
+                            <ImageWithLoader
                               src={img.url}
                               alt={img.alt}
                               width={isReadingImage ? 400 : 2400}
                               height={isReadingImage ? 815 : 1600}
                               sizes={isReadingImage ? "400px" : "(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"}
-                              className="object-contain w-full h-auto"
+                              objectFit="contain"
                               quality={90}
-                              unoptimized={false}
+                              className="w-full h-auto"
+                              containerClassName="bg-text/5"
+                              shimmerClassName="after:via-white/10"
                             />
                           </div>
                         </div>
@@ -525,15 +532,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     >
                       <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                         <div className="relative w-full">
-                          <Image
+                          <ImageWithLoader
                             src={project.craft.image.url}
                             alt={project.craft.image.alt}
                             width={2400}
                             height={1600}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                            className="object-contain w-full h-auto"
+                            objectFit="contain"
                             quality={90}
-                            unoptimized={false}
+                            className="w-full h-auto"
+                            containerClassName="bg-text/5"
+                            shimmerClassName="after:via-white/10"
                           />
                         </div>
                       </div>
@@ -583,15 +592,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 >
                   <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                     <div className="relative w-full">
-                      <Image
+                      <ImageWithLoader
                         src="/img/projects/exotica-radio/google-ranking.png"
                         alt="Google search results showing exotica.radio ranking first"
                         width={2400}
                         height={1600}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                        className="object-contain w-full h-auto"
+                        objectFit="contain"
                         quality={90}
-                        unoptimized={false}
+                        className="w-full h-auto"
+                        containerClassName="bg-text/5"
+                        shimmerClassName="after:via-white/10"
                       />
                     </div>
                   </div>
@@ -693,15 +704,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     >
                       <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                         <div className="relative w-full">
-                          <Image
+                          <ImageWithLoader
                             src={img.url}
                             alt={img.alt}
                             width={isMobileImage ? 400 : 1600}
                             height={isMobileImage ? 815 : 1200}
                             sizes={isMobileImage ? "400px" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"}
-                            className="object-contain w-full h-auto"
+                            objectFit="contain"
                             quality={90}
-                            unoptimized={false}
+                            className="w-full h-auto"
+                            containerClassName="bg-text/5"
+                            shimmerClassName="after:via-white/10"
                           />
                         </div>
                       </div>

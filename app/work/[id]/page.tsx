@@ -3,7 +3,7 @@
 import { notFound } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
+import ImageWithLoader from '@/components/ImageWithLoader'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyDetail from '@/components/CaseStudyDetail'
 import { ANIMATION } from '@/lib/constants'
@@ -88,13 +88,16 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
           {caseStudy.imageUrl && (
             <div className="mt-8 mb-6">
               <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1">
-                <Image
+                <ImageWithLoader
                   src={caseStudy.imageUrl}
                   alt={caseStudy.imageAlt || caseStudy.title}
                   width={2400}
                   height={1600}
-                  className="w-full"
+                  className="w-full h-auto"
                   quality={90}
+                  objectFit="contain"
+                  containerClassName="bg-text/5"
+                  shimmerClassName="after:via-white/10"
                 />
               </div>
             </div>

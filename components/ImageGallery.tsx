@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import ImageModal from './ImageModal'
+import ImageWithLoader from './ImageWithLoader'
 
 interface ImageGalleryProps {
   images: ImageWithCaption[]
@@ -21,12 +21,12 @@ interface ImageGalleryProps {
  * 
  * images: [
  *   {
- *     url: '/img/dropdown/interface-screenshot.png',
+ *     url: '/img/case-study/interface-screenshot.png',
  *     caption: 'The new dropdown interface with progressive disclosure',
  *     alt: 'Dropdown interface showing category selection'
  *   },
  *   {
- *     url: '/img/dropdown/validation-flow.png',
+ *     url: '/img/case-study/validation-flow.png',
  *     caption: 'Real-time validation prevents errors',
  *     alt: 'Validation flow diagram'
  *   }
@@ -58,15 +58,17 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
           >
             <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
               <div className="relative w-full">
-                <Image
+                <ImageWithLoader
                   src={image.url}
                   alt={image.alt}
                   width={2400}
                   height={1600}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                  className="object-contain w-full h-auto"
+                  objectFit="contain"
                   quality={90}
-                  unoptimized={false}
+                  className="w-full h-auto"
+                  containerClassName="bg-text/5"
+                  shimmerClassName="after:via-white/10"
                 />
               </div>
             </div>
@@ -82,4 +84,3 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
     </>
   )
 }
-

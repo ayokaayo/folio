@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import ImageWithLoader from './ImageWithLoader'
 import ImagePlaceholder from './ImagePlaceholder'
 
 interface CardImageProps {
@@ -44,18 +44,17 @@ export default function CardImage({
     )
   }
 
-  // Use Next.js Image component for optimized images
+  // Use ImageWithLoader for optimized images with shimmer loading state
   return (
     <div className={`relative w-full aspect-[3/2] ${className}`}>
-      <Image
+      <ImageWithLoader
         src={imageUrl}
         alt={imageAlt || `${title} screenshot`}
         fill
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
-        className="object-cover"
         priority={false}
+        objectFit="cover"
       />
     </div>
   )
 }
-
