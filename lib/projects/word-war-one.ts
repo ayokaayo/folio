@@ -18,7 +18,7 @@ export const wordWarOne: SideProject = {
   cardSummary: 'Physical card game where words become weapons. 2-5 players, health points, special cards, boss words. Self-published via Indiegogo.',
   readingTime: '5–8 min read',
   videoUrl: 'https://www.youtube.com/embed/1PhT3UENxoI',
-  imageUrl: '/img/projects/word-war-one/1920X1080.png',
+  imageUrl: '/img/projects/word-war-one/1920x1080.png',
   imageAlt: 'Word War One game artwork showing multiple hands reaching toward letter tiles spelling out the game title',
 
   // ─────────────────────────────────────────────────────────────
@@ -125,7 +125,7 @@ export const wordWarOne: SideProject = {
 
     images: [
       {
-        url: '/img/projects/word-war-one/1920X1080.png',
+        url: '/img/projects/word-war-one/1920x1080.png',
         alt: 'Word War One hero artwork showing hands reaching toward letter tiles arranged in a cross pattern',
         caption: 'The central metaphor: words as weapons, collaboration as combat. Letter tiles become ammunition in a battle of wits.',
       },
