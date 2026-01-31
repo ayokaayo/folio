@@ -6,7 +6,6 @@ import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import ImageModal from './ImageModal'
-import ImageWithLoader from './ImageWithLoader'
 
 interface ImageGalleryProps {
   images: ImageWithCaption[]
@@ -57,20 +56,13 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
             onClick={() => setSelectedImage(image)}
           >
             <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-              <div className="relative w-full">
-                <ImageWithLoader
-                  src={image.url}
-                  alt={image.alt}
-                  width={2400}
-                  height={1600}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                  objectFit="contain"
-                  quality={90}
-                  className="w-full h-auto"
-                  containerClassName="bg-text/5"
-                  shimmerClassName="after:via-white/10"
-                />
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+              <img
+                src={image.url}
+                alt={image.alt}
+                className="w-full h-auto block"
+                loading="lazy"
+              />
             </div>
             {image.caption && (
               <figcaption className="mt-3 text-sm text-text/60 text-center italic">

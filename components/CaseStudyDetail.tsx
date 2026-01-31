@@ -8,7 +8,6 @@ import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import TimelineTeam from './TimelineTeam'
 import ImageGallery from './ImageGallery'
 import dynamic from 'next/dynamic'
-import ImageWithLoader from './ImageWithLoader'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import DensityToggle from './DensityToggle'
 import ImageModal from './ImageModal'
@@ -260,20 +259,13 @@ export default function CaseStudyDetail({
                           onClick={() => setSelectedImage(awardsImage)}
                         >
                           <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                            <div className="relative w-full">
-                              <ImageWithLoader
-                                src={awardsImage.url}
-                                alt={awardsImage.alt}
-                                width={2400}
-                                height={1600}
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                                objectFit="contain"
-                                quality={90}
-                                className="w-full h-auto"
-                                containerClassName="bg-text/5"
-                                shimmerClassName="after:via-white/10"
-                              />
-                            </div>
+                            {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+                            <img
+                              src={awardsImage.url}
+                              alt={awardsImage.alt}
+                              className="w-full h-auto block"
+                              loading="lazy"
+                            />
                           </div>
                           {awardsImage.caption && (
                             <figcaption className="mt-3 text-sm text-text/60 text-center italic">
@@ -411,16 +403,15 @@ export default function CaseStudyDetail({
                 <p className="text-text/80">{decision.description}</p>
                 {decision.image && (
                   <div className="mt-4 cursor-pointer" onClick={() => setSelectedImage(decision.image!)}>
-                    <ImageWithLoader
-                      src={decision.image.url}
-                      alt={decision.image.alt}
-                      width={1200}
-                      height={800}
-                      objectFit="contain"
-                      className="border border-text/10 transition-transform hover:scale-[1.01]"
-                      containerClassName="bg-text/5"
-                      shimmerClassName="after:via-white/10"
-                    />
+                    <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+                      <img
+                        src={decision.image.url}
+                        alt={decision.image.alt}
+                        className="w-full h-auto block"
+                        loading="lazy"
+                      />
+                    </div>
                     {decision.image.caption && (
                       <p className="text-sm text-text/60 mt-2 italic text-center">{decision.image.caption}</p>
                     )}

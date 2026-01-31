@@ -3,7 +3,6 @@
 import { notFound } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import ImageWithLoader from '@/components/ImageWithLoader'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyDetail from '@/components/CaseStudyDetail'
 import { ANIMATION } from '@/lib/constants'
@@ -88,16 +87,12 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
           {caseStudy.imageUrl && (
             <div className="mt-10 mb-6">
               <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1">
-                <ImageWithLoader
+                {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+                <img
                   src={caseStudy.imageUrl}
                   alt={caseStudy.imageAlt || caseStudy.title}
-                  width={2400}
-                  height={1600}
-                  className="w-full h-auto"
-                  quality={90}
-                  objectFit="contain"
-                  containerClassName="bg-text/5"
-                  shimmerClassName="after:via-white/10"
+                  className="w-full h-auto block"
+                  loading="lazy"
                 />
               </div>
             </div>

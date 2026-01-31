@@ -131,35 +131,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Current Status */}
-            <div className="mb-12">
-              <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-[#008FF0] px-4 py-2 rounded mb-6">
-                Current Status
-              </h2>
-              <div className="space-y-4 font-mono text-body">
-                <div>
-                  <span className="inline-flex items-center gap-1.5 text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded mb-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
-                    BASED
-                  </span>
-                  <span className="block text-text-primary">Barcelona, Spain. Delivering Worldwide</span>
-                </div>
-                <div>
-                  <span className="inline-flex items-center gap-1.5 text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded mb-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
-                    OPEN TO
-                  </span>
-                  <span className="block text-text-primary">Remote first. Sr Product Design, Design Ops.</span>
-                </div>
-                <div>
-                  <span className="inline-flex items-center gap-1.5 text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded mb-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
-                    SECTORS
-                  </span>
-                  <span className="block text-text-primary">Localization, iGaming, B2B SaaS, AI</span>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>

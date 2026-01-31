@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { notFound } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import ImageWithLoader from '@/components/ImageWithLoader'
+
 import { getProjectBySlug, projects } from '@/lib/projects'
 import { ANIMATION, ROUTES, getProjectRoute } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
@@ -216,15 +216,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             {project.description}
           </p>
 
-          {/* Project metadata — white bounding box, labelled rows with purple tag labels */}
+          {/* Project metadata — white bounding box, labelled rows with accent tag labels */}
           {(project.timeline || project.role || project.techStack) && (
             <div className="mb-8 bg-white border border-border-subtle p-6 space-y-5">
               {(project.timeline || project.role) && (
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 text-sm font-mono">
                   {project.timeline && (
                     <div className="flex flex-col gap-2">
-                      <span className="inline-flex items-center gap-1.5 self-start text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                      <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-[rgba(0,143,240,0.12)] text-[var(--accent)] rounded">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
                         Timeline
                       </span>
                       <span className="text-text-secondary pl-1">{project.timeline}</span>
@@ -232,8 +232,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   )}
                   {project.role && (
                     <div className="flex flex-col gap-2">
-                      <span className="inline-flex items-center gap-1.5 self-start text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                      <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-[rgba(0,143,240,0.12)] text-[var(--accent)] rounded">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
                         Role
                       </span>
                       <span className="text-text-secondary pl-1">{project.role}</span>
@@ -243,15 +243,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               )}
               {project.techStack && project.techStack.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <span className="inline-flex items-center gap-1.5 self-start text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                  <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-[rgba(0,143,240,0.12)] text-[var(--accent)] rounded">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
                     Tech stack
                   </span>
                   <div className="flex flex-wrap gap-2 pl-1">
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="inline-block font-mono text-caption uppercase tracking-wide px-2.5 py-1 border border-border-subtle bg-bg-grid/60 text-text-secondary"
+                      className="tag-button"
                     >
                       {tech}
                     </span>
@@ -261,15 +261,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               )}
               {project.tags && project.tags.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <span className="inline-flex items-center gap-1.5 self-start text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                  <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-[rgba(0,143,240,0.12)] text-[var(--accent)] rounded">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
                     Tags
                   </span>
                   <div className="flex flex-wrap gap-2 pl-1">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="inline-block font-mono text-caption uppercase tracking-wide px-2.5 py-1 border border-border-subtle bg-bg-grid/60 text-text-secondary"
+                      className="tag-button"
                     >
                       {tag}
                     </span>
@@ -277,24 +277,6 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   </div>
                 </div>
               )}
-            </div>
-          )}
-
-          {/* External links — filter-style with icons */}
-          {project.links && project.links.length > 0 && (
-            <div className="flex flex-wrap gap-3 mb-8">
-              {project.links.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 font-mono text-caption uppercase tracking-wide border border-border-subtle bg-transparent text-text-secondary hover:text-text-primary hover:border-text-tertiary transition-all duration-150"
-                >
-                  <ProjectLinkIcon label={link.label} />
-                  {link.label}
-                </a>
-              ))}
             </div>
           )}
 
@@ -316,18 +298,31 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           ) : project.imageUrl && (
             <div className="mt-8 mb-6 cursor-pointer" onClick={() => setSelectedImage({ url: project.imageUrl!, alt: project.imageAlt || project.title })}>
               <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                <ImageWithLoader
+                <img
                   src={project.imageUrl}
                   alt={project.imageAlt || project.title}
-                  width={2400}
-                  height={1600}
-                  className="w-full h-auto"
-                  quality={90}
-                  objectFit="contain"
-                  containerClassName="bg-text/5"
-                  shimmerClassName="after:via-white/10"
+                  className="w-full h-auto block"
+                  loading="lazy"
                 />
               </div>
+            </div>
+          )}
+
+          {/* External links — filter-style with icons, now under hero */}
+          {project.links && project.links.length > 0 && (
+            <div className="flex flex-wrap gap-3 mb-8">
+              {project.links.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 font-mono text-caption uppercase tracking-wide border border-border-subtle bg-transparent text-text-secondary hover:text-text-primary hover:border-text-tertiary transition-all duration-150"
+                >
+                  <ProjectLinkIcon label={link.label} />
+                  {link.label}
+                </a>
+              ))}
             </div>
           )}
         </motion.div>
@@ -635,17 +630,11 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 >
                   <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                     <div className="relative w-full">
-                      <ImageWithLoader
+                      <img
                         src="/img/projects/exotica-radio/google-ranking.png"
                         alt="Google search results showing exotica.radio ranking first"
-                        width={2400}
-                        height={1600}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                        objectFit="contain"
-                        quality={90}
-                        className="w-full h-auto"
-                        containerClassName="bg-text/5"
-                        shimmerClassName="after:via-white/10"
+                        className="w-full h-auto block"
+                        loading="lazy"
                       />
                     </div>
                   </div>

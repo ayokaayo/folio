@@ -35,8 +35,8 @@ export default function GridLabel({
         height: `${height}px`,
         paddingLeft: `${paddingX}px`,
         paddingRight: `${paddingX}px`,
-        backgroundColor: 'var(--accent)',
-        color: '#fff',
+        backgroundColor: 'rgba(0, 143, 240, 0.12)',
+        color: 'var(--accent)',
         borderRadius: '4px',
         lineHeight: '1',
       }}
