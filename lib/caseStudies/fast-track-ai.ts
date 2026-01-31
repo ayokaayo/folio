@@ -17,8 +17,8 @@ export const fastTrackAI: CaseStudy = {
   impact: {
     title: 'Impact',
     items: [
-      'Shipped functional MVP in 2 months with cross-functional senior team including CPO, CTO, and Head of Product',
-      'Rolled out platform-wide, with roughly 25% of partners actively using the feature within the first days after launch and returning daily',
+      'Shipped MVP in 2 months with cross-functional senior team including CPO, CTO, and Head of Product',
+      'Rolled out platform-wide, with roughly 70% of partners actively using the feature within the first weeks launch',
       'Partners report that data analysis which previously took days passing between CRM and BI teams now happens in minutes through natural conversation',
       'Campaign creation across multiple markets simplified from hours of manual configuration to a single natural language request with automatic localization',
       'Featured in [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/) and [EngageHut](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/) following the September 2025 launch',
@@ -31,7 +31,7 @@ export const fastTrackAI: CaseStudy = {
     ],
     deepItems: [
       'Shipped a functional MVP in approximately 2 months, working alongside CPO, CTO, Head of Product, and a team of engineers including a data scientist and four developers. This timeline required ruthless prioritization and clear scope boundaries from day one, with daily syncs keeping everyone aligned.',
-      'The rollout reached all live partners, with roughly 25% actively using the feature within the first days after launch. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
+      'The rollout reached all live partners, with roughly 70% actively using the feature within a few weeks after launch. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
       'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting."',
       'Campaign creation now supports automatic content generation and translation across markets, turning what was hours of configuration into a single request. The AI generates SMS content, schedules activities per market with appropriate local timing, and pre-fills existing modals so users can review before committing.',
       'Industry reviewers called it "one of Fast Track\'s most disruptive innovations in CRM," noting that natural language AI opens up advanced capabilities to teams who previously needed technical support for every campaign.',
@@ -47,7 +47,7 @@ export const fastTrackAI: CaseStudy = {
 
   problem: {
     title: 'The Problem',
-    context: "CRM teams at iGaming operators were bottlenecked by technical complexity that prevented them from acting on their own ideas. This pressure wasn't just internal. At a recent industry panel, CEOs from Flutter, Super Group, Betsson, and Betfred all emphasized the same point: workflow automation and advanced AI adoption are now core priorities. The shift from idea to execution is where the industry is heading. Getting insights required BI expertise or hours of manual Data Studio configuration involving measures, dimensions, filters, and time groupings that most CRM professionals never learned to navigate. Campaign creation meant understanding segment logic, configuring triggers across channels, and managing timing for multiple markets. Ideas sat in queues waiting for technical resources, and by the time answers arrived, the moment had often passed. Fast Track already offered Singularity (algorithmic one-to-one player experiences) and Greco (gameplay risk engine). AI needed to complement these existing modules, not compete with them. Meanwhile, competitors were adding 'AI' as a checkbox feature without genuine capability, creating pressure to deliver something that actually transformed how CRM teams work.",
+    context: 'CRM teams at iGaming operators were bottlenecked by technical complexity that prevented them from acting on their own ideas. This pressure was not just internal. At a recent [industry panel at SBC Summit Lisbon](https://sbcnews.co.uk/featurednews/2025/09/30/gambling-ai-lisbon/), CEOs from Flutter, Super Group, Betsson, and Betfred all emphasized the same point: workflow automation and advanced AI adoption are now core priorities.\n\nGetting insights required BI expertise or hours of manual Data Studio configuration involving measures, dimensions, filters, and time groupings that most CRM professionals never learned to navigate. Campaign creation meant understanding segment logic, configuring triggers across channels, and managing timing for multiple markets. Ideas sat in queues waiting for technical resources, and by the time answers arrived, the moment had often passed.\n\nFast Track already offered Singularity (algorithmic one-to-one player experiences) and Greco (gameplay risk engine). AI needed to complement these existing modules, not compete with them. Meanwhile, competitors were adding "AI" as a checkbox feature without genuine capability, creating pressure to deliver something that actually transformed how CRM teams work.',
     quickContext: 'Data analysis required BI expertise. Campaign creation took hours. CRM teams bottlenecked by technical barriers. Ideas died in queues.',
     issues: [
       {
@@ -235,8 +235,8 @@ export const fastTrackAI: CaseStudy = {
         phase: 'September 2025: Launch and Early Access',
         activities: [
           'Deployed platform-wide to all live partners with feature enabled',
-          'Achieved roughly 25% of partners actively using the feature within first days',
-          'Collected feedback via Slack and direct partner communication identifying areas for iteration',
+          'Achieved roughly 70% of partners actively using the feature within a few weeks',
+          'Collected feedback via Slack, Intercom, LanChain, and direct partner communication identifying areas for iteration',
           'Observed sticky daily usage patterns indicating genuine utility rather than novelty exploration',
         ],
       },
@@ -251,20 +251,12 @@ export const fastTrackAI: CaseStudy = {
         category: 'Adoption Metrics',
         results: [
           'Rolled out platform-wide to all live partners following the September 2025 launch',
-          'Roughly 25% of partners were actively using the feature within the first days after launch',
+          'Roughly 70% of partners were actively using the feature within a few weeks after launch',
           'Internal updates noted "sticky usage" as partners returned daily, indicating the feature delivered ongoing value rather than one-time curiosity',
           'Sustained engagement patterns observed over the following weeks as partners integrated AI into their regular workflows',
         ],
       },
-      {
-        category: 'Partner Reception',
-        results: [
-          '"We can now analyse data very quickly... previously it took days to pass between CRM and BI teams. This has made their life easier both from an execution perspective as well as reporting."',
-          '"The guys are loving Fast Track AI... They are excited to see how it can grow and reduce manual work."',
-          '"Really good feedback overall, people are impressed with the capabilities."',
-          '"Partners want to use it beyond reporting capabilities, looking forward to future updates for campaign creation."',
-        ],
-      },
+      // Partner reception quotes are displayed via the testimonials carousel below
       {
         category: 'Constructive Feedback Addressed',
         results: [
@@ -276,7 +268,7 @@ export const fastTrackAI: CaseStudy = {
       },
     ],
     quickOutcomes: [
-      '~25% of partners active within first days',
+      '~25% of partners active within first days, and ~70% within weeks',
       'Partner: "Days to minutes for data analysis"',
       'Sticky daily usage indicating genuine utility',
     ],
@@ -352,7 +344,7 @@ export const fastTrackAI: CaseStudy = {
         solution: 'Daily syncs with engineering team kept everyone aligned on what was shipping and what was deferred. Active participation in strategy sessions with CPO and CTO rather than receiving requirements passively. Prototype-driven communication replaced specification documents, accelerating decisions and surfacing issues earlier.',
       },
     ],
-    insight: "The real product is not the AI capability itself but the confidence users feel when using it. Partners commit real budgets through this system, targeting real players with real money at stake. Every design decision must answer: does the user feel in control? Do they understand what will happen before it happens? Can they recover from mistakes without losing their work or their trust? AI capability means nothing without the trust infrastructure to support it. The goal is empowering CRM professionals to unleash their creativity without the constant technical barriers that have historically slowed them down.",
+    insight: 'The real product is not the AI capability itself but the confidence users feel when using it. Partners commit real budgets through this system, targeting real players with real money at stake.\n\nEvery design decision must answer: does the user feel in control? Do they understand what will happen before it happens? Can they recover from mistakes without losing their work or their trust?\n\nAI capability means nothing without the trust infrastructure to support it. The goal is empowering CRM professionals to unleash their creativity without the constant technical barriers that have historically slowed them down.',
     quickInsight: 'AI that acts requires different trust patterns than AI that answers. The real product is confidence, not capability.',
   },
 

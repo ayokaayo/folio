@@ -347,9 +347,21 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </p>
               {/* In quick mode, hide the long spark paragraph and trim intents */}
               {!(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
-                <p className="text-base text-text/70 mb-6 leading-relaxed">
-                  {project.mission.spark}
-                </p>
+                <div className="text-base text-text/70 mb-6 leading-relaxed space-y-4">
+                  {project.mission.spark.split('\n\n').map((paragraph, index) => {
+                    const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                    return (
+                      <p key={index}>
+                        {parts.map((part, partIndex) => {
+                          if (part.startsWith('**') && part.endsWith('**')) {
+                            return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                          }
+                          return part
+                        })}
+                      </p>
+                    )
+                  })}
+                </div>
               )}
               {project.mission.intent && project.mission.intent.length > 0 && (
                 <ul className="space-y-2">
@@ -374,22 +386,59 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 Context
               </h2>
               {/* Show quickContext in quick mode if available, otherwise show full background */}
-              <p className="text-base text-text/70 mb-4 leading-relaxed">
-                {densityMode === 'quick' && project.context.quickContext
+              <div className="text-base text-text/70 mb-4 leading-relaxed space-y-4">
+                {(densityMode === 'quick' && project.context.quickContext
                   ? project.context.quickContext
-                  : project.context.background}
-              </p>
+                  : project.context.background
+                ).split('\n\n').map((paragraph, index) => {
+                  const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                  return (
+                    <p key={index}>
+                      {parts.map((part, partIndex) => {
+                        if (part.startsWith('**') && part.endsWith('**')) {
+                          return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                        }
+                        return part
+                      })}
+                    </p>
+                  )
+                })}
+              </div>
               {/* In quick mode, hide opportunity for kallax, show for codex-tarot & word-war-one as it's concise */}
               {!(project.id === 'kallax' && densityMode === 'quick') && (
-                <p className="text-base text-text/70 mb-4 leading-relaxed">
-                  {project.context.opportunity}
-                </p>
+                <div className="text-base text-text/70 mb-4 leading-relaxed space-y-4">
+                  {project.context.opportunity.split('\n\n').map((paragraph, index) => {
+                    const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                    return (
+                      <p key={index}>
+                        {parts.map((part, partIndex) => {
+                          if (part.startsWith('**') && part.endsWith('**')) {
+                            return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                          }
+                          return part
+                        })}
+                      </p>
+                    )
+                  })}
+                </div>
               )}
               {/* In quick mode, hide audience as it's supplementary context */}
               {project.context.audience && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
-                <p className="text-base text-text/70 leading-relaxed">
-                  {project.context.audience}
-                </p>
+                <div className="text-base text-text/70 leading-relaxed space-y-4">
+                  {project.context.audience.split('\n\n').map((paragraph, index) => {
+                    const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                    return (
+                      <p key={index}>
+                        {parts.map((part, partIndex) => {
+                          if (part.startsWith('**') && part.endsWith('**')) {
+                            return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                          }
+                          return part
+                        })}
+                      </p>
+                    )
+                  })}
+                </div>
               )}
             </div>
           )}
@@ -400,9 +449,22 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-6">
                 Creation
               </h2>
-              <p className="text-base text-text/70 mb-8 leading-relaxed">
-                {project.creation.approach}
-              </p>
+              <div className="text-base text-text/70 mb-8 leading-relaxed space-y-4">
+                {project.creation.approach.split('\n\n').map((paragraph, index) => {
+                  // Split paragraph by markdown bold syntax and render with <strong> tags
+                  const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                  return (
+                    <p key={index}>
+                      {parts.map((part, partIndex) => {
+                        if (part.startsWith('**') && part.endsWith('**')) {
+                          return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                        }
+                        return part
+                      })}
+                    </p>
+                  )
+                })}
+              </div>
               
               {project.creation.features && project.creation.features.length > 0 && (
                 <div className="space-y-8">
@@ -545,9 +607,21 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               )}
               {/* In quick mode, hide exploration narrative to keep it concise */}
               {project.craft.exploration && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
-                <p className="text-base text-text/70 leading-relaxed mb-6">
-                  {project.craft.exploration}
-                </p>
+                <div className="text-base text-text/70 leading-relaxed mb-6 space-y-4">
+                  {project.craft.exploration.split('\n\n').map((paragraph, index) => {
+                    const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                    return (
+                      <p key={index}>
+                        {parts.map((part, partIndex) => {
+                          if (part.startsWith('**') && part.endsWith('**')) {
+                            return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                          }
+                          return part
+                        })}
+                      </p>
+                    )
+                  })}
+                </div>
               )}
               {project.craft.image && (
                 <>
@@ -602,9 +676,21 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-6">
                 Outcome
               </h2>
-              <p className="text-base text-text/70 mb-4 leading-relaxed">
-                {project.outcome.summary}
-              </p>
+              <div className="text-base text-text/70 mb-4 leading-relaxed space-y-4">
+                {project.outcome.summary.split('\n\n').map((paragraph, index) => {
+                  const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                  return (
+                    <p key={index}>
+                      {parts.map((part, partIndex) => {
+                        if (part.startsWith('**') && part.endsWith('**')) {
+                          return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                        }
+                        return part
+                      })}
+                    </p>
+                  )
+                })}
+              </div>
               {project.outcome.notes && project.outcome.notes.length > 0 && (
                 <ul className="space-y-2">
                   {/* Quick mode: show first 2 outcome notes; Deep mode: show all */}
@@ -669,9 +755,21 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-6">
                 Reflection
               </h2>
-              <p className="text-base text-text/70 mb-6 leading-relaxed font-medium">
-                {project.reflection.insight}
-              </p>
+              <div className="text-base text-text/70 mb-6 leading-relaxed font-medium space-y-4">
+                {project.reflection.insight.split('\n\n').map((paragraph, index) => {
+                  const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                  return (
+                    <p key={index}>
+                      {parts.map((part, partIndex) => {
+                        if (part.startsWith('**') && part.endsWith('**')) {
+                          return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                        }
+                        return part
+                      })}
+                    </p>
+                  )
+                })}
+              </div>
               {project.reflection.openQuestions && project.reflection.openQuestions.length > 0 && (
                 <div className="mb-6">
                   <h3 className="text-lg font-semibold text-text mb-3">Open Questions</h3>

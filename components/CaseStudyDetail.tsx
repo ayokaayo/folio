@@ -206,6 +206,41 @@ export default function CaseStudyDetail({
     return caseStudy.learned.insight
   }
 
+  // Helper to render text with paragraph breaks, markdown bold, and markdown links
+  const renderFormattedText = (text: string) => {
+    if (!text) return null
+    const paragraphs = text.split('\n\n')
+    return (
+      <>
+        {paragraphs.map((paragraph, index) => {
+          // First parse markdown links, then bold
+          const parsedLinks = parseMarkdownLinks(paragraph)
+          const parts = (typeof parsedLinks === 'string' ? parsedLinks : [parsedLinks])
+            .flatMap((part: any) => {
+              if (typeof part === 'string') {
+                return part.split(/(\*\*.*?\*\*)/g)
+              }
+              return [part]
+            })
+          return (
+            <span key={index}>
+              {parts.map((part: any, partIndex: number) => {
+                if (typeof part === 'string') {
+                  if (part.startsWith('**') && part.endsWith('**')) {
+                    return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                  }
+                  return part
+                }
+                return part
+              })}
+              {index < paragraphs.length - 1 && <br />}
+            </span>
+          )
+        })}
+      </>
+    )
+  }
+
   return (
     <div className="prose prose-lg max-w-none">
       {/* Density Toggle */}
@@ -297,7 +332,7 @@ export default function CaseStudyDetail({
           {caseStudy.problem.title}
         </h2>
         <div className="space-y-4 text-text/80">
-          <p>{getProblemContext()}</p>
+          <div className="leading-relaxed">{renderFormattedText(getProblemContext())}</div>
           <div>
             <h3 className="font-semibold text-text mb-2">Core Issues:</h3>
             <ul className="list-none space-y-2">
@@ -316,10 +351,10 @@ export default function CaseStudyDetail({
                             <div className="font-semibold text-text">{issue.category}</div>
                           )}
                           {issue.description && (
-                            <div>{issue.description}</div>
+                            <div className="leading-relaxed">{renderFormattedText(issue.description)}</div>
                           )}
                           {issue.impact && (
-                            <div className="text-text/70 text-sm italic">Impact: {issue.impact}</div>
+                            <div className="text-text/70 text-sm italic leading-relaxed">Impact: {renderFormattedText(issue.impact)}</div>
                           )}
                         </div>
                       ) : (
@@ -370,12 +405,12 @@ export default function CaseStudyDetail({
             <div key={`decision-${index}-${decision.title.substring(0, 20)}`}>
               <h3 className="font-semibold text-text mb-2">{decision.title}</h3>
               <div className="space-y-2 text-text/80">
-                <p><strong>Decision:</strong> {decision.decision}</p>
+                <p className="leading-relaxed"><strong>Decision:</strong> {renderFormattedText(decision.decision)}</p>
                 {densityMode === 'deep' && decision.rationale && (
-                  <p><strong>Rationale:</strong> {decision.rationale}</p>
+                  <p className="leading-relaxed"><strong>Rationale:</strong> {renderFormattedText(decision.rationale)}</p>
                 )}
                 {decision.result && (
-                  <p><strong>Result:</strong> {decision.result}</p>
+                  <p className="leading-relaxed"><strong>Result:</strong> {renderFormattedText(decision.result)}</p>
                 )}
               </div>
             </div>
@@ -400,7 +435,7 @@ export default function CaseStudyDetail({
             {caseStudy.designDecisions.map((decision, index) => (
               <div key={`design-${index}-${decision.title.substring(0, 20)}`}>
                 <h3 className="font-semibold text-text mb-2">{decision.title}</h3>
-                <p className="text-text/80">{decision.description}</p>
+                <p className="text-text/80 leading-relaxed">{renderFormattedText(decision.description)}</p>
                 {decision.image && (
                   <div className="mt-4 cursor-pointer" onClick={() => setSelectedImage(decision.image!)}>
                     <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
@@ -665,13 +700,13 @@ export default function CaseStudyDetail({
           {getLearnedInsight() && (
             <div className="relative mt-8 pt-4">
               <div 
-                className="bg-[#FFF9C4] p-6 shadow-lg transform rotate-[-1.5deg] border border-[#FDD835]/30"
+                className="bg-[#FFF9C4] p-6 transform rotate-[-1.5deg] border border-[#FDD835]/30"
                 style={{
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)',
                 }}
               >
                 <p className="font-semibold text-text mb-2">Strategic Insight:</p>
-                <p className="text-text/90 leading-relaxed text-lg">{getLearnedInsight()}</p>
+                <p className="text-text/90 leading-relaxed text-lg">{renderFormattedText(getLearnedInsight())}</p>
               </div>
             </div>
           )}

@@ -18,7 +18,7 @@ export const wordWarOne: SideProject = {
   cardSummary: 'Physical card game where words become weapons. 2-5 players, health points, special cards, boss words. Self-published via Indiegogo.',
   readingTime: '5–8 min read',
   videoUrl: 'https://www.youtube.com/embed/1PhT3UENxoI',
-  imageUrl: '/img/projects/word-war-one/square.webp',
+  imageUrl: '/img/projects/word-war-one/1920X1080.png',
   imageAlt: 'Word War One game artwork showing multiple hands reaching toward letter tiles spelling out the game title',
 
   // ─────────────────────────────────────────────────────────────
@@ -46,7 +46,7 @@ export const wordWarOne: SideProject = {
   mission: {
     statement: 'To build a word game where vocabulary is the weapon but strategy wins the war.',
 
-    spark: 'Party games and strategy games rarely occupy the same table. Word games tend toward the casual, Scrabble and Bananagrams reward the person with the biggest vocabulary and that is the whole game. Strategy games demand planning and risk assessment and reading opponents but often require hours and a rulebook the size of a novella. I wanted something that could bridge that gap, a game where your grandmother and your board-game-group friend could both find something to enjoy, where forming a good word was necessary but not sufficient, where timing and bluffing and knowing when to hold your best letters mattered as much as knowing what to spell with them.',
+    spark: 'Party games and strategy games rarely occupy the same table.\n\nWord games tend toward the casual. Scrabble and Bananagrams reward the person with the biggest vocabulary, and that is the whole game. Strategy games demand planning, risk assessment, and reading opponents, but often require hours and a rulebook the size of a novella.\n\nI wanted something that could bridge that gap. A game where your grandmother and your board-game-group friend could both find something to enjoy. Where forming a good word was necessary but not sufficient. Where timing and bluffing and knowing when to hold your best letters mattered as much as knowing what to spell with them.',
 
     intent: [
       'Create a game that works at parties but rewards strategic thinking, fast to learn but with depth that emerges over multiple plays',
@@ -60,10 +60,10 @@ export const wordWarOne: SideProject = {
   // CONTEXT
   // ─────────────────────────────────────────────────────────────
   context: {
-    background: 'Word games are everywhere but most are pure vocabulary tests. The person who reads the most wins. Strategy games are everywhere but most require significant investment to learn and play. The overlap between accessible and deep is surprisingly thin. I had been playing with the idea of letter cards as combat for years, scrabble tiles as ammunition, words as attacks that could be blocked or countered, but the system always collapsed under its own complexity or failed to produce meaningful decisions. The breakthrough was realizing that the word itself should not determine the damage, the context should. A short word played at the right moment against the right opponent could be devastating. A long word played into a prepared defense could be neutralized entirely.',
+    background: 'Word games are everywhere, but most are pure vocabulary tests. The person who reads the most wins. Strategy games are everywhere, but most require significant investment to learn and play. The overlap between accessible and deep is surprisingly thin.\n\nI had been playing with the idea of letter cards as combat for years: Scrabble tiles as ammunition, words as attacks that could be blocked or countered. But the system always collapsed under its own complexity or failed to produce meaningful decisions.\n\nThe breakthrough was realizing that the word itself should not determine the damage. The context should. A short word played at the right moment against the right opponent could be devastating. A long word played into a prepared defense could be neutralized entirely.',
     quickContext: 'Word games reward vocabulary. Strategy games require hours. The gap was a game that bridged both without dominating either.',
 
-    opportunity: 'The gap was a game that respected vocabulary without being dominated by it, that introduced strategy without requiring a tutorial, that created dramatic moments without relying on luck. Health points meant comebacks were always possible. Special cards meant the board state could shift unpredictably. Boss words, pre-selected target words that ended the game immediately if played, created tension around holding powerful letters and watching opponents hands for the telltale signs of a finishing move.',
+    opportunity: 'The gap was a game that respected vocabulary without being dominated by it. That introduced strategy without requiring a tutorial. That created dramatic moments without relying on luck.\n\nHealth points meant comebacks were always possible. Special cards meant the board state could shift unpredictably. Boss words — pre-selected target words that ended the game immediately if played — created tension around holding powerful letters and watching opponents\' hands for the telltale signs of a finishing move.',
 
     audience: 'Game nights where not everyone wants to read a rulebook. Families where the kids have better vocabularies than the parents. Friend groups where one person always wins at Scrabble and everyone else is tired of it.',
   },
@@ -72,7 +72,7 @@ export const wordWarOne: SideProject = {
   // CREATION
   // ─────────────────────────────────────────────────────────────
   creation: {
-    approach: 'I started with the combat system and worked backwards. How do words become attacks? How do attacks become damage? How does damage create tension rather than just elimination? The health-point system emerged from that last question, 25 points each, damage calculated by comparing word values, but with a catch-up mechanic where players who fall behind draw better cards from the resupply pile. The special cards came next, five types that break rules in specific ways. Wildcard becomes any letter. Propaganda doubles damage. Rubber Stamp validates any move. Censorship invalidates any word. Grammar Nazi punishes misspellings harshly. Each one creates a moment of decision, do I use this now or save it for a bigger play?',
+    approach: 'I started with the combat system and worked backwards.\n\n**How do words become attacks?** How do attacks become damage? How does damage create tension rather than just elimination?\n\nThe health-point system emerged from that last question: 25 points each, damage calculated by comparing word values, but with a catch-up mechanic where players who fall behind draw better cards from the resupply pile.\n\nThe special cards came next: five types that break rules in specific ways. **Wildcard** becomes any letter. **Propaganda** doubles damage. **Rubber Stamp** validates any move. **Censorship** invalidates any word. **Grammar Nazi** punishes misspellings harshly. Each one creates a moment of decision: do I use this now or save it for a bigger play?',
 
     features: [
       {
@@ -118,7 +118,7 @@ export const wordWarOne: SideProject = {
         image: {
           url: '/img/projects/word-war-one/x-.png',
           alt: 'Letter X card and wildcard card showing the vintage textured card design',
-          caption: 'Card design with vintage texture and bold typography. The X and wildcard are among the most sought-after cards.',
+          caption: 'Card design with vintage texture and bold typography.',
         },
       },
     ],
@@ -137,13 +137,13 @@ export const wordWarOne: SideProject = {
   // ─────────────────────────────────────────────────────────────
   craft: {
     decisions: [
-      'Chose high-contrast black and cream with red accents for the card design. Readable in dim lighting, distinctive on a cluttered table, and printable without full-color costs that would have made the game unaffordable to produce.',
+      'Chose high-contrast black and cream with red accents for the card design. Readable in dim lighting, distinctive on a cluttered table.',
       'Made the special cards visually distinct from letter cards at a glance. Players need to know immediately when someone is holding a potential game-changer. The border treatment and iconography create that recognition without reading.',
-      'Set player count at 2-5 after extensive testing. At 2 players the game becomes a tense duel. At 5 it becomes chaotic in the best way, with alliances forming and breaking in real time. Above 5 the downtime between turns becomes punishing.',
-      'Designed the box to fit in a jacket pocket. Board games often live on shelves. I wanted this to travel, to be the game you bring to the bar or the park or the friend\'s house without planning ahead.',
+      'Set player count at 2-5 after extensive testing. At 2 players the game becomes a tense duel. At 5 it becomes chaotic in the best way, but cards sometimes ran out quickly. Above 5 the downtime between turns becomes punishing',
+      'Board games often live on shelves, so the box was designed the box to fit in a jacket pocket. I wanted this to travel, to be the game you bring to the bar or the park or the friend\'s house without planning ahead.',
     ],
 
-    exploration: 'The biggest challenge was the damage calculation. Early versions used Scrabble-style letter values, but that made the game too predictable, the person with the most high-value letters always won. The solution was to decouple word value from damage, with damage calculated by comparing the two words in the battle rather than absolute scores. A 12-point word against a 10-point word does 2 damage, regardless of how those points were achieved. This meant a carefully timed 8-point word could be devastating if the opponent played a 6. It shifted the focus from hoarding high-value letters to reading the table and knowing when to strike. The special cards went through dozens of iterations. Early versions had too many, the game became about the cards rather than the words. Too few and they felt irrelevant. Five felt right, each one distinct, each one memorable, each one creating a story when played.',
+    exploration: 'The biggest challenge was the damage calculation. Early versions used Scrabble-style letter values, but that made the game too predictable: the person with the most high-value letters always won. Meh...\n\nThe solution was to decouple word value from damage. Damage calculated by comparing the two words in the battle rather than absolute scores. A 12-point word against a 10-point word does 2 damage, regardless of how those points were achieved.\n\nThis meant a carefully timed 8-point word could be devastating if the opponent played a 6. It shifted the focus from hoarding high-value letters to reading the table and knowing when to strike.\n\nThe special cards went through a few iterations. Early versions had too many; the game became about the cards rather than the words. Too few and they felt irrelevant. Five felt right: each one distinct, each one memorable, each one creating a story when played.',
 
     // Craft section image removed - using card images in features instead
   },
@@ -152,7 +152,7 @@ export const wordWarOne: SideProject = {
   // OUTCOME
   // ─────────────────────────────────────────────────────────────
   outcome: {
-    summary: 'Successfully funded on Indiegogo and fulfilled to backers. Listed on BoardGameGeek with positive early feedback. The game has found its way into game nights and family gatherings, with the most common feedback being that it plays differently every time and that the special cards create moments people talk about afterwards.',
+    summary: 'Listed on BoardGameGeek with positive early feedback.\n\nThe game has found its way into game nights and family gatherings. The most common feedback: it plays differently every time, and the special cards create moments people talk about afterwards.',
     quickItems: [
       'Successfully funded on Indiegogo and fulfilled to backers',
       'Listed on BoardGameGeek with positive early feedback',
@@ -162,7 +162,7 @@ export const wordWarOne: SideProject = {
     notes: [
       'The catch-up mechanic works as designed. Games rarely end with a blowout, most come down to the final few health points.',
       'Boss Words create the intended tension. Players watch each other\'s hands, trying to deduce who is holding what letters.',
-      'The pocket-sized box has been mentioned repeatedly by players. It travels well, which was the intention.',
+      'The premeditated bluffing has been mentioned repeatedly by players. It brings that extra spicey touch, and an element of mind games that makes a table roar.',
     ],
   },
 
@@ -170,7 +170,7 @@ export const wordWarOne: SideProject = {
   // REFLECTION
   // ─────────────────────────────────────────────────────────────
   reflection: {
-    insight: 'Physical product design taught me constraints I do not encounter in digital work. Every color adds cost. Every card size affects shipping. Every design decision is frozen once the print run starts. That rigor was valuable. It also taught me that the tactile matters. The weight of the cards, the texture of the box, the sound of shuffling, these are part of the experience in a way that pixels cannot replicate.',
+    insight: 'Physical product design taught me constraints I do not encounter in digital work. Constraints are of other natures: every card size and count affects shipping, experience happens on a tabletop, in a collective way. It was great to dedicate some time to this project after working for so long with ditigal UX. The result was a living product that brought fun and entertainment to people in a way that pixels cannot replicate.',
     quickInsight: 'Physical products taught me constraints digital work does not have. Every decision is frozen at print. The tactile matters in ways pixels cannot replicate.',
 
     openQuestions: [

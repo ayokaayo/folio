@@ -7,14 +7,14 @@ export const kallax: SideProject = {
   id: 'kallax',
   hashtag: '#Mobile',
   year: '2026',
-  title: 'Kallax',
+  title: 'kallax',
   subtitle: 'A vinyl DJ companion built for crates, not clouds',
   status: 'live',
 
   // ─────────────────────────────────────────────────────────────
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
-  description: 'Mobile app for vinyl DJs. Sync your Discogs collection, track BPMs, build playlists, run live sets. Offline-first, local storage, no subscriptions. Designed for dark booths and the people who dig through crates to fill them.',
+  description: 'Mobile app for vinyl DJs. Sync your Discogs collection, track BPMs, build playlists, run live sets. Offline-first, local storage, no subscriptions. Designed for dark booths, professionals, and collectors who rely on manual curation.',
   cardSummary: 'Mobile companion for vinyl DJs. Sync Discogs, track BPMs, build playlists, run live sets. Offline-first, no subscriptions.',
   readingTime: '4–7 min read',
   imageUrl: '/img/projects/kallax/hero.png',
@@ -57,9 +57,9 @@ export const kallax: SideProject = {
   // MISSION
   // ─────────────────────────────────────────────────────────────
   mission: {
-    statement: 'Vinyl DJs work offline, own physical objects, and dig through crates. Software should respect that.',
+    statement: 'Vinyl DJs work offline, own physical objects, and dig through crates. Software must respect that.',
 
-    spark: 'I DJ with vinyl. Every time I prepared for a set, I juggled three disconnected tools. Discogs for my collection metadata. Spreadsheets for tracking BPMs. My own memory for which records I had actually brought to the gig. The question kept surfacing. Why is there not one tool that understands how vinyl DJs actually work? Not streaming DJs scrolling through infinite playlists. Not bedroom producers organizing project files. Vinyl collectors who perform live, often without internet, in poorly lit booths, surrounded by hundreds of physical records they need to locate quickly. The name came naturally. Kallax, after the IKEA shelving unit that has become the unofficial furniture of record collectors worldwide. Square, modular, unpretentious. Exactly what the app tries to be.',
+    spark: 'I DJ with vinyl. Every time I prepared for a set, I juggled three disconnected tools. Discogs for my collection metadata, manual notes and stickies for tracking BPMs, and my own memory for records and tracks. I asked myself many times: "Why is there not one tool that understands how vinyl DJs actually work?" Not streaming DJs scrolling through infinite playlists or amateurs without real crowd pressure. Vinyl collectors who perform live, often without internet, in poorly lit booths, surrounded by dozens of physical records they need to locate quickly.\n\nThe name came naturally: Kallax. After the ever-present IKEA shelving unit that has become the unofficial furniture of record collectors worldwide. Modular, unpretentious, functional. The objective was clear:',
 
     intent: [
       'Build a companion app that works the way vinyl DJs do. Sync collection data from Discogs, fetch BPM information where it exists, and make manual entry effortless where it does not.',
@@ -72,18 +72,18 @@ export const kallax: SideProject = {
   // CONTEXT
   // ─────────────────────────────────────────────────────────────
   context: {
-    background: 'The tools available to vinyl DJs exist in isolated silos. Discogs serves as the ubiquitous repository for collection metadata, but offers no DJ functionality. Desktop software like Rekordbox assumes you are working with digital files, not physical objects. Streaming platforms become irrelevant the moment you are standing in front of a crate. And then there is the BPM problem. Unlike digital DJs who have tempo metadata embedded in their files, vinyl DJs often have no idea what speed their records are. Some pay services to analyze tracks they do not even own digitally. Others manually tap out tempos on calculators. Most just guess and adjust by ear.',
+    background: 'The tools available to vinyl DJs exist in isolated silos. Discogs serves as the ubiquitous repository for collection metadata, but offers no DJ functionality. Desktop software like Rekordbox are made to work with digital files, not physical objects. Streaming platforms become irrelevant the moment you are standing in front of a crate, and then there is the BPM problem... Unlike digital DJs who have tempo metadata embedded in their files, vinyl DJs need to know or feel what speed their tracks are. Some pay services to analyze tracks they do not even own digitally. Others manually tap out tempos on calculators. Most just guess and adjust by ear.',
 
-    opportunity: 'Design a mobile app that brings these disconnected pieces together. Sync with Discogs to import your collection. Fetch BPM data where APIs can provide it. Make manual entry feel natural rather than punitive. Offer a live mode that functions as passive reference during sets. No cloud lock-in, no monthly subscription, no illusion that perfect data exists for every record pressed in 1974. The constraint that shaped everything. Build it fast. Build it alone. Make every design choice serve the person standing in a dark booth trying to remember which crate holds their copy of that specific pressing.',
+    opportunity: 'The opportunity was to design a mobile app that brings these disconnected pieces together. Sync with Discogs to import your collection. Fetch BPM data where APIs can provide it. Make manual entry feel natural rather than punitive. Offer a live mode that functions as passive reference during sets. No cloud lock-in, no monthly subscription, no illusion that perfect data exists for every record pressed in 1974. The constraint that shaped everything was to build it fast and alone, making every design choice serve the person standing in a dark booth trying to remember which crate holds their copy of that specific pressing.',
 
-    audience: 'Vinyl DJs and record collectors who catalog on Discogs, perform at venues, clubs, radio shows, private parties, value offline-first tools, and appreciate when software understands the craft rather than trying to replace it.',
+    audience: 'Vinyl DJs and record collectors who catalog on Discogs, perform at venues, clubs, radio shows, private parties and value offline-first tools. We all appreciate when software understands the craft rather than trying to replace it.',
   },
 
   // ─────────────────────────────────────────────────────────────
   // CREATION
   // ─────────────────────────────────────────────────────────────
   creation: {
-    approach: 'Five principles emerged while designing Kallax, each one responding to how vinyl DJs actually work rather than how software typically imagines they should. Honor the ritual. Digging through records is part of the craft, the muscle memory. Design for the booth. DJ booths are dark spaces, often with colored stage lighting. Respect ownership. No login required, no cloud storage, no subscription model. Accept reality. The GetSongBPM API returns tempo data for roughly 67% of tracks, so build excellent manual entry instead of chasing perfect automation. Stay out of the way. Three tabs, three concepts, no nested menus to hunt through under pressure.',
+    approach: 'Five principles emerged while designing Kallax. Each one responds to how vinyl DJs actually work—rather than how software typically imagines they should.\n\n**Honor the ritual.** Digging through records is part of the craft. The muscle memory of flipping through crates matters.\n\n**Design for the booth.** DJ booths are dark spaces, often with colored stage lighting. The interface had to work there.\n\n**Respect ownership.** No login required. No cloud storage. No subscription model.\n\n**Accept reality.** The GetSongBPM API returns tempo data for roughly 67% of tracks. So I built excellent manual entry instead of chasing perfect automation.\n\n**Stay out of the way.** Three tabs, three concepts. No nested menus to hunt through under pressure.',
 
     features: [
       {
@@ -159,7 +159,7 @@ export const kallax: SideProject = {
       'Skip authentication in the MVP. Building OAuth flows and backend infrastructure would have delayed launch by weeks. But the choice became philosophical. DJs own physical records, they should own their data with the same certainty. Local-first architecture means the app works offline by default, never phones home.',
     ],
 
-    exploration: 'Sketched ideas around December 12, 2025. First commit December 24, 2025. Six weeks from that commit to live on both app stores. Building Kallax alone meant every choice was mine to make and mine to live with. Design, development, API integration, database schema, deployment, marketing site, app store presence. This forced a particular kind of clarity. If I could not explain why a feature mattered in one sentence, it probably did not matter enough to build. Some features got cut. Collaborative playlists, too complex for the timeline. Spotify preview integration, nice-to-have but not essential. Advanced filtering by genre or year, can add later if usage shows demand. What remained was the tightest possible loop. Sync collection, build playlists, run live sets. Solo building also meant accepting imperfection strategically. Good enough to be immediately useful shipped in six weeks beats theoretically perfect that never launches.',
+    exploration: 'First sketches in December 2025. First commit on Christmas Eve. Six weeks later it was live on both stores.\n\nBuilding alone meant owning every decision: design, development, API integration, database, deployment, marketing, app store submissions. That kind of isolation forces clarity. If I could not explain why a feature mattered in one sentence, it did not matter enough to build.\n\nSo I cut. I cut a lot :) Collaborative playlists were too complex for the timeline. Spotify preview was nice-to-have, not essential. Genre and year filtering could wait until usage proved demand. What remained was the tightest possible loop: sync your collection, build a playlist, run a live set.\n\nSolo building also meant accepting strategic imperfection. Six weeks of "good enough to be useful" beats "theoretically perfect" that never launches.',
 
     image: {
       url: '/img/projects/kallax/booth-context.png',
@@ -185,7 +185,7 @@ export const kallax: SideProject = {
   // REFLECTION
   // ─────────────────────────────────────────────────────────────
   reflection: {
-    insight: 'Designing and building Kallax end-to-end taught me that constraints force honesty in product design. When you cannot hide behind engineering will figure that out or we will improve that later, every feature has to justify its existence immediately. The biggest shift in thinking. Designing for 67% coverage instead of 100% perfection. Most tools overpromise. Kallax does less, but what it does it does honestly. That turned out to be more respectful to users than pretending certainty where none exists.',
+    insight: 'Designing and building Kallax end-to-end taught me that constraints force honesty in product design. When you cannot hide behind "engineering will figure that out" or "we will improve that later". Every feature has to justify its existence immediately. The biggest shift in thinking for me, was designing for 67% coverage instead of 100% perfection. Most tools overpromise. Kallax does less, but what it does it does with transpaence and accuracy. That turned out to be more respectful to users than pretending certainty where none exists.',
 
     openQuestions: [
       'Will DJs pay for a tool that solves a real problem they have lived with for years, or has free software trained everyone to expect everything for nothing?',
