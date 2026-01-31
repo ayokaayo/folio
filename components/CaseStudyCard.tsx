@@ -123,25 +123,7 @@ export default function CaseStudyCard({
               </p>
             </div>
 
-            {/* View Link */}
-            <div className="mt-4 lg:mt-0">
-              <span className="inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                View project
-                <svg
-                  className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </span>
-            </div>
+
           </div>
 
           {/* Right Column - Visual (remaining 8 cols on desktop) */}

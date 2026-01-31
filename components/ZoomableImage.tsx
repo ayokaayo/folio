@@ -18,6 +18,7 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 })
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isActive, setIsActive] = useState(false) // Touch interaction requires activation
 
   // Calculate fit scale when image loads
   const calculateFitScale = (img: HTMLImageElement) => {
@@ -131,9 +132,13 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
     setIsDragging(false)
   }
 
-  // Touch handlers for pan only
+  // Touch handlers for pan only - requires activation first
   const handleTouchStart = (e: React.TouchEvent) => {
+    // If not active, don't capture the touch - let page scroll naturally
+    if (!isActive) return
+
     if (e.touches.length === 1 && scale > minScale) {
+      e.preventDefault() // Only prevent default when active and can pan
       setIsDragging(true)
       setDragStart({
         x: e.touches[0].clientX - position.x,
@@ -143,7 +148,11 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
   }
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    // If not active, don't interfere with scrolling
+    if (!isActive) return
+
     if (e.touches.length === 1 && isDragging && containerRef.current) {
+      e.preventDefault() // Prevent scroll only when actively panning
       const container = containerRef.current.getBoundingClientRect()
       const imgWidth = imageSize.width * scale
       const imgHeight = imageSize.height * scale
@@ -162,6 +171,35 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
     setIsDragging(false)
   }
 
+  // Activate touch panning mode
+  const activateTouch = () => {
+    setIsActive(true)
+  }
+
+  // Deactivate touch panning mode
+  const deactivateTouch = () => {
+    setIsActive(false)
+    setIsDragging(false)
+  }
+
+  // Click outside to deactivate
+  useEffect(() => {
+    if (!isActive) return
+
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        deactivateTouch()
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [isActive])
+
   const canZoomIn = scale < 0.99 // Allow zoom in if not at 1:1
   const canZoomOut = scale > minScale + 0.01
   const canPan = scale > minScale + 0.01
@@ -171,12 +209,13 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
     <figure className="w-full">
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden border border-text/10 bg-white"
-        style={{ 
-          aspectRatio: isLoaded && imageSize.width > 0 
-            ? `${imageSize.width} / ${imageSize.height}` 
+        className={`relative w-full overflow-hidden border bg-white ${isActive ? 'border-accent' : 'border-text/10'}`}
+        style={{
+          aspectRatio: isLoaded && imageSize.width > 0
+            ? `${imageSize.width} / ${imageSize.height}`
             : '16 / 9',
-          maxHeight: '70vh'
+          maxHeight: '70vh',
+          touchAction: isActive ? 'none' : 'auto', // Only block scroll when active
         }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -221,9 +260,38 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
           </div>
         )}
 
+        {/* Tap to interact overlay - mobile only, when not active */}
+        {isLoaded && !isActive && (
+          <button
+            onClick={activateTouch}
+            className="md:hidden absolute inset-0 z-20 flex items-center justify-center bg-black/0 active:bg-black/5 transition-colors"
+            aria-label="Tap to enable pan and zoom"
+          >
+            <span className="px-4 py-2 bg-white/95 backdrop-blur-sm rounded-full shadow-lg border border-text/10 text-sm font-medium text-text/70 flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+              </svg>
+              Tap to interact
+            </span>
+          </button>
+        )}
+
+        {/* Close button - mobile only, when active */}
+        {isLoaded && isActive && (
+          <button
+            onClick={deactivateTouch}
+            className="md:hidden absolute top-3 right-3 z-30 p-2 bg-white/95 backdrop-blur-sm rounded-full shadow-lg border border-accent"
+            aria-label="Exit pan mode"
+          >
+            <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        )}
+
         {/* Controls */}
         {isLoaded && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-2 shadow-lg border border-text/10">
+          <div className={`absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-2 shadow-lg border ${isActive ? 'border-accent' : 'border-text/10'}`}>
             {/* Zoom out */}
             <button
               onClick={zoomOut}

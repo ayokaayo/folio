@@ -38,10 +38,10 @@ export default function DensityToggle({
       <div className="inline-flex bg-white overflow-hidden">
         <button
           onClick={() => handleModeChange('quick')}
-          className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
+          className={`px-4 py-2 text-sm font-medium transition-all duration-200 border-2 ${
             mode === 'quick'
-              ? 'bg-accent text-white'
-              : 'bg-transparent text-text/60 hover:text-text hover:bg-text/5'
+              ? 'bg-accent text-white border-accent'
+              : 'bg-transparent text-text/60 border-transparent hover:border-accent'
           }`}
           aria-pressed={mode === 'quick'}
           aria-label="Quick Read mode"
@@ -74,10 +74,10 @@ export default function DensityToggle({
         </button>
         <button
           onClick={() => handleModeChange('deep')}
-          className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
+          className={`px-4 py-2 text-sm font-medium transition-all duration-200 border-2 ${
             mode === 'deep'
-              ? 'bg-accent text-white'
-              : 'bg-transparent text-text/60 hover:text-text hover:bg-text/5'
+              ? 'bg-accent text-white border-accent'
+              : 'bg-transparent text-text/60 border-transparent hover:border-accent'
           }`}
           aria-pressed={mode === 'deep'}
           aria-label="Deep Dive mode"

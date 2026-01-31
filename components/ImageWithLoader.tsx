@@ -64,10 +64,13 @@ export default function ImageWithLoader({
     ? 'absolute inset-0 overflow-hidden bg-bg-grid' 
     : 'relative overflow-hidden bg-bg-grid max-w-full h-auto'
   
+  // Check if className includes img-grayscale (which has its own transitions)
+  const hasCustomTransition = className.includes('img-grayscale')
+
   const imageClasses = `
     ${objectFitClass}
-    transition-opacity duration-500 ease-trace
     ${isLoaded ? 'opacity-100' : 'opacity-0'}
+    ${!hasCustomTransition ? 'transition-opacity duration-500' : ''}
     ${className}
   `.trim()
 
