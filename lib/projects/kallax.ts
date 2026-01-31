@@ -88,7 +88,7 @@ export const kallax: SideProject = {
     features: [
       {
         title: 'Collection Management (Shelf Tab)',
-        description: 'Connect your Discogs account via OAuth, sync your complete collection. Releases, tracks, artists, album art. Two browse modes let you switch between efficient grid scanning and cover-flow digging. Real-time search filters as you type. Toggle between your full collection (SHELF) and favorited tracks (HOT). Tap any album to see the full tracklist with vinyl-specific positioning (A1, B2, etc.), track durations, and BPM badges.',
+        description: 'Connect your Discogs account via OAuth and sync your complete collection: releases, tracks, artists, album art.\n\nTwo browse modes serve different needs. **Grid view** for efficient scanning. **Cover-flow** for the ritual of digging through crates one album at a time. Real-time search filters as you type.\n\nToggle between your full collection (**SHELF**) and favorited tracks (**HOT**). Tap any album to see the full tracklist with vinyl-specific positioning (A1, B2, etc.), track durations, and BPM badges.',
         image: {
           url: '/img/projects/kallax/collection-grid.png',
           alt: 'Kallax onboarding welcome screen, collection grid view, and album detail with tracklist',
@@ -97,7 +97,7 @@ export const kallax: SideProject = {
       },
       {
         title: 'BPM Detection & Manual Entry',
-        description: 'After syncing your collection, fetch BPM data from GetSongBPM API. A progress bar shows real-time status as it processes your library. For tracks without data, or tracks where the API got it wrong, tap the BPM badge to open a tap-tempo interface. Four taps gives you your tempo. Done. Settings displays your BPM coverage percentage with no gamification, no pressure to hit 100%, just honest reporting of what is verified versus what needs manual input.',
+        description: 'After syncing, fetch BPM data from GetSongBPM API. A progress bar shows real-time status as it processes your library.\n\nFor tracks without data, or where the API got it wrong, tap the BPM badge to open a **tap-tempo interface**. Four taps gives you your tempo. Done.\n\nSettings displays your BPM coverage percentage. No gamification. No pressure to hit 100%. Just honest reporting of what is verified versus what needs manual input.',
         image: {
           url: '/img/projects/kallax/settings-config.png',
           alt: 'Settings screen showing Discogs connection, BPM fetch progress, and sync preferences',
@@ -106,7 +106,7 @@ export const kallax: SideProject = {
       },
       {
         title: 'Playlist Management (Bag Tab)',
-        description: 'Create playlists, called bags in DJ terminology. Add tracks from your collection or hot tracks. Drag-and-drop to reorder in manual mode, or sort by BPM (ascending or descending) or alphabetically. If a playlist exceeds 60 tracks, you will see a heavy bag warning. Practical reminder that carrying that many records to a gig is physically exhausting. Playlists are local, they export with your backup, you own them completely.',
+        description: 'Create playlists using tracks from your collection or hot tracks.\n\n**Drag-and-drop** to reorder in manual mode. Or sort by BPM (ascending or descending) or alphabetically.\n\nIf a playlist exceeds 60 tracks, you will see a **heavy bag warning**. A practical reminder that carrying that many records to a gig is physically exhausting.\n\nPlaylists are local. They export with your backup. You own them completely.',
         image: {
           url: '/img/projects/kallax/playlist-detail.png',
           alt: 'Kallax playlist detail view with numbered track positions and BPM badges',

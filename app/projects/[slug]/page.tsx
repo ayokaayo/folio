@@ -477,9 +477,21 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       <h3 className="text-xl font-serif font-semibold text-text mb-3">
                         {feature.title}
                       </h3>
-                      <p className="text-base text-text/70 leading-relaxed">
-                        {feature.description}
-                      </p>
+                      <div className="text-base text-text/70 leading-relaxed space-y-4">
+                        {feature.description.split('\n\n').map((paragraph, idx) => {
+                          const parts = paragraph.split(/(\*\*.*?\*\*)/g)
+                          return (
+                            <p key={idx}>
+                              {parts.map((part, partIdx) => {
+                                if (part.startsWith('**') && part.endsWith('**')) {
+                                  return <strong key={partIdx} className="text-text font-semibold">{part.slice(2, -2)}</strong>
+                                }
+                                return part
+                              })}
+                            </p>
+                          )
+                        })}
+                      </div>
                       {feature.image && (
                         <>
                           {feature.image.isZoomable ? (
