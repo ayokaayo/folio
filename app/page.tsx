@@ -104,7 +104,7 @@ export default function Home() {
             <GridLabel>Side Projects</GridLabel>
           </div>
           <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%] text-right">
-            <GridLabelMuted size="sm">004</GridLabelMuted>
+            <GridLabelMuted size="sm">005</GridLabelMuted>
           </div>
         </GridRow>
 
@@ -142,7 +142,7 @@ export default function Home() {
             <GridLabel>Selected Works</GridLabel>
           </div>
           <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%] text-right">
-            <GridLabelMuted size="sm">004</GridLabelMuted>
+            <GridLabelMuted size="sm">005</GridLabelMuted>
           </div>
         </GridRow>
 

@@ -93,7 +93,7 @@ export default function AboutPage() {
             {/* Introduction */}
             <div className="mb-12">
               <h1 className="font-mono font-medium text-text-primary text-headline mb-8">
-                Systems Thinker. Pragmatic Builder.
+                Systems Thinker. <br></br>Pragmatic Builder.
               </h1>
 
               <div className="space-y-6 font-mono text-body text-text-secondary">
@@ -101,7 +101,7 @@ export default function AboutPage() {
                   Senior Product Designer with 10+ years in B2B platforms where failure is expensive: iGaming with real-time transactions and compliance requirements, AI systems in production since 2017, and localization infrastructure powering multi-market operations across Brazil, Latin America, and APAC.
                 </p>
                 <p>
-                  I treat interfaces as the visible layer of deeper systems. I map dependencies, surface constraints early, and design for what the engineering team will actually inherit, not just what ships in the demo.
+                  I treat interfaces as the visible layer of deeper systems. I map dependencies, surface constraints early, and design for what the engineering team will actually inherit, not just what ships in demos.
                 </p>
                 <p>
                   Based in Barcelona. Open to remote or hybrid for the right fit.
@@ -122,11 +122,11 @@ export default function AboutPage() {
                 />
                 <SkillSection
                   title="AI products in production"
-                  description="Not chatbots bolted onto existing features. Full systems: Fast Track AI earned industry recognition as the first natural-language CRM in iGaming. I&apos;ve been designing and shipping AI tools since before the current hype cycle."
+                  description="Not chatbots or wrappers pasted onto existing features. Full systems, like Fast Track AI, that earned industry recognition as the first natural-language CRM in iGaming. I&apos;ve been designing and shipping AI tools since before the current hype cycle."
                 />
                 <SkillSection
                   title="Multi-market complexity"
-                  description="Localization isn&apos;t translation. I&apos;ve launched products across timezones, regulatory regimes, and cultural contexts, solving the infrastructure problems that make global operations actually work."
+                  description="Localization isn&apos;t just about translations. I&apos;ve launched products across timezones, regulatory regimes, and cultural contexts, solving the infrastructure problems that make global operations actually work."
                 />
               </div>
             </div>

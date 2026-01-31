@@ -39,10 +39,10 @@ export default function WorkPage() {
           style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}
         >
           <h1 className="font-mono font-medium text-text-primary text-headline">
-            Case studies
+            Case Studies
           </h1>
           <p className="font-mono text-body text-text-secondary max-w-2xl mt-6">
-            Deep dives into high-stakes product design. Systems thinking,
+            Deep dives into high-stakes product design.<br></br> Systems thinking,
             technical constraints, and measurable outcomes.
           </p>
         </div>

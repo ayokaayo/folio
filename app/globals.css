@@ -650,7 +650,7 @@ a {
   opacity: 0;
   transition: opacity 0.15s ease;
   pointer-events: none;
-  z-index: 12;
+  z-index: 50;
 }
 
 .figma-frame:hover .frame-label {
@@ -673,7 +673,7 @@ a {
   opacity: 0;
   transition: opacity 0.15s ease;
   pointer-events: none;
-  z-index: 12;
+  z-index: 50;
 }
 
 .figma-frame:hover .click-pill {

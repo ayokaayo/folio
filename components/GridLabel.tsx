@@ -30,7 +30,7 @@ export default function GridLabel({
 
   return (
     <span
-      className={`inline-flex items-center font-mono text-label uppercase tracking-wide whitespace-nowrap ${className}`}
+      className={`inline-flex items-center font-mono text-label uppercase tracking-wide whitespace-nowrap relative ${className}`}
       style={{
         height: `${height}px`,
         paddingLeft: `${paddingX}px`,
@@ -39,6 +39,7 @@ export default function GridLabel({
         color: 'var(--accent)',
         borderRadius: '4px',
         lineHeight: '1',
+        zIndex: 20,
       }}
     >
       {children}
@@ -59,7 +60,7 @@ export function GridLabelMuted({
 
   return (
     <span
-      className={`inline-flex items-center font-mono text-label uppercase tracking-wide whitespace-nowrap ${className}`}
+      className={`inline-flex items-center font-mono text-label uppercase tracking-wide whitespace-nowrap relative ${className}`}
       style={{
         height: `${height}px`,
         paddingLeft: `${paddingX}px`,
@@ -69,6 +70,7 @@ export function GridLabelMuted({
         borderRadius: '4px',
         lineHeight: '1',
         border: '1px solid var(--border-subtle)',
+        zIndex: 20,
       }}
     >
       {children}
