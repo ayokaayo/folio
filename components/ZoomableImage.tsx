@@ -10,6 +10,7 @@ interface ZoomableImageProps {
 
 export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLImageElement>(null)
   const [scale, setScale] = useState(0.1) // Start small, will be set on load
   const [minScale, setMinScale] = useState(0.1)
   const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -19,8 +20,7 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
   const [isLoaded, setIsLoaded] = useState(false)
 
   // Calculate fit scale when image loads
-  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    const img = e.currentTarget
+  const calculateFitScale = (img: HTMLImageElement) => {
     const container = containerRef.current
     if (!container) return
 
@@ -40,6 +40,18 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
     setPosition({ x: 0, y: 0 })
     setIsLoaded(true)
   }
+
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    calculateFitScale(e.currentTarget)
+  }
+
+  // Handle cached images that load before onLoad fires
+  useEffect(() => {
+    const img = imageRef.current
+    if (img && img.complete && !isLoaded) {
+      calculateFitScale(img)
+    }
+  }, [src, isLoaded])
 
   // Recalculate on window resize
   useEffect(() => {
@@ -175,6 +187,7 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
         >
           {/* eslint-disable-next-line @next/next/no-img-element -- Native img required for zoom/pan transform and onLoad dimensions */}
           <img
+            ref={imageRef}
             src={src}
             alt={alt}
             className="select-none"

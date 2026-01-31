@@ -193,6 +193,36 @@ export const codexTarot: SideProject = {
   },
 
   // ─────────────────────────────────────────────────────────────
+  // TESTIMONIALS
+  // ─────────────────────────────────────────────────────────────
+  testimonials: [
+    {
+      quote: "I just had an idea — you can add something like if you draw each day, then after 7 days, you receive something extra. I play a game where I receive daily items and if I login each day, on the 7th day, I get something extra. Somehow, this silly thing got me hooked to login daily 😄",
+      name: 'Danny J.',
+    },
+    {
+      quote: "Holy shit, its answers are really good. Whatever's written under The High Priestess is not visible because of the buttons, but that's because of my big font size. The.. :)) (the fool)",
+      name: 'Maria C.',
+    },
+    {
+      quote: "I don't think I will sleep, I will ask questions all night 😄 I love it! I showed it to Mitzu as well. We both love the design and of course the elegant explanation regarding the correlation between the question and the card(s). I also like the shooting star in the background 😄",
+      name: 'Lexi I.',
+    },
+    {
+      quote: "The whole design is sick! Love how you used haptics to give feedback on small important moments and the readings are really natural. I know my mom likes tarot, can you add her to the testing list?",
+      name: 'William G.',
+    },
+    {
+      quote: "I'm loving the app. You really improved it from last time, this is a pleasure to use.",
+      name: 'Catalin C.',
+    },
+    {
+      quote: "Bravo! I thought I'd be missing the old app but this is something else.",
+      name: 'Mihai C.',
+    },
+  ],
+
+  // ─────────────────────────────────────────────────────────────
   // GALLERY
   // ─────────────────────────────────────────────────────────────
   gallery: [

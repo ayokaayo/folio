@@ -93,74 +93,70 @@ export default function AboutPage() {
             {/* Introduction */}
             <div className="mb-12">
               <h1 className="font-mono font-medium text-text-primary text-headline mb-8">
-                Systems Thinker,<br />
-                Pragmatic Builder.
+                Systems Thinker. Pragmatic Builder.
               </h1>
 
               <div className="space-y-6 font-mono text-body text-text-secondary">
                 <p>
-                  I&apos;m a Senior Product Designer with 10+ years building B2B platforms for
-                  high-stakes operations. My work spans iGaming, AI systems, and localization —
-                  industries where technical complexity meets real business constraints.
+                  Senior Product Designer with 10+ years in B2B platforms where failure is expensive: iGaming with real-time transactions and compliance requirements, AI systems in production since 2017, and localization infrastructure powering multi-market operations across Brazil, Latin America, and APAC.
                 </p>
                 <p>
-                  I approach design as systems thinking: the interface is just the visible part
-                  of an interconnected whole. I map relationships, visualize constraints, and
-                  build for maintainability, not just shipping.
+                  I treat interfaces as the visible layer of deeper systems. I map dependencies, surface constraints early, and design for what the engineering team will actually inherit, not just what ships in the demo.
                 </p>
                 <p>
-                  Currently based in Barcelona. Relocating to Southeast Asia Q3 2026, flexible
-                  for the right opportunity.
+                  Based in Barcelona. Open to remote or hybrid for the right fit.
                 </p>
               </div>
             </div>
 
-            {/* What I Do Well */}
+            {/* Where I&apos;m Most Useful */}
             <div className="mb-12">
               <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-[#008FF0] px-4 py-2 rounded mb-6">
-                What I Do Well
+                Where I&apos;m Most Useful
               </h2>
 
               <div>
                 <SkillSection
-                  title="Systems Thinking & Strategy"
-                  description="Design for the whole system, not just the screen. Reduced technical debt while shipping parallel features through platform thinking."
+                  title="Legacy systems under pressure"
+                  description="Tight capacity, accumulated drift, unclear ownership. I know how to audit what's actually shippable and sequence work that doesn't collapse under its own weight."
                 />
                 <SkillSection
-                  title="Untangling Debt"
-                  description="Legacy systems, tight capacity, scope drift. I know how to assess what's actually possible and ship anyway."
+                  title="AI products in production"
+                  description="Not chatbots bolted onto existing features. Full systems: Fast Track AI earned industry recognition as the first natural-language CRM in iGaming. I&apos;ve been designing and shipping AI tools since before the current hype cycle."
                 />
                 <SkillSection
-                  title="AI-Powered Products"
-                  description="Designed and shipped AI tools in production since 2017, before the current hype cycle. Live products earning industry recognition."
-                />
-                <SkillSection
-                  title="Multi-Market Platforms"
-                  description="Launched products across Brazil, Latin America, and APAC. Solved localization, timezone complexity, and cultural adaptation."
+                  title="Multi-market complexity"
+                  description="Localization isn&apos;t translation. I&apos;ve launched products across timezones, regulatory regimes, and cultural contexts, solving the infrastructure problems that make global operations actually work."
                 />
               </div>
             </div>
 
             {/* Current Status */}
-            <div
-              className="p-8 mb-12"
-              style={{ backgroundColor: 'var(--bg-surface)' }}
-            >
-              <h2 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-6">
+            <div className="mb-12">
+              <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-[#008FF0] px-4 py-2 rounded mb-6">
                 Current Status
               </h2>
-              <div className="space-y-3 font-mono text-body">
-                <div className="flex gap-4">
-                  <span className="text-text-tertiary w-20 uppercase tracking-wide text-label">BASED:</span>
-                  <span className="text-text-primary">Barcelona</span>
+              <div className="space-y-4 font-mono text-body">
+                <div>
+                  <span className="inline-flex items-center gap-1.5 text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded mb-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                    BASED
+                  </span>
+                  <span className="block text-text-primary">Barcelona, Spain. Delivering Worldwide</span>
                 </div>
-                <div className="flex gap-4">
-                  <span className="text-text-tertiary w-20 uppercase tracking-wide text-label">OPEN:</span>
-                  <span className="text-text-primary">Remote, Sr. Product Design, Design Ops</span>
+                <div>
+                  <span className="inline-flex items-center gap-1.5 text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded mb-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                    OPEN TO
+                  </span>
+                  <span className="block text-text-primary">Remote first. Sr Product Design, Design Ops.</span>
                 </div>
-                <div className="flex gap-4">
-                  <span className="text-text-tertiary w-20 uppercase">Sectors:</span>
-                  <span className="text-text-primary">Localization, iGaming, B2B SaaS, AI</span>
+                <div>
+                  <span className="inline-flex items-center gap-1.5 text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded mb-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                    SECTORS
+                  </span>
+                  <span className="block text-text-primary">Localization, iGaming, B2B SaaS, AI</span>
                 </div>
               </div>
             </div>

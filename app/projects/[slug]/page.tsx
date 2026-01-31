@@ -13,6 +13,7 @@ import NextItemCard from '@/components/NextItemCard'
 import ImageModal from '@/components/ImageModal'
 import DensityToggle from '@/components/DensityToggle'
 import ZoomableImage from '@/components/ZoomableImage'
+import TestimonialCarousel from '@/components/TestimonialCarousel'
 
 interface ProjectDetailPageProps {
   params: {
@@ -614,6 +615,23 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             </div>
           )}
 
+          {/* Testimonials Section */}
+          {project.testimonials && project.testimonials.length > 0 && (
+            <div>
+              <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-6">
+                Testimonials
+              </h2>
+              <TestimonialCarousel 
+                testimonials={project.testimonials.map(t => ({
+                  quote: t.quote,
+                  company: t.name,
+                  role: t.role,
+                }))} 
+                autoPlayInterval={10000}
+              />
+            </div>
+          )}
+
           {/* Reflection Section */}
           {project.reflection && (
             <div>
@@ -640,25 +658,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   </ul>
                 </div>
               )}
-              {project.reflection.nextSteps && project.reflection.nextSteps.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-semibold text-text mb-3">Next Steps</h3>
-                  <ul className="space-y-2">
-                    {/* Quick mode: hide next steps as they're forward-looking; Deep mode: show all */}
-                    {(densityMode === 'quick' && project.id === 'codex-tarot'
-                      ? project.reflection.nextSteps.slice(0, 0)
-                      : densityMode === 'quick' && project.id === 'kallax'
-                      ? project.reflection.nextSteps.slice(0, 2)
-                      : project.reflection.nextSteps
-                    ).map((step, index) => (
-                      <li key={index} className="text-base text-text/70 flex items-start">
-                        <span className="mr-2">•</span>
-                        <span>{step}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              {/* Next Steps removed - see project data for future plans */}
             </div>
           )}
 

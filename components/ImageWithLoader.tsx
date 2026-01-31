@@ -62,7 +62,7 @@ export default function ImageWithLoader({
 
   const baseContainerClasses = fill 
     ? 'absolute inset-0 overflow-hidden bg-bg-grid' 
-    : 'relative overflow-hidden bg-bg-grid'
+    : 'relative overflow-hidden bg-bg-grid max-w-full h-auto'
   
   const imageClasses = `
     ${objectFitClass}
@@ -74,7 +74,7 @@ export default function ImageWithLoader({
   return (
     <div
       className={`${baseContainerClasses} ${containerClassName}`}
-      style={!fill ? { width, height } : undefined}
+      style={!fill && width && height ? { aspectRatio: `${width} / ${height}` } : undefined}
       onClick={onClick}
     >
       {/* Shimmer loading state */}

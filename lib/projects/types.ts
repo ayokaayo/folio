@@ -16,6 +16,12 @@ export interface ProjectFeature {
   image?: ImageWithCaption
 }
 
+export interface Testimonial {
+  quote: string
+  name: string
+  role?: string
+}
+
 export interface SideProject {
   id: string
   hashtag: string
@@ -64,6 +70,7 @@ export interface SideProject {
     nextSteps?: string[]
   }
   gallery?: ImageWithCaption[]
+  testimonials?: Testimonial[]
 }
 
 export interface SideProjectCard {
