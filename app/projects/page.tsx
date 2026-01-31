@@ -54,7 +54,7 @@ export default function ProjectsPage() {
       >
         <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          style={{ rowGap: `${GRID_GAP * 2}px`, columnGap: `${GRID_GAP}px` }}
+          style={{ rowGap: `${GRID_GAP}px`, columnGap: `${GRID_GAP}px` }}
         >
           {orderedProjects.map((project, index) => (
             <ProjectCard
