@@ -74,19 +74,19 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
               Back to Work
             </Link>
           </div>
-          <div className="mb-4">
+          <div className="mb-6">
             <span className="text-sm text-text/70 font-medium">
               {caseStudy.company} ({caseStudy.year})
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-4">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-6">
             {caseStudy.title}
           </h1>
-          <p className="text-lg md:text-xl text-text/80 max-w-3xl leading-relaxed">
+          <p className="text-lg md:text-xl text-text/80 max-w-3xl leading-relaxed mb-6">
             {parseMarkdownLinks(caseStudy.subtitle)}
           </p>
           {caseStudy.imageUrl && (
-            <div className="mt-8 mb-6">
+            <div className="mt-10 mb-6">
               <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1">
                 <ImageWithLoader
                   src={caseStudy.imageUrl}

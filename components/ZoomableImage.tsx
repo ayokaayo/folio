@@ -35,8 +35,11 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
     const scaleY = containerRect.height / imgHeight
     const fitScale = Math.min(scaleX, scaleY, 1) // Don't scale up beyond 1:1
 
+    // Start at 50% zoom or fit scale, whichever is larger
+    const initialScale = Math.max(0.5, fitScale)
+
     setMinScale(fitScale)
-    setScale(fitScale)
+    setScale(initialScale)
     setPosition({ x: 0, y: 0 })
     setIsLoaded(true)
   }
@@ -169,7 +172,12 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
       <div
         ref={containerRef}
         className="relative w-full overflow-hidden border border-text/10 bg-white"
-        style={{ height: '500px' }}
+        style={{ 
+          aspectRatio: isLoaded && imageSize.width > 0 
+            ? `${imageSize.width} / ${imageSize.height}` 
+            : '16 / 9',
+          maxHeight: '70vh'
+        }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -180,7 +188,7 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
       >
         {/* Image */}
         <div
-          className="absolute inset-0 flex items-center justify-center overflow-hidden"
+          className="absolute inset-0 flex items-start justify-center overflow-hidden"
           style={{
             cursor: canPan ? (isDragging ? 'grabbing' : 'grab') : 'default',
           }}
@@ -193,7 +201,7 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
             className="select-none"
             style={{
               transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
-              transformOrigin: 'center center',
+              transformOrigin: 'top center',
               transition: isDragging ? 'none' : 'transform 0.15s ease-out',
               maxWidth: 'none',
               maxHeight: 'none',

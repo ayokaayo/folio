@@ -15,7 +15,7 @@ import { projects } from '@/lib/projects'
 export default function ProjectsPage() {
   // Ensure stable order
   const orderedProjects = useMemo(() => {
-    const order = ['kallax', 'codex-tarot', 'norma', 'exotica-radio']
+    const order = ['kallax', 'codex-tarot', 'norma', 'exotica-radio', 'word-war-one']
     return order
       .map(id => projects.find(p => p.id === id))
       .filter((p): p is NonNullable<typeof p> => p !== undefined)
@@ -54,7 +54,7 @@ export default function ProjectsPage() {
       >
         <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          style={{ gap: `${GRID_GAP}px` }}
+          style={{ rowGap: `${GRID_GAP * 2}px`, columnGap: `${GRID_GAP}px` }}
         >
           {orderedProjects.map((project, index) => (
             <ProjectCard

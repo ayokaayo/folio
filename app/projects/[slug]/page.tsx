@@ -93,7 +93,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
         >
           {/* Top bar with back button */}
-          <div className="flex items-center justify-end mb-8">
+          <div className="flex items-center justify-end mb-10">
             <Link
               href={ROUTES.PROJECTS}
               className="inline-flex items-center gap-2 text-sm text-text/70 hover:text-text transition-colors duration-200"
@@ -115,18 +115,18 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             </Link>
           </div>
           
-          <div className="mb-4">
+          <div className="mb-6">
             <span className="text-sm text-text/70 font-medium">
               {project.hashtag} ({project.year})
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-4">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-6">
             {project.title}
           </h1>
 
-          {/* Density toggle for kallax & codex-tarot – reuse same component & session logic as work entries */}
-          {(project.id === 'kallax' || project.id === 'codex-tarot') && (
+          {/* Density toggle for kallax, codex-tarot & word-war-one – reuse same component & session logic as work entries */}
+          {(project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one' || project.id === 'word-war-one') && (
             <div className="mt-2 mb-4">
               <DensityToggle
                 caseStudy={{
@@ -135,17 +135,17 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     items: project.outcome
                       ? [project.outcome.summary, ...(project.outcome.notes || [])]
                       : [],
-                    // Add quickItems for codex-tarot quick mode reading time calculation
-                    ...(project.id === 'codex-tarot' && {
-                      quickItems: [project.outcome?.summary, ...(project.outcome?.notes?.slice(0, 2) || [])].filter(Boolean),
+                    // Add quickItems for codex-tarot and word-war-one quick mode reading time calculation
+                    ...((project.id === 'codex-tarot' || project.id === 'word-war-one') && {
+                      quickItems: project.outcome?.quickItems || [project.outcome?.summary, ...(project.outcome?.notes?.slice(0, 2) || [])].filter(Boolean),
                     }),
                   },
                   problem: {
                     title: '',
                     context: project.context?.background || '',
-                    // Add quickContext for codex-tarot
-                    ...(project.id === 'codex-tarot' && {
-                      quickContext: project.context?.background?.split('.').slice(0, 2).join('.') + '.',
+                    // Add quickContext for codex-tarot and word-war-one
+                    ...((project.id === 'codex-tarot' || project.id === 'word-war-one') && {
+                      quickContext: project.context?.quickContext || project.context?.background?.split('.').slice(0, 2).join('.') + '.',
                     }),
                     issues: [],
                     whyItMattered: [],
@@ -184,9 +184,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     worked: [],
                     challenges: [],
                     insight: project.reflection?.insight || '',
-                    // Add quickInsight for codex-tarot
-                    ...(project.id === 'codex-tarot' && project.reflection?.insight && {
-                      quickInsight: project.reflection.insight.split('.').slice(0, 2).join('.') + '.',
+                    // Add quickInsight for codex-tarot and word-war-one
+                    ...((project.id === 'codex-tarot' || project.id === 'word-war-one') && project.reflection?.insight && {
+                      quickInsight: project.reflection?.quickInsight || project.reflection.insight.split('.').slice(0, 2).join('.') + '.',
                     }),
                     images: [],
                   },
@@ -212,39 +212,66 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             </p>
           )}
           
-          <p className="text-base md:text-lg text-text/70 max-w-3xl leading-relaxed mb-8">
+          <p className="text-base md:text-lg text-text/70 max-w-3xl leading-relaxed mb-10">
             {project.description}
           </p>
 
-          {/* Project metadata — white bounding box, labelled rows + muted tech tags */}
+          {/* Project metadata — white bounding box, labelled rows with purple tag labels */}
           {(project.timeline || project.role || project.techStack) && (
-            <div className="mb-8 bg-white border border-border-subtle p-6 space-y-4">
+            <div className="mb-8 bg-white border border-border-subtle p-6 space-y-5">
               {(project.timeline || project.role) && (
-                <div className="flex flex-col sm:flex-row sm:items-baseline gap-x-6 gap-y-1 text-sm font-mono">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 text-sm font-mono">
                   {project.timeline && (
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-text-tertiary uppercase tracking-wide text-caption">Timeline</span>
-                      <span className="text-text-secondary">{project.timeline}</span>
+                    <div className="flex flex-col gap-2">
+                      <span className="inline-flex items-center gap-1.5 self-start text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                        Timeline
+                      </span>
+                      <span className="text-text-secondary pl-1">{project.timeline}</span>
                     </div>
                   )}
                   {project.role && (
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-text-tertiary uppercase tracking-wide text-caption">Role</span>
-                      <span className="text-text-secondary">{project.role}</span>
+                    <div className="flex flex-col gap-2">
+                      <span className="inline-flex items-center gap-1.5 self-start text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                        Role
+                      </span>
+                      <span className="text-text-secondary pl-1">{project.role}</span>
                     </div>
                   )}
                 </div>
               )}
               {project.techStack && project.techStack.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <span className="text-text-tertiary uppercase tracking-wide text-caption font-mono">Tech stack</span>
-                  <div className="flex flex-wrap gap-2">
+                  <span className="inline-flex items-center gap-1.5 self-start text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                    Tech stack
+                  </span>
+                  <div className="flex flex-wrap gap-2 pl-1">
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
                       className="inline-block font-mono text-caption uppercase tracking-wide px-2.5 py-1 border border-border-subtle bg-bg-grid/60 text-text-secondary"
                     >
                       {tech}
+                    </span>
+                  ))}
+                  </div>
+                </div>
+              )}
+              {project.tags && project.tags.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <span className="inline-flex items-center gap-1.5 self-start text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                    Tags
+                  </span>
+                  <div className="flex flex-wrap gap-2 pl-1">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="inline-block font-mono text-caption uppercase tracking-wide px-2.5 py-1 border border-border-subtle bg-bg-grid/60 text-text-secondary"
+                    >
+                      {tag}
                     </span>
                   ))}
                   </div>
@@ -271,7 +298,22 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             </div>
           )}
 
-          {project.imageUrl && (
+          {/* Video Hero or Image Hero */}
+          {project.videoUrl ? (
+            <div className="mt-8 mb-6">
+              <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1">
+                <div className="relative w-full aspect-video">
+                  <iframe
+                    src={project.videoUrl}
+                    title={`${project.title} gameplay video`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : project.imageUrl && (
             <div className="mt-8 mb-6 cursor-pointer" onClick={() => setSelectedImage({ url: project.imageUrl!, alt: project.imageAlt || project.title })}>
               <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
                 <ImageWithLoader
@@ -309,14 +351,14 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 {project.mission.statement}
               </p>
               {/* In quick mode, hide the long spark paragraph and trim intents */}
-              {!(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')) && (
+              {!(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
                 <p className="text-base text-text/70 mb-6 leading-relaxed">
                   {project.mission.spark}
                 </p>
               )}
               {project.mission.intent && project.mission.intent.length > 0 && (
                 <ul className="space-y-2">
-                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
+                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')
                     ? project.mission.intent.slice(0, 2)
                     : project.mission.intent
                   ).map((intent, index) => (
@@ -336,17 +378,20 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               <h2 className="text-2xl md:text-3xl font-serif font-bold text-text mb-6">
                 Context
               </h2>
+              {/* Show quickContext in quick mode if available, otherwise show full background */}
               <p className="text-base text-text/70 mb-4 leading-relaxed">
-                {project.context.background}
+                {densityMode === 'quick' && project.context.quickContext
+                  ? project.context.quickContext
+                  : project.context.background}
               </p>
-              {/* In quick mode, hide opportunity for kallax, show for codex-tarot as it's concise */}
+              {/* In quick mode, hide opportunity for kallax, show for codex-tarot & word-war-one as it's concise */}
               {!(project.id === 'kallax' && densityMode === 'quick') && (
                 <p className="text-base text-text/70 mb-4 leading-relaxed">
                   {project.context.opportunity}
                 </p>
               )}
               {/* In quick mode, hide audience as it's supplementary context */}
-              {project.context.audience && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')) && (
+              {project.context.audience && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
                 <p className="text-base text-text/70 leading-relaxed">
                   {project.context.audience}
                 </p>
@@ -379,36 +424,47 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                         {feature.description}
                       </p>
                       {feature.image && (
-                        <motion.figure
-                          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-                          viewport={{ once: true, margin: '-100px' }}
-                          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
-                          className="mt-6 w-full cursor-pointer"
-                          onClick={() => setSelectedImage({ url: feature.image!.url, alt: feature.image!.alt, caption: feature.image!.caption })}
-                        >
-                          <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                            <div className="relative w-full">
-                              <ImageWithLoader
+                        <>
+                          {feature.image.isZoomable ? (
+                            <motion.div
+                              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                              whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                              viewport={{ once: true, margin: '-100px' }}
+                              transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                              className="mt-6 w-full"
+                            >
+                              <ZoomableImage
                                 src={feature.image.url}
                                 alt={feature.image.alt}
-                                width={2400}
-                                height={1600}
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                                objectFit="contain"
-                                quality={90}
-                                className="w-full h-auto"
-                                containerClassName="bg-text/5"
-                                shimmerClassName="after:via-white/10"
+                                caption={feature.image.caption}
                               />
-                            </div>
-                          </div>
-                          {feature.image.caption && (
-                            <figcaption className="mt-3 text-sm text-text/60 text-center italic">
-                              {feature.image.caption}
-                            </figcaption>
+                            </motion.div>
+                          ) : (
+                            <motion.figure
+                              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                              whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                              viewport={{ once: true, margin: '-100px' }}
+                              transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                              className="mt-6 w-full cursor-pointer"
+                              onClick={() => setSelectedImage({ url: feature.image!.url, alt: feature.image!.alt, caption: feature.image!.caption })}
+                            >
+                              <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
+                                {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+                                <img
+                                  src={feature.image.url}
+                                  alt={feature.image.alt}
+                                  className="w-full h-auto block"
+                                  loading="lazy"
+                                />
+                              </div>
+                              {feature.image.caption && (
+                                <figcaption className="mt-3 text-sm text-text/60 text-center italic">
+                                  {feature.image.caption}
+                                </figcaption>
+                              )}
+                            </motion.figure>
                           )}
-                        </motion.figure>
+                        </>
                       )}
                     </div>
                   ))}
@@ -451,20 +507,13 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                         onClick={() => setSelectedImage({ url: img.url, alt: img.alt, caption: img.caption })}
                       >
                         <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                          <div className="relative w-full">
-                            <ImageWithLoader
-                              src={img.url}
-                              alt={img.alt}
-                              width={isReadingImage ? 400 : 2400}
-                              height={isReadingImage ? 815 : 1600}
-                              sizes={isReadingImage ? "400px" : "(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"}
-                              objectFit="contain"
-                              quality={90}
-                              className="w-full h-auto"
-                              containerClassName="bg-text/5"
-                              shimmerClassName="after:via-white/10"
-                            />
-                          </div>
+                          {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+                          <img
+                            src={img.url}
+                            alt={img.alt}
+                            className="w-full h-auto block"
+                            loading="lazy"
+                          />
                         </div>
                         {img.caption && (
                           <figcaption className="mt-3 text-sm text-text/60 text-center italic">
@@ -488,7 +537,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               {project.craft.decisions && project.craft.decisions.length > 0 && (
                 <ul className="space-y-3 mb-6">
                   {/* Quick mode: show first 3 decisions; Deep mode: show all */}
-                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
+                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')
                     ? project.craft.decisions.slice(0, 3)
                     : project.craft.decisions
                   ).map((decision, index) => (
@@ -500,7 +549,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 </ul>
               )}
               {/* In quick mode, hide exploration narrative to keep it concise */}
-              {project.craft.exploration && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')) && (
+              {project.craft.exploration && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
                 <p className="text-base text-text/70 leading-relaxed mb-6">
                   {project.craft.exploration}
                 </p>
@@ -532,20 +581,13 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       onClick={() => setSelectedImage({ url: project.craft!.image!.url, alt: project.craft!.image!.alt, caption: project.craft!.image!.caption })}
                     >
                       <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                        <div className="relative w-full">
-                          <ImageWithLoader
-                            src={project.craft.image.url}
-                            alt={project.craft.image.alt}
-                            width={2400}
-                            height={1600}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                            objectFit="contain"
-                            quality={90}
-                            className="w-full h-auto"
-                            containerClassName="bg-text/5"
-                            shimmerClassName="after:via-white/10"
-                          />
-                        </div>
+                        {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+                        <img
+                          src={project.craft.image.url}
+                          alt={project.craft.image.alt}
+                          className="w-full h-auto block"
+                          loading="lazy"
+                        />
                       </div>
                       {project.craft.image.caption && (
                         <figcaption className="mt-3 text-sm text-text/60 text-center italic">
@@ -571,7 +613,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               {project.outcome.notes && project.outcome.notes.length > 0 && (
                 <ul className="space-y-2">
                   {/* Quick mode: show first 2 outcome notes; Deep mode: show all */}
-                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
+                  {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')
                     ? project.outcome.notes.slice(0, 2)
                     : project.outcome.notes
                   ).map((note, index) => (
@@ -646,7 +688,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   <h3 className="text-lg font-semibold text-text mb-3">Open Questions</h3>
                   <ul className="space-y-2">
                     {/* Quick mode: show first 2 open questions; Deep mode: show all */}
-                    {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot')
+                    {(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')
                       ? project.reflection.openQuestions.slice(0, 2)
                       : project.reflection.openQuestions
                     ).map((question, index) => (
@@ -703,20 +745,13 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       onClick={() => setSelectedImage({ url: img.url, alt: img.alt, caption: img.caption })}
                     >
                       <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                        <div className="relative w-full">
-                          <ImageWithLoader
-                            src={img.url}
-                            alt={img.alt}
-                            width={isMobileImage ? 400 : 1600}
-                            height={isMobileImage ? 815 : 1200}
-                            sizes={isMobileImage ? "400px" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"}
-                            objectFit="contain"
-                            quality={90}
-                            className="w-full h-auto"
-                            containerClassName="bg-text/5"
-                            shimmerClassName="after:via-white/10"
-                          />
-                        </div>
+                        {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+                        <img
+                          src={img.url}
+                          alt={img.alt}
+                          className="w-full h-auto block"
+                          loading="lazy"
+                        />
                       </div>
                       {img.caption && (
                         <figcaption className="mt-3 text-sm text-text/60 text-center italic">

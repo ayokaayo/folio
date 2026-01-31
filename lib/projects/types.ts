@@ -34,11 +34,13 @@ export interface SideProject {
   readingTime?: string // Reading time label for card (e.g., "5–8 min read")
   imageUrl?: string // Path to image in /public folder (e.g., '/images/design-system.jpg')
   imageAlt?: string // Alt text for the image
+  videoUrl?: string // YouTube video URL for video hero
   linkUrl?: string // Optional link to project details or external site
   images?: ImageWithCaption[] // Gallery of images with captions to display in project
   timeline?: string
   role?: string
   techStack?: string[]
+  tags?: string[] // Additional tags like 'game theory'
   links?: ProjectLink[]
   mission?: {
     statement: string
@@ -47,6 +49,7 @@ export interface SideProject {
   }
   context?: {
     background: string
+    quickContext?: string
     opportunity: string
     audience?: string
   }
@@ -62,10 +65,12 @@ export interface SideProject {
   }
   outcome?: {
     summary: string
+    quickItems?: string[]
     notes?: string[]
   }
   reflection?: {
     insight: string
+    quickInsight?: string
     openQuestions?: string[]
     nextSteps?: string[]
   }

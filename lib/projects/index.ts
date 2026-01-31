@@ -19,6 +19,7 @@ import { exoticaRadio } from './exotica-radio'
 import { codexTarot } from './codex-tarot'
 import { norma } from './norma-case-study'
 import { kallax } from './kallax'
+import { wordWarOne } from './word-war-one'
 // import { anotherProject } from './another-project'
 
 // Example placeholder - remove when adding real projects
@@ -93,6 +94,7 @@ const exampleProject: SideProject = {
 export const projects: SideProject[] = [
   kallax,
   codexTarot,
+  wordWarOne,
   norma,
   exoticaRadio,
   // Add more projects here:

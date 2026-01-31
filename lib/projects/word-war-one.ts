@@ -15,15 +15,19 @@ export const wordWarOne: SideProject = {
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
   description: 'A physical card game for 2-5 players. Combine letter cards to form words and use them as attacks, defenses, or special moves. Health points, resupply mechanics, and boss words create strategic depth beneath the party-game surface. Self-designed, self-published, funded on Indiegogo.',
-  imageUrl: '/img/projects/word-war-one/hero.png',
-  imageAlt: 'Word War One game box art showing multiple hands reaching toward letter tiles spelling out the game title',
+  cardSummary: 'Physical card game where words become weapons. 2-5 players, health points, special cards, boss words. Self-published via Indiegogo.',
+  readingTime: '5–8 min read',
+  videoUrl: 'https://www.youtube.com/embed/1PhT3UENxoI',
+  imageUrl: '/img/projects/word-war-one/square.webp',
+  imageAlt: 'Word War One game artwork showing multiple hands reaching toward letter tiles spelling out the game title',
 
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
   // ─────────────────────────────────────────────────────────────
   timeline: '2023 (8 months from concept to fulfillment)',
   role: 'Designer, Illustrator, Publisher',
-  techStack: ['Illustrator', 'InDesign', 'Print Production', 'Indiegogo'],
+  techStack: ['Illustrator', 'InDesign', 'Print Production'],
+  tags: ['game theory', 'indie board game'],
 
   // ─────────────────────────────────────────────────────────────
   // EXTERNAL LINKS
@@ -32,11 +36,6 @@ export const wordWarOne: SideProject = {
     {
       label: 'BoardGameGeek',
       url: 'https://boardgamegeek.com/boardgame/405678/word-war-one',
-      type: 'other',
-    },
-    {
-      label: 'Watch Gameplay',
-      url: 'https://www.youtube.com/watch?v=1PhT3UENxoI',
       type: 'other',
     },
   ],
@@ -62,6 +61,7 @@ export const wordWarOne: SideProject = {
   // ─────────────────────────────────────────────────────────────
   context: {
     background: 'Word games are everywhere but most are pure vocabulary tests. The person who reads the most wins. Strategy games are everywhere but most require significant investment to learn and play. The overlap between accessible and deep is surprisingly thin. I had been playing with the idea of letter cards as combat for years, scrabble tiles as ammunition, words as attacks that could be blocked or countered, but the system always collapsed under its own complexity or failed to produce meaningful decisions. The breakthrough was realizing that the word itself should not determine the damage, the context should. A short word played at the right moment against the right opponent could be devastating. A long word played into a prepared defense could be neutralized entirely.',
+    quickContext: 'Word games reward vocabulary. Strategy games require hours. The gap was a game that bridged both without dominating either.',
 
     opportunity: 'The gap was a game that respected vocabulary without being dominated by it, that introduced strategy without requiring a tutorial, that created dramatic moments without relying on luck. Health points meant comebacks were always possible. Special cards meant the board state could shift unpredictably. Boss words, pre-selected target words that ended the game immediately if played, created tension around holding powerful letters and watching opponents hands for the telltale signs of a finishing move.',
 
@@ -79,9 +79,9 @@ export const wordWarOne: SideProject = {
         title: 'Wordcrafting Combat',
         description: 'Players form words from letter cards in hand. The word is played as an attack against a chosen opponent. Defenders can block by forming a stronger word, creating a back-and-forth where the best vocabulary does not always win because timing and card management matter as much as raw letter power.',
         image: {
-          url: '/img/projects/word-war-one/1920X1080.png',
-          alt: 'Word War One hero artwork showing hands reaching toward letter tiles arranged in a cross pattern',
-          caption: 'The central metaphor: words as weapons, collaboration as combat. Letter tiles become ammunition in a battle of wits.',
+          url: '/img/projects/word-war-one/2.webp',
+          alt: 'Black and white photograph of Word War One being played on a table with snacks and drinks',
+          caption: 'The game in action. Letter cards spread across a table, hands reaching, words forming in real time.',
         },
       },
       {
@@ -91,6 +91,7 @@ export const wordWarOne: SideProject = {
           url: '/img/projects/word-war-one/Rules_Basics.png',
           alt: 'Rules infographic showing basic mechanics, wordcrafting, victory conditions, and special cards',
           caption: 'Complete rules on a single vertical sheet. Setup, combat, victory conditions, and the five special card types.',
+          isZoomable: true,
         },
       },
       {
@@ -124,9 +125,9 @@ export const wordWarOne: SideProject = {
 
     images: [
       {
-        url: '/img/projects/word-war-one/image.png',
-        alt: 'Black and white photograph of Word War One being played on a table with snacks',
-        caption: 'The game in action. Letter cards spread across a table, hands reaching, words forming in real time.',
+        url: '/img/projects/word-war-one/1920X1080.png',
+        alt: 'Word War One hero artwork showing hands reaching toward letter tiles arranged in a cross pattern',
+        caption: 'The central metaphor: words as weapons, collaboration as combat. Letter tiles become ammunition in a battle of wits.',
       },
     ],
   },
@@ -144,11 +145,7 @@ export const wordWarOne: SideProject = {
 
     exploration: 'The biggest challenge was the damage calculation. Early versions used Scrabble-style letter values, but that made the game too predictable, the person with the most high-value letters always won. The solution was to decouple word value from damage, with damage calculated by comparing the two words in the battle rather than absolute scores. A 12-point word against a 10-point word does 2 damage, regardless of how those points were achieved. This meant a carefully timed 8-point word could be devastating if the opponent played a 6. It shifted the focus from hoarding high-value letters to reading the table and knowing when to strike. The special cards went through dozens of iterations. Early versions had too many, the game became about the cards rather than the words. Too few and they felt irrelevant. Five felt right, each one distinct, each one memorable, each one creating a story when played.',
 
-    image: {
-      url: '/img/projects/word-war-one/image(1).png',
-      alt: 'Portrait of the designer holding Word War One cards in a library setting',
-      caption: 'The full stack: design, illustration, production, fulfillment. Every card passed through my hands before reaching backers.',
-    },
+    // Craft section image removed - using card images in features instead
   },
 
   // ─────────────────────────────────────────────────────────────
@@ -156,6 +153,11 @@ export const wordWarOne: SideProject = {
   // ─────────────────────────────────────────────────────────────
   outcome: {
     summary: 'Successfully funded on Indiegogo and fulfilled to backers. Listed on BoardGameGeek with positive early feedback. The game has found its way into game nights and family gatherings, with the most common feedback being that it plays differently every time and that the special cards create moments people talk about afterwards.',
+    quickItems: [
+      'Successfully funded on Indiegogo and fulfilled to backers',
+      'Listed on BoardGameGeek with positive early feedback',
+      'Catch-up mechanic keeps games competitive until final rounds',
+    ],
 
     notes: [
       'The catch-up mechanic works as designed. Games rarely end with a blowout, most come down to the final few health points.',
@@ -169,6 +171,7 @@ export const wordWarOne: SideProject = {
   // ─────────────────────────────────────────────────────────────
   reflection: {
     insight: 'Physical product design taught me constraints I do not encounter in digital work. Every color adds cost. Every card size affects shipping. Every design decision is frozen once the print run starts. That rigor was valuable. It also taught me that the tactile matters. The weight of the cards, the texture of the box, the sound of shuffling, these are part of the experience in a way that pixels cannot replicate.',
+    quickInsight: 'Physical products taught me constraints digital work does not have. Every decision is frozen at print. The tactile matters in ways pixels cannot replicate.',
 
     openQuestions: [
       'Would an expansion add value or dilute what works? More special cards, new victory conditions, or leave it as a complete experience?',
@@ -190,6 +193,11 @@ export const wordWarOne: SideProject = {
       url: '/img/projects/word-war-one/image(2).png',
       alt: 'Square crop of the Word War One hero artwork showing hands and letter tiles',
       caption: 'The game\'s visual identity: hands reaching, letters colliding, conflict through collaboration.',
+    },
+    {
+      url: '/img/projects/word-war-one/3.jpg',
+      alt: 'Additional gameplay image',
+      caption: 'Game in progress.',
     },
   ],
 }
