@@ -17,7 +17,7 @@ export const fastTrackAI: CaseStudy = {
   impact: {
     title: 'Impact',
     items: [
-      'Shipped MVP in 2 months with cross-functional senior team including CPO, CTO, and Head of Product',
+      'Shipped in 2 months with cross-functional senior team including CPO, CTO, and Head of Product',
       'Rolled out platform-wide, with roughly 70% of partners actively using the feature within the first weeks launch',
       'Partners report that data analysis which previously took days passing between CRM and BI teams now happens in minutes through natural conversation',
       'Campaign creation across multiple markets simplified from hours of manual configuration to a single natural language request with automatic localization',
@@ -30,11 +30,11 @@ export const fastTrackAI: CaseStudy = {
       'Sticky daily usage patterns observed',
     ],
     deepItems: [
-      'Shipped a functional MVP in approximately 2 months, working alongside CPO, CTO, Head of Product, and a team of engineers including a data scientist and four developers. This timeline required ruthless prioritization and clear scope boundaries from day one, with daily syncs keeping everyone aligned.',
+      'Shipped the first fully working itertion in approximately 2 months, working alongside CPO, CTO, Head of Product, and a team of engineers including a data scientist and four developers. This timeline required ruthless prioritization and clear scope boundaries from day one, with daily syncs keeping everyone aligned.',
       'The rollout reached all live partners, with roughly 70% actively using the feature within a few weeks after launch. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
       'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting."',
       'Campaign creation now supports automatic content generation and translation across markets, turning what was hours of configuration into a single request. The AI generates SMS content, schedules activities per market with appropriate local timing, and pre-fills existing modals so users can review before committing.',
-      'Industry reviewers called it "one of Fast Track\'s most disruptive innovations in CRM," noting that natural language AI opens up advanced capabilities to teams who previously needed technical support for every campaign.',
+      'Industry reviewers called it "[one of Fast Track\'s most disruptive innovations in CRM](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/)," noting that natural language AI opens up advanced capabilities to teams who previously needed technical support for every campaign.',
     ],
     images: [
       {
@@ -232,12 +232,12 @@ export const fastTrackAI: CaseStudy = {
         ],
       },
       {
-        phase: 'September 2025: Launch and Early Access',
+        phase: 'Launch and Early Access',
         activities: [
           'Deployed platform-wide to all live partners with feature enabled',
           'Achieved roughly 70% of partners actively using the feature within a few weeks',
-          'Collected feedback via Slack, Intercom, LanChain, and direct partner communication identifying areas for iteration',
-          'Observed sticky daily usage patterns indicating genuine utility rather than novelty exploration',
+          'Collected feedback via Slack, Intercom, LangChain, and direct partner communication. Finding opportunities, and identifying areas for iteration',
+          'Observed growing sticky daily usage patterns indicating genuine utility rather than novelty exploration',
         ],
       },
     ],
