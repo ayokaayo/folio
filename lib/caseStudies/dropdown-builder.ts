@@ -38,13 +38,6 @@ export const dropdownBuilder: CaseStudy = {
       'Adoption was platform-wide within a quarter. The pattern became the reference standard for complex selections across Segment Builder, Trigger Builder, Data Explorer, Campaign Creator, and Journey Designer.',
       'The component has been stable for over 12 months with no material rework needed, validating that the upfront investment in research and architecture paid off.',
     ],
-    images: [
-      {
-        url: '/img/dropdown/impact-adoption.png',
-        alt: 'Dashboard showing platform-wide adoption metrics',
-        caption: 'Adopted across all modules within one quarter',
-      },
-    ],
   },
 
   problem: {
@@ -308,11 +301,26 @@ export const dropdownBuilder: CaseStudy = {
       'Performance targets met consistently. Interactions feel instant even with 200+ fields',
       'Accessibility audit passed on first review',
     ],
-    images: [
+    testimonials: [
       {
-        url: '/img/dropdown/validation-flow.png',
-        alt: 'User flow diagram showing the complete interaction sequence',
-        caption: 'The full flow from access to confirmation, with caching and validation at each step',
+        quote: 'finally! been waiting for this forever. so much easier to find anything now 🙌',
+        company: 'Sarah',
+        role: 'Retention Lead • Europe',
+      },
+      {
+        quote: 'This is great guys, love that I can see sample values before picking. Small thing: would be nice if it remembered my last category too.',
+        company: 'Ryan',
+        role: 'Campaign Ops • Asia',
+      },
+      {
+        quote: 'ok who do I thank for the new dropdown? seriously this makes my life so much easier',
+        company: 'Tom',
+        role: 'CRM Manager • Europe',
+      },
+      {
+        quote: 'Oh, you made it! This is a bliss for onboarding. thanks team!!',
+        company: 'Priya',
+        role: 'User Adoption • Internal',
       },
     ],
   },
