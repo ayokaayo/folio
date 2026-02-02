@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 interface LazyImageProps {
   src: string
@@ -12,11 +12,12 @@ interface LazyImageProps {
 
 /**
  * LazyImage - Native img with loading state (shimmer + fade-in)
- * 
+ *
  * Design:
  * - Uses native <img> for natural aspect ratio support
  * - Gray background with shimmer animation while loading
  * - Smooth fade-in when image loads
+ * - Handles cached images that load before React attaches onLoad
  * - Preserves all native img behavior
  */
 export default function LazyImage({
@@ -27,6 +28,15 @@ export default function LazyImage({
   onClick,
 }: LazyImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  // Handle cached images that may already be loaded before onLoad attaches
+  useEffect(() => {
+    const img = imgRef.current
+    if (img && img.complete && img.naturalHeight > 0) {
+      setIsLoaded(true)
+    }
+  }, [src])
 
   return (
     <div className="relative w-full">
@@ -56,6 +66,7 @@ export default function LazyImage({
 
       {/* Image with fade-in */}
       <img
+        ref={imgRef}
         src={src}
         alt={alt}
         loading={loading}
