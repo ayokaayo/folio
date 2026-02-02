@@ -6,6 +6,7 @@ import { ANIMATION, VIEWPORT } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import ImageModal from './ImageModal'
+import LazyImage from './LazyImage'
 
 interface ImageGalleryProps {
   images: ImageWithCaption[]
@@ -56,11 +57,9 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
             onClick={() => setSelectedImage(image)}
           >
             <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-              {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
-              <img
+              <LazyImage
                 src={image.url}
                 alt={image.alt}
-                className="w-full h-auto block"
                 loading="lazy"
               />
             </div>

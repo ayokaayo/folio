@@ -11,6 +11,7 @@ import dynamic from 'next/dynamic'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import DensityToggle from './DensityToggle'
 import ImageModal from './ImageModal'
+import LazyImage from './LazyImage'
 import { parseMarkdownLinks } from '@/lib/utils/parseMarkdownLinks'
 import TestimonialCarousel from './TestimonialCarousel'
 
@@ -294,11 +295,9 @@ export default function CaseStudyDetail({
                           onClick={() => setSelectedImage(awardsImage)}
                         >
                           <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                            {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
-                            <img
+                            <LazyImage
                               src={awardsImage.url}
                               alt={awardsImage.alt}
-                              className="w-full h-auto block"
                               loading="lazy"
                             />
                           </div>
@@ -439,11 +438,9 @@ export default function CaseStudyDetail({
                 {decision.image && (
                   <div className="mt-4 cursor-pointer" onClick={() => setSelectedImage(decision.image!)}>
                     <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
-                      {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
-                      <img
+                      <LazyImage
                         src={decision.image.url}
                         alt={decision.image.alt}
-                        className="w-full h-auto block"
                         loading="lazy"
                       />
                     </div>

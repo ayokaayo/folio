@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { ImageWithCaption } from '@/lib/caseStudies/types'
 import ImageModal from './ImageModal'
+import LazyImage from './LazyImage'
 
 
 interface BeforeAfterImageProps {
@@ -71,10 +72,10 @@ export default function BeforeAfterImage({ before, after, className = '', defaul
 
           {/* Image Container */}
           <div className="relative w-full">
-            <img
+            <LazyImage
+              key={activeView}
               src={activeImage.url}
               alt={activeImage.alt}
-              className="w-full h-auto block"
               loading="lazy"
             />
           </div>
