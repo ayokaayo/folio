@@ -6,6 +6,7 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import StructuredData from '@/components/StructuredData'
+import EasterEgg from '@/components/EasterEgg'
 import { SITE } from '@/lib/constants'
 
 // MONO ONLY — IBM Plex Mono for all typography
@@ -67,6 +68,23 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ibmPlexMono.variable}`}>
       <body className={`${ibmPlexMono.className} antialiased`}>
+        {/*
+        ╔══════════════════════════════════════════════════════════════════╗
+        ║                                                                  ║
+        ║   👋 HELLO THERE, SOURCE CODE EXPLORER!                          ║
+        ║                                                                  ║
+        ║   You're looking at the portfolio of Miguel Angelo —             ║
+        ║   a Systems Designer who builds infrastructure for               ║
+        ║   high-stakes operations.                                        ║
+        ║                                                                  ║
+        ║   Built with Next.js · Tailwind CSS · TypeScript                 ║
+        ║                                                                  ║
+        ║   Like what you see? Let's build something together.             ║
+        ║   → hi@miguelangelo.tech                                         ║
+        ║                                                                  ║
+        ╚══════════════════════════════════════════════════════════════════╝
+        */}
+        <EasterEgg />
         <StructuredData />
         <ErrorBoundary>
           <a href="#main-content" className="sr-only focus:not-sr-only">
