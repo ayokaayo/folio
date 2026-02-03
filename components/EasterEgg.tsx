@@ -16,5 +16,36 @@ export default function EasterEgg() {
     )
   }, [])
 
-  return null
+  return (
+    <div
+      data-easter-egg="true"
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: '0',
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        whiteSpace: 'nowrap',
+        border: '0',
+      }}
+    >
+      ╔══════════════════════════════════════════════════════════════════╗
+      ║                                                                  ║
+      ║   👋 HELLO THERE, SOURCE CODE EXPLORER!                          ║
+      ║                                                                  ║
+      ║   You're looking at the portfolio of Miguel Angelo —             ║
+      ║   a Systems Designer who builds infrastructure for               ║
+      ║   high-stakes operations.                                        ║
+      ║                                                                  ║
+      ║   Built with Next.js · Tailwind CSS · TypeScript                 ║
+      ║                                                                  ║
+      ║   Like what you see? Let's build something together.             ║
+      ║   → hi@miguelangelo.tech                                         ║
+      ║                                                                  ║
+      ╚══════════════════════════════════════════════════════════════════╝
+    </div>
+  )
 }

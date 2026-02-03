@@ -68,22 +68,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${ibmPlexMono.variable}`}>
       <body className={`${ibmPlexMono.className} antialiased`}>
-        {/*
-        ╔══════════════════════════════════════════════════════════════════╗
-        ║                                                                  ║
-        ║   👋 HELLO THERE, SOURCE CODE EXPLORER!                          ║
-        ║                                                                  ║
-        ║   You're looking at the portfolio of Miguel Angelo —             ║
-        ║   a Systems Designer who builds infrastructure for               ║
-        ║   high-stakes operations.                                        ║
-        ║                                                                  ║
-        ║   Built with Next.js · Tailwind CSS · TypeScript                 ║
-        ║                                                                  ║
-        ║   Like what you see? Let's build something together.             ║
-        ║   → hi@miguelangelo.tech                                         ║
-        ║                                                                  ║
-        ╚══════════════════════════════════════════════════════════════════╝
-        */}
         <EasterEgg />
         <StructuredData />
         <ErrorBoundary>
