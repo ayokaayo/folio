@@ -1,6 +1,6 @@
 # Miguel Angelo Portfolio
 
-A modern portfolio website built with Next.js, Tailwind CSS, and Framer Motion, showcasing Miguel Angelo's product design work and case studies.
+Portfolio website built with Next.js, Tailwind CSS, and Framer Motion, showcasing Miguel Angelo's product design work and case studies.
 
 ## Tech Stack
 
