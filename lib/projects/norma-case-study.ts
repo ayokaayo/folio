@@ -5,34 +5,35 @@ export const norma: SideProject = {
   // CORE METADATA
   // ─────────────────────────────────────────────────────────────
   id: 'norma',
-  hashtag: '#AI',
-  year: '2024',
+  hashtag: '#SaaS',
+  year: '2026',
   title: 'Norma',
-  subtitle: 'Legal workflow automation built for Philippine law firms that actually need it',
-  status: 'building',
+  subtitle: 'A multi-tenant platform running Romanian architecture & permitting firms — from first lead to final permit',
+  status: 'live',
 
   // ─────────────────────────────────────────────────────────────
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
-  description: 'AI-powered practice management for small Philippine law firms. Handles document generation, matter tracking, and client management. Built because my wife\'s lawyer colleagues were using ChatGPT for legal work with zero awareness of compliance risks. Started as a side project, now a working proof of concept.',
-  cardSummary: 'AI-powered practice management for Philippine law firms. Document generation, matter tracking, client management. Currently in development.',
+  description: 'Multi-tenant platform for Romanian architecture and permitting firms: each tenant gets a branded public website plus a backoffice — CRM, permit tracking, client portal, and an AI secretary. In production with its first client since May 2026; financed under Romania\'s PNRR (EU NextGenerationEU).',
+  cardSummary: 'Multi-tenant SaaS running Romanian permitting firms — branded website, CRM, client portal, AI secretary. In production, PNRR-funded.',
   imageUrl: '/img/projects/norma/hero.png',
-  imageAlt: 'Norma interface showing a demand letter being generated with AI enhancement',
+  imageAlt: 'Norma admin dashboard showing the schedule, quick actions, and Romanian-language interface',
 
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
   // ─────────────────────────────────────────────────────────────
-  timeline: 'October 2024 - Present (2 months active development)',
-  role: 'Solo founder, designer, developer',
-  techStack: ['Next.js 14', 'TypeScript', 'Claude Sonnet 4', 'Supabase', 'Clerk', 'Vercel'],
+  timeline: 'Oct 2024 – present · in production since May 2026',
+  role: 'Founder, designer, developer',
+  techStack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind v4', 'shadcn/ui', 'Cloudflare Workers', 'Supabase Postgres', 'Drizzle', 'Clerk', 'Vercel AI SDK (Claude + Grok)', 'Inngest'],
+  tags: ['multi-tenant', 'AI agent', 'GDPR'],
 
   // ─────────────────────────────────────────────────────────────
   // EXTERNAL LINKS
   // ─────────────────────────────────────────────────────────────
   links: [
     {
-      label: 'Test the Prototype',
-      url: 'https://norma-orcin.vercel.app/',
+      label: 'Live Site',
+      url: 'https://afharchi.com',
       type: 'live',
     },
   ],
@@ -41,16 +42,16 @@ export const norma: SideProject = {
   // MISSION
   // ─────────────────────────────────────────────────────────────
   mission: {
-    statement: 'Build legal automation that small Philippine firms can actually afford and trust.',
+    statement: 'Give small Romanian permitting firms the operational infrastructure big firms take for granted.',
 
-    spark: 'My wife studied law. Over the years, conversations with her lawyer colleagues kept circling back to the same frustration: they wanted to adopt AI tools but had no idea where to start. Some were using ChatGPT, copying and pasting legal documents with zero awareness of compliance issues or data security. Others were just drowning in repetitive work. When a Canadian lawyer friend visited Barcelona and described the same problems, something clicked. I could build this. I had access to real users, real feedback, and the technical skills. Two months in, I have a working proof of concept and access to real users for feedback when it\'s ready.',
+    spark: 'Norma started in October 2024 as a legal document automation proof of concept — my wife studied law, her colleagues were pasting client documents into ChatGPT, and I wanted to build something safer. The prototype worked. Validation stalled. I kept the lesson and shelved the product.\n\nA year later I rebuilt it from scratch on a production-grade stack, still aimed at law firms. Then the real client appeared: **Architecture for Humans**, a Romanian architecture practice whose actual business is permits and authorizations — *avize*. Different industry, same disease: client intake in inboxes, deadlines in heads, documents in folders named final_v3. Their digitalization project had won PNRR funding (EU NextGenerationEU), and they needed a platform, not a promise.\n\nIn April 2026 I pivoted the codebase to architecture firms. A month later the platform was in production on afharchi.com. The law-firm version lives on in an archive branch — the pivot cost less than loyalty to a dead idea would have.',
 
     intent: [
-      'Create something purpose-built for Philippine law firms, not a patched-together Western tool',
-      'Make AI enhancement trustworthy enough for actual legal work',
-      'Start with document automation because that is what kills small firm productivity',
-      'Price it so solo practitioners can actually afford it, not just mid-sized firms',
-      'Ship fast, iterate based on real lawyer feedback, not assumptions',
+      'Run the whole firm — leads, clients, projects, permits, offers, documents — in one system instead of email plus Excel',
+      'Give every tenant firm a branded public website and a private backoffice from the same codebase',
+      'Make the AI a secretary, not a gimmick: real tools, real actions, real guardrails',
+      'Treat GDPR and tenant isolation as foundations, not features',
+      'Build for one real firm first, generalize second',
     ],
   },
 
@@ -58,58 +59,77 @@ export const norma: SideProject = {
   // CONTEXT
   // ─────────────────────────────────────────────────────────────
   context: {
-    background: 'Small law firms in the Philippines run on Word documents, Excel spreadsheets, and manual processes. The lawyers I spoke with juggle client management, document drafting, deadline tracking, and billing with no integrated system. Enterprise legal software exists but costs thousands of dollars per month and is built for US firms with different workflows and legal standards. Generic AI tools like ChatGPT are free and powerful, but lawyers paste sensitive client information into public interfaces with no encryption, no audit trails, and no understanding of the compliance risks. The gap is not features; it\'s trust, affordability, and local context.',
+    background: 'A Romanian construction project can require dozens of *avize* before a building permit lands: utilities, environment, road administration, heritage, fire safety — each with its own issuer, validity window, and expiry date. Small architecture and permitting firms track all of it manually: deadlines in someone\'s head, documents in email threads, status updates by phone whenever the client gets nervous. Nothing about the work is unstructured — the process is rigid, legally defined, and repeats for every project — but the tooling is Word, Excel, and WhatsApp. Enterprise practice-management software exists and fits none of it: wrong language, wrong legal system, wrong price.',
 
-    opportunity: 'Claude Sonnet 4 made this possible. Previous models either hallucinated legal citations or produced generic corporate language. Sonnet 4 can maintain Philippine jurisdiction awareness, understand local legal terminology, and generate documents that sound like they came from an actual lawyer. Combine that with a purpose-built interface, proper security, and local pricing, and suddenly small firms have access to tools that were only realistic for enterprise before.',
+    opportunity: 'Two waves crossed. Romania\'s recovery plan opened PNRR/C9/I3 — "Digitalizarea IMM-urilor" — funding small firms to digitalize. And language models got good enough to do real secretarial work: draft the email, create the record, check the schedule. A small firm could suddenly afford custom infrastructure, and the infrastructure could suddenly include a competent assistant.',
 
-    audience: 'Solo practitioners and firms with 2 to 5 lawyers. Provincial practices and Metro Manila firms both need this, but for slightly different reasons. Provincial lawyers have fewer resources and need affordability. Metro Manila firms face higher competition and need efficiency. Both groups are tech-curious but cautious. They will adopt if it works reliably and does not feel like gambling with client data.',
+    audience: 'Small Romanian architecture and permitting consultancies — one to ten people — and their clients: families building a house, companies developing property. Two very different user groups: the firm lives in the backoffice daily; the client visits the portal a few times per project, usually anxious.',
   },
 
   // ─────────────────────────────────────────────────────────────
   // CREATION
   // ─────────────────────────────────────────────────────────────
   creation: {
-    approach: 'I ran interviews with 5 lawyers to map out their actual workflows. Not what they wished they had, but what they do every single day. Document generation came up in every conversation. Demand letters, contracts, motions, discovery requests. Repetitive but not automatable with simple templates because context matters. I built the prototype around a modular architecture: forms library, matter management, document generation, AI enhancement. Each module can work independently but connects when needed. Claude and Cursor handled most of the code. I focused on design decisions, testing flows, and making sure the AI outputs felt professional enough for real legal work.',
+    approach: 'One codebase, two worlds. Each tenant firm gets a branded public website — portfolio, services, AI chat, contact — and a private backoffice: CRM, permit tracking, documents, client portal. The marketing site and the platform share auth, design tokens, and data, so a chat lead becomes an inquiry becomes a customer becomes a project without ever leaving the system.\n\nI built it solo over a phased plan — multi-tenant shell, data foundation, backoffice, client portal, automations — with Claude writing most of the code while I owned the architecture, the design system, and every product decision. 356 commits over eight months; production cutover a month after the pivot.',
 
     features: [
       {
-        title: 'Smart Forms Library',
-        description: 'Template system with variable substitution and AI enhancement. Users start with a base form, fill in client details and case context, then trigger Claude to refine language, add legal reasoning, and format properly. Not just mail merge. The AI understands what type of document it is handling and adapts tone and structure accordingly. Common documents: demand letters, lease agreements, complaints, affidavits.',
+        title: 'Admin CRM',
+        description: 'Customers, projects, offers, and documents in one place. Offers move through a tracked funnel (shown, viewed, accepted), documents generate as PDF and DOCX — including full customer reports — and every record links back to its project. The firm stopped reconstructing project history from email threads.',
+        image: {
+          url: '/img/projects/norma/crm-customers.png',
+          alt: 'Norma admin CRM showing the customer list for an architecture firm',
+          caption: 'The CRM backbone: customers, projects, offers, and documents, cross-linked. Romanian-language UI — the product ships in the tenant\'s language.',
+        },
       },
       {
-        title: 'Matter Management',
-        description: 'Cases are organized as "matters" with associated clients, documents, and saved variables. If you represent a client in multiple cases, their information carries across. Variables like jurisdiction, property addresses, and opposing counsel get stored per matter so you are not retyping the same details in every document. Simple, but this alone saves hours per week.',
+        title: 'Avize tracking',
+        description: 'The heart of the domain. Each project carries its register of permits and authorizations — status, issuer, validity, expiry. Scheduled reminders fire before permits lapse: "three days before expiry" is a business rule the system owns, not a calendar entry someone hopefully remembered. Everything exports cleanly when authorities ask.',
+        image: {
+          url: '/img/projects/norma/avize.png',
+          alt: 'Project detail view with the avize register showing permit statuses and expiry dates',
+          caption: 'The avize register per project: every permit with status, issuer, and expiry. Inngest-scheduled reminders mean nothing lapses silently.',
+        },
       },
       {
-        title: 'Document Lifecycle Tracking',
-        description: 'Documents move through states: draft, reviewed, executed, filed. Each document gets a serial number for reference. Version control tracks changes. Not revolutionary, but small firms often lose track of which version was actually sent to the court. This prevents that.',
+        title: 'Client portal',
+        description: 'Clients sign in to see project status, permit progress, documents (signed URLs, no public buckets), offers they can accept online, and a message thread with the firm. Admins can impersonate a client to see exactly what they see — with a banner making the borrowed identity impossible to forget.',
+        image: {
+          url: '/img/projects/norma/portal.png',
+          alt: 'Client portal dashboard showing project status and documents for a customer',
+          caption: 'The client-facing world: status without phone calls. Anxious clients check the portal instead of calling the architect.',
+        },
       },
       {
-        title: 'Professional Text Editor',
-        description: 'Tried multiple solutions before landing on one that handles Philippine legal formatting requirements: proper indentation, numbered paragraphs, signature blocks, and font flexibility so documents print correctly. Legal documents have strict formatting standards. Generic rich text editors break those standards constantly.',
-      },
-    ],
-
-    images: [
-      {
-        url: '/img/projects/norma/library.png',
-        alt: 'Forms library showing categorized legal templates across practice areas',
-        caption: 'Template library organized by practice area with search and filtering. Each form shows category tags and descriptions so lawyers find what they need in seconds instead of scrolling through generic document lists.',
+        title: 'Norma, the AI secretary',
+        description: 'The platform\'s namesake. Inside the backoffice, a 21-tool agent drafts replies, creates customers and projects, queries the schedule, and files inquiries — every write behind a whitelisted tool with per-tenant spend caps. On the public site, the same brain runs the chat widget that turns visitors into qualified leads at 2 a.m.',
+        image: {
+          url: '/img/projects/norma/agent.png',
+          alt: 'Norma AI agent panel open in the admin backoffice',
+          caption: 'The secretary at work: 21 tools across 5 permission tiers. It acts, but only through whitelisted operations — and the audit log sees everything.',
+        },
       },
       {
-        url: '/img/projects/norma/form-filled.png',
-        alt: 'Employment agreement form with variable fields populated',
-        caption: 'Variables filled but not yet enhanced. Left panel captures case-specific details while the right panel shows the document structure in real time. This is the baseline before AI refinement.',
+        title: 'Lead inbox',
+        description: 'Chat conversations, form submissions, and callback requests land in one inbox. Replies go out through a rich email composer with attachments and an optional booking link — the distance from "stranger asked a question" to "consultation scheduled" is one screen.',
+        image: {
+          url: '/img/projects/norma/inbox.png',
+          alt: 'Inquiries inbox showing lead conversations and the email reply composer',
+          caption: 'Every lead channel converges here. Reply with attachments and a booking CTA without leaving the platform.',
+        },
       },
       {
-        url: '/img/projects/norma/form-processing.png',
-        alt: 'AI processing indicator showing document generation in progress',
-        caption: 'Claude processes the document on the server. Takes 2-5 seconds. Users see progress instead of waiting blind. Transparency builds trust when dealing with legal work.',
+        title: 'Tenant provisioning',
+        description: 'A new firm is a super-admin workflow, not a deployment: brand, colors, locale, domain — with custom-domain ownership verification — and seeded starter content. The second tenant costs an afternoon, not a rebuild.',
       },
       {
-        url: '/img/projects/norma/form-enhanced.png',
-        alt: 'AI-enhanced document showing professional legal structure and citations',
-        caption: 'Enhanced output with proper legal structure, citations, and professional language. AI adds succession provisions, triggering event definitions, and standard legal phrasing that would take 30+ minutes to draft manually.',
+        title: 'The branded website',
+        description: 'Each tenant\'s public face ships from the same codebase: portfolio, services, consulting packages, contact — plus the legally required PNRR transparency pages with funding announcements and attachments. For Architecture for Humans this is afharchi.com: their actual production website, SEO\'d, with consent-gated analytics.',
+        image: {
+          url: '/img/projects/norma/site-home.jpg',
+          alt: 'Architecture for Humans marketing website homepage, served by the Norma platform',
+          caption: 'The branded website — afharchi.com in production. Same codebase, same design tokens, different world.',
+        },
       },
     ],
   },
@@ -119,21 +139,21 @@ export const norma: SideProject = {
   // ─────────────────────────────────────────────────────────────
   craft: {
     decisions: [
-      'Chose Claude Sonnet 4 over GPT-4 for accuracy, compliance awareness, and safety focus. Legal work cannot tolerate hallucinations.',
-      'User-triggered AI enhancement instead of automatic. Gives lawyers control and keeps API costs predictable. They decide when to use AI, not the system.',
-      'Server-side AI processing. API keys never touch the client. Better security, easier rate limiting, clearer billing model.',
-      'Terminology shift from "Prompts" to "Forms" after a lawyer corrected me. Philippine legal culture uses "forms" for templates. "Prompts" sounded tech-forward but confused the actual users.',
-      'Modular database architecture from day one. Forms module ships first, but calendar, alerts, and task management can activate later without rewriting the schema.',
-      'Next.js and Vercel for deployment. Zero infrastructure management. Focus on features, not servers.',
+      'Three-layer tenant isolation: an auth wrapper on every route, a tenant-scoped query wrapper on every database call, and Postgres row-level security underneath — backed by a cross-tenant integration test suite. Any single layer can fail without leaking a row.',
+      'Clerk without Clerk Organizations: tenant and role live on user metadata. Simpler mental model, and roles stay portable across the four personas — super admin, tenant admin, staff, client.',
+      'Cloudflare Workers via OpenNext, with Hyperdrive for Postgres at the edge and a Durable Object rate limiter. No servers to manage; bundle size and cold starts become design constraints instead.',
+      'Dual AI backend behind one interface — Grok primary, Claude alternate — with sandboxed tool-calling, sanitized output, and per-tenant spend caps. Model choice is a config value, not an architecture decision.',
+      'GDPR as infrastructure: self-service data export and erasure, an append-only audit log, a public subprocessor register, and PII-scrubbed logging.',
+      'Host-based Romanian/English i18n with next-intl — no URL prefixes — and a CI key-drift guard so the two message catalogues cannot silently diverge.',
+      'Tested like it matters: unit and DB integration suites, Playwright E2E across 14 zones, deployed smoke tests, and a canary probing production every 15 minutes.',
     ],
 
-    exploration: 'The text editor was brutal. Legal documents require specific formatting: numbered paragraphs, proper indentation, signature blocks positioned exactly right, font consistency for printing. Generic rich text editors failed these requirements constantly. I tried three solutions before finding one that worked. Added font flexibility so documents render and print impeccably regardless of system. Not glamorous work, but it is the difference between a prototype and something lawyers will actually trust with client documents.',
+    exploration: 'Multi-tenancy is where the honest cost lives. It is easy to demo — a slug column and a WHERE clause — and easy to get quietly, catastrophically wrong. Every convenience argues against the third layer: the query wrapper already filters, the auth wrapper already checks, row-level security feels redundant right up until a refactor drops a filter at 1 a.m. I kept all three layers and wrote the cross-tenant tests that try to break them. Paranoia, but engineered.',
 
     image: {
-      url: '/img/projects/norma/architecture.png',
-      alt: 'Database schema showing modular structure with forms, matters, documents, and user tables',
-      caption: 'Modular schema designed for expansion from day one. Forms, matters, and documents connect logically but remain independent. Adding calendar or billing modules later requires zero schema rewrites. This architecture decision saved weeks of refactoring.',
-      isZoomable: true,
+      url: '/img/projects/norma/design-system.png',
+      alt: 'Norma design system page showing typography scale and UI primitives',
+      caption: 'The platform design system: shadcn/ui primitives over custom tokens — warm off-white and dark themes, sharp corners, yellow as the single primary. Documented on a live /design-system page inside the product itself.',
     },
   },
 
@@ -141,33 +161,37 @@ export const norma: SideProject = {
   // OUTCOME
   // ─────────────────────────────────────────────────────────────
   outcome: {
-    summary: 'Working proof of concept that generates professional documents matching Philippine legal standards. The AI enhancement produces output that feels like it came from an experienced lawyer, not a template engine. Still building and testing before showing it to law firms. Legal work has zero tolerance for errors, so I am taking the validation phase seriously.',
+    summary: 'Norma is in production at afharchi.com, running Architecture for Humans SRL — public website and backoffice — since May 2026. The build was financed under Romania\'s National Recovery and Resilience Plan: call PNRR/C9/I3 "Digitalizarea IMM-urilor", financing contract 7009/rue/i3/c9, funded by the European Union through NextGenerationEU. The funding transparency pages are part of the product; the plaque below is part of the deal.',
 
     notes: [
-      'The forms library concept makes sense immediately. Lawyers understand it in seconds.',
-      'Text editor quality matters more than I expected. Lawyers notice formatting details.',
-      'Pricing model still being figured out. Needs to be affordable for solo practitioners but sustainable.',
+      'One codebase serves the marketing site, admin CRM, client portal, and super-admin console — four roles, two locales, 26 database migrations.',
+      '356 commits in eight months, solo, AI-assisted. Production cutover a month after the pivot to architecture firms.',
+      'The pivot preserved almost everything: customers, documents, offers, and inquiries translated across industries. Only the domain objects — avize — were new.',
     ],
+
+    image: {
+      url: '/img/projects/norma/pnrr-banner.png',
+      alt: 'Official funding banner: European Union NextGenerationEU, Government of Romania, and PNRR logos',
+      caption: 'Financed by the European Union — NextGenerationEU, through Romania\'s PNRR (Planul Național de Redresare și Reziliență).',
+    },
   },
 
   // ─────────────────────────────────────────────────────────────
   // REFLECTION
   // ─────────────────────────────────────────────────────────────
   reflection: {
-    insight: 'Building for a specific market with local context is a competitive advantage, not a limitation. Generic legal software ignores the Philippines. That creates opportunity. The lawyers I spoke with deserve tools built for them, not patchy Western software adapted poorly. That sentiment drove every design decision. Also, AI quality is downstream of implementation quality. The same Claude API that produces generic summaries can generate professional legal documents if you design the prompts and context correctly.',
+    insight: 'Building against one real tenant beats designing for ten imagined ones. Every abstraction in Norma earned its place by serving Architecture for Humans first — multi-tenancy included, because the second firm was always the plan, but its shape came from the first firm\'s reality.\n\nThe other lesson is about sunk cost: the law-firm version was eighteen months of conviction, and killing it took one honest look at the market. A pivot is cheaper than loyalty to a dead idea. The machinery survived; only the story changed.\n\nAnd quietly, the biggest one: a designer with AI leverage can ship production SaaS alone — not a prototype, a platform with a funding contract, a production domain, and a client who calls when something breaks.',
 
     openQuestions: [
-      'What price point works for solo practitioners while keeping this sustainable?',
-      'How much testing is enough before launching with real law firms?',
-      'Should I expand features before launch or ship minimal and iterate?',
+      'When does the second tenant come on board — and what breaks first when it does?',
+      'Productize with self-serve onboarding, or stay bespoke: white-glove, higher touch, higher price?',
+      'How much autonomy can the AI secretary take on before firms stop trusting it — and what earns that trust back?',
     ],
 
     nextSteps: [
-      'Finish validation testing with at least 5 more lawyers using real case files',
-      'Refine the AI prompts based on edge cases discovered during testing',
-      'Build onboarding flow and documentation so lawyers can self-serve',
-      'Finalize pricing model and prepare billing infrastructure',
-      'Plan launch strategy: bar association partnerships, law school workshops, referrals',
+      'Onboard the second tenant and measure what provisioning actually costs',
+      'Take WhatsApp automations out of dry-run once business verification lands',
+      'Expand analytics from funnel counts to real cohort behavior',
     ],
   },
 
@@ -177,33 +201,28 @@ export const norma: SideProject = {
   gallery: [
     {
       url: '/img/projects/norma/editor.png',
-      alt: 'Professional text editor showing employment agreement with variable substitution',
-      caption: 'Custom editor built specifically for legal formatting requirements. Handles numbered articles, proper indentation, signature blocks, and variable substitution. Font flexibility ensures documents print correctly regardless of system settings. This component took the longest to get right but makes everything else possible.',
+      alt: 'Document editor showing a rich-text offer document with export options',
+      caption: 'The document editor: rich text over templates, with PDF and DOCX export. Offers and documents share the same editing surface.',
     },
     {
-      url: '/img/projects/norma/documents-detail.png',
-      alt: 'Document detail panel showing version history and status management',
-      caption: 'Full document lifecycle tracking. Version history shows every edit with timestamps and attribution. Status progression from draft to reviewed to executed to filed. Download as PDF or TXT. Small firms lose track of which version was sent to court. This prevents that entirely.',
+      url: '/img/projects/norma/customer-detail.png',
+      alt: 'Customer detail page with project history and report generation buttons',
+      caption: 'Customer detail with one-click PDF and DOCX reports — the answer to "send me everything about this client."',
     },
     {
-      url: '/img/projects/norma/matter-light.png',
-      alt: 'Matter creation modal for organizing cases and clients',
-      caption: 'Matter management connects documents to cases and clients. Auto-generated matter numbers, practice area tagging, status tracking. Once you create a matter, all its variables carry forward to future documents. No retyping client names or addresses across multiple filings.',
+      url: '/img/projects/norma/jurnal.png',
+      alt: 'Project journal showing a chronological log of project events',
+      caption: 'The project journal: an append-only log of everything that happened on a project, exportable when authorities or clients ask for history.',
     },
     {
-      url: '/img/projects/norma/matter-dark.png',
-      alt: 'Matter management interface in dark mode showing case organization and client details',
-      caption: 'Dark mode interface for extended work sessions. Same matter management with reduced eye strain. Lawyers working late nights on case prep appreciate the visual comfort without sacrificing functionality.',
+      url: '/img/projects/norma/dark-mode.png',
+      alt: 'Norma admin backoffice in dark mode',
+      caption: 'Dark theme across the backoffice — same tokens, flipped values. Theme init runs before first paint, so no flash.',
     },
     {
-      url: '/img/projects/norma/new-template.png',
-      alt: 'Template creation interface with variable detection and firm-wide sharing',
-      caption: 'Lawyers can create their own templates with variable placeholders. System auto-detects variables from the text or lets you add them manually. Share firm-wide or keep private. This turns institutional knowledge into reusable infrastructure instead of locked in senior partner brains.',
-    },
-    {
-      url: '/img/projects/norma/settings.png',
-      alt: 'Settings panel showing font customization and AI prompt configuration',
-      caption: 'Font control and AI prompt customization. Users pick their preferred typeface for document rendering. Advanced users can modify the AI enhancement prompts to match their firm\'s style. Most legal software forces one way of working. This adapts to how each firm actually operates.',
+      url: '/img/projects/norma/site-pnrr.png',
+      alt: 'PNRR funding transparency page on the public marketing site',
+      caption: 'The PNRR transparency pages on the public site: funding announcements, attachments, and the official plaque — a legal obligation designed as a feature.',
     },
   ],
 }
