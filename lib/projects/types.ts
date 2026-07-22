@@ -67,6 +67,7 @@ export interface SideProject {
     summary: string
     quickItems?: string[]
     notes?: string[]
+    image?: ImageWithCaption
   }
   reflection?: {
     insight: string

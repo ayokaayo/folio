@@ -717,6 +717,31 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   ))}
                 </ul>
               )}
+              {project.outcome.image && (
+                <motion.figure
+                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                  whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                  className="mt-6 w-full m-0 cursor-pointer"
+                  onClick={() => setSelectedImage({ url: project.outcome!.image!.url, alt: project.outcome!.image!.alt, caption: project.outcome!.image!.caption })}
+                >
+                  <div className="relative w-full overflow-hidden border border-text/10 bg-text/5 p-1 transition-transform hover:scale-[1.01]">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- Native img for natural sizing */}
+                    <img
+                      src={project.outcome.image.url}
+                      alt={project.outcome.image.alt}
+                      className="w-full h-auto block"
+                      loading="lazy"
+                    />
+                  </div>
+                  {project.outcome.image.caption && (
+                    <figcaption className="mt-3 text-sm text-text/60 text-center italic">
+                      {project.outcome.image.caption}
+                    </figcaption>
+                  )}
+                </motion.figure>
+              )}
               {project.id === 'exotica-radio' && (
                 <motion.figure
                   initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
