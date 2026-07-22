@@ -33,7 +33,7 @@ export default function Home() {
 
   // Filter and order projects for homepage
   const selectedProjects = useMemo(() => {
-    const order = ['kallax', 'codex-tarot']
+    const order = ['kallax', 'norma']
     return order
       .map(id => sideProjects?.find(p => p.id === id))
       .filter((p): p is NonNullable<typeof p> => p !== undefined)
