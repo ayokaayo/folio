@@ -16,8 +16,8 @@ export const norma: SideProject = {
   // ─────────────────────────────────────────────────────────────
   description: 'Multi-tenant platform for Romanian architecture and permitting firms: each tenant gets a branded public website plus a backoffice — CRM, permit tracking, client portal, and an AI secretary. In production with its first client since May 2026; financed under Romania\'s PNRR (EU NextGenerationEU).',
   cardSummary: 'Multi-tenant SaaS running Romanian permitting firms — branded website, CRM, client portal, AI secretary. In production, PNRR-funded.',
-  imageUrl: '/img/projects/norma/hero.png',
-  imageAlt: 'Norma admin dashboard showing the schedule, quick actions, and Romanian-language interface',
+  imageUrl: '/img/projects/norma/cover.jpg',
+  imageAlt: 'Norma cover: white Norma wordmark over a darkened photo of an Architecture for Humans building, with the official EU NextGenerationEU, Government of Romania, and PNRR funding badges',
 
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
