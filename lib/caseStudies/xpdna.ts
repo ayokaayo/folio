@@ -318,11 +318,11 @@ export const xpdna: CaseStudy = {
     ],
     challenges: [
       {
-        challenge: 'The second-user problem. A June audit was blunt: the pipeline did not work for anyone but me. Everything undocumented in my head (paths, credentials, assumptions) was a silent failure on a colleague\'s machine. A harness that works for its author is a prototype.',
+        challenge: 'The second-user problem. A June audit was blunt: the pipeline did not work for anyone but me. Everything undocumented in my head (paths, credentials, assumptions) was a silent failure on a colleague\'s machine. A harness that works for its author is a prototype',
         solution: 'I treated onboarding as the product. July went to hardening: a doctor command that verifies every dependency and path before first use, setup docs written against a clean machine, defaults that survive someone else\'s environment. The honest arc of this system is that it hardened from a personal tool into a team harness, and the second user is where that happened.',
       },
       {
-        challenge: 'The politics of velocity. By June the pipeline was producing more designer-shipped code than the review process was built to absorb. Speed created a governance question the tooling could not answer: who reviews this, who owns it, who is accountable when it breaks.',
+        challenge: 'The politics of velocity. By June the pipeline was producing more designer-shipped code than the review process was built to absorb. Speed created a governance question the tooling could not answer: who reviews this, who owns it, who is accountable when it breaks',
         solution: 'I did not route around the process; I let the volume force the conversation and stayed in the room for it. Senior engineering leadership resolved it by making design code owners of the production library, with design approval required on component PRs. Velocity that forces a process redesign, and wins it, is the strongest adoption evidence a system can produce.',
       },
     ],
