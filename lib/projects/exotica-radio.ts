@@ -227,12 +227,12 @@ export const exoticaRadio: SideProject = {
       caption: 'The journey fits in a pocket',
     },
     {
-      url: '/img/projects/exotica-radio/dj-set.png',
+      url: '/img/projects/exotica-radio/dj-set.jpg',
       alt: 'Live DJ set with Exotica Radio branding',
       caption: 'The radio extends into live sets',
     },
     {
-      url: '/img/projects/exotica-radio/digging.png',
+      url: '/img/projects/exotica-radio/digging.jpg',
       alt: 'Record crates in a shop during a digging session',
       caption: 'Digging in New York City. The collection grows with every trip.',
     },
