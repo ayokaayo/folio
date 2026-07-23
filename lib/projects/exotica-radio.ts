@@ -20,7 +20,7 @@ export const exoticaRadio: SideProject = {
   cardSummary:
     'Independent radio since 2017, rebuilt in 2026 as a live world journey: the player travels the globe to each artist\'s origin, in sync for every listener. 1,854 tracks, 91 countries.',
   imageUrl: '/img/projects/exotica-radio/cover.jpg',
-  imageAlt: 'Exotica Radio cover: the wordmark over the satellite globe',
+  imageAlt: 'Exotica Radio cover: the round EXR badge over the satellite globe',
 
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
@@ -112,11 +112,21 @@ export const exoticaRadio: SideProject = {
       {
         title: 'Live for Everyone',
         description:
-          'The player follows the real broadcast, not a per-listener shuffle. Someone in Tokyo and someone in Buenos Aires watch the same plane cross the same ocean at the same moment. A boarding pass shows the artist, origin, year, and a Discogs link to own the record; tap the passenger for the artist\'s passport.',
+          'The player follows the real broadcast, not a per-listener shuffle. Someone in Tokyo and someone in Buenos Aires watch the same plane cross the same ocean at the same moment. Every track issues a boarding pass for the leg it travels.',
         image: {
           url: '/img/projects/exotica-radio/boarding-pass.jpg',
           alt: 'The boarding-pass card showing the now-playing track with origin, year, and Discogs link',
           caption: 'Every track issues a boarding pass, flight number included',
+        },
+      },
+      {
+        title: 'The Artist Passport',
+        description:
+          'Tap the passenger and their passport slides out from behind the ticket: photo, real name, nationality, born or formed, place of origin, a short bio, even a machine-readable strip like the real document. The dossiers are built from the catalogue\'s MusicBrainz and Discogs enrichment, and every pass links straight to the record\'s Discogs master: hearing something and owning it are two taps apart.',
+        image: {
+          url: '/img/projects/exotica-radio/passport.jpg',
+          alt: 'The artist passport panel open above the boarding pass, with photo, origin fields, bio, and machine-readable strip',
+          caption: 'Every passenger carries papers: photo, origins, bio, MRZ and all',
         },
       },
       {
