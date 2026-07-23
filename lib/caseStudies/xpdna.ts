@@ -231,8 +231,8 @@ export const xpdna: CaseStudy = {
       },
       {
         url: '/img/xpdna/terminal-eval.jpg',
-        alt: 'Terminal output of the eval CLI running both evaluation layers on a prototype and printing a findings summary grouped by severity',
-        caption: 'A real eval run: code compliance and experience quality in one pass, findings summarized by severity. Advisory first: the CLI reports, the gates decide',
+        alt: 'Terminal output of the prototype lint gate running the deterministic code-compliance layer on a prototype and printing a findings summary grouped by severity',
+        caption: 'A real run of the prototype lint gate: the deterministic code-compliance layer, findings summarized by severity. This gate is hard, errors exit non-zero and block the push',
       },
       {
         url: '/img/xpdna/skills.jpg',
