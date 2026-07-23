@@ -105,7 +105,7 @@ export const exoticaRadio: SideProject = {
           'A satellite globe where every leg is travelled for real: planes for the long hauls, a sailboat between ports, a camper van and trains overland. Luggage-tag labels mark departure and arrival with airport codes, and each leg is timed to the track, wheels down as the song ends.',
         image: {
           url: '/img/projects/exotica-radio/journey-air.jpg',
-          alt: 'The journey player mid-flight, a plane crossing the globe with luggage-tag labels',
+          alt: 'The journey player mid-flight, a plane crossing the ocean with the route line behind it',
           caption: 'Mid-leg: the plane crosses to the next artist\'s origin while the track plays',
         },
       },
