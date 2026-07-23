@@ -226,8 +226,8 @@ export const xpdna: CaseStudy = {
     images: [
       {
         url: '/img/xpdna/lifecycle.jpg',
-        alt: 'Loop diagram of the XPDNA lifecycle: discover, design, eval, pull request, production, telemetry, feeding back into discovery, with annotations marking the gaps each stage replaced',
-        caption: 'The lifecycle the harness runs: discover, design, eval, PR, production, telemetry, and back around. Each stage is annotated with the gap it replaced',
+        alt: 'Loop diagram of the XPDNA lifecycle: discover, brief, generate, eval gate, PR and review, production, and telemetry, feeding back into discovery, with the four replaced gaps marked',
+        caption: 'The delivery loop from discover to telemetry, and back around. The four stages that used to be gaps carry their before state: manual translation, optional review, weeks-to-months approval, no measurement',
       },
       {
         url: '/img/xpdna/terminal-eval.jpg',
