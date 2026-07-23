@@ -25,7 +25,7 @@ import { ROUTES } from '@/lib/constants'
 export default function Home() {
   // Selected works for homepage
   const selectedWorks = useMemo(() => {
-    const order = ['fast-track-ai', 'time-management']
+    const order = ['xpdna', 'fast-track-ai']
     return order
       .map(id => caseStudies.find(cs => cs.id === id))
       .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)
@@ -153,7 +153,7 @@ export default function Home() {
               key={work.id}
               caseStudy={work}
               index={index}
-              featured={work.id === 'fast-track-ai'}
+              featured={work.id === 'xpdna'}
             />
           ))}
         </GridRow>
