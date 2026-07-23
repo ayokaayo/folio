@@ -273,22 +273,26 @@ export const xpdna: CaseStudy = {
         ],
       },
     ],
-    feedback: [
+    testimonials: [
       {
         quote: 'A lot of us have so much more context around the solutions that we can much easier deliver the whole thing end-to-end instead of having to involve someone, explain and then wait for the solution. It kind of kills productivity.',
-        source: 'A product lead, on the pre-harness handoff',
+        company: 'Fast Track',
+        role: 'Head of product',
       },
       {
         quote: 'A coded prototype, intended for any dev to take over. Most of the time, the code might already be 100% working and correct?',
-        source: 'A product lead, proposing prototype-first delivery',
+        company: 'Fast Track',
+        role: 'Head of product',
       },
       {
         quote: 'I don\'t want to block Product/Design from contributing or shipping simple things. Agree that would be a step backwards.',
-        source: 'A frontend lead, during the June review-process redesign',
+        company: 'Fast Track',
+        role: 'Frontend lead',
       },
       {
         quote: 'Definitely looks like an improvement upon first glance.',
-        source: 'A frontend engineer, on first review of the pipeline',
+        company: 'Fast Track',
+        role: 'Frontend engineer',
       },
     ],
     technical: [
