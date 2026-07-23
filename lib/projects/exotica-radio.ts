@@ -8,23 +8,36 @@ export const exoticaRadio: SideProject = {
   hashtag: '#Music',
   year: '2017–Present',
   title: 'Exotica Radio',
-  subtitle: 'A global music stream built on conviction, given freely to the world',
+  subtitle:
+    'The radio that never stops traveling: a live station whose player journeys the world, track by track',
   status: 'live',
 
   // ─────────────────────────────────────────────────────────────
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
-  description: 'An independent internet radio station streaming my personal music collection 24/7. Built to share music on my own terms, now played worldwide. Ranks #1 on Google despite breaking every SEO convention.',
-  cardSummary: 'Independent internet radio streaming my music collection 24/7. Running since 2017, played worldwide. Ranks #1 on Google.',
-  imageUrl: '/img/projects/exotica-radio/hero.png',
-  imageAlt: 'Exotica Radio interface showing play button with rotating travel photography background',
+  description:
+    'An independent internet radio station rebuilt as a live world journey. Every track is placed on the globe by its artist\'s origin, and the player flies, sails, and drives between them in sync with the broadcast. 1,854 tracks from 91 countries, streaming 24/7.',
+  cardSummary:
+    'Independent radio since 2017, rebuilt in 2026 as a live world journey: the player travels the globe to each artist\'s origin, in sync for every listener. 1,854 tracks, 91 countries.',
+  imageUrl: '/img/projects/exotica-radio/cover.jpg',
+  imageAlt: 'Exotica Radio cover: the wordmark over the satellite globe',
 
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
   // ─────────────────────────────────────────────────────────────
-  timeline: '2017–Present (8 years running)',
-  role: 'Creator, Curator, Developer',
-  techStack: ['HTML', 'CSS', 'JavaScript', 'PHP', 'Shoutcast'],
+  timeline: '2017 to present · rebuilt as the journey platform in 2026',
+  role: 'Creator, curator, developer',
+  techStack: [
+    'MapLibre GL',
+    'three.js',
+    'JavaScript',
+    'Python',
+    'SQLite',
+    'AzuraCast',
+    'Icecast',
+    'Docker',
+  ],
+  tags: ['internet radio', 'live map', 'crate digging'],
 
   // ─────────────────────────────────────────────────────────────
   // EXTERNAL LINKS
@@ -51,14 +64,16 @@ export const exoticaRadio: SideProject = {
   // MISSION
   // ─────────────────────────────────────────────────────────────
   mission: {
-    statement: 'To share my music collection with the world, freely and without compromise.',
+    statement:
+      'To share my music collection with the world, and to make listening feel like traveling.',
 
-    spark: 'In 2017, promoters were asking for Spotify playlists but I couldn\'t find half the music I owned on vinyl. Worse, when I searched for what Spotify did have, my playlists barely surfaced despite having traffic. I started digging into why. What I found was a system built for major labels, not independent curators. Even dead artists were being monetised by corporations that had nothing to do with the music. I realised if I wanted to share music properly, I\'d have to build the platform myself.',
+    spark:
+      'Exotica Radio started in 2017 because streaming was built for major labels, not collectors: half my records weren\'t on Spotify, and the platform buried what it did have. So I built my own station, a single page with one play button, and it quietly won. It reached #1 on Google, bars adopted it as their house station, and it played on every continent. But the site never showed what makes the collection special: every record comes from somewhere, dug up in some city, carrying its place with it. In 2026 I rebuilt the radio around that truth.',
 
     intent: [
-      'Create a space where the music I love could exist outside the streaming economy',
-      'Share a lifetime of digging and collecting with anyone who wanted to listen',
-      'Prove that independent radio could compete without playing by platform rules',
+      'Turn the stream into a shared journey: every listener travels the same route at the same moment',
+      'Honor the geography of the collection, from Lagos to São Paulo to Istanbul',
+      'Own the entire chain this time: domain, DNS, server, station, player',
     ],
   },
 
@@ -66,44 +81,73 @@ export const exoticaRadio: SideProject = {
   // CONTEXT
   // ─────────────────────────────────────────────────────────────
   context: {
-    background: 'I travel constantly for work, for pleasure, and increasingly to dig for records. Every city has crates worth exploring. Over the years this turned into a collection that spans funk, disco, boogie, Afrobeat, bossa nova, space-age pop, and music from corners of the world most streaming services don\'t know exist. The collection outgrew any single playlist format.',
+    background:
+      'The collection spans funk, disco, boogie, Afrobeat, bossa nova, space-age pop, Turkish psych, and music from corners of the world streaming services don\'t index. It grew through years of digging on every trip, and by 2026 it had outgrown its player: a play button over rotating travel photos said nothing about where the music was from.',
 
-    opportunity: 'Internet radio felt like the honest format. No algorithm deciding what gets heard. No royalty shell game. Just a stream, running 24/7, playing what I think sounds good together. The idea that someone in Tokyo and someone in Buenos Aires could be hearing the same obscure track at the same moment felt worth building.',
+    opportunity:
+      'Three things lined up. Browser maps got good enough to render a satellite globe with 3D traffic on it. A small VPS became cheap enough to run an entire radio station. And AI-assisted development made it possible for one person to build a metadata pipeline, a world-map player, and a streaming backend in a matter of weeks. A rebuild that would once have needed a team became a summer project.',
 
-    audience: 'Anyone who wants music that isn\'t fed to them by an algorithm. Coffee shops and bars that need a background vibe without ads. People who remember what radio used to feel like.',
+    audience:
+      'The same people it always served: anyone who wants music that isn\'t fed to them by an algorithm. Plus anyone who ever read a record sleeve and wondered where the band was from.',
   },
 
   // ─────────────────────────────────────────────────────────────
   // CREATION
   // ─────────────────────────────────────────────────────────────
   creation: {
-    approach: 'I wanted the site to be as simple as the idea: press play, hear music. No sign-ups, no trackers, no content marketing. Just a big play button over rotating images from Unsplash that evoke travel and distant places. Everything hand-coded: HTML, CSS, JavaScript hooked to a Shoutcast server. The backoffice is PHP, also hand-built, so I have complete control over the stream. All the branding, from the logo to the visual identity, is designed by me.',
+    approach:
+      'Two builds joined at the metadata. A Python pipeline identifies and geo-locates every track in the library; a web player turns that data into a perpetual journey, flying, sailing, and driving between the origin countries of whatever the station broadcasts. The live stream is the clock: the map moves because the music does.',
 
     features: [
       {
-        title: 'Single-Page Interface',
-        description: 'One page. One button. Background images rotate through curated photography from Unsplash, feeling of travel and discovery. No about page, no contact form, no text to scroll through. The music is the content.',
+        title: 'The Journey Player',
+        description:
+          'A satellite globe where every leg is travelled for real: planes for the long hauls, a sailboat between ports, a camper van and trains overland. Luggage-tag labels mark departure and arrival with airport codes, and each leg is timed to the track, wheels down as the song ends.',
+        image: {
+          url: '/img/projects/exotica-radio/journey-air.jpg',
+          alt: 'The journey player mid-flight, a plane crossing the globe with luggage-tag labels',
+          caption: 'Mid-leg: the plane crosses to the next artist\'s origin while the track plays',
+        },
       },
       {
-        title: 'Weighted Playlist System',
-        description: 'The stream isn\'t random. I built a system that picks from genre-weighted crates and distributes tracks throughout the day. Office hours get medium energy and steady drive. Nights shift toward deeper cuts and higher intensity. It sounds human because the rules are based on how I\'d actually DJ.',
+        title: 'Live for Everyone',
+        description:
+          'The player follows the real broadcast, not a per-listener shuffle. Someone in Tokyo and someone in Buenos Aires watch the same plane cross the same ocean at the same moment. A boarding pass shows the artist, origin, year, and a Discogs link to own the record; tap the passenger for the artist\'s passport.',
+        image: {
+          url: '/img/projects/exotica-radio/boarding-pass.jpg',
+          alt: 'The boarding-pass card showing the now-playing track with origin, year, and Discogs link',
+          caption: 'Every track issues a boarding pass, flight number included',
+        },
       },
       {
-        title: 'Custom Backoffice',
-        description: 'A PHP dashboard I built to monitor everything: current listeners, geographic spread, most-played tracks, peak times. The Shoutcast ASCI configuration feeds it all. Total control, no third-party analytics.',
-      },
-    ],
-
-    images: [
-      {
-        url: '/img/projects/exotica-radio/interface.png',
-        alt: 'Exotica Radio main interface with play button and travel photography',
-        caption: 'The entire site: a play button and the world',
+        title: 'The Geo Pipeline',
+        description:
+          'A Python pipeline fingerprints every file, identifies it through AcoustID and MusicBrainz, cross-checks Discogs, geocodes the origin, and sends what the databases miss to Claude for batch research. A human review queue settles the rest. 1,854 tracks placed across 91 countries.',
       },
       {
-        url: '/img/projects/exotica-radio/backoffice.png',
-        alt: 'Custom PHP backoffice showing listener stats and track history',
-        caption: 'Hand-built backoffice for complete stream control',
+        title: 'Honest Routing',
+        description:
+          'The sailboat snaps to real ports and sails port to port. Overland routes follow roads and never cross water. Planes fly great circles. Nobody would notice a camper van driving across the Atlantic, but the whole point is that the journey is real.',
+        image: {
+          url: '/img/projects/exotica-radio/journey-sea.jpg',
+          alt: 'A sailboat leg between two ports on the globe',
+          caption: 'Sea legs run port to port on real shipping geography',
+        },
+      },
+      {
+        title: 'Exotica Island',
+        description:
+          'Eighteen tracks resisted every identification pass: no tags, no fingerprint match, no leads. They live on an invented island in the remote South Pacific, and the player flies its flag when one comes on. Every archive needs a place for its mysteries.',
+      },
+      {
+        title: 'The Station',
+        description:
+          'Self-hosted AzuraCast running the broadcast 24/7 with three mounts: MP3 320 for everyone, AAC 256 for good gear, lossless FLAC for the faithful. The original one-button site lives on inside the player as the Classic view. For eight years the whole radio was that button; now the button is a world.',
+        image: {
+          url: '/img/projects/exotica-radio/before.jpg',
+          alt: 'The original Exotica Radio site: a single play button over travel photography',
+          caption: 'The entire site, 2017 to 2025: one play button and the world implied',
+        },
       },
     ],
   },
@@ -113,18 +157,19 @@ export const exoticaRadio: SideProject = {
   // ─────────────────────────────────────────────────────────────
   craft: {
     decisions: [
-      'No text content, no blog, no SEO optimisation. Just the stream. I figured if the music was good and the site stayed up, the right people would find it.',
-      'Hand-coded everything instead of using a CMS or framework. More work upfront, but zero dependencies and complete control over every detail.',
-      'Weighted playlists over pure random. True shuffle sounds chaotic. The energy curve throughout the day makes it feel curated even when I\'m not touching it.',
-      'Self-hosted Shoutcast instead of using a streaming platform. More infrastructure to manage, but no middleman, no fees, no terms of service that could change.',
+      'Left the managed streaming host for a self-hosted station, migrated with a parallel cutover: the new stack was built and verified while the old one kept running, then DNS flipped. The stream never went down.',
+      'Synced the visuals to the broadcast\'s elapsed time instead of shuffling per visitor. The prototype gave every listener a private random journey; going live turned the radio back into a shared place.',
+      'Treated metadata as curation. Where is a diaspora artist from: the birthplace, or the city that shaped the sound? The pipeline flags them; I decide case by case.',
+      'Kept a lossless FLAC mount although almost nobody streams FLAC. The source library is lossless, and a station built on conviction should offer the real thing.',
     ],
 
-    exploration: 'The hardest part was making 2,000+ tracks from wildly different genres sound cohesive. Funk into Afrobeat into space-age pop into Turkish psych. It can feel jarring if sequenced wrong. I spent months tweaking the weighting system, adjusting energy curves, and learning what transitions work. The solution wasn\'t technical, it was curatorial. I had to think like a DJ programming a radio station, not an engineer building a shuffle algorithm.',
+    exploration:
+      'The map is only as good as the catalogue. 129 tracks carried no usable tags at all, so the pipeline audio-fingerprinted them and identified 100. Geo-integrity audits swept the whole atlas, and 89 origins were corrected through hand research. The hardest problems weren\'t technical: they were editorial calls about where music belongs on a map.',
 
     image: {
-      url: '/img/projects/exotica-radio/listeners.png',
-      alt: 'World map showing listener distribution across continents',
-      caption: 'A genuinely global audience. The music reaches every continent.',
+      url: '/img/projects/exotica-radio/departure-board.jpg',
+      alt: 'Split-flap departure board showing landings, boarding, live listeners, and kilometres travelled',
+      caption: 'The split-flap board tracks the journey: landings, boardings, live listeners, kilometres flown',
     },
   },
 
@@ -132,13 +177,14 @@ export const exoticaRadio: SideProject = {
   // OUTCOME
   // ─────────────────────────────────────────────────────────────
   outcome: {
-    summary: 'Exotica Radio ranks #1 on Google for "exotica radio", beating myTuner, Live365, AccuRadio, and every other aggregator. A single-page site with no text content, competing against platforms with thousands of pages and dedicated SEO teams. I still don\'t fully understand how, but eight years of consistency and a .radio domain probably helped.',
+    summary:
+      'The new platform is live at exotica.radio, streaming around the clock with the journey player in front. Everything the old radio earned carried over: still #1 on Google for "exotica radio", still listed by aggregators that found it on their own, still playing in bars that treat it as their house station. Only now the listeners can see where the music is taking them.',
 
     notes: [
-      'Bars and coffee shops have written to say they\'ve been playing it nonstop for years and consider it their official station',
-      'Listeners from every continent. The metrics dashboard shows a global spread',
-      'Gig invitations came through the radio that never would have happened through Spotify playlists',
-      'Listed on myTuner, liveonlineradio.net, and other aggregators. They found me, I didn\'t pitch them',
+      '1,854 tracks placed across 91 countries, with the United States, France, the UK, and Brazil leading the map',
+      'Three stream mounts up to lossless FLAC, loudness-normalized track to track',
+      'Rebuilt end to end in weeks of AI-assisted solo development, from metadata pipeline to globe to station',
+      'The old station kept broadcasting through the entire migration; listeners never noticed the move',
     ],
   },
 
@@ -146,16 +192,18 @@ export const exoticaRadio: SideProject = {
   // REFLECTION
   // ─────────────────────────────────────────────────────────────
   reflection: {
-    insight: 'The best SEO strategy turned out to be having no SEO strategy. Build something real, keep it running, and let the aggregators do the backlink work. Eight years of consistency beats any optimisation hack.',
+    insight:
+      'The 2017 lesson held: build something real and keep it running, and the audience finds you. The 2026 lesson is that data quality is curation too. Placing a record on the map takes the same judgment as placing it in a set, and no API will make that call for you.',
 
     openQuestions: [
-      'What would it take to make this sustainable without it becoming a business?',
-      'Is there a way to support the original artists more directly through the stream?',
+      'Channels per crate: disco, groove, and feel-good as separate journeys?',
+      'Cover art for the whole catalogue without losing the vinyl-first identity',
+      'A way to support the original artists directly through the stream',
     ],
 
     nextSteps: [
-      'Keep digging, keep travelling, keep adding to the collection',
-      'The radio will run as long as I have music to share',
+      'Keep digging, keep traveling, keep adding countries to the map',
+      'The radio runs as long as there is music to share',
     ],
   },
 
@@ -163,6 +211,21 @@ export const exoticaRadio: SideProject = {
   // GALLERY
   // ─────────────────────────────────────────────────────────────
   gallery: [
+    {
+      url: '/img/projects/exotica-radio/splash.jpg',
+      alt: 'The splash screen inviting the listener to travel and listen',
+      caption: 'The invitation: come where the pleasure is',
+    },
+    {
+      url: '/img/projects/exotica-radio/classic.jpg',
+      alt: 'The Classic player view: a single play button over travel photography',
+      caption: 'The Classic view: the 2017 radio preserved inside the new one',
+    },
+    {
+      url: '/img/projects/exotica-radio/mobile.jpg',
+      alt: 'The journey player running on a phone',
+      caption: 'The journey fits in a pocket',
+    },
     {
       url: '/img/projects/exotica-radio/dj-set.png',
       alt: 'Live DJ set with Exotica Radio branding',
