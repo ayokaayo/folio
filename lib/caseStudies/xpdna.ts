@@ -10,7 +10,7 @@ export const xpdna: CaseStudy = {
   linkText: 'Read case study',
   cardSummary: 'An AI-native design and production harness: code as source of truth, team knowledge as versioned skills, evals gating every PR. Component velocity went from 4 in three years to 12 in five months.',
   imageUrl: '/img/xpdna/cover.jpg',
-  imageAlt: 'XPDNA cover: the Experience DNA wordmark over a helix of design tokens',
+  imageAlt: 'XPDNA cover: the DNA emoji and the XPDNA wordmark on a light textured paper field',
   timeline: 'February 2026 to present (ongoing)',
   team: 'Built solo; adopted by design, frontend engineering, and product',
 
