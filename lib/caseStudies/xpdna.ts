@@ -3,12 +3,12 @@ import type { CaseStudy } from './types'
 export const xpdna: CaseStudy = {
   id: 'xpdna',
   title: 'XPDNA',
-  subtitle: 'Experience DNA: an AI-native product design harness that lets non-technical people design and prototype straight into production-ready code. One system to manage the whole design system, with the reach to see and act on every step of the product lifecycle. And because every prototype is generated from the team\'s own repositories, each one is an organism grown from our DNA. Hence the name.',
+  subtitle: 'Experience DNA: an AI-native product design harness where non-technical people design and prototype straight into production-ready code, with reach into every step of the product lifecycle. Every prototype is an organism grown from our own repositories. Hence the name.',
   hashtag: '#AI Experience',
   company: 'Fast Track AI',
   year: '2026',
   linkText: 'Read case study',
-  cardSummary: 'An AI-native product design harness: non-technical people design and prototype straight into production-ready code, with quality checks built into every step. Component shipping went from 4 in three years to 12 in five months.',
+  cardSummary: 'An AI-native product design harness: design straight into production code. Roughly 4 components in three years became 12 in five months.',
   imageUrl: '/img/xpdna/cover.jpg',
   imageAlt: 'XPDNA cover: the DNA emoji and the XPDNA wordmark on a light textured paper field',
   timeline: 'February 2026 to present (ongoing)',
@@ -20,7 +20,7 @@ export const xpdna: CaseStudy = {
       'The production component library gained 12 new components in five months, after gaining roughly 4 in the three years before',
       'A designer published a production-ready component in 9 minutes, from opening the request to automatic release, tests and documentation included',
       'Design became co-owner of the production component library: component changes now need design approval to ship',
-      '81 AI-assisted contributions from 9 different people across design, engineering, and product',
+      '81 AI-assisted contributions from 9 different people, designers and engineers alike',
       'Every change is checked automatically for code quality and experience quality before it ships',
     ],
     quickItems: [
@@ -31,10 +31,10 @@ export const xpdna: CaseStudy = {
     ],
     deepItems: [
       'The production component library added roughly 4 net-new components in the three years before the harness (January 2023 to January 2026). In the five months after (February to June 2026), it added 12, authored by designers and engineers and shipped through the same review gates as any other code. Both numbers are counted directly from the library\'s git history, not estimated.',
-      'In June 2026, a designer on the team opened a PR for a new button primitive at 08:54 and it merged at 09:03. Nine minutes, and the PR was complete: unit tests, a documentation page, a schema-validated design-mapping manifest, and an automated npm release on merge. Simple components now ship within a working day; only the largest composite pieces still take real review time.',
+      'In June 2026, a designer on the team requested a new button component at 08:54, and at 09:03 it was approved, released, and live in the production library. Nine minutes, tests and documentation included. Simple components now ship within a working day; only the biggest pieces still take real review time.',
       'By June, enough designer-shipped code was flowing through the pipeline that the existing review process could not absorb it. Senior engineering leadership resolved the governance question by making the design team code owners of the production component library, with at least one design approval required on component PRs. The system produced enough real output to force a process redesign, and the process was redesigned in design\'s favor.',
-      'The first AI-co-authored commit landed in the production library on 20 February 2026. By early July there were 81, from 9 different people: designers, frontend engineers, and me. Adoption here is measured in merged commits, not in survey answers.',
-      'The eval layer is what made the velocity acceptable to engineering. Every PR is checked twice, once for code compliance and once for experience quality, and the findings land directly on the PR for everyone to see. The rules that can fail a build are deterministic ones, so results never flip between runs.',
+      'Within two weeks of the repo being shared, AI-assisted commits were landing in the production library. By early July there were 81, from 9 different people: designers, frontend engineers, and me. Adoption here is measured in merged commits, not in survey answers.',
+      'The eval layer is what made the velocity acceptable to engineering. Every PR is checked twice, once for code compliance and once for experience quality, and the findings land directly on the PR for everyone to see. The rules that can fail a build are deterministic ones; the AI\'s opinions never outrank them.',
     ],
     images: [
       {
@@ -48,11 +48,11 @@ export const xpdna: CaseStudy = {
   problem: {
     title: 'The Problem',
     context: 'The design organization treated Figma as the source of truth. The production codebase disagreed, silently, and had been disagreeing for years. When the harness later put a number on the gap, the audit was blunt: 839 components in the design library, 22 mapped to code, 0 verified as in sync. Those three numbers anchor everything that follows.\n\nThe gap was structural, not laziness. Every design shipped twice, once in pixels and once in code, and the translation step between the two was where fidelity and time went to die. After a founding sprint shipped 17 components, the library gained roughly 4 in the next three years, behind an approval gate the team\'s own planning decks described as weeks to months.\n\nMeanwhile, the knowledge that actually determined quality (how the team writes requirements, how it critiques design work, which patterns the product really uses) lived in individual heads and chat threads. And AI tooling was arriving regardless of whether that knowledge was ready for it.',
-    quickContext: 'The design library and the production code had drifted apart for years, with nobody measuring the gap. Every design shipped twice, once in pixels and once in code. Team knowledge lived in heads and threads while AI tooling arrived anyway.',
+    quickContext: 'The design library and the production code had drifted apart for years, with nobody measuring the gap, and every improvement paid a translation tax on its way to production.',
     issues: [
       {
         category: 'Source-of-truth inversion',
-        description: 'The org treated the design tool as canonical, but production behavior is defined by code. The design library was a mirror that had drifted for years, and nobody was measuring the drift.',
+        description: 'The org treated the design tool as canonical, but the product\'s real behavior lives in code. The design library was a mirror that had drifted for years, and nobody was measuring the drift.',
         impact: 'Design decisions were being made against a fiction, and any tooling built on top of the design library, human or AI, inherited the drift.',
       },
       {
@@ -112,7 +112,7 @@ export const xpdna: CaseStudy = {
         title: '4. Same Door as Engineers',
         decision: 'No parallel design pipeline. Harness output ships as ordinary PRs with tests, docs, and semver releases, through the team\'s existing review gates.',
         rationale: 'A separate lane for design-generated code would have made that code forever second-class: reviewed by different rules, trusted by nobody. The same instinct drove the extension-over-replacement decision in my Fast Track AI work. New capability earns trust fastest when it flows through the interfaces people already rely on.',
-        result: 'Designers\' components merged in minutes and auto-published to npm. The org\'s trust followed the process, not the promise: when review volume grew past capacity, the answer was to make design code owners, not to shut the door.',
+        result: 'Designers\' components merged in minutes and auto-published to npm. The org\'s trust followed the process, not the promise.',
       },
       {
         title: '5. Portable by Design',
@@ -123,7 +123,7 @@ export const xpdna: CaseStudy = {
       {
         title: '6. Links, Not Licenses',
         decision: 'Every prototype deploys from the repository to a live link, organized in a portal where projects live in folders anyone on the team can browse, open, and share.',
-        rationale: 'Design tools gate participation behind seats, licenses, and one more app to learn. A link is universal. The portal pairs a folder tree for managing projects with one shareable link per prototype (deployment runs on Cloudflare Pages: push a branch, get a URL), so there is no third-party intermediary left between design and production. This is the philosophy of the whole harness: the work stems directly from our repositories, so every prototype is a living organism generated from our own DNA, not a picture of the product. Automating the path from design to production is how AI empowers individuals and teams to ship, not just to suggest.',
+        rationale: 'Design tools gate participation behind seats, licenses, and one more app to learn. A link is universal. The portal pairs a folder tree for managing projects with one shareable link per prototype (deployment runs on Cloudflare Pages: push a branch, get a URL), so nothing sits between design and production anymore. This is the philosophy of the whole harness: the work stems directly from our repositories, so every prototype is a living organism generated from our own DNA, not a picture of the product. Automating the path from design to production is how AI empowers individuals and teams to ship, not just to suggest.',
         result: 'The portal replaced the design tool as the place where work is shown and decided. I stopped opening Figma almost entirely: stakeholders open a link to a running interface, and feedback lands on the real thing.',
       },
     ],
@@ -136,12 +136,12 @@ export const xpdna: CaseStudy = {
       {
         url: '/img/xpdna/eval-scorecard.jpg',
         alt: 'Evaluation findings report for a sample prototype showing a severity table of error, warning, and suggested findings across code compliance and experience quality checks',
-        caption: 'The eval scorecard on a sample prototype: deterministic rules own the error tier, AI-judge findings cap at warning, so hard results never flip between runs',
+        caption: 'The eval scorecard on a sample prototype: deterministic rules own the error tier, AI-judge findings cap at warning',
       },
       {
         url: '/img/xpdna/portal.jpg',
         alt: 'The prototype portal: a folder tree on the left for managing projects, a grid of prototype tiles on the right, each deployed to a shareable link',
-        caption: 'The portal\'s folder view: 40 plus coded prototypes organized by project, each deployed from the repo to a link any teammate can open. This is what replaced the design tool for day-to-day sharing',
+        caption: 'The portal\'s folder view: coded prototypes organized by project, one live link each',
       },
     ],
   },
@@ -177,17 +177,17 @@ export const xpdna: CaseStudy = {
     title: 'Implementation',
     technical: [
       'Token pipeline: a custom Node builder compiles 83 color, 64 semantic, 21 typography, and 8 spacing tokens into CSS custom properties, SCSS, and a typed TypeScript composable; the production library owns the runtime values and the harness maintains a synchronized W3C-format mirror',
-      'Skills registry: 9 registered skills plus a marketplace plugin covering PRD writing, design critique, prototype generation, and design-to-code translation, including a meta-skill that manufactures and self-registers new skills',
+      'Skills registry: versioned skills covering PRD writing, design critique, prototype generation, and design-to-code translation, including a meta-skill that manufactures and self-registers new skills',
       'Platform scanner and inventory: the live product scanned page by page into an inventory of screenshots and structured page briefs that ground every prototype in real product patterns',
       'Eval CLI and CI action: two evaluation layers (code: runtime checks plus static lint; experience: deterministic content rules plus an AI design judge and an AI content judge); a composite action posts a sticky findings comment on every PR',
       'CI hardening: actions SHA-pinned, judge prompts carrying prompt-injection defenses, and the error tier reserved exclusively for deterministic rules',
-      'Prototype portal: prototypes deploy from the repository to Cloudflare Pages behind hard lint gates, organized in a folder tree with a shareable link per prototype, so stakeholders review running interfaces instead of static mocks',
+      'Prototype portal: prototypes deploy from the repository to Cloudflare Pages behind hard lint gates, so stakeholders review running interfaces instead of static mocks',
       'Session telemetry: every harness session logs user, role, skills used, and output, giving adoption its own dataset from day one',
     ],
     quickTechnical: [
       'Token pipeline with CSS, SCSS, and TypeScript outputs; code owns the truth',
       '9 versioned skills plus a marketplace plugin, including a skill that builds skills',
-      'Two-layer eval harness: 138 test cases, sticky findings comments on every PR in CI',
+      'Two-layer eval harness posting findings on every PR in CI',
       'Platform scanner, 16 page briefs, prototype portal, session telemetry',
     ],
     rollout: [
@@ -219,9 +219,9 @@ export const xpdna: CaseStudy = {
       {
         phase: 'June: Evals in CI',
         activities: [
-          'Landed the eval harness in CI: a composite action runs both evaluation layers on every PR and posts a sticky findings comment',
+          'Landed the eval harness in CI, checking every PR on both evaluation layers',
           'A frontend engineer contributed the design-to-code skill to the harness',
-          'PR volume forced the review-process redesign that ended with design as code owners of the production component library',
+          'Review volume outgrew the process, forcing the governance conversation the impact section describes',
         ],
       },
       {
@@ -260,13 +260,13 @@ export const xpdna: CaseStudy = {
         results: [
           'Every component shipped with unit tests, documentation, and a schema-validated mapping manifest, through the team\'s ordinary review gates, with automated releases on merge',
           'Simple components merged in minutes to hours; the one large composite honestly took weeks. Fast where it should be, careful where it must be',
-          'More than 40 coded prototypes live in the shared portal, each deployed from the repo with its own link',
+          'More than 40 coded prototypes live in the shared portal today',
         ],
       },
       {
         category: 'Organization',
         results: [
-          'PR volume forced a review-process redesign in June, resolved in design\'s favor: design approval is now a required step on component PRs',
+          'The review-process redesign settled with design approval as a required step on component changes',
           'A head of product championed a prototype-first delivery process and used the harness in his own sessions',
           'The arc is documented, not remembered: a personal repo shared in February, an executive summary requested in March, team-wide telemetry in April, versioned releases through June, a cross-team pilot in July',
         ],
@@ -274,7 +274,7 @@ export const xpdna: CaseStudy = {
       {
         category: 'Adoption',
         results: [
-          'The AI-assisted commits in the library\'s history came from 9 different people, not one power user: designers, frontend engineers, and product',
+          'The AI-assisted commit trail spans designers and frontend engineers, not one power user',
           'Designers shipped production components; frontend engineers contributed skills and reviews back into the harness',
           'An engineer on the infrastructure side picked the harness up unprompted for a portal redesign',
           'The plugin marketplace shipped its first company-wide plugin',
@@ -305,13 +305,13 @@ export const xpdna: CaseStudy = {
     ],
     technical: [
       'The production library the harness feeds holds a measured quality bar: roughly 90% of components written in TypeScript, 36 test files, and pre-commit lint gates',
-      '33 per-component mapping manifests validated against a JSON Schema keep the parity numbers computable rather than curated',
+      '33 per-component mapping manifests keep the parity numbers computable rather than curated',
       '32 per-component documentation pages maintained alongside the code',
       'Test standards are calibrated per component type, so every new component inherits an explicit bar instead of a reviewer\'s mood',
     ],
     quickOutcomes: [
       '12 components in five months, through the ordinary review gates',
-      'Design made code owners of the production component library',
+      'Design approval now required on component changes',
       '9 people co-authoring with AI; unprompted cross-team pickup',
       'More than 40 prototypes in the shared portal, one link each',
     ],
@@ -327,14 +327,14 @@ export const xpdna: CaseStudy = {
     challenges: [
       {
         challenge: 'The second-user problem. A June audit was blunt: the pipeline did not work for anyone but me. Everything undocumented in my head (paths, credentials, assumptions) was a silent failure on a colleague\'s machine. A harness that works for its author is a prototype',
-        solution: 'I treated onboarding as the product. July went to hardening: a doctor command that verifies every dependency and path before first use, setup docs written against a clean machine, defaults that survive someone else\'s environment. The honest arc of this system is that it hardened from a personal tool into a team harness, and the second user is where that happened.',
+        solution: 'I treated onboarding as the product. July went to hardening: a preflight check before first use, setup docs written against a clean machine, defaults that survive someone else\'s environment. The honest arc of this system is that it hardened from a personal tool into a team harness, and the second user is where that happened.',
       },
       {
         challenge: 'The politics of velocity. By June the pipeline was producing more designer-shipped code than the review process was built to absorb. Speed created a governance question the tooling could not answer: who reviews this, who owns it, who is accountable when it breaks',
-        solution: 'I did not route around the process; I let the volume force the conversation and stayed in the room for it. Leadership answered by giving design ownership and approval rights over the component library. Velocity that forces a process redesign, and wins it, is the strongest adoption evidence a system can produce.',
+        solution: 'I did not route around the process; I let the volume force the conversation and stayed in the room for it. Leadership\'s answer was ownership, not a closed door. Velocity that forces a process redesign, and wins it, is the strongest adoption evidence a system can produce.',
       },
     ],
-    insight: 'XPDNA is the artifact; the discipline is the work. Building it meant harness design (what the agent can touch), context engineering (what the agent knows), eval design (what the agent is held to), and adoption operations (how a team comes to trust all of it). None of that is specific to one company.\n\nThe knowledge layer is plain machine-readable files; Fast Track is the first production deployment, not the subject.\n\nThat is the thesis of this case study: AI Experience is a discipline, the harness is portable, and the discipline travels.',
+    insight: 'XPDNA is the artifact; the discipline is the work. Building it meant harness design (what the agent can touch), context engineering (what the agent knows), eval design (what the agent is held to), and adoption operations (how a team comes to trust all of it). None of that is specific to one company: Fast Track is the first production deployment, not the subject.\n\nThat is the thesis of this case study: AI Experience is a discipline, the harness is portable, and the discipline travels.',
     quickInsight: 'The harness is the artifact; the discipline (harness design, context engineering, eval design, adoption operations) is the work, and it travels.',
   },
 }
