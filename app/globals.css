@@ -230,6 +230,13 @@ a {
     filter: grayscale(0%);
     transform: scale(1.05);
   }
+
+  /* Touch devices have no hover to reveal color: show images in full color */
+  @media (hover: none) {
+    .img-grayscale {
+      filter: grayscale(0%);
+    }
+  }
   
   /* Section header style */
   .section-header {
