@@ -33,14 +33,14 @@ export const xpdna: CaseStudy = {
       'The production component library added roughly 4 net-new components in the three years before the harness (January 2023 to January 2026). In the five months after (February to June 2026), it added 12, authored by designers and engineers and shipped through the same review gates as any other code. Both numbers are counted directly from the library\'s git history, not estimated.',
       'In June 2026, a designer on the team requested a new button component at 08:54, and at 09:03 it was approved, released, and live in the production library. Nine minutes, tests and documentation included. Simple components now ship within a working day; only the biggest pieces still take real review time.',
       'By June, enough designer-shipped code was flowing through the pipeline that the existing review process could not absorb it. Senior engineering leadership resolved the governance question by making the design team code owners of the production component library, with at least one design approval required on component PRs. The system produced enough real output to force a process redesign, and the process was redesigned in design\'s favor.',
-      'Within two weeks of the repo being shared, AI-assisted commits were landing in the production library. By early July there were 81, from 9 different people: designers, frontend engineers, and me. Adoption here is measured in merged commits, not in survey answers.',
+      'The harness was two weeks old when the first AI-assisted commit landed in the production library. By early July there were 81, from 9 different people: designers, frontend engineers, and me. Adoption here is measured in merged commits, not in survey answers.',
       'The eval layer is what made the velocity acceptable to engineering. Every PR is checked twice, once for code compliance and once for experience quality, and the findings land directly on the PR for everyone to see. The rules that can fail a build are deterministic ones; the AI\'s opinions never outrank them.',
     ],
     images: [
       {
         url: '/img/xpdna/nine-minutes.jpg',
         alt: 'Timeline graphic of a designer-authored pull request: opened at 08:54, merged at 09:03, npm release published automatically on merge',
-        caption: 'Nine minutes from opened to merged: a designer-authored component PR carrying tests, docs, and a mapping manifest, auto-published to npm',
+        caption: 'Nine minutes from request to release: a designer\'s component, tests and docs included, published automatically',
       },
     ],
   },
@@ -48,7 +48,7 @@ export const xpdna: CaseStudy = {
   problem: {
     title: 'The Problem',
     context: 'The design organization treated Figma as the source of truth. The production codebase disagreed, silently, and had been disagreeing for years. When the harness later put a number on the gap, the audit was blunt: 839 components in the design library, 22 mapped to code, 0 verified as in sync. Those three numbers anchor everything that follows.\n\nThe gap was structural, not laziness. Every design shipped twice, once in pixels and once in code, and the translation step between the two was where fidelity and time went to die. After a founding sprint shipped 17 components, the library gained roughly 4 in the next three years, behind an approval gate the team\'s own planning decks described as weeks to months.\n\nMeanwhile, the knowledge that actually determined quality (how the team writes requirements, how it critiques design work, which patterns the product really uses) lived in individual heads and chat threads. And AI tooling was arriving regardless of whether that knowledge was ready for it.',
-    quickContext: 'The design library and the production code had drifted apart for years, with nobody measuring the gap, and every improvement paid a translation tax on its way to production.',
+    quickContext: 'The design library and the production code had quietly told two different stories for years. XPDNA exists because closing that gap by hand never worked.',
     issues: [
       {
         category: 'Source-of-truth inversion',
@@ -117,7 +117,7 @@ export const xpdna: CaseStudy = {
       {
         title: '5. Portable by Design',
         decision: 'Keep the architecture company-agnostic: the knowledge layer is plain machine-readable files (tokens, briefs, rules, inventories) that any capable agent can consume. The current runtime binding is Claude.',
-        rationale: 'A harness welded to one company or one vendor is an integration; a harness with a clean knowledge layer is a capability. Tokens, page briefs, compliance rules, and inventories are plain files with schemas, so nothing in the operating model depends on where it happens to be installed.',
+        rationale: 'A harness welded to one company or one vendor is an integration; a harness with a clean knowledge layer is a capability. Everything the agent needs to know lives in plain files with schemas, so nothing in the operating model depends on where it happens to be installed.',
         result: 'XPDNA is installable rather than bespoke: swapping the company or the agent is a configuration problem, not a rewrite.',
       },
       {
@@ -136,7 +136,7 @@ export const xpdna: CaseStudy = {
       {
         url: '/img/xpdna/eval-scorecard.jpg',
         alt: 'Evaluation findings report for a sample prototype showing a severity table of error, warning, and suggested findings across code compliance and experience quality checks',
-        caption: 'The eval scorecard on a sample prototype: deterministic rules own the error tier, AI-judge findings cap at warning',
+        caption: 'The eval scorecard on a sample prototype: machine-checkable rules fail builds, AI judges only advise',
       },
       {
         url: '/img/xpdna/portal.jpg',
@@ -186,7 +186,7 @@ export const xpdna: CaseStudy = {
     ],
     quickTechnical: [
       'Token pipeline with CSS, SCSS, and TypeScript outputs; code owns the truth',
-      '9 versioned skills plus a marketplace plugin, including a skill that builds skills',
+      'Versioned team skills, including a skill that builds skills',
       'Two-layer eval harness posting findings on every PR in CI',
       'Platform scanner, 16 page briefs, prototype portal, session telemetry',
     ],
@@ -221,7 +221,7 @@ export const xpdna: CaseStudy = {
         activities: [
           'Landed the eval harness in CI, checking every PR on both evaluation layers',
           'A frontend engineer contributed the design-to-code skill to the harness',
-          'Review volume outgrew the process, forcing the governance conversation the impact section describes',
+          'Review volume outgrew the process, forcing a governance decision that went design\'s way',
         ],
       },
       {
@@ -247,7 +247,7 @@ export const xpdna: CaseStudy = {
       {
         url: '/img/xpdna/skills.jpg',
         alt: 'Registry of nine XPDNA skills displayed as cards, each with a name, purpose, and owner role',
-        caption: 'The skills registry: nine versioned skills plus a marketplace plugin. The team\'s working knowledge, reviewable like code and loadable by any session',
+        caption: 'The skills registry: the team\'s working knowledge, reviewable like code and loadable by any session',
       },
     ],
   },
@@ -305,7 +305,7 @@ export const xpdna: CaseStudy = {
     ],
     technical: [
       'The production library the harness feeds holds a measured quality bar: roughly 90% of components written in TypeScript, 36 test files, and pre-commit lint gates',
-      '33 per-component mapping manifests keep the parity numbers computable rather than curated',
+      'The per-component mapping manifests keep the parity numbers computable rather than curated',
       '32 per-component documentation pages maintained alongside the code',
       'Test standards are calibrated per component type, so every new component inherits an explicit bar instead of a reviewer\'s mood',
     ],
@@ -327,11 +327,11 @@ export const xpdna: CaseStudy = {
     challenges: [
       {
         challenge: 'The second-user problem. A June audit was blunt: the pipeline did not work for anyone but me. Everything undocumented in my head (paths, credentials, assumptions) was a silent failure on a colleague\'s machine. A harness that works for its author is a prototype',
-        solution: 'I treated onboarding as the product. July went to hardening: a preflight check before first use, setup docs written against a clean machine, defaults that survive someone else\'s environment. The honest arc of this system is that it hardened from a personal tool into a team harness, and the second user is where that happened.',
+        solution: 'I treated onboarding as the product. July went to hardening: the doctor preflight, setup docs written against a clean machine, defaults that survive someone else\'s environment. The honest arc of this system is that it hardened from a personal tool into a team harness, and the second user is where that happened.',
       },
       {
         challenge: 'The politics of velocity. By June the pipeline was producing more designer-shipped code than the review process was built to absorb. Speed created a governance question the tooling could not answer: who reviews this, who owns it, who is accountable when it breaks',
-        solution: 'I did not route around the process; I let the volume force the conversation and stayed in the room for it. Leadership\'s answer was ownership, not a closed door. Velocity that forces a process redesign, and wins it, is the strongest adoption evidence a system can produce.',
+        solution: 'I did not route around the process; I let the volume force the conversation and stayed in the room for it. Leadership\'s answer was ownership. Velocity that forces a process redesign, and wins it, is the strongest adoption evidence a system can produce.',
       },
     ],
     insight: 'XPDNA is the artifact; the discipline is the work. Building it meant harness design (what the agent can touch), context engineering (what the agent knows), eval design (what the agent is held to), and adoption operations (how a team comes to trust all of it). None of that is specific to one company: Fast Track is the first production deployment, not the subject.\n\nThat is the thesis of this case study: AI Experience is a discipline, the harness is portable, and the discipline travels.',
