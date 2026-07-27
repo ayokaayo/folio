@@ -10,7 +10,7 @@ export const xpdna: CaseStudy = {
   linkText: 'Read case study',
   cardSummary: 'An AI-native product design harness: design straight into production code. Roughly 4 components in three years became 12 in five months.',
   imageUrl: '/img/xpdna/cover.jpg',
-  imageAlt: 'XPDNA cover: the DNA emoji and the XPDNA wordmark, with a tagline describing it as a design system management and prototyping harness, on a light textured paper field faintly sketched with wireframe design-system components',
+  imageAlt: 'XPDNA cover: the DNA emoji and the XPDNA wordmark over the tagline design system management and prototyping, on a light paper field faintly sketched with wireframe design-system components',
   timeline: 'February 2026 to present (ongoing)',
   team: 'Built solo; adopted by design, frontend engineering, and product',
 

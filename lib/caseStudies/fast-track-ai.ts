@@ -22,12 +22,13 @@ export const fastTrackAI: CaseStudy = {
       'Partners report that data analysis which previously took days passing between CRM and BI teams now happens in minutes through natural conversation',
       'Campaign creation across multiple markets simplified from hours of manual configuration to a single natural language request with automatic localization',
       'Featured in [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/) and [EngageHut](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/) following the September 2025 launch',
+      'Back-to-back industry recognition for the platform\'s AI direction: Best AI Solution at AIBC 2025 while this was being built, Industry Innovation of the Year at the SBC Europe Awards 2026 in the first year after launch',
     ],
     quickItems: [
       '2-month MVP with CPO, CTO, Head of Product',
       '~25% of partners active within first days',
       'Days to minutes for data analysis',
-      'Sticky daily usage patterns observed',
+      'Best AI Solution 2025; Industry Innovation of the Year 2026',
     ],
     deepItems: [
       'Shipped the first fully working itertion in approximately 2 months, working alongside CPO, CTO, Head of Product, and a team of engineers including a data scientist and four developers. This timeline required ruthless prioritization and clear scope boundaries from day one, with daily syncs keeping everyone aligned.',
@@ -35,6 +36,7 @@ export const fastTrackAI: CaseStudy = {
       'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting."',
       'Campaign creation now supports automatic content generation and translation across markets, turning what was hours of configuration into a single request. The AI generates SMS content, schedules activities per market with appropriate local timing, and pre-fills existing modals so users can review before committing.',
       'Industry reviewers called it "[one of Fast Track\'s most disruptive innovations in CRM](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/)," noting that natural language AI opens up advanced capabilities to teams who previously needed technical support for every campaign.',
+      'The award record brackets the launch. Fast Track took Best AI Solution at AIBC 2025 while this platform was in development, then Industry Innovation of the Year at the SBC Europe Awards 2026 in the first year after it shipped. Juries do not see roadmaps; they see what shipped.',
     ],
     images: [
       {

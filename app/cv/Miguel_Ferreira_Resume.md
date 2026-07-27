@@ -1,19 +1,21 @@
 # MIGUEL ANGELO FERREIRA
-## Senior Product Designer
+## AI Systems Designer
 
-**Location:** Barcelona, Spain (Open to remote / relocation)  
+**Location:** Barcelona, Spain (Remote first / open to relocation)  
 **Email:** hi@miguelangelo.tech  
 **Phone:** +34 662 411 257  
 **LinkedIn:** [linkedin.com/in/ferreiramiguelangelo](https://linkedin.com/in/ferreiramiguelangelo)  
 **Portfolio:** [miguelangelo.tech](https://miguelangelo.tech)  
 
-**Updated:** December 2025
+**Updated:** July 2026
 
 ---
 
 ## ABOUT
 
-Senior Product Designer with 10+ years building B2B SaaS and AI-driven products in iGaming, localization, and enterprise software. Led design through 15x revenue growth at Fast Track AI, supporting market expansion across South America and APAC while maintaining NPS 90+.
+AI Systems Designer with 10+ years building B2B SaaS and AI-driven products in iGaming, localization, and enterprise software. I design the systems that let product teams build with AI: agent harnesses, design systems, evals, and the operations that make them stick. In 2026 I built an AI-native design-to-production harness through which designers ship production components behind eval gates and CI; the design team is now code owner of the production component library.
+
+Before that, led design through 15x revenue growth at Fast Track AI, supporting market expansion across South America and APAC while maintaining NPS 90+.
 
 I've become very familiar with systems deep in design and technical debt. Fast deliveries, tight capacity, scope drift, legacy constraints. I know how to assess what's actually possible and ship anyway. I can code and "speak dev" fluently, which really helps when you're working closely with engineering teams.
 
@@ -23,6 +25,7 @@ Long tenure despite frequent relocations. Stability in chaotic environments.
 
 ## CORE SKILLS
 
+• **AI Systems:** Agent Harness Design, Context Engineering, Eval Design, Design-to-Code Pipelines, AI-assisted Development  
 • **Product Design:** UX/UI, Wireframing, Prototyping, User Research, Information Architecture, User Flows  
 • **Systems Thinking:** Design Systems, Component Libraries, Technical Debt Management, Responsive Design  
 • **Strategic Design:** Localization/Internationalization, AI Product Design, Design Operations, Accessibility  
@@ -49,7 +52,9 @@ https://www.fasttrack.ai
 
 • **Scaled product design through 15x revenue growth** and 5x team expansion (40 to 200 people) while maintaining NPS 90+ across enterprise client base
 
-• **Contributed to multiple industry awards** including AIBC 2025 Best AI Solution, SiGMA Americas 2025 Best Retention Partner, and SBC Latin America 2024 Best Acquisition & Retention
+• **Built an AI-native design-to-production harness (2026):** designers ship production components through eval gates and CI; component velocity went from roughly 4 in three years to 12 in five months, and design was granted code ownership of the production component library
+
+• **Contributed to multiple industry awards** including SBC Europe 2026 Industry Innovation of the Year, AIBC 2025 Best AI Solution, SiGMA Americas 2025 Best Retention Partner, and SBC Latin America 2024 Best Acquisition & Retention
 
 • **Acted as UI quality gate for the back-office product**; product leadership explicitly routed all UI-impacting tasks through me for review to maintain visual consistency
 
@@ -105,6 +110,7 @@ https://www.presslabs.com
 
 ## AWARDS & RECOGNITION
 
+**SBC Europe Awards 2026** — Industry Innovation of the Year  
 **AIBC 2025** — Best AI Solution  
 **SiGMA Americas 2025** — Best Retention Partner  
 **MiGEA 2024** — Best Innovative Product Company of the Year  
@@ -136,7 +142,7 @@ https://www.presslabs.com
 ## AVAILABILITY
 
 • **Notice period:** 1 month  
-• **Work setup:** Open to remote positions; relocation to Southeast Asia for the right opportunity  
+• **Work setup:** Remote first; relocation to Southeast Asia for the right opportunity  
 • **Work authorization:** EU Citizen (Portuguese passport)  
 
 ---

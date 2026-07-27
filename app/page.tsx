@@ -55,14 +55,14 @@ export default function Home() {
             {/* Main Content - spans 8 of 12 columns on desktop */}
             <div className="w-full lg:w-[calc((100%-11*16px)/12*8+7*16px)]">
               <h1 className="font-mono font-medium text-text-primary text-headline">
-                Systems thinker,<br />
-                designing infrastructure<br />
-                for high-stakes operations.
+                AI Systems Designer,<br />
+                building the harnesses where<br />
+                people and AI ship together.
               </h1>
 
               <p className="font-mono text-subhead text-text-secondary mt-6">
-                Pragmatic builder. 10+ years in regulated industries:<br />
-                Localisation, iGaming, Enterprise SaaS.
+                10+ years in regulated industries: Localisation, iGaming,<br />
+                Enterprise SaaS. AI in production since 2017.
               </p>
 
               {/* CTA - spans exactly 2 grid columns */}

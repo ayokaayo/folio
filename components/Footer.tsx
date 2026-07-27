@@ -103,7 +103,7 @@ export default function Footer() {
                   <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
                   OPEN TO
                 </span>
-                <span className="block text-text-primary">Remote first. Sr Product Design, Design Ops.</span>
+                <span className="block text-text-primary">Remote first. AI Systems Management, Design Ops, Product Design.</span>
               </div>
             </div>
           </div>

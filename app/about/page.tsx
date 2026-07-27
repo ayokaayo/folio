@@ -93,18 +93,21 @@ export default function AboutPage() {
             {/* Introduction */}
             <div className="mb-12">
               <h1 className="font-mono font-medium text-text-primary text-headline mb-8">
-                Systems Thinker. <br></br>Pragmatic Builder.
+                AI Systems Designer. <br></br>Pragmatic Builder.
               </h1>
 
               <div className="space-y-6 font-mono text-body text-text-secondary">
                 <p>
-                  Senior Product Designer with 10+ years in B2B platforms where failure is expensive: iGaming with real-time transactions and compliance requirements, AI systems in production since 2017, and localization infrastructure powering multi-market operations across Brazil, Latin America, and APAC.
+                  I design the systems that let product teams build with AI: agent harnesses, design systems, evals, and the operations that make them stick. My latest turned a design team into co-owners of their production codebase.
+                </p>
+                <p>
+                  Behind that sit 10+ years in B2B platforms where failure is expensive: iGaming with real-time transactions and compliance requirements, AI systems in production since 2017, and localization infrastructure powering multi-market operations across Brazil, Latin America, and APAC.
                 </p>
                 <p>
                   I treat interfaces as the visible layer of deeper systems. I map dependencies, surface constraints early, and design for what the engineering team will actually inherit, not just what ships in demos.
                 </p>
                 <p>
-                  Based in Barcelona. Open to remote or hybrid for the right fit.
+                  Based in Barcelona. Remote first, hybrid for the right fit.
                 </p>
               </div>
             </div>
@@ -116,6 +119,10 @@ export default function AboutPage() {
               </h2>
 
               <div>
+                <SkillSection
+                  title="AI systems, end to end"
+                  description="Harnesses, agent context, evals, and adoption: I design what the agent can touch, what it knows, and what it is held to, then get a real team to trust it. My latest took a production component library from 4 new components in three years to 12 in five months."
+                />
                 <SkillSection
                   title="Legacy systems under pressure"
                   description="Tight capacity, accumulated drift, unclear ownership. I know how to audit what's actually shippable and sequence work that doesn't collapse under its own weight."
@@ -131,6 +138,30 @@ export default function AboutPage() {
               </div>
             </div>
 
+            {/* Recognition */}
+            <div className="mb-12">
+              <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-[#008FF0] px-4 py-2 rounded mb-6">
+                Recognition
+              </h2>
+
+              <ul className="space-y-3 font-mono text-body text-text-secondary">
+                <li>
+                  <span className="text-text-primary">Industry Innovation of the Year</span> · SBC Europe Awards 2026
+                </li>
+                <li>
+                  <span className="text-text-primary">Best AI Solution</span> · AIBC 2025
+                </li>
+                <li>
+                  <span className="text-text-primary">Best Retention Partner</span> · SiGMA Americas 2025
+                </li>
+                <li>
+                  <span className="text-text-primary">Best Acquisition &amp; Retention</span> · SBC Latin America 2024
+                </li>
+              </ul>
+              <p className="font-mono text-caption text-text-tertiary mt-4">
+                All for work shipped at Fast Track AI.
+              </p>
+            </div>
 
           </div>
         </div>
