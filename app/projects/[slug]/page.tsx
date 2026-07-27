@@ -9,6 +9,7 @@ import { getProjectBySlug, projects } from '@/lib/projects'
 import { ANIMATION, ROUTES, getProjectRoute } from '@/lib/constants'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import { getNextItem } from '@/lib/utils/getNextItem'
+import { renderInlineMarkdown } from '@/lib/utils/renderInlineMarkdown'
 import NextItemCard from '@/components/NextItemCard'
 import ImageModal from '@/components/ImageModal'
 import DensityToggle from '@/components/DensityToggle'
@@ -349,17 +350,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               {!(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
                 <div className="text-base text-text/70 mb-6 leading-relaxed space-y-4">
                   {project.mission.spark.split('\n\n').map((paragraph, index) => {
-                    const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                    return (
-                      <p key={index}>
-                        {parts.map((part, partIndex) => {
-                          if (part.startsWith('**') && part.endsWith('**')) {
-                            return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                          }
-                          return part
-                        })}
-                      </p>
-                    )
+                    return <p key={index}>{renderInlineMarkdown(paragraph)}</p>
                   })}
                 </div>
               )}
@@ -391,34 +382,14 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   ? project.context.quickContext
                   : project.context.background
                 ).split('\n\n').map((paragraph, index) => {
-                  const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                  return (
-                    <p key={index}>
-                      {parts.map((part, partIndex) => {
-                        if (part.startsWith('**') && part.endsWith('**')) {
-                          return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                        }
-                        return part
-                      })}
-                    </p>
-                  )
+                  return <p key={index}>{renderInlineMarkdown(paragraph)}</p>
                 })}
               </div>
               {/* In quick mode, hide opportunity for kallax, show for codex-tarot & word-war-one as it's concise */}
               {!(project.id === 'kallax' && densityMode === 'quick') && (
                 <div className="text-base text-text/70 mb-4 leading-relaxed space-y-4">
                   {project.context.opportunity.split('\n\n').map((paragraph, index) => {
-                    const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                    return (
-                      <p key={index}>
-                        {parts.map((part, partIndex) => {
-                          if (part.startsWith('**') && part.endsWith('**')) {
-                            return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                          }
-                          return part
-                        })}
-                      </p>
-                    )
+                    return <p key={index}>{renderInlineMarkdown(paragraph)}</p>
                   })}
                 </div>
               )}
@@ -426,17 +397,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               {project.context.audience && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
                 <div className="text-base text-text/70 leading-relaxed space-y-4">
                   {project.context.audience.split('\n\n').map((paragraph, index) => {
-                    const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                    return (
-                      <p key={index}>
-                        {parts.map((part, partIndex) => {
-                          if (part.startsWith('**') && part.endsWith('**')) {
-                            return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                          }
-                          return part
-                        })}
-                      </p>
-                    )
+                    return <p key={index}>{renderInlineMarkdown(paragraph)}</p>
                   })}
                 </div>
               )}
@@ -451,18 +412,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </h2>
               <div className="text-base text-text/70 mb-8 leading-relaxed space-y-4">
                 {project.creation.approach.split('\n\n').map((paragraph, index) => {
-                  // Split paragraph by markdown bold syntax and render with <strong> tags
-                  const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                  return (
-                    <p key={index}>
-                      {parts.map((part, partIndex) => {
-                        if (part.startsWith('**') && part.endsWith('**')) {
-                          return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                        }
-                        return part
-                      })}
-                    </p>
-                  )
+                  return <p key={index}>{renderInlineMarkdown(paragraph)}</p>
                 })}
               </div>
               
@@ -479,17 +429,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       </h3>
                       <div className="text-base text-text/70 leading-relaxed space-y-4">
                         {feature.description.split('\n\n').map((paragraph, idx) => {
-                          const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                          return (
-                            <p key={idx}>
-                              {parts.map((part, partIdx) => {
-                                if (part.startsWith('**') && part.endsWith('**')) {
-                                  return <strong key={partIdx} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                                }
-                                return part
-                              })}
-                            </p>
-                          )
+                          return <p key={idx}>{renderInlineMarkdown(paragraph)}</p>
                         })}
                       </div>
                       {feature.image && (
@@ -621,17 +561,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               {project.craft.exploration && !(densityMode === 'quick' && (project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one')) && (
                 <div className="text-base text-text/70 leading-relaxed mb-6 space-y-4">
                   {project.craft.exploration.split('\n\n').map((paragraph, index) => {
-                    const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                    return (
-                      <p key={index}>
-                        {parts.map((part, partIndex) => {
-                          if (part.startsWith('**') && part.endsWith('**')) {
-                            return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                          }
-                          return part
-                        })}
-                      </p>
-                    )
+                    return <p key={index}>{renderInlineMarkdown(paragraph)}</p>
                   })}
                 </div>
               )}
@@ -690,17 +620,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </h2>
               <div className="text-base text-text/70 mb-4 leading-relaxed space-y-4">
                 {project.outcome.summary.split('\n\n').map((paragraph, index) => {
-                  const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                  return (
-                    <p key={index}>
-                      {parts.map((part, partIndex) => {
-                        if (part.startsWith('**') && part.endsWith('**')) {
-                          return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                        }
-                        return part
-                      })}
-                    </p>
-                  )
+                  return <p key={index}>{renderInlineMarkdown(paragraph)}</p>
                 })}
               </div>
               {project.outcome.notes && project.outcome.notes.length > 0 && (
@@ -770,17 +690,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               </h2>
               <div className="text-base text-text/70 mb-6 leading-relaxed font-medium space-y-4">
                 {project.reflection.insight.split('\n\n').map((paragraph, index) => {
-                  const parts = paragraph.split(/(\*\*.*?\*\*)/g)
-                  return (
-                    <p key={index}>
-                      {parts.map((part, partIndex) => {
-                        if (part.startsWith('**') && part.endsWith('**')) {
-                          return <strong key={partIndex} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-                        }
-                        return part
-                      })}
-                    </p>
-                  )
+                  return <p key={index}>{renderInlineMarkdown(paragraph)}</p>
                 })}
               </div>
               {project.reflection.openQuestions && project.reflection.openQuestions.length > 0 && (

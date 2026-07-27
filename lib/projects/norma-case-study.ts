@@ -8,14 +8,14 @@ export const norma: SideProject = {
   hashtag: '#SaaS',
   year: '2026',
   title: 'Norma',
-  subtitle: 'A multi-tenant platform running Romanian architecture & permitting firms, from first lead to final permit',
+  subtitle: 'A multi-tenant platform running architecture studios, from first lead to final building permit',
   status: 'live',
 
   // ─────────────────────────────────────────────────────────────
   // CARD DISPLAY
   // ─────────────────────────────────────────────────────────────
-  description: 'Multi-tenant platform for Romanian architecture and permitting firms. Each tenant gets a branded public website plus a backoffice: CRM, permit tracking, client portal, and an AI secretary. In production with its first client since May 2026; financed under Romania\'s PNRR (EU NextGenerationEU).',
-  cardSummary: 'Multi-tenant SaaS running Romanian permitting firms: branded website, CRM, client portal, AI secretary. In production, PNRR-funded.',
+  description: 'Multi-tenant platform for architecture studios. Each tenant gets a branded public website plus a backoffice: CRM, approvals tracking, client portal, and an AI secretary. In production with its first studio since May 2026; financed under Romania\'s PNRR (EU NextGenerationEU).',
+  cardSummary: 'Multi-tenant SaaS running architecture studios: branded website, CRM, client portal, AI secretary. In production, PNRR-funded.',
   imageUrl: '/img/projects/norma/cover.jpg',
   imageAlt: 'Norma cover: white Norma wordmark over a darkened photo of an Architecture for Humans building, with the official EU NextGenerationEU, Government of Romania, and PNRR funding badges',
 
@@ -42,16 +42,17 @@ export const norma: SideProject = {
   // MISSION
   // ─────────────────────────────────────────────────────────────
   mission: {
-    statement: 'Give small Romanian permitting firms the operational infrastructure big firms take for granted.',
+    statement: 'Give small architecture studios the operational infrastructure big practices take for granted.',
 
-    spark: 'Norma started in October 2024 as a legal document automation proof of concept. My wife studied law, her colleagues were pasting client documents into ChatGPT, and I wanted to build something safer. The prototype worked. Validation stalled. I kept the lesson and shelved the product.\n\nA year later I rebuilt it from scratch on a production-grade stack, still aimed at law firms. Then the real client appeared: **Architecture for Humans**, a Romanian architecture practice whose actual business is permits and authorizations, the *avize*. Different industry, same disease: client intake in inboxes, deadlines in heads, documents in folders named final_v3. Their digitalization project had won PNRR funding (EU NextGenerationEU), and they needed a platform, not a promise.\n\nIn April 2026 I pivoted the codebase to architecture firms. A month later the platform was in production on afharchi.com. The law-firm version lives on in an archive branch. The pivot cost less than loyalty to a dead idea would have.',
+    spark: 'Norma started in October 2024 as a legal document automation proof of concept. My wife studied law, her colleagues were pasting client documents into ChatGPT, and I wanted to build something safer. The prototype worked. Validation stalled. I kept the lesson and shelved the product.\n\nA year later I rebuilt it from scratch on a production-grade stack, still aimed at law firms. Then the real client appeared: **[Architecture for Humans](http://afharchi.com/)**, an architecture practice in Romania. They design buildings, but no architect gets to design in a bureaucratic vacuum. Every project drags a second job behind it: approvals, authorizations, filings, and a deadline attached to each one. Practices routinely hire legal help purely to survive the paperwork. Different discipline, same disease as the law firms: intake in inboxes, deadlines in heads, documents in folders named final_v3. Their digitalization project had won PNRR funding (EU NextGenerationEU), and they needed a platform, not a promise.\n\nIn April 2026 I pivoted the codebase to architecture studios. A month later it was live on afharchi.com. The law-firm version survives in an archive branch.',
 
     intent: [
-      'Run the whole firm in one system instead of email plus Excel: leads, clients, projects, permits, offers, documents',
-      'Give every tenant firm a branded public website and a private backoffice from the same codebase',
+      'Run the entire studio in one system instead of email plus Excel: leads, clients, projects, approvals, offers, documents',
+      'Take the repetitive compliance work off the architects and hand it to software that never forgets a deadline',
+      'Give every tenant a branded public website and a private backoffice from the same codebase',
       'Make the AI a secretary, not a gimmick: real tools, real actions, real guardrails',
       'Treat GDPR and tenant isolation as foundations, not features',
-      'Build for one real firm first, generalize second',
+      'Build for one real studio first, generalize second',
     ],
   },
 
@@ -59,41 +60,41 @@ export const norma: SideProject = {
   // CONTEXT
   // ─────────────────────────────────────────────────────────────
   context: {
-    background: 'A Romanian construction project can require dozens of *avize* before a building permit lands: utilities, environment, road administration, heritage, fire safety, each with its own issuer, validity window, and expiry date. Small architecture and permitting firms track all of it manually: deadlines in someone\'s head, documents in email threads, status updates by phone whenever the client gets nervous. Nothing about the work is unstructured. The process is rigid, legally defined, and repeats for every project, but the tooling is Word, Excel, and WhatsApp. Enterprise practice-management software exists and fits none of it: wrong language, wrong legal system, wrong price.',
+    background: 'Before a building permit lands, a construction project can require dozens of separate approvals: utilities, environment, road administration, heritage, fire safety, each with its own issuer, validity window, and expiry date. In Romania that chain is long and unforgiving, and small studios track all of it by hand: deadlines in someone\'s head, documents in email threads, status updates by phone whenever the client gets nervous. None of it is design work, and none of it is unstructured either. The process is rigid, legally defined, and repeats for every project, but the tooling is Word, Excel, and WhatsApp. Enterprise practice-management software exists and fits none of it: wrong language, wrong legal system, wrong price.',
 
-    opportunity: 'Two waves crossed. Romania\'s recovery plan opened PNRR/C9/I3, "Digitalizarea IMM-urilor", funding small firms to digitalize. And language models got good enough to do real secretarial work: draft the email, create the record, check the schedule. A small firm could suddenly afford custom infrastructure, and the infrastructure could suddenly include a competent assistant.',
+    opportunity: 'Two waves crossed. Romania\'s recovery plan opened PNRR/C9/I3, "Digitalizarea IMM-urilor", funding small companies to digitalize. And language models got good enough to do real secretarial work: draft the email, create the record, check the schedule. A five-person studio could suddenly afford custom infrastructure, and the infrastructure could suddenly include a competent assistant.',
 
-    audience: 'Small Romanian architecture and permitting consultancies of one to ten people, and their clients: families building a house, companies developing property. Two very different user groups: the firm lives in the backoffice daily; the client visits the portal a few times per project, usually anxious.',
+    audience: 'Architecture studios of one to ten people, and their clients: families building a house, companies developing property. Two very different user groups: the studio lives in the backoffice daily; the client visits the portal a few times per project, usually anxious.',
   },
 
   // ─────────────────────────────────────────────────────────────
   // CREATION
   // ─────────────────────────────────────────────────────────────
   creation: {
-    approach: 'One codebase, two worlds. Each tenant firm gets a branded public website for portfolio, services, AI chat, and contact, plus a private backoffice: CRM, permit tracking, documents, client portal. The marketing site and the platform share auth, design tokens, and data, so a chat lead becomes an inquiry becomes a customer becomes a project without ever leaving the system.\n\nI built it solo over a phased plan: multi-tenant shell, data foundation, backoffice, client portal, automations. Claude wrote most of the code while I owned the architecture, the design system, and every product decision. 356 commits over eight months; production cutover a month after the pivot.',
+    approach: 'One codebase, two worlds. Each tenant gets a branded public website for portfolio, services, AI chat, and contact, plus a private backoffice: CRM, approvals tracking, documents, client portal. The marketing site and the platform share auth, design tokens, and data, so a chat lead becomes an inquiry becomes a customer becomes a project without ever leaving the system.\n\nI built it solo over a phased plan: multi-tenant shell, data foundation, backoffice, client portal, automations. Claude wrote most of the code while I owned the architecture, the design system, and every product decision.',
 
     features: [
       {
         title: 'Admin CRM',
-        description: 'Customers, projects, offers, and documents in one place. Offers move through a tracked funnel (shown, viewed, accepted), documents generate as PDF and DOCX, including full customer reports, and every record links back to its project. The firm stopped reconstructing project history from email threads.',
+        description: 'Customers, projects, offers, and documents in one place. Offers move through a tracked funnel (shown, viewed, accepted), documents generate as PDF and DOCX, including full customer reports, and every record links back to its project. The studio stopped reconstructing project history from email threads.',
         image: {
           url: '/img/projects/norma/crm-customers.png',
-          alt: 'Norma admin CRM showing the customer list for an architecture firm',
+          alt: 'Norma admin CRM showing the customer list for an architecture studio',
           caption: 'The CRM backbone: customers, projects, offers, and documents, cross-linked. Romanian-language UI: the product ships in the tenant\'s language.',
         },
       },
       {
-        title: 'Avize tracking',
-        description: 'The heart of the domain. Each project carries its register of permits and authorizations: status, issuer, validity, expiry. Scheduled reminders fire before permits lapse: "three days before expiry" is a business rule the system owns, not a calendar entry someone hopefully remembered. Everything exports cleanly when authorities ask.',
+        title: 'The approvals register',
+        description: 'The heart of the domain. Each project carries its own register of approvals and authorizations: status, issuer, validity, expiry. Scheduled reminders fire before anything expires: "three days out" is a business rule the system owns, not a calendar entry someone hopefully remembered. Everything exports cleanly when authorities ask.',
         image: {
           url: '/img/projects/norma/avize.png',
-          alt: 'Project detail view with the avize register showing permit statuses and expiry dates',
-          caption: 'The avize register per project: every permit with status, issuer, and expiry. Inngest-scheduled reminders mean nothing lapses silently.',
+          alt: 'Project detail view with the approvals register showing statuses and expiry dates',
+          caption: 'One register per project: every clearance with its status, issuer, and deadline. Inngest-scheduled reminders mean nothing lapses silently.',
         },
       },
       {
         title: 'Client portal',
-        description: 'Clients sign in to see project status, permit progress, documents (signed URLs, no public buckets), offers they can accept online, and a message thread with the firm. Admins can impersonate a client to see exactly what they see, with a banner making the borrowed identity impossible to forget.',
+        description: 'Clients sign in to see project status, approval progress, documents (signed URLs, no public buckets), offers they can accept online, and a message thread with the studio. Admins can impersonate a client to see exactly what they see, with a banner making the borrowed identity impossible to forget.',
         image: {
           url: '/img/projects/norma/portal.png',
           alt: 'Client portal dashboard showing project status and documents for a customer',
@@ -120,11 +121,11 @@ export const norma: SideProject = {
       },
       {
         title: 'Tenant provisioning',
-        description: 'A new firm is a super-admin workflow, not a deployment: brand, colors, locale, domain with ownership verification, and seeded starter content. The second tenant costs an afternoon, not a rebuild.',
+        description: 'A new studio is a super-admin workflow, not a deployment: brand, colors, locale, domain with ownership verification, and seeded starter content. The second tenant costs an afternoon, not a rebuild.',
       },
       {
         title: 'The branded website',
-        description: 'Each tenant\'s public face ships from the same codebase: portfolio, services, consulting packages, contact, plus the legally required PNRR transparency pages with funding announcements and attachments. For Architecture for Humans this is afharchi.com: their actual production website, SEO\'d, with consent-gated analytics.',
+        description: 'Each tenant\'s public face ships from the same source tree as the backoffice: portfolio, services, consulting packages, contact, plus the legally required PNRR transparency pages with funding announcements and attachments. For [Architecture for Humans](http://afharchi.com/) this is afharchi.com: their actual production website, SEO\'d, with consent-gated analytics.',
         image: {
           url: '/img/projects/norma/site-home.jpg',
           alt: 'Architecture for Humans marketing website homepage, served by the Norma platform',
@@ -161,12 +162,12 @@ export const norma: SideProject = {
   // OUTCOME
   // ─────────────────────────────────────────────────────────────
   outcome: {
-    summary: 'Norma is in production at afharchi.com, running Architecture for Humans SRL, public website and backoffice, since May 2026. The build was financed under Romania\'s National Recovery and Resilience Plan: call PNRR/C9/I3 "Digitalizarea IMM-urilor", financing contract 7009/rue/i3/c9, funded by the European Union through NextGenerationEU. The funding transparency pages are part of the product; the plaque below is part of the deal.',
+    summary: 'Norma is in production at afharchi.com, running [Architecture for Humans](http://afharchi.com/) SRL, public website and backoffice, since May 2026. The build was financed under Romania\'s National Recovery and Resilience Plan: call PNRR/C9/I3 "Digitalizarea IMM-urilor", financing contract 7009/rue/i3/c9, funded by the European Union through NextGenerationEU. The funding transparency pages are part of the product; the plaque below is part of the deal.',
 
     notes: [
       'One codebase serves the marketing site, admin CRM, client portal, and super-admin console: four roles, two locales, 26 database migrations.',
-      '356 commits in eight months, solo, AI-assisted. Production cutover a month after the pivot to architecture firms.',
-      'The pivot preserved almost everything: customers, documents, offers, and inquiries translated across industries. Only the domain objects, the avize, were new.',
+      '356 commits in eight months, solo, AI-assisted. Production cutover a month after the pivot to architecture studios.',
+      'The pivot preserved almost everything: customers, documents, offers, and inquiries translated across industries. Only the domain objects, the approvals register, were new.',
     ],
 
     image: {
@@ -180,12 +181,12 @@ export const norma: SideProject = {
   // REFLECTION
   // ─────────────────────────────────────────────────────────────
   reflection: {
-    insight: 'Building against one real tenant beats designing for ten imagined ones. Every abstraction in Norma earned its place by serving Architecture for Humans first. Multi-tenancy included: the second firm was always the plan, but its shape came from the first firm\'s reality.\n\nThe other lesson is about sunk cost: the law-firm version was eighteen months of conviction, and killing it took one honest look at the market. A pivot is cheaper than loyalty to a dead idea. The machinery survived; only the story changed.\n\nAnd quietly, the biggest one: a designer with AI leverage can ship production SaaS alone. Not a prototype: a platform with a funding contract, a production domain, and a client who calls when something breaks.',
+    insight: 'Building against one real tenant beats designing for ten imagined ones. Every abstraction in Norma earned its place by serving [Architecture for Humans](http://afharchi.com/) first, measured against a single question: does this hand an architect back an hour they would otherwise lose to paperwork? Multi-tenancy included: the second studio was always the plan, but its shape came from the first one\'s reality.\n\nThe other lesson is about sunk cost: the law-firm version was eighteen months of conviction, and killing it took one honest look at the market. A pivot is cheaper than loyalty to a dead idea. The machinery survived; only the story changed.\n\nAnd quietly, the biggest one: a designer with AI leverage can ship production SaaS alone. Not a prototype: a platform with a funding contract, a production domain, and a client who calls when something breaks.',
 
     openQuestions: [
       'When does the second tenant come on board, and what breaks first when it does?',
       'Productize with self-serve onboarding, or stay bespoke: white-glove, higher touch, higher price?',
-      'How much autonomy can the AI secretary take on before firms stop trusting it, and what earns that trust back?',
+      'How much autonomy can the AI secretary take on before studios stop trusting it, and what earns that trust back?',
     ],
 
     nextSteps: [
