@@ -38,8 +38,8 @@ export function getProjectRoute(id: string): string {
 // Site configuration
 export const SITE = {
   NAME: 'Miguel Angelo',
-  TITLE: 'Miguel Angelo - Product Designer',
-  DESCRIPTION: 'Senior Product Designer with 10+ years building B2B platforms for localization, iGaming, and AI-powered systems.',
+  TITLE: 'Miguel Angelo — AI Systems Designer',
+  DESCRIPTION: 'AI Systems Designer building high-stakes product infrastructure. A career in regulated industries: Localisation, iGaming, Enterprise SaaS.',
   URL: 'https://miguelangelo.tech',
   EMAIL: 'hi@miguelangelo.tech',
   LINKEDIN: 'https://linkedin.com/in/ferreiramiguelangelo',

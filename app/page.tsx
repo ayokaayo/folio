@@ -56,13 +56,12 @@ export default function Home() {
             <div className="w-full lg:w-[calc((100%-11*16px)/12*8+7*16px)]">
               <h1 className="font-mono font-medium text-text-primary text-headline">
                 AI Systems Designer,<br />
-                building the harnesses where<br />
-                people and AI ship together.
+                building high-stakes product infrastructure.
               </h1>
 
               <p className="font-mono text-subhead text-text-secondary mt-6">
-                10+ years in regulated industries: Localisation, iGaming,<br />
-                Enterprise SaaS. AI in production since 2017.
+                A career in regulated industries: Localisation, iGaming,<br />
+                Enterprise SaaS. Building and enabling teams for the AI era.
               </p>
 
               {/* CTA - spans exactly 2 grid columns */}

@@ -5,21 +5,22 @@ export default function StructuredData() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Miguel Angelo',
-    jobTitle: 'Product Designer',
-    description: 'Product Designer with 10+ years building B2B SaaS and AI-driven products. Led design through 15× revenue growth at Fast Track AI.',
+    jobTitle: 'AI Systems Designer',
+    description: 'AI Systems Designer building high-stakes product infrastructure: agent harnesses, design systems, and evals, plus the adoption work that makes them stick. Led design through 15× revenue growth at Fast Track AI.',
     url: SITE.URL,
     email: SITE.EMAIL,
     sameAs: [
       SITE.LINKEDIN,
     ],
     knowsAbout: [
+      'AI Systems Design',
+      'Agent Harnesses',
+      'Evals',
+      'Design Systems',
       'Product Design',
       'UX Design',
-      'UI Design',
       'B2B SaaS',
-      'AI Product Design',
-      'Design Systems',
-      'Product-led Growth',
+      'Localization',
     ],
   }
 

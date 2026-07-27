@@ -3,13 +3,13 @@ import { SITE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'About - Miguel Angelo',
-  description: 'Senior Product Designer with 10+ years shipping B2B platforms at scale. Systems thinking, AI products, and multi-market expertise.',
+  description: 'AI Systems Designer. I design the systems that let product teams build with AI: agent harnesses, design systems, evals, and the operations that make them stick.',
   alternates: {
     canonical: `${SITE.URL}/about`,
   },
   openGraph: {
     title: 'About - Miguel Angelo',
-    description: 'Senior Product Designer with 10+ years shipping B2B platforms at scale. Systems thinking, AI products, and multi-market expertise.',
+    description: 'AI Systems Designer. I design the systems that let product teams build with AI: agent harnesses, design systems, evals, and the operations that make them stick.',
     url: `${SITE.URL}/about`,
     images: [
       {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'About - Miguel Angelo',
-    description: 'Senior Product Designer with 10+ years shipping B2B platforms at scale. Systems thinking, AI products, and multi-market expertise.',
+    description: 'AI Systems Designer. I design the systems that let product teams build with AI: agent harnesses, design systems, evals, and the operations that make them stick.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },
 }

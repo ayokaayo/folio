@@ -19,9 +19,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Miguel Angelo — Systems Designer',
-  description: 'Senior Product Designer with 10+ years designing infrastructure for high-stakes operations: B2B SaaS, iGaming, and AI-powered systems.',
-  keywords: 'product design, UX design, UI design, B2B SaaS, iGaming, enterprise software, design systems, AI products',
+  title: 'Miguel Angelo — AI Systems Designer',
+  description: 'AI Systems Designer building high-stakes product infrastructure. A career in regulated industries: Localisation, iGaming, Enterprise SaaS.',
+  keywords: 'AI systems design, agent harnesses, evals, design systems, product design, B2B SaaS, iGaming, enterprise software, localisation',
   authors: [{ name: 'Miguel Angelo' }],
   creator: 'Miguel Angelo',
   publisher: 'Miguel Angelo',
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     icon: '/cv/MAF.jpg',
   },
   openGraph: {
-    title: 'Miguel Angelo — Systems Designer',
-    description: 'Senior Product Designer with 10+ years designing infrastructure for high-stakes operations.',
+    title: 'Miguel Angelo — AI Systems Designer',
+    description: 'Building high-stakes product infrastructure, and enabling the teams that own it.',
     url: SITE.URL,
     siteName: 'Miguel Angelo Portfolio',
     locale: 'en_US',
@@ -44,14 +44,14 @@ export const metadata: Metadata = {
         url: `${SITE.URL}${SITE.OG_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: 'Miguel Angelo — Systems Designer',
+        alt: 'Miguel Angelo — AI Systems Designer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Miguel Angelo — Systems Designer',
-    description: 'Senior Product Designer with 10+ years designing infrastructure for high-stakes operations.',
+    title: 'Miguel Angelo — AI Systems Designer',
+    description: 'Building high-stakes product infrastructure, and enabling the teams that own it.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },
   robots: {
