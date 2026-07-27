@@ -28,7 +28,7 @@ Figma · Adobe CC · Hotjar · Grafana · ClickUp · Jira · HTML/CSS/JS · Loca
 **Fast Track AI** — Senior Product Designer · Barcelona / Malta · 2021–Present
 
 - Built an AI-native design-to-production harness: designers ship production components through eval gates and CI. The component library went from 4 new components in three years to 12 in five months.
-- Designed and shipped the first natural-language AI CRM in iGaming. Feature release, ~70% partner adoption.
+- Designed and shipped the first natural-language AI CRM in iGaming. Live to every partner within three days of launch.
 - Unlocked three new markets (Brazil, LatAm, APAC) through localization: timezone tools, i18n, RTL support.
 - Eliminated SMS billing disputes entirely (from five-figure claims to zero) via encoding detection system.
 - Awards: [SBC Europe 2026](https://sbcnews.co.uk/igaming/2026/05/01/sbc-awards-europe-2026-winners) (Industry Innovation of the Year), [AIBC 2025](https://crypto.news/aibc-awards-brings-successful-dubai-summit-to-a-close/) (Best AI Solution), [SiGMA Americas 2025](https://focusgn.com/sigma-americas-awards-focus-gaming-news-clinches-sixth-consecutive-best-igaming-media-award), [SBC LatAm 2024](https://sbcevents.com/news/sbc-awards-latinoamerica-meet-the-winners/)

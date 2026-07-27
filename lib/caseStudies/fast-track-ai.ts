@@ -18,7 +18,7 @@ export const fastTrackAI: CaseStudy = {
     title: 'Impact',
     items: [
       'Shipped in 2 months with cross-functional senior team including CPO, CTO, and Head of Product',
-      'Rolled out platform-wide, with roughly 70% of partners actively using the feature within the first weeks launch',
+      'Rolled out platform-wide within three days of launch, with a quarter of all partners already using it by day three',
       'Partners report that data analysis which previously took days passing between CRM and BI teams now happens in minutes through natural conversation',
       'Campaign creation across multiple markets simplified from hours of manual configuration to a single natural language request with automatic localization',
       'Featured in [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/) and [EngageHut](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/) following the September 2025 launch',
@@ -32,7 +32,7 @@ export const fastTrackAI: CaseStudy = {
     ],
     deepItems: [
       'Shipped the first fully working itertion in approximately 2 months, working alongside CPO, CTO, Head of Product, and a team of engineers including a data scientist and four developers. This timeline required ruthless prioritization and clear scope boundaries from day one, with daily syncs keeping everyone aligned.',
-      'The rollout reached all live partners, with roughly 70% actively using the feature within a few weeks after launch. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
+      'The rollout reached every live partner within three days of launch, and a quarter of them had already used it by day three — early traction against a 70% adoption target set for the release cycle. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
       'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting."',
       'Campaign creation now supports automatic content generation and translation across markets, turning what was hours of configuration into a single request. The AI generates SMS content, schedules activities per market with appropriate local timing, and pre-fills existing modals so users can review before committing.',
       'Industry reviewers called it "[one of Fast Track\'s most disruptive innovations in CRM](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/)," noting that natural language AI opens up advanced capabilities to teams who previously needed technical support for every campaign.',
@@ -237,7 +237,7 @@ export const fastTrackAI: CaseStudy = {
         phase: 'Launch and Early Access',
         activities: [
           'Deployed platform-wide to all live partners with feature enabled',
-          'Achieved roughly 70% of partners actively using the feature within a few weeks',
+          'Completed the platform-wide rollout in three days, with a quarter of all partners using it by day three',
           'Collected feedback via Slack, Intercom, LangChain, and direct partner communication. Finding opportunities, and identifying areas for iteration',
           'Observed growing sticky daily usage patterns indicating genuine utility rather than novelty exploration',
         ],
@@ -253,7 +253,7 @@ export const fastTrackAI: CaseStudy = {
         category: 'Adoption Metrics',
         results: [
           'Rolled out platform-wide to all live partners following the September 2025 launch',
-          'Roughly 70% of partners were actively using the feature within a few weeks after launch',
+          'A quarter of all partners had already used it by day three, tracking toward a 70% adoption target set for the release cycle',
           'Internal updates noted "sticky usage" as partners returned daily, indicating the feature delivered ongoing value rather than one-time curiosity',
           'Sustained engagement patterns observed over the following weeks as partners integrated AI into their regular workflows',
         ],
@@ -270,7 +270,7 @@ export const fastTrackAI: CaseStudy = {
       },
     ],
     quickOutcomes: [
-      '~25% of partners active within first days, and ~70% within weeks',
+      '~25% of partners active within the first three days',
       'Partner: "Days to minutes for data analysis"',
       'Sticky daily usage indicating genuine utility',
     ],
