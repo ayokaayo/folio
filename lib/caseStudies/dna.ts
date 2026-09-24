@@ -9,10 +9,10 @@ export const dna: CaseStudy = {
   year: '2026',
   linkText: 'Read case study',
   cardSummary: 'A Design System Workstation: an AI harness where anyone in the organisation prototypes in production code, safely and within the rules. Designers and non-technical teammates went from zero merged pull requests into the product to 31.',
-  // Cover: to revert to the light paper version, use '/img/dna/cover-paper.jpg' with its alt below
-  imageUrl: '/img/dna/cover-neon.jpg',
-  imageAlt: 'DNA cover: a glowing magenta and cyan double helix whose rungs are design system components and code brackets, on a dark technical grid, above the DNA wordmark and the tagline design system workstation',
-  // imageAlt (paper): 'DNA cover: the DNA emoji and the DNA wordmark over the tagline design system workstation, on a light paper field faintly sketched with a browser window, a terminal, a chat panel and design system components',
+  // Cover: the neon alternative is '/img/dna/cover-neon.jpg' with its alt below
+  imageUrl: '/img/dna/cover-paper.jpg',
+  imageAlt: 'DNA cover: the DNA emoji and the DNA wordmark over the tagline design system workstation, on a light paper field faintly sketched with a browser window, a terminal, a chat panel and design system components',
+  // imageAlt (neon): 'DNA cover: a glowing magenta and cyan double helix whose rungs are design system components and code brackets, on a dark technical grid, above the DNA wordmark and the tagline design system workstation',
   timeline: 'February 2026 to present (ongoing)',
   team: 'Built solo; used across the organisation by designers, non-technical teammates and engineers',
 
@@ -85,7 +85,7 @@ export const dna: CaseStudy = {
       {
         title: '1. Code as the Source of Truth',
         decision: 'The production library owns the tokens, the components and the truth. Design files became a mirror, and DNA measures how far any app sits from the system.',
-        rationale: 'You cannot build reliable automation on top of a picture. Once truth has one home, drift stops being an argument and becomes a measurement. The design review report takes this to a live application: it checks every style rule against the design system, shows the evidence page by page, and lets a person accept each fix. Nothing changes on its own.',
+        rationale: 'You cannot build reliable automation on top of a picture. Once truth has one home, drift stops being an argument and becomes a measurement. The design review report takes this to a live application: it checks the application\'s own style rules against the design system, shows the evidence page by page, and lets a person accept each fix. Nothing changes on its own.',
         result: 'Drift is a number on a dashboard, and design debt is a backlog with a sign-off, not a feeling.',
       },
       {
