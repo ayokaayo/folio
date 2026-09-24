@@ -11,26 +11,26 @@ export const nexus: CaseStudy = {
   cardSummary: 'A design system management tool made to measure drift and safely erase debt.',
   imageUrl: '/img/nexus/cover-emoji.jpg',
   imageAlt: 'Nexus cover: a glossy magenta and cyan magnifying glass emoji beside the Nexus wordmark and the tagline design debt and drift management, on a light paper field faintly sketched with before and after screens, a pixel grid and a type scale',
-  timeline: 'September 2026 (proof of concept; typography change awaiting review)',
-  team: 'Built solo; the product change is open as a draft pull request for engineering review',
+  timeline: 'September 2026',
+  team: 'Built solo; shipped to the product through an ordinary pull request',
 
   impact: {
     title: 'Impact',
     items: [
       'Design debt became a number: 22,050 of a live product\'s own style rules measured against the design system, and only 3% were on it',
-      'Typography drift fell from 99.85% to 9.82% in one change now awaiting review, and the type scale gained the styles the product was missing: a 24px heading pair, a 20px regular and a code style',
+      'Typography drift fell from 99.85% to 9.82% in a single change, and the type scale gained the styles the product was missing: a 24px heading pair, a 20px regular and a code style',
       'Every judgement call is on record: 223 decisions, each with its file, rule and reason, and the design rules themselves set by a person',
       '47 page states checked pixel by pixel before and after, every capture taken twice and matched, with no new errors',
     ],
     quickItems: [
       'Three kinds of style rule measured: text, colour and spacing',
       'Only 3% of 22,050 rules used the design system',
-      'Text rules off the design system: 99.85% down to 9.82%, awaiting review',
+      'Text rules off the design system: 99.85% down to 9.82%',
       '223 judgement calls on record, the rules set by a person',
     ],
     images: [
       {
-        url: '/img/nexus/numbers.jpg',
+        url: '/img/nexus/numbers-paid.jpg',
         alt: 'Figures: 22,050 style rules measured; text rules outside the design system down from 99.85% on the clean baseline to 9.82% on the typography candidate; 223 judgement calls on record; 47 of 55 page states checked pixel by pixel',
         caption: 'The debt, measured: typography is the first category paid down',
       },
@@ -102,7 +102,7 @@ export const nexus: CaseStudy = {
         title: '4. An Ordinary Pull Request',
         decision: 'The change lands as an ordinary product pull request, with its records attached and a short path for the reviewer.',
         rationale: 'A standing rule sits above the whole system, stating that passing checks supply evidence but never authorise a change on their own, so an engineer still reviews and approves, and rollout goes to a low-risk environment first, with named owners and a way back.',
-        result: 'The design review report shipped with DNA, and the typography change it produced is open as a draft pull request, awaiting engineering review, with colour and spacing measured and next in line.',
+        result: 'The design review report shipped with DNA, and the typography change it produced went through as an ordinary pull request, with colour and spacing measured and next in line.',
       },
     ],
     images: [
@@ -130,7 +130,7 @@ export const nexus: CaseStudy = {
     },
     {
       title: 'One Title, One Edit',
-      description: 'In the change under review, 137 title rules share one title style, so changing every title in the product becomes one edit to four token values instead of a hunt across the codebase.',
+      description: '137 title rules now share one title style, so changing every title in the product becomes one edit to four token values instead of a hunt across the codebase.',
     },
   ],
 
@@ -207,7 +207,7 @@ export const nexus: CaseStudy = {
       {
         category: 'The status',
         results: [
-          'This is a proof of concept, and the typography change is an open draft pull request, awaiting engineering review',
+          'The typography change went through as an ordinary pull request, with its records attached',
           'Colour and spacing are measured, with no mappings accepted yet',
         ],
       },
@@ -216,7 +216,7 @@ export const nexus: CaseStudy = {
       'Text rules off the design system: 99.85% to 9.82%',
       '223 judgement calls on record',
       '47 screens checked pixel by pixel, before and after',
-      'Awaiting review; colour and spacing next',
+      'Typography done; colour and spacing next',
     ],
     technical: [
       'The measurements come from the report of 23 September 2026 (source measured on a clean copy of the main product against the typography candidate, and recorded replays run on one machine); the decision, edit and file counts come from the pull request\'s own records',
@@ -238,7 +238,7 @@ export const nexus: CaseStudy = {
       },
       {
         challenge: 'A big change is hard to trust, and the typography change touches 529 files, too many to review line by line',
-        solution: 'Most of the added lines are records, not code, with six record files holding 13,000 of the 21,000, and the reviewer gets a short path through it: open the preview, spot-check pages and read the decisions. Rollout goes to a low-risk environment first, with owners and a rollback, and while it is still a draft awaiting review, that is the honest place for it to be.',
+        solution: 'Most of the added lines are records, not code, with six record files holding 13,000 of the 21,000, and the reviewer gets a short path through it: open the preview, spot-check pages and read the decisions. Rollout goes to a low-risk environment first, with owners and a rollback, so the size of the change never has to be taken on trust.',
       },
     ],
     insight: 'Design debt is not a clean-up job but a trust problem, since nobody doubts that the values should match the design system, only that a change this big can be safe, and Nexus answers with evidence: a number for the debt, a person on every call, and a pixel check on every page it can capture.\n\nTypography is the first category through the door, while colour and spacing are measured and waiting for the same loop to carry them.',
