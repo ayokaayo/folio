@@ -47,6 +47,8 @@ export function parseMarkdownLinks(text: string): React.ReactNode[] {
         <Link
           key={`link-${match.index}`}
           href={url}
+          target="_blank"
+          rel="noopener"
           className="text-primary hover:text-primary/80 underline"
         >
           {linkText}

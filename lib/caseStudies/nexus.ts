@@ -3,7 +3,7 @@ import type { CaseStudy } from './types'
 export const nexus: CaseStudy = {
   id: 'nexus',
   title: 'Nexus',
-  subtitle: 'Design debt and drift management for a live product, and the focused remediation work inside DNA: a harness that measures a product\'s own style rules against the design system, lets AI pay the debt down at scale, and keeps a person on every judgement call.',
+  subtitle: 'Design debt and drift management for a live product, and the focused remediation work inside the [DNA tool](/work/dna): a harness that measures a product\'s own style rules against the design system, lets AI pay the debt down at scale, and generates the evidence behind every change, with a built-in approval and validation flow that lets whole teams review and sign off together.',
   hashtag: '#Design Systems',
   company: 'Fast Track AI',
   year: '2026',

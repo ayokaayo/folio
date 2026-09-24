@@ -19,15 +19,18 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     }
   }
 
+  // Metadata is plain text, so markdown links in the subtitle keep only their label
+  const plainSubtitle = caseStudy.subtitle.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+
   return {
     title: `${caseStudy.title} - Miguel Angelo`,
-    description: caseStudy.subtitle,
+    description: plainSubtitle,
     alternates: {
       canonical: `${SITE.URL}/work/${params.id}`,
     },
     openGraph: {
       title: `${caseStudy.title} - Miguel Angelo`,
-      description: caseStudy.subtitle,
+      description: plainSubtitle,
       url: `${SITE.URL}/work/${params.id}`,
       images: [
         {
@@ -41,7 +44,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     twitter: {
       card: 'summary_large_image',
       title: `${caseStudy.title} - Miguel Angelo`,
-      description: caseStudy.subtitle,
+      description: plainSubtitle,
       images: caseStudy.imageUrl ? [`${SITE.URL}${caseStudy.imageUrl}`] : [`${SITE.URL}${SITE.OG_IMAGE}`],
     },
   }

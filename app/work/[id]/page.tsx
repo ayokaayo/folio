@@ -113,7 +113,7 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
           <div className="mt-16 pt-16 divider-dashed-grid">
             <NextItemCard
               title={nextCaseStudy.title}
-              description={nextCaseStudy.subtitle}
+              description={nextCaseStudy.subtitle.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')}
               href={getWorkRoute(nextCaseStudy.id)}
               quickReadTime={calculateCaseStudyReadingTime(nextCaseStudy, 'quick')}
               deepReadTime={calculateCaseStudyReadingTime(nextCaseStudy, 'deep')}
