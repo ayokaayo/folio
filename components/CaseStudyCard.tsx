@@ -116,7 +116,7 @@ export default function CaseStudyCard({
               {/* Card Summary: line-clamp so card height stays within grid cell multiple */}
               <p
                 id={`${caseStudy.id}-summary`}
-                className="font-mono text-body text-text-secondary line-clamp-3"
+                className="font-mono text-body text-text-secondary line-clamp-4"
                 style={{ lineHeight: '1.5' }}
               >
                 {cardDescription}
