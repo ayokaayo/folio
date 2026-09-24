@@ -16,7 +16,7 @@ import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
 export default function WorkPage() {
   // Ensure stable order
   const orderedCaseStudies = useMemo(() => {
-    const order = ['dna', 'nexus', 'fast-track-ai', 'time-management', 'sms-characters', 'dropdown-builder']
+    const order = ['nexus', 'dna', 'fast-track-ai', 'dropdown-builder', 'sms-characters', 'time-management']
     return order
       .map(id => caseStudies.find(cs => cs.id === id))
       .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)

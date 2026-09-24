@@ -3,12 +3,12 @@ import type { CaseStudy } from './types'
 export const dna: CaseStudy = {
   id: 'dna',
   title: 'DNA',
-  subtitle: 'A Design System Workstation: an AI harness that changes how an entire organisation prototypes. Anyone with a terminal turns an idea into a working prototype built from production code, safe and compliant by design, and the same path runs all the way into the live platform.',
+  subtitle: 'A Design System Workstation: an AI harness that changes how an entire organisation prototypes, where anyone with a terminal turns an idea into a working prototype built from production code, safe and compliant by design, and the same path runs all the way into the live platform.',
   hashtag: '#AI Experience',
   company: 'Fast Track AI',
   year: '2026',
   linkText: 'Read case study',
-  cardSummary: 'A Design System Workstation: an AI harness where anyone in the organisation prototypes in production code, safely and within the rules. Designers and non-technical teammates went from zero merged pull requests into the product to 31.',
+  cardSummary: 'A Design System Workstation: an AI harness where anyone in the organisation prototypes in production code, safely and within the rules, and where designers and non-technical teammates went from zero merged pull requests into the product to 31.',
   // Cover: the neon alternative is '/img/dna/cover-neon.jpg' with its alt below
   imageUrl: '/img/dna/cover-paper.jpg',
   imageAlt: 'DNA cover: the DNA emoji and the DNA wordmark over the tagline design system workstation, on a light paper field faintly sketched with a browser window, a terminal, a chat panel and design system components',
@@ -19,9 +19,9 @@ export const dna: CaseStudy = {
   impact: {
     title: 'Impact',
     items: [
-      'Prototyping no longer depends on a third-party design tool. Prototypes are built in code, from the platform\'s own components and brand rules, and shared as live links',
+      'Prototyping no longer depends on a third-party design tool, because prototypes are now built in code, from the platform\'s own components and brand rules, and shared as live links',
       'Designers and non-technical teammates went from zero merged pull requests on the product platform in the year before to 31 since February, 24 of them product features and fixes',
-      'Coded prototypes grew from 5 at the end of April to 55 in September, made by 9 different people. Designers and non-technical teammates now make more than 90% of the commits to prototypes',
+      'Coded prototypes grew from 5 at the end of April to 55 in September, made by 9 different people, and designers and non-technical teammates now make more than 90% of the commits to prototypes',
       'The production component library gained 12 new components in six months, after gaining a handful in the three years before',
     ],
     quickItems: [
@@ -41,12 +41,12 @@ export const dna: CaseStudy = {
 
   problem: {
     title: 'The Problem',
-    context: 'Prototyping across the organisation meant pictures. A designer drew the product in Figma, an engineer rebuilt it in code, and the two versions drifted apart from day one. When DNA put a number on the gap, it was blunt: 839 components in the design library, 31 tracked in code, 22 of them mapped to a design counterpart, and 0 verified in sync.\n\nEvery idea paid a translation tax. Feedback bounced between the design file and the build, and anything that needed code waited in an engineer\'s queue. The component library itself had gained only a handful of components in three years. Shipping was gated by who could code, not by who had the idea.',
-    quickContext: 'The design files and the product told two different stories, and only engineers could turn an idea into software. DNA exists because closing that gap by hand never worked.',
+    context: 'Prototyping across the organisation meant pictures: a designer drew the product in Figma, an engineer rebuilt it in code, and the two versions drifted apart from day one. When DNA put a number on the gap, it was blunt, with 839 components in the design library, 31 tracked in code, 22 of them mapped to a design counterpart, and 0 verified in sync.\n\nEvery idea paid a translation tax, as feedback bounced between the design file and the build, and anything that needed code waited in an engineer\'s queue, while the component library itself had gained only a handful of components in three years. Shipping was gated by who could code, not by who had the idea.',
+    quickContext: 'The design files and the product told two different stories, only engineers could turn an idea into software, and DNA exists because closing that gap by hand never worked.',
     issues: [
       {
         category: 'Two sources of truth',
-        description: 'The design library was treated as canonical, but the product\'s real behaviour lives in code. Nobody was measuring the drift between them.',
+        description: 'The design library was treated as canonical while the product\'s real behaviour lives in code, and nobody was measuring the drift between them.',
         impact: 'Decisions were made against a picture of the product, not the product.',
       },
       {
@@ -56,12 +56,12 @@ export const dna: CaseStudy = {
       },
       {
         category: 'A gate called "can you code?"',
-        description: 'Designers and non-technical teammates held the context but not the keys. Their ideas waited for someone else to build them.',
+        description: 'Designers and non-technical teammates held the context but not the keys, so their ideas waited for someone else to build them.',
         impact: 'The people closest to the problem were furthest from the solution.',
       },
     ],
     quickIssues: [
-      'Design files mirrored the product; code defined it. Nobody measured the drift',
+      'Design files mirrored the product while code defined it, and nobody measured the drift',
       'Every idea shipped twice, with back and forth in between',
       'Only engineers could turn an idea into software',
     ],
@@ -84,26 +84,26 @@ export const dna: CaseStudy = {
     decisions: [
       {
         title: '1. Code as the Source of Truth',
-        decision: 'The production library owns the tokens, the components and the truth. Design files became a mirror, and DNA measures how far any app sits from the system.',
-        rationale: 'You cannot build reliable automation on top of a picture. Once truth has one home, drift stops being an argument and becomes a measurement. The design review report takes this to a live application: it checks the application\'s own style rules against the design system, shows the evidence page by page, and lets a person accept each fix. Nothing changes on its own.',
+        decision: 'The production library owns the tokens, the components and the truth, while design files became a mirror and DNA measures how far any app sits from the system.',
+        rationale: 'You cannot build reliable automation on top of a picture, and once truth has one home, drift stops being an argument and becomes a measurement. The design review report takes this to a live application: it checks the application\'s own style rules against the design system, shows the evidence page by page, and lets a person accept each fix, so nothing changes on its own.',
         result: 'Drift is a number on a dashboard, and design debt is a backlog with a sign-off, not a feeling.',
       },
       {
         title: '2. A Workstation Anyone Can Use',
         decision: 'The Lab: pick a prototype, describe the change, and an agent builds it live in the real source code, right beside the running result.',
         rationale: 'The barrier was never ideas; it was the toolchain. The Lab wraps the whole harness (components, tokens, brand rules, team skills) behind one chat and one preview, so a product manager needs a terminal and a Claude login, not a frontend career. Prototypes built for a ticket are tied to it, and every prototype deploys to a shareable link, so feedback lands on the real thing.',
-        result: 'Product managers and other less technical colleagues build their own prototypes and tools inside our guardrails. It lowers the bar for anyone to just do things.',
+        result: 'Product managers and other less technical colleagues build their own prototypes and tools inside our guardrails, which lowers the bar for anyone to just do things.',
       },
       {
         title: '3. Evals Before Trust',
         decision: 'Check the output before asking anyone to trust it: code compliance and experience quality, on every prototype.',
-        rationale: 'AI output is not trustworthy by default, and engineering knows it. Deterministic rules own the error tier and can block a push; AI judges only advise, so hard results never flip between runs. Any pull request can be evaluated with one comment.',
+        rationale: 'AI output is not trustworthy by default, and engineering knows it, so deterministic rules own the error tier and can block a push while AI judges only advise, which means hard results never flip between runs. Any pull request can also be evaluated with a single comment.',
         result: 'Hard failures are reproducible, and every finding is visible to everyone who reviews the work.',
       },
       {
         title: '4. Same Door as Engineers',
-        decision: 'No parallel pipeline. Everything leaves DNA as an ordinary pull request with the team\'s normal review gates.',
-        rationale: 'A separate lane for design-made code would have made it second-class forever. New capability earns trust fastest when it flows through the interfaces people already rely on.',
+        decision: 'There is no parallel pipeline: everything leaves DNA as an ordinary pull request with the team\'s normal review gates.',
+        rationale: 'A separate lane for design-made code would have made it second-class forever, and new capability earns trust fastest when it flows through the interfaces people already rely on.',
         result: 'Designers and non-technical teammates merged real product work, and the org\'s trust followed the process, not the promise.',
       },
     ],
@@ -124,7 +124,7 @@ export const dna: CaseStudy = {
   designDecisions: [
     {
       title: 'Limits You Can See',
-      description: 'An agent that edits code needs visible limits. In the Lab, writes stay inside the selected prototype, any command beyond a safe read-only set stops for approval, every approval is logged, new machines start read-only, and each person runs on their own Claude login with their usage in view.',
+      description: 'An agent that edits code needs visible limits, so in the Lab, writes stay inside the selected prototype, any command beyond a safe read-only set stops for approval, every approval is logged, new machines start read-only, and each person runs on their own Claude login with their usage in view.',
     },
     {
       title: 'Linear as the Spine',
@@ -132,7 +132,7 @@ export const dna: CaseStudy = {
     },
     {
       title: 'Tokens as a Hard Build Error',
-      description: 'Every colour, spacing and type decision compiles from one source. Anything outside the allowlist fails the build, so neither an agent nor a human can invent a colour.',
+      description: 'Every colour, spacing and type decision compiles from one source, and anything outside the allowlist fails the build, so neither an agent nor a human can invent a colour.',
     },
   ],
 
@@ -217,7 +217,7 @@ export const dna: CaseStudy = {
       {
         category: 'Speed',
         results: [
-          'A designer\'s component went from pull request to a published npm release in twelve minutes, released automatically on merge. An engineer\'s review and the docs followed the same day',
+          'A designer\'s component went from pull request to a published npm release in twelve minutes, released automatically on merge, with an engineer\'s review and the docs following the same day',
           'Simple components ship within a day; the big composites still take real review time, as they should',
         ],
       },
@@ -248,20 +248,20 @@ export const dna: CaseStudy = {
   learned: {
     title: 'What I Learned',
     worked: [
-      'Trust came from visible limits, not demos. Engineering accepted design-made code because every change carried its eval findings and went through the same gates as theirs. The Lab earned its users the same way: people try things when they can see exactly what the agent may and may not do.',
-      'Shipping through existing doors beat building new ones. Everything left DNA as an ordinary pull request. When the volume grew, the organisation widened the door instead of closing it.',
+      'Trust came from visible limits, not demos: engineering accepted design-made code because every change carried its eval findings and went through the same gates as theirs, and the Lab earned its users the same way, because people try things when they can see exactly what the agent may and may not do.',
+      'Shipping through existing doors beat building new ones: everything left DNA as an ordinary pull request, and when the volume grew, the organisation widened the door instead of closing it.',
     ],
     challenges: [
       {
-        challenge: 'The second-user problem. A harness that works on its author\'s machine is a prototype. Early on, every assumption in my head was a silent failure on a colleague\'s laptop',
+        challenge: 'The second-user problem: a harness that only works on its author\'s machine is still a prototype, and early on every assumption in my head was a silent failure on a colleague\'s laptop',
         solution: 'I treated onboarding as the product: a doctor command that checks every dependency, one-command setup, and a Lab that installs on any checkout. The system hardened from a personal tool into a team workstation, and the second user is where that happened.',
       },
       {
-        challenge: 'The politics of velocity. In June, design-made pull requests arrived faster than the review process was built for, and engineering felt the load. Designer and product pull requests still take longer to merge than engineers\' pull requests',
-        solution: 'I did not route around the process; I stayed in the room. We agreed that small UI changes are welcome, bigger ones get flagged early, and engineering leadership offered design code ownership of the component library. Velocity that forces a process conversation, and survives it, is real adoption.',
+        challenge: 'The politics of velocity: in June, design-made pull requests arrived faster than the review process was built for and engineering felt the load, and designer and product pull requests still take longer to merge than engineers\' pull requests',
+        solution: 'I did not route around the process, I stayed in the room, and we agreed that small UI changes are welcome and bigger ones get flagged early, while engineering leadership offered design code ownership of the component library. Velocity that forces a process conversation, and survives it, is real adoption.',
       },
     ],
-    insight: 'DNA changed what happens when anyone in the organisation has an idea. Before, it entered a queue: mockups, handoff, translation, waiting. Now the same person builds it from the team\'s own DNA into something running, on-brand and one review away from production.\n\nThe real product is a team where shipping is no longer gated by who can code. We are early, not unique: product teams everywhere are about to work this way. Ours already does.',
-    quickInsight: 'Anyone with a terminal can now turn an idea into working, on-brand code. Product teams everywhere are about to work this way. Ours already does.',
+    insight: 'DNA changed what happens when anyone in the organisation has an idea: before, it entered a queue of mockups, handoff, translation and waiting, and now the same person builds it from the team\'s own DNA into something running, on-brand and one review away from production.\n\nThe real product is a team where shipping is no longer gated by who can code, and we are early rather than unique, because product teams everywhere are about to work this way and ours already does.',
+    quickInsight: 'Anyone with a terminal can now turn an idea into working, on-brand code, and while product teams everywhere are about to work this way, ours already does.',
   },
 }

@@ -3,14 +3,14 @@ import type { CaseStudy } from './types'
 export const nexus: CaseStudy = {
   id: 'nexus',
   title: 'Nexus',
-  subtitle: 'Design debt and drift management for a live product, and the focused remediation work inside DNA. A harness that measures a product\'s own style rules against the design system, lets AI pay the debt down at scale, and keeps a person on every judgement call.',
+  subtitle: 'Design debt and drift management for a live product, and the focused remediation work inside DNA: a harness that measures a product\'s own style rules against the design system, lets AI pay the debt down at scale, and keeps a person on every judgement call.',
   hashtag: '#Design Systems',
   company: 'Fast Track AI',
   year: '2026',
   linkText: 'Read case study',
   cardSummary: 'Design debt and drift management. 22,050 style rules measured against the design system, and a typography change, now awaiting review, that takes text rules off the system from 99.85% to 9.82%, with every judgement call on record.',
   imageUrl: '/img/nexus/cover.jpg',
-  imageAlt: 'Nexus cover: a glossy magnifying glass whose lens shows colour swatches and a type sample, beside the Nexus wordmark and the tagline design debt and drift management, on a light paper field faintly sketched with before and after screens, a pixel grid and a type scale',
+  imageAlt: 'Nexus cover: a glossy magenta and cyan magnifying glass emoji beside the Nexus wordmark and the tagline design debt and drift management, on a light paper field faintly sketched with before and after screens, a pixel grid and a type scale',
   timeline: 'September 2026 (proof of concept; typography change awaiting review)',
   team: 'Built solo; the product change is open as a draft pull request for engineering review',
 
@@ -39,12 +39,12 @@ export const nexus: CaseStudy = {
 
   problem: {
     title: 'The Problem',
-    context: 'Every product that grows fast collects design debt. Values get typed by hand, close to the design system but not in it, and nobody can see the gap one rule at a time. In this product the scan was blunt: 22,050 style rules in the app\'s own files, and only 3% used a design system token.\n\nThe obvious fix is a bulk cleanup, and that is exactly what nobody wants to ship blind. A change touching hundreds of files is impossible to review line by line, and one wrong guess ripples across every page. So the debt kept growing, quietly.',
-    quickContext: 'A live product had drifted away from its own design system, one hand-typed value at a time. Nobody could see the gap, and nobody wanted to fix it blind.',
+    context: 'Every product that grows fast collects design debt, as values get typed by hand, close to the design system but not in it, and nobody can see the gap one rule at a time. In this product the scan was blunt: 22,050 style rules in the app\'s own files, and only 3% of them used a design system token.\n\nThe obvious fix is a bulk cleanup, which is exactly what nobody wants to ship blind, because a change touching hundreds of files is impossible to review line by line and one wrong guess ripples across every page. So the debt kept growing, quietly.',
+    quickContext: 'A live product had drifted away from its own design system one hand-typed value at a time, and nobody could see the gap or wanted to fix it blind.',
     issues: [
       {
         category: 'Invisible debt',
-        description: 'Hand-typed values sat close to the design system but not in it. The drift was real, but nobody could point to where.',
+        description: 'Hand-typed values sat close to the design system but not in it, so the drift was real while nobody could point to where.',
         impact: 'A problem without a location never makes it onto a roadmap.',
       },
       {
@@ -54,7 +54,7 @@ export const nexus: CaseStudy = {
       },
       {
         category: 'Who decides?',
-        description: 'Many values sit between two steps of the scale. Somebody has to choose, and a script should not.',
+        description: 'Many values sit between two steps of the scale, so somebody has to choose, and a script should not.',
         impact: 'Without clear ownership, every automated fix is a guess.',
       },
     ],
@@ -83,33 +83,33 @@ export const nexus: CaseStudy = {
       {
         title: '1. Measure the Real Thing',
         decision: 'Scan a clean copy of the live product, rule by rule, and sort every text, colour and spacing value: on the design system, off it, or unclear.',
-        rationale: 'You cannot pay a debt you cannot see. Only the product\'s original rules count, so rules added along the way can never inflate progress. The report says out loud that token use is not the same as visual quality, and keeps both measures apart.',
+        rationale: 'You cannot pay a debt you cannot see, and only the product\'s original rules count, so rules added along the way can never inflate progress. The report also says out loud that token use is not the same as visual quality, and keeps both measures apart.',
         result: 'The debt has a number and an address: every rule, in every file, with its category and status.',
       },
       {
         title: '2. People Decide, AI Does the Volume',
         decision: 'A person sets the design rules and makes every call the rules do not cover; an AI engine applies them across the whole product; and where a rule\'s answer looks wrong on the page, the case comes back to the person as a question.',
-        rationale: 'The rules were short and human: keep the declared weight and move only the size; titles are 20px bold; add the styles the product really needs. One call was a deliberate exception to the engine\'s own tie rule, 18px text going down to 16px to protect the hierarchy, made after seeing the ten affected rules next to their neighbours. Cases the rules do not cover arrive as a short list of options, shown side by side on real pages, with a recommendation. Accepting a mapping only records the decision; a separate engine run applies it on a branch, and a pull request is the only way into the product.',
+        rationale: 'The rules were short and human: keep the declared weight and move only the size, make titles 20px bold, and add the styles the product really needs. One call was a deliberate exception to the engine\'s own tie rule, taking 18px text down to 16px to protect the hierarchy, and it was made after seeing the ten affected rules next to their neighbours. Cases the rules do not cover arrive as a short list of options, shown side by side on real pages, with a recommendation. Accepting a mapping only records the decision, a separate engine run applies it on a branch, and a pull request is the only way into the product.',
         result: '223 judgement calls on record, none pending, and each one traceable to its file, rule and reason.',
       },
       {
         title: '3. Evidence Before Approval',
-        decision: 'Replay real pages before and after the change and compare them pixel by pixel. Each side is captured twice and the two captures must match exactly; the differences between before and after are what a person reviews.',
-        rationale: 'A clean diff proves nothing about how a page looks. The replay freezes the clock, fixes the fonts and uses recorded data, so the only thing that can change is the styling. The replays caught the engine moving icons it should not have touched, and an independent AI review of the engine found it had turned every non-regular weight bold; those rules went back to the baseline before the rerun, so the engine could never certify its own earlier choices. AI reviews ran as adversaries, not as approvals.',
+        decision: 'Replay real pages before and after the change and compare them pixel by pixel, capturing each side twice and requiring the two captures to match exactly, while the differences between before and after are what a person reviews.',
+        rationale: 'A clean diff proves nothing about how a page looks, so the replay freezes the clock, fixes the fonts and uses recorded data, leaving the styling as the only thing that can change. The replays caught the engine moving icons it should not have touched, and an independent AI review of the engine found it had turned every non-regular weight bold, so those rules went back to the baseline before the rerun and the engine could never certify its own earlier choices, with AI reviews running as adversaries rather than approvals.',
         result: '47 page states compared, every capture taken twice and matched (retakes on record), and no new errors.',
       },
       {
         title: '4. An Ordinary Pull Request',
         decision: 'The change lands as an ordinary product pull request, with its records attached and a short path for the reviewer.',
-        rationale: 'A standing rule sits above the whole system: passing checks supply evidence, they never authorise a change on their own. An engineer still reviews and approves, and rollout goes to a low-risk environment first, with named owners and a way back.',
-        result: 'The design review report shipped with DNA; the typography change it produced is open as a draft pull request, awaiting engineering review. Colour and spacing are measured and next in line.',
+        rationale: 'A standing rule sits above the whole system, stating that passing checks supply evidence but never authorise a change on their own, so an engineer still reviews and approves, and rollout goes to a low-risk environment first, with named owners and a way back.',
+        result: 'The design review report shipped with DNA, and the typography change it produced is open as a draft pull request, awaiting engineering review, with colour and spacing measured and next in line.',
       },
     ],
     images: [
       {
         url: '/img/nexus/flow.jpg',
         alt: 'Five-step flow: measure (scanner), decide (person), apply (AI engine), prove (visual checks) and review (engineering), with the standing rule that passing checks supply evidence and never authorise a change on their own',
-        caption: 'The AI does the volume. People make the calls',
+        caption: 'The AI does the volume while people make the calls',
       },
       {
         url: '/img/nexus/decision.jpg',
@@ -122,15 +122,15 @@ export const nexus: CaseStudy = {
   designDecisions: [
     {
       title: 'Only Original Rules Count',
-      description: 'Progress is measured on the rules the product already had. New rules added during the fix never count, so the numbers cannot be gamed, even by accident.',
+      description: 'Progress is measured on the rules the product already had, and new rules added during the fix never count, so the numbers cannot be gamed, even by accident.',
     },
     {
       title: 'Refuse to Guess',
-      description: 'Where a change is ambiguous, such as icons or containers that mix several text styles, the engine leaves the rule alone and asks. A wrong guess costs more than an open question. The engine never decides a weight on its own either: every weight change is a recorded decision.',
+      description: 'Where a change is ambiguous, such as icons or containers that mix several text styles, the engine leaves the rule alone and asks, because a wrong guess costs more than an open question, and it never decides a weight on its own either, so every weight change is a recorded decision.',
     },
     {
       title: 'One Title, One Edit',
-      description: 'In the change under review, 137 title rules share one title style. Changing every title in the product becomes one edit to four token values, instead of a hunt across the codebase.',
+      description: 'In the change under review, 137 title rules share one title style, so changing every title in the product becomes one edit to four token values instead of a hunt across the codebase.',
     },
   ],
 
@@ -180,7 +180,7 @@ export const nexus: CaseStudy = {
       {
         url: '/img/nexus/changed-pixels.jpg',
         alt: 'The changed pixels view of the same page: every glyph and line that moved is outlined in magenta',
-        caption: 'Every pixel that moved, outlined. Nothing changes that nobody can see',
+        caption: 'Every pixel that moved, outlined, so nothing changes that nobody can see',
       },
     ],
   },
@@ -191,7 +191,7 @@ export const nexus: CaseStudy = {
       {
         category: 'The debt',
         results: [
-          'Text rules with no verified design system token: 99.85% on the clean baseline, 9.82% after the change. This measures token use, not visual defects',
+          'Text rules with no verified design system token went from 99.85% on the clean baseline to 9.82% after the change, a measure of token use rather than visual defects',
           'Summed across the three separately measured categories, rules on the design system went from 3% to 19.63%',
           '17,721 rules still need work, almost all of them colour and spacing',
         ],
@@ -207,7 +207,7 @@ export const nexus: CaseStudy = {
       {
         category: 'The status',
         results: [
-          'Proof of concept. The typography change is an open draft pull request, awaiting engineering review',
+          'This is a proof of concept, and the typography change is an open draft pull request, awaiting engineering review',
           'Colour and spacing are measured, with no mappings accepted yet',
         ],
       },
@@ -228,20 +228,20 @@ export const nexus: CaseStudy = {
   learned: {
     title: 'What I Learned',
     worked: [
-      'Speed was never the hard part. The engine can rewrite hundreds of files in minutes. What took the time was making every change explainable, reversible and checkable by someone who was not in the room.',
-      'Asking beats guessing. Where the rules ran out or gave a doubtful answer, the case came back as a question. A short list of real decisions, shown side by side on real pages, is something a busy person can answer; a diff of hundreds of files is not.',
+      'Speed was never the hard part, since the engine can rewrite hundreds of files in minutes; what took the time was making every change explainable, reversible and checkable by someone who was not in the room.',
+      'Asking beats guessing: where the rules ran out or gave a doubtful answer, the case came back as a question, because a short list of real decisions, shown side by side on real pages, is something a busy person can answer, while a diff of hundreds of files is not.',
     ],
     challenges: [
       {
-        challenge: 'The engine got it wrong first. It turned every non-regular weight bold, and a fixed line height it set on body text moved the sidebar icons with it',
-        solution: 'The pixel checks caught the icons and an independent AI review of the engine caught the weights. I rebuilt the baseline from a clean copy, put 135 rules across 89 files back as they were and mapped them again by explicit decision, and reviewed the icon movement on screen before accepting it on record as a few pixels of intended line height. The first handoff was premature, and saying so early was cheaper than defending it later.',
+        challenge: 'The engine got it wrong first: it turned every non-regular weight bold, and a fixed line height it set on body text moved the sidebar icons with it',
+        solution: 'The pixel checks caught the icons and an independent AI review of the engine caught the weights, so I rebuilt the baseline from a clean copy, put 135 rules across 89 files back as they were and mapped them again by explicit decision, and reviewed the icon movement on screen before accepting it on record as a few pixels of intended line height. The first handoff was premature, and saying so early was cheaper than defending it later.',
       },
       {
-        challenge: 'A big change is hard to trust. The typography change touches 529 files, too many to review line by line',
-        solution: 'Most of the added lines are records, not code: six record files hold 13,000 of the 21,000. The reviewer gets a short path through it: open the preview, spot-check pages, read the decisions. Rollout goes to a low-risk environment first, with owners and a rollback. It is still a draft awaiting review, and that is the honest place for it to be.',
+        challenge: 'A big change is hard to trust, and the typography change touches 529 files, too many to review line by line',
+        solution: 'Most of the added lines are records, not code, with six record files holding 13,000 of the 21,000, and the reviewer gets a short path through it: open the preview, spot-check pages and read the decisions. Rollout goes to a low-risk environment first, with owners and a rollback, and while it is still a draft awaiting review, that is the honest place for it to be.',
       },
     ],
-    insight: 'Design debt is not a clean-up job; it is a trust problem. Nobody doubts that the values should match the design system. They doubt that a change this big can be safe. Nexus answers with evidence: a number for the debt, a person on every call, and a pixel check on every page it can capture.\n\nTypography is the first category through the door. Colour and spacing are measured and waiting, and the same loop will carry them.',
-    quickInsight: 'Design debt is a trust problem, not a clean-up job. Measure it, let people make the calls, and check every change on the page.',
+    insight: 'Design debt is not a clean-up job but a trust problem, since nobody doubts that the values should match the design system, only that a change this big can be safe, and Nexus answers with evidence: a number for the debt, a person on every call, and a pixel check on every page it can capture.\n\nTypography is the first category through the door, while colour and spacing are measured and waiting for the same loop to carry them.',
+    quickInsight: 'Design debt is a trust problem, not a clean-up job, so measure it, let people make the calls, and check every change on the page.',
   },
 }

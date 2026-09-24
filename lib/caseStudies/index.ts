@@ -13,11 +13,11 @@ export { dna, nexus, dropdownBuilder, smsCharacters, timeManagement, fastTrackAI
 
 // Export aggregated array
 export const caseStudies: CaseStudy[] = [
-  dna,
   nexus,
+  dna,
   fastTrackAI,
-  timeManagement,
-  smsCharacters,
   dropdownBuilder,
+  smsCharacters,
+  timeManagement,
 ]
 
