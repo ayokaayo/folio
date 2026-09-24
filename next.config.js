@@ -5,6 +5,12 @@
 // Sometimes the best way to learn is to explore great work and make it your own.
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    return [
+      { source: '/work/xpdna', destination: '/work/dna', permanent: true },
+      { source: '/img/xpdna/cover.jpg', destination: '/img/dna/cover-neon.jpg', permanent: true },
+    ]
+  },
 }
 
 module.exports = nextConfig

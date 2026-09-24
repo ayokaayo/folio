@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Home Page — Miguel Angelo Portfolio V2 (MONO EDITION)
+ * Home Page: Miguel Angelo Portfolio V2 (MONO EDITION)
  *
  * Design System: Tactile Minimal × Swiss Brutalism
  *
@@ -25,7 +25,7 @@ import { ROUTES } from '@/lib/constants'
 export default function Home() {
   // Selected works for homepage
   const selectedWorks = useMemo(() => {
-    const order = ['xpdna', 'fast-track-ai']
+    const order = ['dna', 'fast-track-ai']
     return order
       .map(id => caseStudies.find(cs => cs.id === id))
       .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)
@@ -152,7 +152,7 @@ export default function Home() {
               key={work.id}
               caseStudy={work}
               index={index}
-              featured={work.id === 'xpdna'}
+              featured={work.id === 'dna'}
             />
           ))}
         </GridRow>
