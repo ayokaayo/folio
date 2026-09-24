@@ -16,7 +16,7 @@ export const wordWarOne: SideProject = {
   // ─────────────────────────────────────────────────────────────
   description: 'A physical card game for 2-5 players. Combine letter cards to form words and use them as attacks, defenses, or special moves. Health points, resupply mechanics, and boss words create strategic depth beneath the party-game surface. Self-designed, self-published, funded on Indiegogo.',
   cardSummary: 'Physical card game where words become weapons. 2-5 players, health points, special cards, boss words. Self-published via Indiegogo.',
-  readingTime: '5–8 min read',
+  readingTime: '5 to 8 min read',
   videoUrl: 'https://www.youtube.com/embed/1PhT3UENxoI',
   imageUrl: '/img/projects/word-war-one/1920x1080.png',
   imageAlt: 'Word War One game artwork showing multiple hands reaching toward letter tiles spelling out the game title',
@@ -63,7 +63,7 @@ export const wordWarOne: SideProject = {
     background: 'Word games are everywhere, but most are pure vocabulary tests. The person who reads the most wins. Strategy games are everywhere, but most require significant investment to learn and play. The overlap between accessible and deep is surprisingly thin.\n\nI had been playing with the idea of letter cards as combat for years: Scrabble tiles as ammunition, words as attacks that could be blocked or countered. But the system always collapsed under its own complexity or failed to produce meaningful decisions.\n\nThe breakthrough was realizing that the word itself should not determine the damage. The context should. A short word played at the right moment against the right opponent could be devastating. A long word played into a prepared defense could be neutralized entirely.',
     quickContext: 'Word games reward vocabulary. Strategy games require hours. The gap was a game that bridged both without dominating either.',
 
-    opportunity: 'The gap was a game that respected vocabulary without being dominated by it. That introduced strategy without requiring a tutorial. That created dramatic moments without relying on luck.\n\nHealth points meant comebacks were always possible. Special cards meant the board state could shift unpredictably. Boss words — pre-selected target words that ended the game immediately if played — created tension around holding powerful letters and watching opponents\' hands for the telltale signs of a finishing move.',
+    opportunity: 'The gap was a game that respected vocabulary without being dominated by it. That introduced strategy without requiring a tutorial. That created dramatic moments without relying on luck.\n\nHealth points meant comebacks were always possible. Special cards meant the board state could shift unpredictably. Boss words (pre-selected target words that ended the game immediately if played) created tension around holding powerful letters and watching opponents\' hands for the telltale signs of a finishing move.',
 
     audience: 'Game nights where not everyone wants to read a rulebook. Families where the kids have better vocabularies than the parents. Friend groups where one person always wins at Scrabble and everyone else is tired of it.',
   },

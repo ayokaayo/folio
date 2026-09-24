@@ -31,7 +31,7 @@ export interface SideProject {
   status?: ProjectStatus
   description: string
   cardSummary?: string // Short 1-2 sentence summary for card preview (falls back to description if not set)
-  readingTime?: string // Reading time label for card (e.g., "5–8 min read")
+  readingTime?: string // Reading time label for card (e.g., "5 to 8 min read")
   imageUrl?: string // Path to image in /public folder (e.g., '/images/design-system.jpg')
   imageAlt?: string // Alt text for the image
   videoUrl?: string // YouTube video URL for video hero

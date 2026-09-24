@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * CaseStudyCard — MONO EDITION
+ * CaseStudyCard: MONO EDITION
  * 
  * Design spec:
  * - Height: 200px desktop, auto mobile
@@ -56,7 +56,7 @@ export default function CaseStudyCard({
     // Extract just the number from formatted strings like "4 min"
     const quickNum = parseInt(quickTime)
     const deepNum = parseInt(deepTime)
-    return `${quickNum}–${deepNum} min read`
+    return `${quickNum} to ${deepNum} min read`
   }, [caseStudy])
 
   // Handle hover with 200ms delay for trace trigger
@@ -100,7 +100,7 @@ export default function CaseStudyCard({
                 <GridLabel size="sm">{caseStudy.hashtag}</GridLabel>
               </div>
 
-              {/* Title — MONO */}
+              {/* Title: MONO */}
               <h3 className="font-mono font-medium text-text-primary text-title-lg mb-2">
                 {caseStudy.title}
               </h3>
@@ -113,7 +113,7 @@ export default function CaseStudyCard({
                 {caseStudy.company} · {caseStudy.year}
               </p>
 
-              {/* Card Summary — line-clamp so card height stays within grid cell multiple */}
+              {/* Card Summary: line-clamp so card height stays within grid cell multiple */}
               <p
                 id={`${caseStudy.id}-summary`}
                 className="font-mono text-body text-text-secondary line-clamp-3"

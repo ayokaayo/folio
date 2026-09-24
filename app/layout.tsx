@@ -9,7 +9,7 @@ import StructuredData from '@/components/StructuredData'
 import EasterEgg from '@/components/EasterEgg'
 import { SITE } from '@/lib/constants'
 
-// MONO ONLY — IBM Plex Mono for all typography
+// MONO ONLY: IBM Plex Mono for all typography
 const ibmPlexMono = IBM_Plex_Mono({
   weight: ['400', '500'],
   subsets: ['latin'],
@@ -19,7 +19,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Miguel Angelo — AI Systems Designer',
+  title: 'Miguel Angelo · AI Systems Designer',
   description: 'AI Systems Designer building high-stakes product infrastructure. A career in regulated industries: Localisation, iGaming, Enterprise SaaS.',
   keywords: 'AI systems design, agent harnesses, evals, design systems, product design, B2B SaaS, iGaming, enterprise software, localisation',
   authors: [{ name: 'Miguel Angelo' }],
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     icon: '/cv/MAF.jpg',
   },
   openGraph: {
-    title: 'Miguel Angelo — AI Systems Designer',
+    title: 'Miguel Angelo · AI Systems Designer',
     description: 'Building high-stakes product infrastructure, and enabling the teams that own it.',
     url: SITE.URL,
     siteName: 'Miguel Angelo Portfolio',
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
         url: `${SITE.URL}${SITE.OG_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: 'Miguel Angelo — AI Systems Designer',
+        alt: 'Miguel Angelo · AI Systems Designer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Miguel Angelo — AI Systems Designer',
+    title: 'Miguel Angelo · AI Systems Designer',
     description: 'Building high-stakes product infrastructure, and enabling the teams that own it.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },

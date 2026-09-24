@@ -54,7 +54,7 @@ I specialize in scaling B2B SaaS products under real-world constraints:
 
 I solve messy problems in complex B2B environments.
 
-Recent work: Led design at Fast Track AI (iGaming CRM) through 15× revenue growth, multiple international market launches, and AI product development—all while managing a legacy system with significant technical debt.
+Recent work: Led design at Fast Track AI (iGaming CRM) through 15× revenue growth, multiple international market launches, and AI product development, all while managing a legacy system with significant technical debt.
 
 Specialize in: Enterprise SaaS, design systems at scale, regulated industries, cross-functional collaboration.
 

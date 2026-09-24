@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Footer — MONO EDITION
+ * Footer: MONO EDITION
  *
  * - All text: IBM Plex Mono
  * - Accent: Forest green

@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Projects Page — MONO EDITION
+ * Projects Page: MONO EDITION
  *
  * - All typography: IBM Plex Mono
  * - Grid visible from bottom extending upward

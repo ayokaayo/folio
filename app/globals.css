@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  /* Tactile Minimal × Swiss Brutalism — MONO EDITION */
+  /* Tactile Minimal × Swiss Brutalism: MONO EDITION */
   /* Deep forest green accent, all monospace typography */
 
   /* Grid System - using px for predictability */
@@ -19,12 +19,12 @@
   --bg-surface: #FFFCF8;
   --bg-grid: #E8DFD0;
   
-  /* Text — softened from pure black */
+  /* Text: softened from pure black */
   --text-primary: #2A2A2C;
   --text-secondary: #6B6B6B;
   --text-tertiary: #A3A3A3;
   
-  /* Accent — System Blue (Figma-style) */
+  /* Accent: System Blue (Figma-style) */
   --accent: #008FF0;
   --accent-muted: rgba(0, 143, 240, 0.1);
   --accent-light: #3DA8F5;
@@ -34,7 +34,7 @@
   --border-subtle: #E5E0D8;
   --border-accent: #008FF0;
   
-  /* Typography Scale — All Mono */
+  /* Typography Scale: All Mono */
   --text-display: clamp(40px, 5vw, 72px);
   --text-headline: clamp(28px, 3.5vw, 48px);
   --text-title-lg: 22px;
@@ -103,7 +103,7 @@ a {
 
 /* Component Classes */
 @layer components {
-  /* Primary Button (CTA) — using accent color now */
+  /* Primary Button (CTA): using accent color now */
   .btn-primary {
     @apply inline-flex items-center gap-2 px-6 py-3 font-mono text-label uppercase tracking-wide border-0;
     background-color: var(--accent);
@@ -133,7 +133,7 @@ a {
     transform: translateY(-1px);
   }
 
-  /* Tertiary Button (Component-style) — discrete but actionable */
+  /* Tertiary Button (Component-style): discrete but actionable */
   .btn-tertiary {
     @apply inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide;
     color: var(--text-secondary);
@@ -161,7 +161,7 @@ a {
     color: var(--text-primary);
   }
 
-  /* Tag Button — neutral small button style, no hover state (not actionable) */
+  /* Tag Button: neutral small button style, no hover state (not actionable) */
   .tag-button {
     @apply inline-flex items-center gap-2 font-mono text-caption uppercase tracking-wide;
     color: var(--text-secondary);
@@ -438,7 +438,7 @@ a {
     }
   }
 
-  /* Dashed divider matching grid (16px dash, 16px gap) — use instead of border-t for full-width section dividers */
+  /* Dashed divider matching grid (16px dash, 16px gap): use instead of border-t for full-width section dividers */
   .divider-dashed-grid {
     position: relative;
     border-top: none !important;

@@ -16,14 +16,14 @@ export const kallax: SideProject = {
   // ─────────────────────────────────────────────────────────────
   description: 'Mobile app for vinyl DJs. Sync your Discogs collection, track BPMs, build playlists, run live sets. Offline-first, local storage, no subscriptions. Designed for dark booths, professionals, and collectors who rely on manual curation.',
   cardSummary: 'Mobile companion for vinyl DJs. Sync Discogs, track BPMs, build playlists, run live sets. Offline-first, no subscriptions.',
-  readingTime: '4–7 min read',
+  readingTime: '4 to 7 min read',
   imageUrl: '/img/projects/kallax/hero.png',
   imageAlt: 'Kallax app interface showing collection grid with bold yellow accents against a dark background',
 
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
   // ─────────────────────────────────────────────────────────────
-  timeline: 'December 2025 – January 2026 (6 weeks)',
+  timeline: 'December 2025 to January 2026 (6 weeks)',
   role: 'Solo: design, development, brand, distribution',
   techStack: ['React Native', 'Figma', 'Expo', 'SQLite', 'Discogs API', 'GetSongBPM API'],
 
@@ -83,7 +83,7 @@ export const kallax: SideProject = {
   // CREATION
   // ─────────────────────────────────────────────────────────────
   creation: {
-    approach: 'Five principles emerged while designing Kallax. Each one responds to how vinyl DJs actually work—rather than how software typically imagines they should.\n\n**Honor the ritual.** Digging through records is part of the craft. The muscle memory of flipping through crates matters.\n\n**Design for the booth.** DJ booths are dark spaces, often with colored stage lighting. The interface had to work there.\n\n**Respect ownership.** No login required. No cloud storage. No subscription model.\n\n**Accept reality.** The GetSongBPM API returns tempo data for roughly 67% of tracks. So I built excellent manual entry instead of chasing perfect automation.\n\n**Stay out of the way.** Three tabs, three concepts. No nested menus to hunt through under pressure.',
+    approach: 'Five principles emerged while designing Kallax. Each one responds to how vinyl DJs actually work, rather than how software typically imagines they should.\n\n**Honor the ritual.** Digging through records is part of the craft. The muscle memory of flipping through crates matters.\n\n**Design for the booth.** DJ booths are dark spaces, often with colored stage lighting. The interface had to work there.\n\n**Respect ownership.** No login required. No cloud storage. No subscription model.\n\n**Accept reality.** The GetSongBPM API returns tempo data for roughly 67% of tracks. So I built excellent manual entry instead of chasing perfect automation.\n\n**Stay out of the way.** Three tabs, three concepts. No nested menus to hunt through under pressure.',
 
     features: [
       {

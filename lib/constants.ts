@@ -38,7 +38,7 @@ export function getProjectRoute(id: string): string {
 // Site configuration
 export const SITE = {
   NAME: 'Miguel Angelo',
-  TITLE: 'Miguel Angelo — AI Systems Designer',
+  TITLE: 'Miguel Angelo · AI Systems Designer',
   DESCRIPTION: 'AI Systems Designer building high-stakes product infrastructure. A career in regulated industries: Localisation, iGaming, Enterprise SaaS.',
   URL: 'https://miguelangelo.tech',
   EMAIL: 'hi@miguelangelo.tech',

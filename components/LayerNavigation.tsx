@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * LayerNavigation — MONO EDITION
+ * LayerNavigation: MONO EDITION
  * 
  * Sticky layer tabs for case study detail pages
  * - Tabs: [SURFACE] [STRUCTURE] [FOUNDATION]
@@ -78,7 +78,7 @@ export default function LayerNavigation({
               >
                 {layer.label}
                 
-                {/* Active underline — forest green */}
+                {/* Active underline: forest green */}
                 {isActive && (
                   <span 
                     className="absolute bottom-0 left-0 right-0 h-0.5"
@@ -95,7 +95,7 @@ export default function LayerNavigation({
 }
 
 /**
- * LayerContent — Wrapper for layer content with slide animation
+ * LayerContent: Wrapper for layer content with slide animation
  */
 interface LayerContentProps {
   layer: Layer

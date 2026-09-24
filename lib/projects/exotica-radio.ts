@@ -6,7 +6,7 @@ export const exoticaRadio: SideProject = {
   // ─────────────────────────────────────────────────────────────
   id: 'exotica-radio',
   hashtag: '#Music',
-  year: '2017–Present',
+  year: '2017 to present',
   title: 'Exotica Radio',
   subtitle:
     'The radio that never stops traveling: a live station whose player journeys the world, track by track',

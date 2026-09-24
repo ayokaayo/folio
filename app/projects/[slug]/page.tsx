@@ -126,7 +126,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             {project.title}
           </h1>
 
-          {/* Density toggle for kallax, codex-tarot & word-war-one – reuse same component & session logic as work entries */}
+          {/* Density toggle for kallax, codex-tarot & word-war-one: reuse same component & session logic as work entries */}
           {(project.id === 'kallax' || project.id === 'codex-tarot' || project.id === 'word-war-one' || project.id === 'word-war-one') && (
             <div className="mt-2 mb-4">
               <DensityToggle
@@ -217,7 +217,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             {project.description}
           </p>
 
-          {/* Project metadata — white bounding box, labelled rows with accent tag labels */}
+          {/* Project metadata: white bounding box, labelled rows with accent tag labels */}
           {(project.timeline || project.role || project.techStack) && (
             <div className="mb-8 bg-white border border-border-subtle p-6 space-y-5">
               {(project.timeline || project.role) && (
@@ -309,7 +309,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             </div>
           )}
 
-          {/* External links — filter-style with icons, now under hero */}
+          {/* External links: filter-style with icons, now under hero */}
           {project.links && project.links.length > 0 && (
             <div className="flex flex-wrap gap-3 mb-8">
               {project.links.map((link, index) => (

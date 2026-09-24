@@ -43,7 +43,7 @@ const exampleProject: SideProject = {
   // MISSION: Why this exists (not what it achieved)
   mission: {
     statement: 'To explore what a mission-first project template looks like.',
-    spark: 'I noticed side projects were being treated like mini case studies, with impact metrics front and center. But side projects aren\'t about proving ROI—they\'re about creative exploration.',
+    spark: 'I noticed side projects were being treated like mini case studies, with impact metrics front and center. But side projects aren\'t about proving ROI; they\'re about creative exploration.',
     intent: [
       'Create a template that respects the spirit of side projects',
       'Separate "impact" (case studies) from "mission" (personal work)',
@@ -53,7 +53,7 @@ const exampleProject: SideProject = {
   
   // CONTEXT: The space this lives in
   context: {
-    background: 'Portfolio templates often treat all projects the same—leading with metrics and outcomes. This works for client work but feels hollow for personal projects.',
+    background: 'Portfolio templates often treat all projects the same, leading with metrics and outcomes. This works for client work but feels hollow for personal projects.',
     opportunity: 'What if the template itself encouraged a different kind of storytelling? One that starts with curiosity instead of conclusions?',
     audience: 'Designers and developers who build things because they want to, not because someone asked them to.',
   },
@@ -72,7 +72,7 @@ const exampleProject: SideProject = {
       },
       {
         title: 'Outcome (Optional)',
-        description: 'What emerged after shipping—as observation, not celebration. Only include if something interesting happened.',
+        description: 'What emerged after shipping, as observation, not celebration. Only include if something interesting happened.',
       },
     ],
   },

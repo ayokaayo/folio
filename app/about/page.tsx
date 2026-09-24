@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * About Page — MONO EDITION
+ * About Page: MONO EDITION
  *
  * - Layout: Split screen (40% image / 60% content)
  * - All typography: IBM Plex Mono

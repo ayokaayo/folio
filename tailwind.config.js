@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Tactile Minimal × Swiss Brutalism — MONO EDITION
+        // Tactile Minimal × Swiss Brutalism: MONO EDITION
         // Deep forest green accent, full monospace typography
         
         // Backgrounds
@@ -16,12 +16,12 @@ module.exports = {
         'bg-surface': '#FFFCF8',
         'bg-grid': '#E8DFD0',
         
-        // Text — softened from pure black
+        // Text: softened from pure black
         'text-primary': '#2A2A2C',
         'text-secondary': '#6B6B6B',
         'text-tertiary': '#A3A3A3',
         
-        // Accent — System Blue (Figma-style)
+        // Accent: System Blue (Figma-style)
         'accent': '#008FF0',
         'accent-muted': 'rgba(0, 143, 240, 0.1)',
         'accent-light': '#3DA8F5',
@@ -53,7 +53,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        // MONO ONLY — All typography uses IBM Plex Mono
+        // MONO ONLY: All typography uses IBM Plex Mono
         sans: ['var(--font-ibm-plex-mono)', 'monospace'],
         serif: ['var(--font-ibm-plex-mono)', 'monospace'],
         mono: ['var(--font-ibm-plex-mono)', 'monospace'],

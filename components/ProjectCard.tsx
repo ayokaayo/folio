@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * ProjectCard — MONO EDITION with Figma-style frame
+ * ProjectCard: MONO EDITION with Figma-style frame
  *
  * Design spec:
  * - Figma-style selection frame on hover
@@ -32,7 +32,7 @@ export default function ProjectCard({
   const cardUrl = getProjectRoute(project.id)
 
   // Get reading time - use project's readingTime if available, otherwise default
-  const readingTimeLabel = project.readingTime || '6–9 min read'
+  const readingTimeLabel = project.readingTime || '6 to 9 min read'
 
   return (
     <FigmaFrame label={readingTimeLabel}>
@@ -71,7 +71,7 @@ export default function ProjectCard({
               )}
             </div>
 
-            {/* Title — MONO */}
+            {/* Title: MONO */}
             <h3 className="font-mono font-medium text-text-primary text-title-md mb-3">
               {project.title}
             </h3>

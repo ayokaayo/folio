@@ -5,7 +5,7 @@ import type { SideProject } from './types'
  * 
  * Philosophy: Side projects exist for the joy of creation.
  * Impact is a consequence, never the goal.
- * Lead with MISSION — the creative intent, the spark, the "why."
+ * Lead with MISSION: the creative intent, the spark, the "why."
  * 
  * Copy this file and rename to your project slug (e.g., 'design-system.ts')
  * Target read time: ~5 minutes
@@ -41,7 +41,7 @@ export const templateProject: SideProject = {
   
   // ─────────────────────────────────────────────────────────────
   // EXTERNAL LINKS
-  // Side projects live outside portfolios — these get prominence
+  // Side projects live outside portfolios: these get prominence
   // ─────────────────────────────────────────────────────────────
   links: [
     {
@@ -65,16 +65,16 @@ export const templateProject: SideProject = {
   // MISSION SECTION (~30 seconds)
   // 
   // Why does this exist? What's the creative intent?
-  // This is NOT about impact or outcomes — those are consequences.
+  // This is NOT about impact or outcomes: those are consequences.
   // This is about the spark, the curiosity, the thing you wanted to make.
   // ─────────────────────────────────────────────────────────────
   mission: {
-    statement: 'One sentence that captures why this project exists. Not what it does — why it matters to you.',
+    statement: 'One sentence that captures why this project exists. Not what it does: why it matters to you.',
     
     spark: 'What triggered this? A frustration you kept hitting? A curiosity you couldn\'t shake? An idea that wouldn\'t leave you alone? Be specific and personal.',
     
     intent: [
-      'What you set out to explore or create — framed as intent, not achievement',
+      'What you set out to explore or create: framed as intent, not achievement',
       'Another aspect of the creative goal',
       'A third thing you wanted to figure out or build',
       // 2-4 items. These are intentions, not outcomes.
@@ -85,7 +85,7 @@ export const templateProject: SideProject = {
   // CONTEXT SECTION (~1 minute)
   // 
   // The space this project lives in.
-  // Not "the problem" (that's case study framing) —
+  // Not "the problem" (that's case study framing);
   // rather, the situation or observation that made you act.
   // ─────────────────────────────────────────────────────────────
   context: {
@@ -93,7 +93,7 @@ export const templateProject: SideProject = {
     
     opportunity: 'What gap or possibility did you see? What could exist that didn\'t? This is about creative opportunity, not market opportunity.',
     
-    audience: 'Who might find this useful or interesting? Optional — some projects are just for you, and that\'s valid.',
+    audience: 'Who might find this useful or interesting? Optional: some projects are just for you, and that\'s valid.',
   },
   
   // ─────────────────────────────────────────────────────────────
@@ -142,7 +142,7 @@ export const templateProject: SideProject = {
   // ─────────────────────────────────────────────────────────────
   craft: {
     decisions: [
-      'A key decision you made and why — show the trade-off',
+      'A key decision you made and why: show the trade-off',
       'Another choice that shaped the work',
       'Something you tried that didn\'t work, and what you learned',
       // 3-4 decisions. These show your thinking.
@@ -160,7 +160,7 @@ export const templateProject: SideProject = {
   // ─────────────────────────────────────────────────────────────
   // OUTCOME SECTION (optional)
   // 
-  // What emerged AFTER you shipped — as natural consequences,
+  // What emerged AFTER you shipped: as natural consequences,
   // not as success metrics. Only include if something
   // interesting actually happened.
   // ─────────────────────────────────────────────────────────────
@@ -191,7 +191,7 @@ export const templateProject: SideProject = {
     
     nextSteps: [
       'Where this might go, if anywhere',
-      'Not a roadmap — just possibilities',
+      'Not a roadmap: just possibilities',
       // Optional. Only include if genuinely planned.
     ],
   },
@@ -216,7 +216,7 @@ export const templateProject: SideProject = {
  * 
  * DO:
  * - Lead with creative intent, not business outcomes
- * - Be personal — this is YOUR project, not a client's
+ * - Be personal: this is YOUR project, not a client's
  * - Show curiosity and exploration
  * - Admit what you're still figuring out
  * - Frame features as choices, not "solutions"
@@ -236,5 +236,5 @@ export const templateProject: SideProject = {
  * 
  * REMEMBER:
  * Impact is a consequence we can measure later.
- * The mission — the creative intent — is why you built this.
+ * The mission: the creative intent: is why you built this.
  */

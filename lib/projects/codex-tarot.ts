@@ -6,7 +6,7 @@ export const codexTarot: SideProject = {
   // ─────────────────────────────────────────────────────────────
   id: 'codex-tarot',
   hashtag: '#Mobile',
-  year: '2025–Present',
+  year: '2025 to present',
   title: 'Codex Tarot',
   subtitle: 'A pocket companion for tarot meditation, built to replace doom-scrolling with a moment of genuine reflection',
   status: 'live',
@@ -16,14 +16,14 @@ export const codexTarot: SideProject = {
   // ─────────────────────────────────────────────────────────────
   description: 'A mobile app for tarot exploration that turned a functional web tool into a daily meditation practice. Built with React Native, animated cosmic backgrounds, and a three-stage AI reading flow that unfolds like a conversation. Now live on Google Play with Apple approval pending, monetized through a freemium model that gives everyone access to single-card readings while reserving deeper spreads for subscribers.',
   cardSummary: 'Daily tarot meditation app with AI-powered readings. Card of the Day ritual, animated reveals, freemium model. Live on Google Play.',
-  readingTime: '5–9 min read',
+  readingTime: '5 to 9 min read',
   imageUrl: '/img/projects/codex-tarot/hero.png',
   imageAlt: 'Codex Tarot mobile app showing a three-card spread with animated card reveals against a dark nebula background',
 
   // ─────────────────────────────────────────────────────────────
   // HERO SECTION
   // ─────────────────────────────────────────────────────────────
-  timeline: 'Late 2025 – Present (4 months active development)',
+  timeline: 'Late 2025 to present (4 months active development)',
   role: 'Solo: design, development, brand, distribution',
   techStack: ['React Native', 'Expo', 'Claude AI API', 'Supabase', 'NativeWind'],
 
@@ -197,7 +197,7 @@ export const codexTarot: SideProject = {
   // ─────────────────────────────────────────────────────────────
   testimonials: [
     {
-      quote: "I just had an idea — you can add something like if you draw each day, then after 7 days, you receive something extra. I play a game where I receive daily items and if I login each day, on the 7th day, I get something extra. Somehow, this silly thing got me hooked to login daily 😄",
+      quote: "I just had an idea: you can add something like if you draw each day, then after 7 days, you receive something extra. I play a game where I receive daily items and if I login each day, on the 7th day, I get something extra. Somehow, this silly thing got me hooked to login daily 😄",
       name: 'Danny J.',
     },
     {

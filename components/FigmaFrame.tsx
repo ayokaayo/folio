@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * FigmaFrame — Figma-style selection frame wrapper
+ * FigmaFrame: Figma-style selection frame wrapper
  *
  * Wraps any card component to give it a Figma-like selection appearance:
  * - Corner resize handles (always visible)

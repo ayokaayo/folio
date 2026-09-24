@@ -3,7 +3,7 @@ import type { CaseStudy } from './types'
 export const fastTrackAI: CaseStudy = {
   id: 'fast-track-ai',
   title: 'Fast Track AI',
-  subtitle: '“It’s not a module or a feature; it’s a platform. And it’s the industry’s first natural language CRM” — Simon Lidzén, CEO, quoted fom [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/)',
+  subtitle: '“It’s not a module or a feature; it’s a platform. And it’s the industry’s first natural language CRM.” Simon Lidzén, CEO, quoted fom [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/)',
   hashtag: '#AI Product',
   company: 'Fast Track AI',
   year: '2025',
@@ -32,7 +32,7 @@ export const fastTrackAI: CaseStudy = {
     ],
     deepItems: [
       'Shipped the first fully working itertion in approximately 2 months, working alongside CPO, CTO, Head of Product, and a team of engineers including a data scientist and four developers. This timeline required ruthless prioritization and clear scope boundaries from day one, with daily syncs keeping everyone aligned.',
-      'The rollout reached every live partner within three days of launch, and a quarter of them had already used it by day three — early traction against a 70% adoption target set for the release cycle. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
+      'The rollout reached every live partner within three days of launch, and a quarter of them had already used it by day three: early traction against a 70% adoption target set for the release cycle. Internal updates noted "sticky usage" as partners returned daily, indicating genuine utility rather than novelty-driven exploration.',
       'The capability shift was dramatic: data analysis that previously required days of back-and-forth between CRM and BI teams now happens in minutes through natural conversation. One partner noted this "made their life easier both from an execution perspective as well as reporting."',
       'Campaign creation now supports automatic content generation and translation across markets, turning what was hours of configuration into a single request. The AI generates SMS content, schedules activities per market with appropriate local timing, and pre-fills existing modals so users can review before committing.',
       'Industry reviewers called it "[one of Fast Track\'s most disruptive innovations in CRM](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/)," noting that natural language AI opens up advanced capabilities to teams who previously needed technical support for every campaign.',

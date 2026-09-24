@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 
 /**
- * ExposedGrid — Visual grid overlay with refined golden spotlight effect
+ * ExposedGrid: Visual grid overlay with refined golden spotlight effect
  *
  * Features:
  * - Trailing hover wake with graduated intensity falloff

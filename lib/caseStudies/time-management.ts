@@ -314,7 +314,7 @@ export const timeManagement: CaseStudy = {
       },
     ],
     insight: "Localization isn't translation, it's trust infrastructure. When operators commit six-figure campaign budgets, their native language isn't a nice-to-have; it's the signal that this platform was built for them. The interface speaks before you do.",
-    quickInsight: "Localization isn't translation—it's the signal that the platform was built for them.",
+    quickInsight: "Localization isn't translation; it's the signal that the platform was built for them.",
   },
 
   process: {

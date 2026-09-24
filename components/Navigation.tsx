@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Navigation — MONO EDITION
+ * Navigation: MONO EDITION
  *
  * - Height: 80px
  * - Logo: avatar, IBM Plex Mono
@@ -30,7 +30,7 @@ function HamburgerIcon({ open }: { open: boolean }) {
       strokeLinejoin="round"
       aria-hidden
     >
-      {/* Top line — rotate around viewBox center so X is centered */}
+      {/* Top line: rotate around viewBox center so X is centered */}
       <line
         x1="4"
         y1="7"
@@ -51,7 +51,7 @@ function HamburgerIcon({ open }: { open: boolean }) {
         className="transition-opacity duration-200 ease-out"
         style={{ opacity: open ? 0 : 1 }}
       />
-      {/* Bottom line — rotate around viewBox center */}
+      {/* Bottom line: rotate around viewBox center */}
       <line
         x1="4"
         y1="17"
@@ -127,7 +127,7 @@ export default function Navigation() {
               </div>
             </Link>
 
-            {/* Desktop Navigation — aligned right */}
+            {/* Desktop Navigation: aligned right */}
             <div className="hidden md:flex items-center gap-10">
               {NAV_ITEMS.map((item) => {
                 const isActive = pathname === item.href || pathname.startsWith(item.href)
@@ -150,7 +150,7 @@ export default function Navigation() {
               })}
             </div>
 
-            {/* Mobile: hamburger / close button — 44px min touch target, above panel */}
+            {/* Mobile: hamburger / close button: 44px min touch target, above panel */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -167,7 +167,7 @@ export default function Navigation() {
         </div>
       </nav>
 
-      {/* Mobile menu panel — always in DOM for smooth enter/leave */}
+      {/* Mobile menu panel: always in DOM for smooth enter/leave */}
       <div
         id="mobile-nav-panel"
         className="fixed inset-0 z-40 bg-bg-surface md:hidden transition-[opacity,transform] duration-300 ease-out"

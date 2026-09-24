@@ -1,10 +1,10 @@
 'use client'
 
 /**
- * GridLabel — Figma-style label that aligns to the 16px baseline grid
+ * GridLabel: Figma-style label that aligns to the 16px baseline grid
  *
  * Design spec:
- * - Height: 24px (1.5 cells) or 32px (2 cells) — must align to grid
+ * - Height: 24px (1.5 cells) or 32px (2 cells): must align to grid
  * - Background: accent blue (#008FF0)
  * - Text: white, uppercase, mono
  * - Border radius: 4px (Figma-style)
@@ -48,7 +48,7 @@ export default function GridLabel({
 }
 
 /**
- * GridLabelMuted — Light variant for secondary labels
+ * GridLabelMuted: Light variant for secondary labels
  */
 export function GridLabelMuted({
   children,

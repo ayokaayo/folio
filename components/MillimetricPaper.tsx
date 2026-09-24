@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react'
 
 /**
- * MillimetricPaper — Engineering paper grid with square cells
+ * MillimetricPaper: Engineering paper grid with square cells
  *
  * Uses the SAME flexbox structure as ExposedGrid:
  * - 12/6/4 responsive columns with flex: 1 1 0%
