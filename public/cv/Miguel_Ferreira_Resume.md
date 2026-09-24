@@ -25,9 +25,9 @@ Figma · Adobe CC · Hotjar · Grafana · ClickUp · Jira · HTML/CSS/JS · Loca
 
 ## EXPERIENCE
 
-**Fast Track AI** — Senior Product Designer · Barcelona / Malta · 2021–Present
+**Fast Track AI**: Senior Product Designer · Barcelona / Malta · 2021 to present
 
-- Built an AI-native design-to-production harness: designers ship production components through eval gates and CI. The component library went from 4 new components in three years to 12 in five months.
+- Built an AI-native design-to-production harness: designers ship production components through eval gates and CI. The component library went from a handful of new components in three years to 12 in six months.
 - Designed and shipped the first natural-language AI CRM in iGaming. Live to every partner within three days of launch.
 - Unlocked three new markets (Brazil, LatAm, APAC) through localization: timezone tools, i18n, RTL support.
 - Eliminated SMS billing disputes entirely (from five-figure claims to zero) via encoding detection system.
@@ -35,21 +35,21 @@ Figma · Adobe CC · Hotjar · Grafana · ClickUp · Jira · HTML/CSS/JS · Loca
 
 Case studies at [miguelangelo.tech/work](https://miguelangelo.tech/work)
 
-**Unbabel** — Design Operations · Philippines · 2017–2021
+**Unbabel**: Design Operations · Philippines · 2017 to 2021
 
-- Early AI/ML adopter (2017)—integrated machine translation with human review workflows.
+- Early AI/ML adopter (2017): integrated machine translation with human review workflows.
 - Built localization pipelines for Fortune 500 clients (Adidas, PepsiCo), contributing $2M+ annually.
 
-**Presslabs** — Founding Designer · Romania · 2012–2017
+**Presslabs**: Founding Designer · Romania · 2012 to 2017
 
 - First in-house designer. Built brand identity, design system, and product UI from zero.
 
 ## SIDE PROJECTS
 
-- **Norma** (2026) — Multi-tenant SaaS running architecture studios: CRM, client portal, AI secretary. In production, EU-funded. [afharchi.com](https://afharchi.com)
-- **Kallax** (2026) — Vinyl companion app. Live on [Play Store](https://play.google.com/store/apps/details?id=com.kallax.app) & [App Store](https://apps.apple.com/us/app/kallax/id6758233437). [kallax.app](https://kallax.app)
-- **Exotica Radio** (2017–Present) — Internet radio streaming my record collection. #1 on Google. [exotica.radio](https://exotica.radio)
-- **Codex Tarot** (2024) — Neuro-symbolic card reading. Live on [Play Store](https://play.google.com/store/apps/details?id=com.codextarot.app). [codextarot.com](https://codextarot.com)
+- **Norma** (2026): Multi-tenant SaaS running architecture studios: CRM, client portal, AI secretary. In production, EU-funded. [afharchi.com](https://afharchi.com)
+- **Kallax** (2026): Vinyl companion app. Live on [Play Store](https://play.google.com/store/apps/details?id=com.kallax.app) & [App Store](https://apps.apple.com/us/app/kallax/id6758233437). [kallax.app](https://kallax.app)
+- **Exotica Radio** (2017 to present): Internet radio streaming my record collection. #1 on Google. [exotica.radio](https://exotica.radio)
+- **Codex Tarot** (2024): Neuro-symbolic card reading. Live on [Play Store](https://play.google.com/store/apps/details?id=com.codextarot.app). [codextarot.com](https://codextarot.com)
 
 More at [miguelangelo.tech/projects](https://miguelangelo.tech/projects)
 
@@ -57,7 +57,7 @@ More at [miguelangelo.tech/projects](https://miguelangelo.tech/projects)
 
 [Introduction to Agent Skills](https://verify.skilljar.com/c/xd9wehvrqz5k) (Anthropic, 2026) · AI Fluency Framework (Anthropic, 2025)
 Generative AI (Google, 2023) · ISO/IEC 27001 (2019)
-BA in Arts & Design — Instituto Politécnico de Bragança, Portugal (2008)
+BA in Arts & Design, Instituto Politécnico de Bragança, Portugal (2008)
 
 ## LANGUAGES & AVAILABILITY
 

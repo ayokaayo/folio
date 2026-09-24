@@ -42,8 +42,8 @@ Proven ability to operate in high-growth environments, ship under pressure, and 
 
 ## EXPERIENCE
 
-### **Fast Track AI** — *Senior Product Designer*
-**Barcelona / Malta · Feb 2021 – Present**  
+### **Fast Track AI**, *Senior Product Designer*
+**Barcelona / Malta · Feb 2021 to present**  
 → https://www.fasttrack.ai  
 *iGaming CRM platform serving 100+ operators across global markets*
 
@@ -51,9 +51,9 @@ Proven ability to operate in high-growth environments, ship under pressure, and 
 
 • **Won MiGEA 2024 Best Player Engagement Partner award** through UX/UI overhaul of core platform features, improving operator efficiency and end-user engagement metrics
 
-• **Led localization strategy for South America and China market entries**, designing timezone management, multi-language support, and regional compliance features — contributing to **SBC 2024 award** for international expansion excellence
+• **Led localization strategy for South America and China market entries**, designing timezone management, multi-language support, and regional compliance features, contributing to **SBC 2024 award** for international expansion excellence
 
-• **Designed and shipped AI-powered content generation tools** (text/image automation) in production, enabling operators to automate player communications — earning **AIBC and MiGEA innovation awards** (2024)
+• **Designed and shipped AI-powered content generation tools** (text/image automation) in production, enabling operators to automate player communications, earning **AIBC and MiGEA innovation awards** (2024)
 
 • **Rebuilt critical product flows and design system components** while managing extensive technical debt, modernizing UI across CRM modules and improving development velocity through systematic component documentation
 
@@ -63,8 +63,8 @@ Proven ability to operate in high-growth environments, ship under pressure, and 
 
 ---
 
-### **Unbabel / Lingo24** — *Design Project Coordinator*
-**Cebu City, Philippines · Dec 2017 – Feb 2021**  
+### **Unbabel / Lingo24**, *Design Project Coordinator*
+**Cebu City, Philippines · Dec 2017 to Feb 2021**  
 → https://unbabel.com  
 *AI-powered translation platform serving global enterprise clients*
 
@@ -80,14 +80,14 @@ Proven ability to operate in high-growth environments, ship under pressure, and 
 
 ---
 
-### **Presslabs** — *Senior Graphic Designer*
-**Timișoara, Romania · Aug 2012 – Aug 2017**  
+### **Presslabs**, *Senior Graphic Designer*
+**Timișoara, Romania · Aug 2012 to Aug 2017**  
 → https://www.presslabs.com  
 *WordPress hosting and publishing platform for enterprise media*
 
 • **First in-house designer:** Built brand identity, design system, and core product UI from scratch for early-stage startup
 
-• **Designed product dashboard** (still in production today) — first major UX/UI leadership role, establishing patterns for SaaS product design
+• **Designed product dashboard** (still in production today), first major UX/UI leadership role, establishing patterns for SaaS product design
 
 • **Owned all design output** as solo designer across branding, product interface, marketing, and communications during rapid growth phase
 
@@ -95,9 +95,9 @@ Proven ability to operate in high-growth environments, ship under pressure, and 
 
 ## AWARDS & RECOGNITION
 
-**MiGEA 2024** — Best Player Engagement Partner (Malta iGaming Excellence Awards)  
-**SBC 2024** — Market Entry Excellence (Sports Betting Community Awards)  
-**AIBC 2024** — Innovation in AI Product Design (AI & Blockchain Conference)  
+**MiGEA 2024**: Best Player Engagement Partner (Malta iGaming Excellence Awards)  
+**SBC 2024**: Market Entry Excellence (Sports Betting Community Awards)  
+**AIBC 2024**: Innovation in AI Product Design (AI & Blockchain Conference)  
 
 *All awards earned for work at Fast Track AI*
 
@@ -105,9 +105,9 @@ Proven ability to operate in high-growth environments, ship under pressure, and 
 
 ## EDUCATION & CERTIFICATIONS
 
-• **Introduction to Generative AI** — Google (2023)  
-• **Information Security Management (ISO 27001)** — 2019  
-• **BA, Arts & Design** — Instituto Politécnico de Bragança, Portugal (2008)  
+• **Introduction to Generative AI**, Google (2023)  
+• **Information Security Management (ISO 27001)**, 2019  
+• **BA, Arts & Design**, Instituto Politécnico de Bragança, Portugal (2008)  
 
 ---
 
@@ -122,7 +122,7 @@ Proven ability to operate in high-growth environments, ship under pressure, and 
 ## AVAILABILITY & VISA
 
 • **Available:** [Specify: Immediate / 1 month notice / etc.]  
-• **Work Authorization:** EU Citizen (Portuguese passport) — can provide documentation for Singapore Employment Pass application  
+• **Work Authorization:** EU Citizen (Portuguese passport), can provide documentation for Singapore Employment Pass application  
 • **Relocation:** Ready to relocate to Singapore for the right opportunity  
 
 ---
