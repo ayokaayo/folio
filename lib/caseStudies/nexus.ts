@@ -8,7 +8,7 @@ export const nexus: CaseStudy = {
   company: 'Fast Track AI',
   year: '2026',
   linkText: 'Read case study',
-  cardSummary: 'Design debt made measurable: 22,050 style rules checked against the design system, and a typography fix awaiting review.',
+  cardSummary: 'Design system management tooling that measures silent drift and pays the debt down safely with AI, while people decide.',
   imageUrl: '/img/nexus/cover-emoji.jpg',
   imageAlt: 'Nexus cover: a glossy magenta and cyan magnifying glass emoji beside the Nexus wordmark and the tagline design debt and drift management, on a light paper field faintly sketched with before and after screens, a pixel grid and a type scale',
   timeline: 'September 2026 (proof of concept; typography change awaiting review)',
