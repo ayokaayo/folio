@@ -8,7 +8,7 @@ export const dna: CaseStudy = {
   company: 'Fast Track AI',
   year: '2026',
   linkText: 'Read case study',
-  cardSummary: 'A Design System Workstation: an AI harness where anyone in the organisation prototypes in production code, safely and within the rules, and where designers and non-technical teammates went from zero merged pull requests into the product to 31.',
+  cardSummary: 'An AI harness where anyone prototypes in production code, and designers and non-technical teammates now ship to the product.',
   // Cover: the neon alternative is '/img/dna/cover-neon.jpg' with its alt below
   imageUrl: '/img/dna/cover-paper.jpg',
   imageAlt: 'DNA cover: the DNA emoji and the DNA wordmark over the tagline design system workstation, on a light paper field faintly sketched with a browser window, a terminal, a chat panel and design system components',

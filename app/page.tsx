@@ -25,7 +25,7 @@ import { ROUTES } from '@/lib/constants'
 export default function Home() {
   // Selected works for homepage
   const selectedWorks = useMemo(() => {
-    const order = ['dna', 'fast-track-ai']
+    const order = ['nexus', 'dna', 'fast-track-ai']
     return order
       .map(id => caseStudies.find(cs => cs.id === id))
       .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)
@@ -141,7 +141,7 @@ export default function Home() {
             <GridLabel>Selected Works</GridLabel>
           </div>
           <div style={{ flex: '4 4 0%' }} className="flex-1 lg:flex-[4_4_0%] text-right">
-            <GridLabelMuted size="sm">005</GridLabelMuted>
+            <GridLabelMuted size="sm">{String(caseStudies.length).padStart(3, '0')}</GridLabelMuted>
           </div>
         </GridRow>
 
