@@ -28,7 +28,7 @@ interface BeforeAfterImageProps {
  *   {
  *     url: '/img/case-study/after-interface.png',
  *     alt: 'After: New interface',
- *     caption: 'After: Fully localized interface'
+ *     caption: 'After: Fully localised interface'
  *   }
  * ]
  * 

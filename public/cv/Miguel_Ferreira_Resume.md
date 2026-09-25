@@ -66,4 +66,4 @@ Portuguese (native) · English (fluent) · Spanish (professional) · Romanian (f
 
 ---
 
-ref:MA-2026-07 · v5.0 · miguelangelo.tech · utf8
+ref:MA-2026-09 · v5.1 · miguelangelo.tech · utf8

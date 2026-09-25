@@ -20,7 +20,7 @@ export default function StructuredData() {
       'Product Design',
       'UX Design',
       'B2B SaaS',
-      'Localization',
+      'Localisation',
     ],
   }
 

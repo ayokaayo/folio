@@ -2,15 +2,15 @@ import type { CaseStudy } from './types'
 
 export const timeManagement: CaseStudy = {
   id: 'time-management',
-  title: 'Time Management & Localization Tools',
+  title: 'Time Management & Localisation Tools',
   subtitle: 'Enabled 24/7 global operations and unlocked 3 major markets',
   hashtag: '#Growth design',
   company: 'Fast Track AI',
   year: '2024',
-  cardSummary: 'Dual timezone display and full UI localization for global iGaming operations. Unlocked Brazil, LatAm, and APAC markets.',
+  cardSummary: 'Dual timezone display and full UI localisation for global iGaming operations. Unlocked Brazil, LatAm, and APAC markets.',
   linkText: 'Read case study',
   imageUrl: '/img/localisation/hero-settings-interface.png',
-  imageAlt: 'Localization settings interface showing language and timezone configuration options',
+  imageAlt: 'Localisation settings interface showing language and timezone configuration options',
   timeline: 'Q4 2023 - Q1 2024 (6 months)',
   team: '4 (Product Designer + 3 Engineers)',
 
@@ -41,7 +41,7 @@ export const timeManagement: CaseStudy = {
       {
         url: '/img/localisation/impact-awards.png',
         alt: 'Three industry award badges from AIBC, SBC Latin America, and SiGMA Americas',
-        caption: 'All three awards won following localization rollout',
+        caption: 'All three awards won following localisation rollout',
       },
       {
         url: '/img/localisation/after-dashboard.png',
@@ -85,7 +85,7 @@ export const timeManagement: CaseStudy = {
     whyItMattered: [
       'Brazil: Largest LatAm opportunity. Portuguese was explicit dealbreaker in sales',
       'Colombia & LATAM: Spanish required for regional expansion',
-      'APAC: Zero localization = zero market access',
+      'APAC: Zero localisation = zero market access',
       'Operations: Manual time conversion eating hours daily',
     ],
     images: [
@@ -107,7 +107,7 @@ export const timeManagement: CaseStudy = {
     decisions: [
       {
         title: '1. Dual-Track Development',
-        decision: 'Parallel development of timezone tools and localization features',
+        decision: 'Parallel development of timezone tools and localisation features',
         rationale: 'Different teams could work simultaneously without creating dependencies between the two efforts. Both features were needed for market entry, but they served different immediate needs, so keeping them parallel made sense from both a timeline and resource perspective.',
         result: 'We delivered both features in the same release, avoiding the bottlenecks that would have come from sequential work.',
       },
@@ -153,11 +153,11 @@ export const timeManagement: CaseStudy = {
       description: 'Calendar components with native language labels, timezone indicator badges showing which zone is active, global time tooltips that display on-demand conversions, DST transition warnings when scheduled events might be affected, and full AM/PM format support for regions that prefer 12-hour time.',
     },
     {
-      title: 'Complete UI Localization',
+      title: 'Complete UI Localisation',
       description: 'Platform-wide translation of all interface text, metrics and calculations, help documentation, and error messages. Regional formats applied consistently for dates (DD/MM vs MM/DD), numbers (comma vs period separators), and currency displays. Each market gets native-feeling interface rather than mechanical translation.',
       image: {
         url: '/img/localisation/settings-interface.png',
-        alt: 'Localization settings interface showing language and timezone configuration options',
+        alt: 'Localisation settings interface showing language and timezone configuration options',
         caption: 'Settings interface with language and timezone preferences',
       },
     },
@@ -192,7 +192,7 @@ export const timeManagement: CaseStudy = {
         activities: [
           'Mapped out 8 unique time-measuring components scattered across the system',
           'Identified and tagged over 20,000 translatable strings requiring management',
-          'Documented critical user flows requiring both timezone and localization features',
+          'Documented critical user flows requiring both timezone and localisation features',
           'Created edge case catalog for DST transitions and extreme timezone offsets (GMT+13/-11)',
         ],
       },
@@ -200,7 +200,7 @@ export const timeManagement: CaseStudy = {
         phase: 'Weeks 3-10: Parallel Development',
         activities: [
           'Timezone track built dual clocks, contextual tooltips, and calendar components',
-          'Localization track developed translation pipeline and language switcher',
+          'Localisation track developed translation pipeline and language switcher',
           'Both tracks maintained daily sync to ensure integration compatibility',
           'Regional format system built for dates, numbers, currency across all interfaces',
         ],
@@ -249,8 +249,8 @@ export const timeManagement: CaseStudy = {
         results: [
           'Brazil saw multiple enterprise partners successfully onboarded once the Portuguese interface removed their primary objection',
           'LatAm partners across 5 countries activated and started using the Spanish interface daily in production',
-          'APAC strategic accounts onboarded with the Chinese localization, opening accounts that weren\'t possible before',
-          'The SiGMA Americas trade show demo generated 12 qualified leads, largely because prospects could see the localization working in their own language',
+          'APAC strategic accounts onboarded with the Chinese localisation, opening accounts that weren\'t possible before',
+          'The SiGMA Americas trade show demo generated 12 qualified leads, largely because prospects could see the localisation working in their own language',
         ],
       },
       {
@@ -264,7 +264,7 @@ export const timeManagement: CaseStudy = {
     ],
     quickOutcomes: [
       '3 markets successfully entered (Brazil, LatAm, APAC)',
-      '3 industry awards won after localization rollout',
+      '3 industry awards won after localisation rollout',
       'Zero post-launch critical incidents',
     ],
     technical: [
@@ -277,7 +277,7 @@ export const timeManagement: CaseStudy = {
       {
         url: '/img/localisation/after-clock.png',
         alt: 'Calendar widget in Simplified Chinese with dual timezone display',
-        caption: 'Fully localized system clock with dual timezone display',
+        caption: 'Fully localised system clock with dual timezone display',
       },
       {
         url: '/img/localisation/after-dual-clock.png',
@@ -286,7 +286,7 @@ export const timeManagement: CaseStudy = {
       },
       {
         url: '/img/localisation/translation-backoffice.png',
-        alt: 'Backoffice interface showing translation and localization features',
+        alt: 'Backoffice interface showing translation and localisation features',
         caption: 'Translation pipeline: Machine-generated strings tracked through human validation workflow',
       },
     ],
@@ -313,8 +313,8 @@ export const timeManagement: CaseStudy = {
         solution: 'Built a flexible CSS grid system with defined expansion zones, then tested every single layout with the longest language to catch issues before deployment. This took extra time upfront but prevented a cascade of layout fixes later.',
       },
     ],
-    insight: "Localization isn't translation, it's trust infrastructure. When operators commit six-figure campaign budgets, their native language isn't a nice-to-have; it's the signal that this platform was built for them. The interface speaks before you do.",
-    quickInsight: "Localization isn't translation; it's the signal that the platform was built for them.",
+    insight: "Localisation isn't translation, it's trust infrastructure. When operators commit six-figure campaign budgets, their native language isn't a nice-to-have; it's the signal that this platform was built for them. The interface speaks before you do.",
+    quickInsight: "Localisation isn't translation; it's the signal that the platform was built for them.",
   },
 
   process: {
@@ -323,7 +323,7 @@ export const timeManagement: CaseStudy = {
       'Discovery: Sales team shared feedback that Portuguese was coming up as explicit dealbreaker in Brazil conversations. This created urgency around what had been viewed as a nice-to-have feature.',
       'Audit: Mapped every timezone touchpoint and translatable string in the system. Found 8 unique time-measuring components and 20,000+ strings requiring management.',
       'Strategy: Decided on dual-track parallel development and display-layer architecture to minimize risk. Chose 3 pilot markets (Brazil, Colombia, China) based on revenue potential.',
-      'Development: Timezone and localization tracks worked simultaneously with daily synchronization. Translation pipeline used LLM API for speed with human validation for accuracy.',
+      'Development: Timezone and localisation tracks worked simultaneously with daily synchronization. Translation pipeline used LLM API for speed with human validation for accuracy.',
       'Validation: Each market had dedicated pilot partner providing real-world feedback. Weekly sessions during development caught issues before they reached production.',
       'Rollout: Feature flags per market enabled controlled deployment. Could disable per-language if issues arose. Monitored every metric during staged launch.',
       'Recognition: Submitted to industry awards immediately after successful launch. Won all three awards we entered (AIBC 2025, SBC Latin America, SiGMA Americas).',

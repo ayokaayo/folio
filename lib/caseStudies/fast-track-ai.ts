@@ -20,7 +20,7 @@ export const fastTrackAI: CaseStudy = {
       'Shipped in 2 months with cross-functional senior team including CPO, CTO, and Head of Product',
       'Rolled out platform-wide within three days of launch, with a quarter of all partners already using it by day three',
       'Partners report that data analysis which previously took days passing between CRM and BI teams now happens in minutes through natural conversation',
-      'Campaign creation across multiple markets simplified from hours of manual configuration to a single natural language request with automatic localization',
+      'Campaign creation across multiple markets simplified from hours of manual configuration to a single natural language request with automatic localisation',
       'Featured in [iGaming Future](https://igamingfuture.com/meet-the-first-ai-crm-built-for-igaming/) and [EngageHut](https://engagehut.com/blog/fast-track-crm-review-igaming-sportsbook/) following the September 2025 launch',
       'Back-to-back industry recognition for the platform\'s AI direction: Best AI Solution at AIBC 2025 while this was being built, Industry Innovation of the Year at the SBC Europe Awards 2026 in the first year after launch',
     ],
