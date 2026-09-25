@@ -113,7 +113,7 @@ export default function TestimonialCarousel({
                 onClick={() => goToSlide(index)}
                 className={`w-2 h-2 transition-colors ${
                   index === currentIndex 
-                    ? 'bg-[#008FF0]' 
+                    ? 'bg-accent' 
                     : 'bg-border-subtle hover:bg-text-tertiary'
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}

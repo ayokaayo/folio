@@ -5,6 +5,8 @@
 // Sometimes the best way to learn is to explore great work and make it your own.
 const nextConfig = {
   reactStrictMode: true,
+  // `*.dev.tsx` routes (the hero lab) exist only in development; production never builds them.
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js', ...(process.env.NODE_ENV !== 'production' ? ['dev.tsx'] : [])],
   async redirects() {
     return [
       { source: '/work/xpdna', destination: '/work/dna', permanent: true },

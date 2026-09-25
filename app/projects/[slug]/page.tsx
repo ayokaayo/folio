@@ -224,7 +224,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 text-sm font-mono">
                   {project.timeline && (
                     <div className="flex flex-col gap-2">
-                      <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-[rgba(0,143,240,0.12)] text-[var(--accent)] rounded">
+                      <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-accent/[0.12] text-[var(--accent)] rounded">
                         <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
                         Timeline
                       </span>
@@ -233,7 +233,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   )}
                   {project.role && (
                     <div className="flex flex-col gap-2">
-                      <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-[rgba(0,143,240,0.12)] text-[var(--accent)] rounded">
+                      <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-accent/[0.12] text-[var(--accent)] rounded">
                         <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
                         Role
                       </span>
@@ -244,7 +244,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               )}
               {project.techStack && project.techStack.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-[rgba(0,143,240,0.12)] text-[var(--accent)] rounded">
+                  <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-accent/[0.12] text-[var(--accent)] rounded">
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
                     Tech stack
                   </span>
@@ -262,7 +262,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               )}
               {project.tags && project.tags.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-[rgba(0,143,240,0.12)] text-[var(--accent)] rounded">
+                  <span className="inline-flex items-center gap-1.5 self-start uppercase tracking-wide text-caption px-2 py-1 bg-accent/[0.12] text-[var(--accent)] rounded">
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"></span>
                     Tags
                   </span>

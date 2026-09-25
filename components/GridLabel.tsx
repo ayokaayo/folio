@@ -5,7 +5,7 @@
  *
  * Design spec:
  * - Height: 24px (1.5 cells) or 32px (2 cells): must align to grid
- * - Background: accent blue (#008FF0)
+ * - Background: accent at 12% (rgb(var(--accent-rgb) / 0.12))
  * - Text: white, uppercase, mono
  * - Border radius: 4px (Figma-style)
  */
@@ -35,7 +35,7 @@ export default function GridLabel({
         height: `${height}px`,
         paddingLeft: `${paddingX}px`,
         paddingRight: `${paddingX}px`,
-        backgroundColor: 'rgba(0, 143, 240, 0.12)',
+        backgroundColor: 'rgb(var(--accent-rgb) / 0.12)',
         color: 'var(--accent)',
         borderRadius: '4px',
         lineHeight: '1',

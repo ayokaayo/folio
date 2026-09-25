@@ -49,7 +49,7 @@ export default function Footer() {
                 </span>
                 <button
                   onClick={handleCopyEmail}
-                  className="font-mono text-caption uppercase tracking-wide text-white bg-[#008FF0] hover:bg-[#0077CC] px-3 py-1.5 rounded transition-colors duration-150"
+                  className="font-mono text-caption uppercase tracking-wide text-white bg-accent hover:bg-accent-hover px-3 py-1.5 rounded transition-colors duration-150"
                   aria-label="Copy email to clipboard"
                   title="Copy real email address"
                 >
@@ -61,10 +61,10 @@ export default function Footer() {
                 href={SITE.LINKEDIN}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-text-secondary bg-[#FAFAFA] border border-[#E5E5E5] px-3 py-1.5 rounded hover:bg-[#F0F0F0] hover:border-[#D4D4D4] hover:text-text-primary transition-all duration-150"
+                className="group inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-[var(--quiet-text)] bg-[var(--quiet-bg)] border border-[var(--quiet-border)] px-3 py-1.5 rounded hover:bg-[var(--quiet-bg-hover)] hover:border-[var(--quiet-border-hover)] hover:text-[var(--quiet-text-hover)] transition-all duration-150"
               >
                 LinkedIn
-                <span className="text-[#A3A3A3] group-hover:text-text-primary transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-1">→</span>
+                <span className="text-[var(--quiet-arrow)] group-hover:text-[var(--quiet-text-hover)] transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-1">→</span>
               </a>
             </div>
           </div>
@@ -78,10 +78,10 @@ export default function Footer() {
               href="/cv/Miguel_Ferreira_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-text-secondary bg-[#FAFAFA] border border-[#E5E5E5] px-3 py-1.5 rounded hover:bg-[#F0F0F0] hover:border-[#D4D4D4] hover:text-text-primary transition-all duration-150"
+              className="group inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-[var(--quiet-text)] bg-[var(--quiet-bg)] border border-[var(--quiet-border)] px-3 py-1.5 rounded hover:bg-[var(--quiet-bg-hover)] hover:border-[var(--quiet-border-hover)] hover:text-[var(--quiet-text-hover)] transition-all duration-150"
             >
               Download CV
-              <span className="text-[#A3A3A3] group-hover:text-text-primary transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-1">→</span>
+              <span className="text-[var(--quiet-arrow)] group-hover:text-[var(--quiet-text-hover)] transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-1">→</span>
             </a>
           </div>
 
@@ -92,18 +92,18 @@ export default function Footer() {
             </h3>
             <div className="space-y-3 font-mono text-body">
               <div>
-                <span className="inline-flex items-center gap-1.5 text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                <span className="inline-flex items-center gap-1.5 text-[var(--tag-text)] uppercase tracking-wide text-caption px-2 py-1 bg-[var(--tag-bg)] border border-[var(--tag-border)] rounded mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--tag-dot)]"></span>
                   BASED
                 </span>
                 <span className="block text-text-primary">Barcelona, Spain. Delivering Worldwide</span>
               </div>
               <div>
-                <span className="inline-flex items-center gap-1.5 text-text-secondary uppercase tracking-wide text-caption px-2 py-1 bg-[#F3E8FF] border border-[#D8B4FE] rounded mb-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#9333EA]"></span>
+                <span className="inline-flex items-center gap-1.5 text-[var(--tag-text)] uppercase tracking-wide text-caption px-2 py-1 bg-[var(--tag-bg)] border border-[var(--tag-border)] rounded mb-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--tag-dot)]"></span>
                   OPEN TO
                 </span>
-                <span className="block text-text-primary">Remote first. AI Systems Management, Design Engineering, Design Ops, Product Design.</span>
+                <span className="block text-text-primary">Remote first. Intelligent Systems Design, Design Engineering, Design Ops, Product Design.</span>
               </div>
             </div>
           </div>

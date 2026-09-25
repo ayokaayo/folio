@@ -74,7 +74,7 @@ export default function AboutPage() {
                 {/* Accent tint overlay */}
                 <div
                   className="absolute inset-0 pointer-events-none mix-blend-overlay"
-                  style={{ backgroundColor: 'rgba(0, 143, 240, 0.08)' }}
+                  style={{ backgroundColor: 'rgb(var(--accent-rgb) / 0.08)' }}
                 />
                 {/* Grain overlay */}
                 <div
@@ -93,15 +93,15 @@ export default function AboutPage() {
             {/* Introduction */}
             <div className="mb-12">
               <h1 className="font-mono font-medium text-text-primary text-headline mb-8">
-                AI Systems Designer. <br></br>Pragmatic Builder.
+                Intelligent Systems Designer. <br></br>Pragmatic Builder.
               </h1>
 
               <div className="space-y-6 font-mono text-body text-text-secondary">
                 <p>
-                  I design the systems that let product teams build with AI: agent harnesses, design systems, evals, and the operations that make them stick. My latest turned a design team into co-owners of their production codebase.
+                  I design the systems that let product teams build with AI: agent harnesses, design systems, evals, and the operations that make them stick. My latest turned the product team into co-owners of their production codebase.
                 </p>
                 <p>
-                  Behind that sit 10+ years in B2B platforms where failure is expensive: iGaming with real-time transactions and compliance requirements, AI systems in production since 2017, and localization infrastructure powering multi-market operations across Brazil, Latin America, and APAC.
+                  Behind that sit 10+ years in B2B platforms where failure is expensive: iGaming with real-time transactions and compliance requirements, AI systems in production since 2017, and localisation infrastructure powering multi-market operations across Brazil, Latin America, and APAC.
                 </p>
                 <p>
                   I treat interfaces as the visible layer of deeper systems. I map dependencies, surface constraints early, and design for what the engineering team will actually inherit, not just what ships in demos.
@@ -114,14 +114,14 @@ export default function AboutPage() {
 
             {/* Where I&apos;m Most Useful */}
             <div className="mb-12">
-              <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-[#008FF0] px-4 py-2 rounded mb-6">
+              <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-accent px-4 py-2 rounded mb-6">
                 Where I&apos;m Most Useful
               </h2>
 
               <div>
                 <SkillSection
                   title="AI systems, end to end"
-                  description="Harnesses, agent context, evals, and adoption: I design what the agent can touch, what it knows, and what it is held to, then get a real team to trust it. My latest took a production component library from 4 new components in three years to 12 in five months."
+                  description="Harnesses, agent context, evals, and adoption: I design what the agent can touch, what it knows, and what it is held to, then get a real team to trust it. My latest took a production component library from a handful of new components in three years to 12 in six months."
                 />
                 <SkillSection
                   title="Legacy systems under pressure"
@@ -133,14 +133,14 @@ export default function AboutPage() {
                 />
                 <SkillSection
                   title="Multi-market complexity"
-                  description="Localization isn&apos;t just about translations. I&apos;ve launched products across timezones, regulatory regimes, and cultural contexts, solving the infrastructure problems that make global operations actually work."
+                  description="Localisation isn&apos;t just about translations. I&apos;ve launched products across timezones, regulatory regimes, and cultural contexts, solving the infrastructure problems that make global operations actually work."
                 />
               </div>
             </div>
 
             {/* Recognition */}
             <div className="mb-12">
-              <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-[#008FF0] px-4 py-2 rounded mb-6">
+              <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-accent px-4 py-2 rounded mb-6">
                 Recognition
               </h2>
 
@@ -152,7 +152,7 @@ export default function AboutPage() {
                   <span className="text-text-primary">Best AI Solution</span> · AIBC 2025
                 </li>
                 <li>
-                  <span className="text-text-primary">Best Retention Partner</span> · SiGMA Americas 2025
+                  <span className="text-text-primary">Best Customer Retention</span> · SiGMA Americas 2025
                 </li>
                 <li>
                   <span className="text-text-primary">Best Acquisition &amp; Retention</span> · SBC Latin America 2024

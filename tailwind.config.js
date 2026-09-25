@@ -22,14 +22,17 @@ module.exports = {
         'text-tertiary': '#A3A3A3',
         
         // Accent: System Blue (Figma-style)
-        'accent': '#008FF0',
-        'accent-muted': 'rgba(0, 143, 240, 0.1)',
-        'accent-light': '#3DA8F5',
-        'accent-dark': '#0070C0',
+        // Resolved from CSS variables so a palette override on <html> recolours everything.
+        'accent': 'rgb(var(--accent-rgb) / <alpha-value>)',
+        'accent-muted': 'rgb(var(--accent-rgb) / 0.1)',
+        'accent-light': 'rgb(var(--accent-light-rgb) / <alpha-value>)',
+        'accent-dark': 'rgb(var(--accent-dark-rgb) / <alpha-value>)',
+        'accent-deep': 'rgb(var(--accent-deep-rgb) / <alpha-value>)',
+        'accent-hover': 'rgb(var(--accent-hover-rgb) / <alpha-value>)',
         
         // Borders
         'border-subtle': '#E5E0D8',
-        'border-accent': '#008FF0',
+        'border-accent': 'rgb(var(--accent-rgb) / <alpha-value>)',
         
         // Legacy compatibility
         background: {
@@ -42,8 +45,8 @@ module.exports = {
           muted: '#A3A3A3',
         },
         primary: {
-          DEFAULT: '#008FF0',
-          dark: '#0070C0',
+          DEFAULT: 'rgb(var(--accent-rgb) / <alpha-value>)',
+          dark: 'rgb(var(--accent-dark-rgb) / <alpha-value>)',
         },
         brand: {
           beige: '#F7F5F0',

@@ -8,6 +8,7 @@ import ErrorBoundary from '@/components/ErrorBoundary'
 import StructuredData from '@/components/StructuredData'
 import EasterEgg from '@/components/EasterEgg'
 import { SITE } from '@/lib/constants'
+import { PALETTE_BOOT } from '@/lib/palette/preview'
 
 // MONO ONLY: IBM Plex Mono for all typography
 const ibmPlexMono = IBM_Plex_Mono({
@@ -19,9 +20,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Miguel Angelo · AI Systems Designer',
-  description: 'AI Systems Designer building high-stakes product infrastructure. A career in regulated industries: Localisation, iGaming, Enterprise SaaS.',
-  keywords: 'AI systems design, agent harnesses, evals, design systems, product design, B2B SaaS, iGaming, enterprise software, localisation',
+  title: 'Miguel Angelo · Intelligent Systems Designer',
+  description: 'Intelligent Systems Designer turning LLMs into tools that teams can trust. Over a decade of highly regulated B2B products, from iGaming and localisation to enterprise software.',
+  keywords: 'intelligent systems design, AI systems design, agent harnesses, evals, design systems, product design, B2B SaaS, iGaming, enterprise software, localisation',
   authors: [{ name: 'Miguel Angelo' }],
   creator: 'Miguel Angelo',
   publisher: 'Miguel Angelo',
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     icon: '/cv/MAF.jpg',
   },
   openGraph: {
-    title: 'Miguel Angelo · AI Systems Designer',
+    title: 'Miguel Angelo · Intelligent Systems Designer',
     description: 'Building high-stakes product infrastructure, and enabling the teams that own it.',
     url: SITE.URL,
     siteName: 'Miguel Angelo Portfolio',
@@ -44,13 +45,13 @@ export const metadata: Metadata = {
         url: `${SITE.URL}${SITE.OG_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: 'Miguel Angelo · AI Systems Designer',
+        alt: 'Miguel Angelo · Intelligent Systems Designer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Miguel Angelo · AI Systems Designer',
+    title: 'Miguel Angelo · Intelligent Systems Designer',
     description: 'Building high-stakes product infrastructure, and enabling the teams that own it.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },
@@ -66,7 +67,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${ibmPlexMono.variable}`}>
+    <html lang="en" className={`${ibmPlexMono.variable}`} suppressHydrationWarning={process.env.NODE_ENV !== 'production'}>
+      {process.env.NODE_ENV !== 'production' && (
+        <head>
+          {/* Dev-only palette preview; see lib/palette/preview.ts */}
+          <script dangerouslySetInnerHTML={{ __html: PALETTE_BOOT }} />
+        </head>
+      )}
       <body className={`${ibmPlexMono.className} antialiased`}>
         <EasterEgg />
         <StructuredData />

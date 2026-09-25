@@ -460,8 +460,8 @@ export default function ExposedGrid({
               to bottom,
               transparent,
               transparent 3px,
-              rgba(0, 143, 240, ${opacity * 0.3}) 3px,
-              rgba(0, 143, 240, ${opacity * 0.3}) 4px
+              rgb(var(--accent-rgb) / ${opacity * 0.3}) 3px,
+              rgb(var(--accent-rgb) / ${opacity * 0.3}) 4px
             )`,
           }}
         />

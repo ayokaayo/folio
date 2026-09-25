@@ -5,8 +5,8 @@ export default function StructuredData() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Miguel Angelo',
-    jobTitle: 'AI Systems Designer',
-    description: 'AI Systems Designer building high-stakes product infrastructure: agent harnesses, design systems, and evals, plus the adoption work that makes them stick. Led design through 15× revenue growth at Fast Track AI.',
+    jobTitle: 'Intelligent Systems Designer',
+    description: 'Intelligent Systems Designer turning LLMs into tools that teams can trust: agent harnesses, design systems, and evals, plus the adoption work that makes them stick. Led design through 15× revenue growth at Fast Track AI.',
     url: SITE.URL,
     email: SITE.EMAIL,
     sameAs: [

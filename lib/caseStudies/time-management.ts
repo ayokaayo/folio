@@ -22,7 +22,7 @@ export const timeManagement: CaseStudy = {
       'APAC (zh-CN) - Strategic accounts activated',
       'Industry recognition: [AIBC Awards 2025](https://crypto.news/aibc-awards-brings-successful-dubai-summit-to-a-close/) - Best AI Solution',
       '[SBC Latin America 2024](https://sbcevents.com/news/sbc-awards-latinoamerica-meet-the-winners/) - Best Acquisition & Retention',
-      '[SiGMA Americas 2025](https://focusgn.com/sigma-americas-awards-focus-gaming-news-clinches-sixth-consecutive-best-igaming-media-award) - Best Retention Partner',
+      '[SiGMA Americas 2025](https://www.thegamblest.com/inside-sigma-awards-americas-2025-recap-of-the-winners/) - Best Customer Retention',
       'Operational improvements: Timezone issues dropped from top-10 support category to barely registering',
       'Zero critical incidents post-launch',
       'Stable platform integration with no performance degradation',
@@ -34,7 +34,7 @@ export const timeManagement: CaseStudy = {
     ],
     deepItems: [
       'Market expansion delivered across three regions: Brazil (pt-BR) with major regional operators onboarded, LatAm (es-ES) with multiple partners across Central and South America, and APAC (zh-CN) with strategic accounts activated.',
-      'The work earned industry recognition through three awards: [AIBC Awards 2025](https://crypto.news/aibc-awards-brings-successful-dubai-summit-to-a-close/) (Best AI Solution), [SBC Latin America 2024](https://sbcevents.com/news/sbc-awards-latinoamerica-meet-the-winners/) (Best Acquisition & Retention), and [SiGMA Americas 2025](https://focusgn.com/sigma-americas-awards-focus-gaming-news-clinches-sixth-consecutive-best-igaming-media-award) (Best Retention Partner).',
+      'The work earned industry recognition through three awards: [AIBC Awards 2025](https://crypto.news/aibc-awards-brings-successful-dubai-summit-to-a-close/) (Best AI Solution), [SBC Latin America 2024](https://sbcevents.com/news/sbc-awards-latinoamerica-meet-the-winners/) (Best Acquisition & Retention), and [SiGMA Americas 2025](https://www.thegamblest.com/inside-sigma-awards-americas-2025-recap-of-the-winners/) (Best Customer Retention).',
       'Operationally, timezone issues dropped from being a top-10 support category to barely registering, we had zero critical incidents post-launch, and the platform remained stable with no performance degradation.',
     ],
     images: [
