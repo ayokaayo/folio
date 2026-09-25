@@ -6,7 +6,8 @@
 const nextConfig = {
   reactStrictMode: true,
   // `*.dev.tsx` routes (the hero lab) exist only in development; production never builds them.
-  pageExtensions: ['tsx', 'ts', 'jsx', 'js', ...(process.env.NODE_ENV !== 'production' ? ['dev.tsx'] : [])],
+  // `dev.tsx` must come before `tsx`, or `page.dev.tsx` is read as a page named `page.dev`.
+  pageExtensions: [...(process.env.NODE_ENV !== 'production' ? ['dev.tsx'] : []), 'tsx', 'ts', 'jsx', 'js'],
   async redirects() {
     return [
       { source: '/work/xpdna', destination: '/work/dna', permanent: true },
