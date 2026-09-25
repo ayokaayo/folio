@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Miguel Angelo · Intelligent Systems Designer',
-    description: 'Building high-stakes product infrastructure, and enabling the teams that own it.',
+    description: 'Turning LLMs into tools that teams can trust, after over a decade of highly regulated B2B products, from iGaming and localisation to enterprise software.',
     url: SITE.URL,
     siteName: 'Miguel Angelo Portfolio',
     locale: 'en_US',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Miguel Angelo · Intelligent Systems Designer',
-    description: 'Building high-stakes product infrastructure, and enabling the teams that own it.',
+    description: 'Turning LLMs into tools that teams can trust, after over a decade of highly regulated B2B products, from iGaming and localisation to enterprise software.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },
   robots: {

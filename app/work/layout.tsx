@@ -3,7 +3,7 @@ import { SITE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Work - Miguel Angelo',
-  description: 'Case studies showcasing product design work combining workshops, data analysis, and a growth mindset. Examples of B2B SaaS, AI-driven products, and design systems.',
+  description: 'Case studies showcasing product design work combining workshops, data analysis, and a growth mindset. Examples of B2B SaaS, intelligent products, and design systems.',
   alternates: {
     canonical: `${SITE.URL}/work`,
   },

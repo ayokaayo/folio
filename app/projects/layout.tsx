@@ -3,7 +3,7 @@ import { SITE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Side Projects - Miguel Angelo',
-  description: 'Side projects and personal work building products that solve everyday problems. Design system evolution, AI-powered tools, and mobile applications.',
+  description: 'Side projects and personal work building products that solve everyday problems. Design system evolution, LLM-powered tools, and mobile applications.',
   alternates: {
     canonical: `${SITE.URL}/projects`,
   },
