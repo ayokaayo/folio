@@ -114,7 +114,9 @@ vec3 restGlyph(vec2 cell, float P, float t) {
     }
   }
   if (presence < 0.12) return vec3(0.0);
-  float rate = uGlyphChurn * mix(0.4, 1.6, hash01(ic * 3 + 1)) * (1.0 + 2.0 * head);
+  // Stepped, not continuous: a rate that varies smoothly with head would scale the absolute clock t
+  // and make heads flicker at frame rate, worse the longer the page is open.
+  float rate = uGlyphChurn * mix(0.4, 1.6, hash01(ic * 3 + 1)) * (head > 0.5 ? 3.0 : 1.0);
   int tick = int(floor(t * rate + 7.0 * hash01(ic + ivec2(13, 5))));
   float pick = float(hashCell(ic + ivec2(tick * 7919, tick * 104729)) & 0xffffu) / 65535.0;
   float top = clamp(floor(uGlyphRestTop + 0.5), 1.0, 6.0);
@@ -153,10 +155,12 @@ vec3 glyphs(vec2 tl, float px) {
     // Rest: whole characters, swapped instantly by the churn clock.
     cov = glyphShape(int(rg.x), q, px, snap) * rg.y;
   } else {
-    // Wake: the crossfaded ramp, as before.
+    // Wake: the crossfaded ramp, as before. A rest glyph's ink scale carries into the first stretch of
+    // the lift, so the crossover from rest to wake doesn't pop.
     int lo = int(floor(xw));
     float f = fract(xw);
     cov = (1.0 - f) * glyphShape(lo, q, px, snap) + f * glyphShape(min(lo + 1, 9), q, px, snap);
+    cov *= mix(rg.x > 0.5 ? rg.y : 1.0, 1.0, clamp(3.0 * lift, 0.0, 1.0));
   }
   return vec3(cov, max(xw, rg.x) / 9.0, max(E2, rg.z));
 }

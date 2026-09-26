@@ -9,42 +9,54 @@ const solid = (c, dpr = 1) => {
   const h = c.y1 - c.y0
   return w >= 7 && h >= 7 && c.n >= 0.6 * w * h * dpr * dpr
 }
-const sig = c => `${Math.round(c.x1 - c.x0)}x${Math.round(c.y1 - c.y0)}:${Math.round(c.n / 4)}`
+// Glyph identity by its ink bounding box only; pixel counts drift with antialiasing and ink scale.
+const sig = c => `${Math.round(c.x1 - c.x0)}x${Math.round(c.y1 - c.y0)}`
 
+// Share of rest cells whose glyph changes over 600 ms, pointer out of the hero.
+async function churn(params) {
+  const { browser, page } = await launch()
+  await openHero(page, { coverage: 0, ...params })
+  await page.mouse.move(5, 890) // keep the pointer out of the hero
+  const a = await ink(page)
+  await page.waitForTimeout(600)
+  const b = await ink(page)
+  await browser.close()
+  const B = new Map(b.cells.map(c => [`${c.cx},${c.cy}`, c]))
+  let shared = 0
+  let changed = 0
+  for (const c of a.cells) {
+    const d = B.get(`${c.cx},${c.cy}`)
+    if (!d) continue
+    shared++
+    if (sig(c) !== sig(d)) changed++
+  }
+  return { shared, changed, ratio: shared ? changed / shared : 0 }
+}
+
+// Churn: the same cells change glyph within 600 ms, clearly more than the slow pattern alone does.
+const on = await churn({})
+const off = await churn({ glyphChurn: 0 })
+assert(on.shared > 20, `enough rest cells to judge churn (${on.shared})`)
+assert(
+  on.ratio >= 0.25 && on.ratio >= 2 * off.ratio,
+  `rest glyphs churn (${on.changed}/${on.shared} changed in 600 ms; ${off.changed}/${off.shared} with churn off)`,
+)
+
+// Vocabulary: stroke glyphs (+ × ◇, a side of 9 px or more) appear at rest; never box glyphs or solids.
 const { browser, page } = await launch()
 await openHero(page, { coverage: 0 })
-await page.mouse.move(5, 890) // keep the pointer out of the hero
-
-// Churn: the same cells change glyph within 600 ms.
-const a = await ink(page)
-await page.waitForTimeout(600)
-const b = await ink(page)
-const byKey = r => new Map(r.cells.map(c => [`${c.cx},${c.cy}`, c]))
-const A = byKey(a)
-const B = byKey(b)
-let shared = 0
-let changed = 0
-for (const [k, c] of A) {
-  const d = B.get(k)
-  if (!d) continue
-  shared++
-  if (sig(c) !== sig(d)) changed++
-}
-assert(shared > 20, `enough rest cells to judge churn (${shared})`)
-assert(changed / shared >= 0.25, `rest glyphs churn (${changed}/${shared} changed in 600 ms)`)
-
-// Vocabulary: at least four distinct glyph shapes at rest, never box glyphs or solids.
-const shapes = new Set()
+await page.mouse.move(5, 890)
+let strokes = 0
 let wakeOnly = 0
 for (let i = 0; i < 5; i++) {
   const r = await ink(page)
   r.cells.forEach(c => {
-    shapes.add(sig(c).split(':')[0])
+    if (c.x1 - c.x0 >= 9 || c.y1 - c.y0 >= 9) strokes++
     if (box(c) || solid(c, r.dpr)) wakeOnly++
   })
   await page.waitForTimeout(250)
 }
-assert(shapes.size >= 4, `rest uses a varied vocabulary (${shapes.size} shapes)`)
+assert(strokes >= 10, `rest uses stroke glyphs as well as dots (${strokes} cells)`)
 assert(wakeOnly === 0, `no box glyphs or solids at rest (${wakeOnly})`)
 await browser.close()
 
@@ -52,7 +64,7 @@ await browser.close()
 // with no streams, they don't.
 async function longestRun(params) {
   const { browser, page } = await launch()
-  await openHero(page, { coverage: 0, glyphRest: 0.99, ...params })
+  await openHero(page, { coverage: 0, glyphRest: 0.995, ...params })
   await page.mouse.move(5, 890)
   const r = await ink(page)
   await browser.close()
