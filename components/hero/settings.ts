@@ -35,7 +35,7 @@ export const HERO_SETTINGS: HeroValues = {
   copyFade: 0.32,
   paper: '#F7F5F0',
   // Copy and highlights
-  headInk: 'accent-dark',
+  headInk: 'accent',
   subInk: 'accent',
   subWeight: false,
   halo: 0,
