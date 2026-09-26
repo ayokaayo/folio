@@ -2,6 +2,10 @@
 // in a fraction of columns, and wake-only glyphs (box, solid) never appear at rest.
 import { assert, ink, launch, openHero } from './lib.mjs'
 
+// The mechanism under test, pinned independently of the approved tuning (settings.ts), which may cap
+// rest glyphs at dots or run the pattern clock fast.
+const BASE = { coverage: 0, glyphRestTop: 6, glyphSpeed: 1, glyphChurn: 1.5, glyphScale: 9 }
+
 const box = c => c.x1 - c.x0 >= 15 || c.y1 - c.y0 >= 15
 // A solid fills most of its box (n counts device pixels); stroke glyphs such as + × ◇ fill well under half.
 const solid = (c, dpr = 1) => {
@@ -15,7 +19,7 @@ const sig = c => `${Math.round(c.x1 - c.x0)}x${Math.round(c.y1 - c.y0)}`
 // Share of rest cells whose glyph changes over 600 ms, pointer out of the hero.
 async function churn(params) {
   const { browser, page } = await launch()
-  await openHero(page, { coverage: 0, ...params })
+  await openHero(page, { ...BASE, ...params })
   await page.mouse.move(5, 890) // keep the pointer out of the hero
   const a = await ink(page)
   await page.waitForTimeout(600)
@@ -44,7 +48,7 @@ assert(
 
 // Vocabulary: stroke glyphs (+ × ◇, a side of 9 px or more) appear at rest; never box glyphs or solids.
 const { browser, page } = await launch()
-await openHero(page, { coverage: 0 })
+await openHero(page, BASE)
 await page.mouse.move(5, 890)
 let strokes = 0
 let wakeOnly = 0
@@ -64,7 +68,7 @@ await browser.close()
 // with no streams, they don't.
 async function longestRun(params) {
   const { browser, page } = await launch()
-  await openHero(page, { coverage: 0, glyphRest: 0.995, ...params })
+  await openHero(page, { ...BASE, glyphRest: 0.995, ...params })
   await page.mouse.move(5, 890)
   const r = await ink(page)
   await browser.close()
