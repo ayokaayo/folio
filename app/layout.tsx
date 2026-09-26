@@ -13,7 +13,7 @@ import { REVEAL_BOOT } from '@/lib/reveal'
 
 // MONO ONLY: IBM Plex Mono for all typography
 const ibmPlexMono = IBM_Plex_Mono({
-  weight: ['400', '500'],
+  weight: ['300', '400', '500'],
   subsets: ['latin'],
   variable: '--font-ibm-plex-mono',
   display: 'swap',

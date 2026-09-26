@@ -73,8 +73,8 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
                     </>
                   )}
                   {/* The title sits on its own line at every width and holds on large screens (the size above is
-                      fitted to it); later lines wrap, in normal weight. */}
-                  <span className={i === 0 ? 'lg:whitespace-nowrap' : 'font-normal'}>{line}</span>
+                      fitted to it); later lines wrap, in light weight. */}
+                  <span className={i === 0 ? 'lg:whitespace-nowrap' : 'font-light'}>{line}</span>
                 </Fragment>
               ))}
             </h1>

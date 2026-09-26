@@ -125,7 +125,7 @@ export function GhostHome() {
                         <br />
                       </>
                     )}
-                    <span className={i === 0 ? 'lg:whitespace-nowrap' : 'font-normal'}><Words>{line}</Words></span>
+                    <span className={i === 0 ? 'lg:whitespace-nowrap' : 'font-light'}><Words>{line}</Words></span>
                   </span>
                 ))}
               </h1>
