@@ -58,4 +58,7 @@ export const HERO_SETTINGS: HeroValues = {
   glyphScale: 9,
   bandGain: 1,
   glyphScrollPhase: 0.02,
+  glyphChurn: 1.5,
+  glyphRestTop: 6,
+  glyphRain: 0.12,
 }

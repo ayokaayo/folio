@@ -36,6 +36,9 @@ const GLYPHS: Param[] = [
   { key: 'glyphScale', label: 'Pattern scale (cells)', type: 'range', min: 3, max: 30, step: 0.5, default: 9 },
   { key: 'bandGain', label: 'Scroll band strength', type: 'range', min: 0, max: 3, step: 0.05, default: 1 },
   { key: 'glyphScrollPhase', label: 'Pattern morph per px scrolled (s)', type: 'range', min: 0, max: 0.1, step: 0.002, default: 0.02 },
+  { key: 'glyphChurn', label: 'Glyph changes at rest (per s)', type: 'range', min: 0, max: 8, step: 0.1, default: 1.5 },
+  { key: 'glyphRestTop', label: 'Heaviest glyph at rest', type: 'range', min: 1, max: 6, step: 1, default: 6 },
+  { key: 'glyphRain', label: 'Falling streams (share of columns)', type: 'range', min: 0, max: 1, step: 0.01, default: 0.12 },
 ]
 
 const COMMON: Param[] = [

@@ -52,6 +52,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
   const kick = useRef<() => void>(() => {})
   const size = useRef({ w: 1, h: 1 })
   const copyRect = useRef({ x0: 0, x1: 1 })
+  // Vertical extent of the copy column rule: the copy block's top to the CTA's bottom.
+  const copySpan = useRef({ top: 0, bottom: 0 })
   const lineKind = useRef<string[]>([])
   const entranceStart = useRef(0)
   const glyphClock = useRef(0)
@@ -122,7 +124,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uCopyFade: { value: new THREE.Vector3(0, 1, 1) },
         uCellOrigin: { value: new THREE.Vector2(0, 0) },
         uCtaBox: { value: new THREE.Vector4(0, 0, 0, 0) },
-        uCopyCol: { value: new THREE.Vector2(0, 0) },
+        uCopyCol: { value: new THREE.Vector4(0, 0, 0, 0) },
         uGlyphCenter: { value: new THREE.Vector2(0, 0) },
         uGlyphs: { value: 0 },
         uGlyphT: { value: 0 },
@@ -132,6 +134,9 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uGlyphInkMax: { value: 0.7 },
         uGlyphDeepen: { value: 0.8 },
         uGlyphScale: { value: 9 },
+        uGlyphChurn: { value: 1.5 },
+        uGlyphRestTop: { value: 6 },
+        uGlyphRain: { value: 0.12 },
         uInkDeep: { value: hexToVec3('#184937') },
         uPivot: { value: new THREE.Vector2(0, 0) },
       },
@@ -183,6 +188,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       // The CTA sits outside the highlight boxes; glyphs keep clear of it too.
       const cta = copyRef.current?.querySelector('a')?.getBoundingClientRect()
       if (cta) (u.uCtaBox.value as THREE.Vector4).set(cta.left - r.left, cta.top - r.top, cta.right - r.left, cta.bottom - r.top)
+      const block = copyRef.current?.getBoundingClientRect()
+      if (block) copySpan.current = { top: block.top - r.top, bottom: (cta ?? block).bottom - r.top }
     }
 
     const resize = () => {
@@ -240,7 +247,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       // Broad fade across the copy column: from the copy's left edge to well past its right edge.
       const cr = copyRect.current
       u.uCopyFade.value.set(cr.x0, cr.x1 + size.current.w * 0.18, 1 - Number(vals.copyFade))
-      u.uCopyCol.value.set(cr.x0, cr.x1)
+      u.uCopyCol.value.set(cr.x0, cr.x1, copySpan.current.top, copySpan.current.bottom)
       // Glyph layer: cells on the page lattice, rows anchored to the bottom edge; the clock stops
       // (at 0) under reduced motion so the frame is a composed still.
       const org = cellOrigin(cr.x0, size.current.h)
@@ -253,6 +260,9 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       u.uGlyphInkMax.value = Number(vals.glyphInkMax)
       u.uGlyphDeepen.value = Number(vals.glyphDeepen)
       u.uGlyphScale.value = Number(vals.glyphScale)
+      u.uGlyphChurn.value = Number(vals.glyphChurn)
+      u.uGlyphRestTop.value = Number(vals.glyphRestTop)
+      u.uGlyphRain.value = Number(vals.glyphRain)
       u.uInkDeep.value.copy(hexToVec3(colour('@accent-deep')))
       if (rm.current) glyphClock.current = 0
       else glyphClock.current = (glyphClock.current + dt * Number(vals.glyphSpeed)) % 3600

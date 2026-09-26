@@ -72,9 +72,12 @@ uniform float uGlyphMutate;
 uniform float uGlyphInkMax;
 uniform float uGlyphDeepen;
 uniform float uGlyphScale;
+uniform float uGlyphChurn;   // rest glyph swaps per second
+uniform float uGlyphRestTop; // highest rest level, 1-6
+uniform float uGlyphRain;    // share of columns carrying a falling stream
 uniform vec3 uInkDeep;      // --accent-deep
 uniform vec4 uCtaBox;       // CTA, CSS px from top-left
-uniform vec2 uCopyCol;      // copy column x0, x1
+uniform vec4 uCopyCol;      // copy column x0, x1 and the copy block's top and the CTA's bottom
          // screen 2 rotates about this point, CSS px from top-left
 
 // Area of a unit box for which a*x + b*y <= t, with x,y in [-.5,.5].

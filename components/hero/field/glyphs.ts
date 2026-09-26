@@ -95,32 +95,69 @@ float copyDistance(vec2 cell) {
   return min(best, max(gap.x, gap.y));
 }
 
-// Glyph layer at tl (CSS px from the section's top-left). Returns (coverage, intensity, E squared).
+// Rest glyph for a cell: presence from the pattern (or a falling stream), identity from a per-cell churn
+// clock, so present cells keep swapping characters. Returns (level 0-6, ink scale, deepen); 0 is empty.
+vec3 restGlyph(vec2 cell, float P, float t) {
+  ivec2 ic = ivec2(cell);
+  float presence = smoothstep(uGlyphRest, 1.0, P);
+  float head = 0.0;
+  uint hc = hashCell(ivec2(ic.x, 7919));
+  float col = float(hc & 0xffffu) / 65535.0;
+  if (col < uGlyphRain) {
+    float speed = mix(4.0, 10.0, float((hc >> 16u) & 0xffu) / 255.0);
+    float rows = uRes.y / CELL + 12.0;
+    float headRow = mod(t * speed + col * 997.0, rows);
+    float d = headRow - cell.y;
+    if (d >= 0.0 && d < 12.0) {
+      presence = max(presence, exp(-d / 4.0));
+      head = 1.0 - smoothstep(0.0, 1.5, d);
+    }
+  }
+  if (presence < 0.12) return vec3(0.0);
+  float rate = uGlyphChurn * mix(0.4, 1.6, hash01(ic * 3 + 1)) * (1.0 + 2.0 * head);
+  int tick = int(floor(t * rate + 7.0 * hash01(ic + ivec2(13, 5))));
+  float pick = float(hashCell(ic + ivec2(tick * 7919, tick * 104729)) & 0xffffu) / 65535.0;
+  float top = clamp(floor(uGlyphRestTop + 0.5), 1.0, 6.0);
+  float level = min(1.0 + floor(pow(pick, 1.6) * top), top);
+  return vec3(level, mix(0.5, 1.0, presence), 0.6 * head);
+}
+
+// Glyph layer at tl (CSS px from the section's top-left). Returns (coverage, intensity, deepen): deepen is
+// the larger of E squared and a stream head's deepening.
 vec3 glyphs(vec2 tl, float px) {
   vec2 cell = floor((tl - uCellOrigin) / CELL);
   vec2 ctr = uCellOrigin + (cell + 0.5) * CELL;
   float dCopy = copyDistance(cell);
   if (dCopy < CELL) return vec3(0.0); // one clear cell around every copy box and the CTA
-  bool inColumn = ctr.x >= uCopyCol.x && ctr.x <= uCopyCol.y;
+  // The column rule covers the copy block's height (top to the CTA's bottom) plus one cell; below it,
+  // on phones where the column is nearly full width, rest glyphs and streams still appear.
+  bool inColumn = ctr.x >= uCopyCol.x && ctr.x <= uCopyCol.y && ctr.y >= uCopyCol.z - CELL && ctr.y <= uCopyCol.w + CELL;
   float h = fieldH(ctr);
   float E = fieldE(ctr);
   float E2 = E * E;
   float P = glyphPattern(cell, uGlyphT, uGlyphMutate * h);
   float shape = 0.35 + 0.65 * P;
-  // No rest dots in the copy column: beside monospace type they read as stray punctuation.
-  float rest = inColumn ? 0.0 : 0.33 * smoothstep(uGlyphRest, 1.0, P);
-  float lift = uGlyphWake * E2 * shape;
-  float I = clamp(rest + lift, 0.0, 1.0);
-  // Neighbouring cells pass through the ramp at different moments; only in the wake, so rest stays soft.
+  // No rest glyphs in the copy column: beside monospace type they read as stray punctuation.
+  vec3 rg = inColumn ? vec3(0.0) : restGlyph(cell, P, uGlyphT);
+  float lift = (uGlyphWake * E2) * shape;
+  // Neighbouring cells pass through the ramp at different moments; only in the wake.
   float stagger = (hash01(ivec2(cell)) - 0.5) * 0.6 * clamp(3.0 * lift, 0.0, 1.0);
-  float x = clamp(9.0 * I + stagger, 0.0, dCopy < 3.0 * CELL ? 7.0 : 9.0);
-  if (x < 0.05) return vec3(0.0);
-  int lo = int(floor(x));
-  float f = fract(x);
-  // At 1x, stroke glyphs centre on a device pixel so their strokes stay crisp.
+  float xw = clamp(9.0 * clamp(lift, 0.0, 1.0) + stagger, 0.0, dCopy < 3.0 * CELL ? 7.0 : 9.0);
+  if (xw < 0.05 && rg.x < 0.5) return vec3(0.0);
+  // At 1x, stroke glyphs centre on a device pixel so their strokes stay crisp (glyphShape applies
+  // the snap to strokes only).
   vec2 q = tl - ctr;
   vec2 snap = uDpr < 1.5 ? vec2(0.5) : vec2(0.0);
-  float cov = (1.0 - f) * glyphShape(lo, q, px, snap) + f * glyphShape(min(lo + 1, 9), q, px, snap);
-  return vec3(cov, I, E2);
+  float cov;
+  if (xw <= rg.x) {
+    // Rest: whole characters, swapped instantly by the churn clock.
+    cov = glyphShape(int(rg.x), q, px, snap) * rg.y;
+  } else {
+    // Wake: the crossfaded ramp, as before.
+    int lo = int(floor(xw));
+    float f = fract(xw);
+    cov = (1.0 - f) * glyphShape(lo, q, px, snap) + f * glyphShape(min(lo + 1, 9), q, px, snap);
+  }
+  return vec3(cov, max(xw, rg.x) / 9.0, max(E2, rg.z));
 }
 `

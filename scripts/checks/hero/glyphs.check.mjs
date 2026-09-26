@@ -3,7 +3,14 @@
 import { assert, ink, launch, openHero, uniform } from './lib.mjs'
 
 const GLYPH_ONLY = { coverage: 0 }
-const heavy = cells => cells.filter(c => c.x1 - c.x0 >= 9 || c.y1 - c.y0 >= 9).length
+// Wake-only glyphs: box glyphs (a side of 15 px or more, they run to the cell edges) or the solid,
+// which fills most of its box (n counts device pixels). Rest marks such as + × ◇ fill well under half.
+const solid = (c, dpr) => {
+  const w = c.x1 - c.x0
+  const h = c.y1 - c.y0
+  return w >= 7 && h >= 7 && c.n >= 0.6 * w * h * dpr * dpr
+}
+const heavy = (cells, dpr = 1) => cells.filter(c => c.x1 - c.x0 >= 15 || c.y1 - c.y0 >= 15 || solid(c, dpr)).length
 
 // 1. Register with the paper lattice, desktop and a short phone.
 for (const opts of [{}, { mobile: true, width: 375, height: 667 }]) {
@@ -20,7 +27,7 @@ for (const opts of [{}, { mobile: true, width: 375, height: 667 }]) {
   await browser.close()
 }
 
-// 2. Rest: glyphs present at every sample across a compressed cycle, dots only, centred in cells.
+// 2. Rest: glyphs present at every sample across a compressed cycle, no wake-only glyphs, inside cells.
 {
   const { browser, page } = await launch()
   await openHero(page, { ...GLYPH_ONLY, glyphSpeed: 20 })
@@ -30,26 +37,32 @@ for (const opts of [{}, { mobile: true, width: 375, height: 667 }]) {
   for (let i = 0; i < 20; i++) {
     const r = await ink(page)
     minCells = Math.min(minCells, r.cells.length)
-    heavyAtRest += heavy(r.cells)
-    offCentre += r.cells.filter(c => c.x0 < 2 || c.x1 > 14 || c.y0 < 2 || c.y1 > 14).length
+    heavyAtRest += heavy(r.cells, r.dpr)
+    offCentre += r.cells.filter(c => c.x0 < 1 || c.x1 > 15 || c.y0 < 1 || c.y1 > 15).length
     await page.waitForTimeout(200)
   }
   assert(minCells >= 8, `rest glyphs in every sample (min ${minCells} cells)`)
-  assert(heavyAtRest === 0, `no marks or solids at rest (${heavyAtRest})`)
+  assert(heavyAtRest === 0, `no box glyphs or solids at rest (${heavyAtRest})`)
   assert(offCentre === 0, `rest glyphs sit inside their cells (${offCentre} off)`)
 
-  // 3. Wake: a drag across the open side of the hero lifts density and heavy glyphs, then decays.
+  // 3. Wake: a drag across the open side of the hero lifts density and wake-only glyphs, then decays.
+  // A stronger wake lift, so the drag must reach the box glyphs and the solid.
+  await openHero(page, { ...GLYPH_ONLY, glyphSpeed: 20, glyphWake: 2.5 })
+  await page.mouse.move(10, 890)
   const rest = (await ink(page)).cells.length
   await page.mouse.move(900, 200)
   for (let x = 900; x <= 1400; x += 20) await page.mouse.move(x, 200 + (x - 900) * 0.5)
+  // The wake core carries box glyphs and solids only for a few tens of ms, so sample them the moment
+  // the drag ends; the wider rise in glyph count is read at 120 ms, as before.
+  const peak = await ink(page)
   await page.waitForTimeout(120)
   const wake = await ink(page)
   assert(wake.cells.length >= rest * 2, `wake raises glyph count (${rest} to ${wake.cells.length})`)
-  assert(heavy(wake.cells) >= 5, `wake shows marks and box glyphs (${heavy(wake.cells)})`)
+  assert(heavy(peak.cells, peak.dpr) >= 5, `wake shows box glyphs and solids (${heavy(peak.cells, peak.dpr)})`)
   await page.mouse.move(10, 890)
   await page.waitForTimeout(2500)
   const after = await ink(page)
-  assert(heavy(after.cells) <= 1, `wake decays back to rest within 2.5 s (${heavy(after.cells)} heavy)`)
+  assert(heavy(after.cells, after.dpr) <= 1, `wake decays back to rest within 2.5 s (${heavy(after.cells, after.dpr)} heavy)`)
 
   // Palette switch re-resolves the deep ink.
   const before = await uniform(page, 'uInkDeep')

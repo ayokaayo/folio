@@ -28,9 +28,11 @@ for (const opts of [{}, { mobile: true }]) {
     })
   }
   const rest = await ink(page)
+  // The column rule runs from the copy block's top to the CTA's bottom, with one cell of margin.
   const restInCol = rest.cells.filter(c => {
     const x = o.x + (c.cx + 0.5) * 16
-    return x >= col.x && x <= col.y
+    const y = o.y + (c.cy + 0.5) * 16
+    return x >= col.x && x <= col.y && y >= col.z - 16 && y <= col.w + 16
   }).length
   assert(restInCol === 0, `${opts.mobile ? 'mobile' : 'desktop'}: no rest glyphs in the copy column (${restInCol})`)
   const r = page.viewportSize()
@@ -40,5 +42,18 @@ for (const opts of [{}, { mobile: true }]) {
   const hits = wake.cells.filter(inBox).length
   assert(hits === 0, `${opts.mobile ? 'mobile' : 'desktop'}: no glyphs on the copy or CTA in a strong wake (${hits})`)
   assert(wake.cells.length > rest.cells.length, 'the wake still drew glyphs elsewhere')
+  await browser.close()
+}
+
+// On phones the copy column spans nearly the full width, so below the CTA rest glyphs and streams
+// must still appear.
+{
+  const { browser, page } = await launch({ mobile: true })
+  await openHero(page, { coverage: 0, glyphRain: 0.5 })
+  await page.waitForTimeout(2000)
+  const col = await uniform(page, 'uCopyCol')
+  const o = await uniform(page, 'uCellOrigin')
+  const below = (await ink(page)).cells.filter(c => o.y + (c.cy + 0.5) * 16 > col.w + 16).length
+  assert(below >= 5, `mobile: rest glyphs and streams below the CTA (${below} cells)`)
   await browser.close()
 }
