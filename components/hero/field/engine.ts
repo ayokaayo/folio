@@ -61,7 +61,13 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
 
     let renderer: THREE.WebGLRenderer
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'low-power' })
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: false,
+        powerPreference: 'low-power',
+        // Dev only: keeps the last frame readable so scripts/checks/hero can sample pixels.
+        preserveDrawingBuffer: process.env.NODE_ENV !== 'production',
+      })
     } catch {
       setGlFailed(true)
       return
@@ -119,6 +125,9 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       toneMapped: false,
     })
     const u = material.uniforms
+    if (process.env.NODE_ENV !== 'production') {
+      ;(window as unknown as { __hero?: unknown }).__hero = { u, size: () => size.current }
+    }
     const scene = new THREE.Scene()
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material)
     scene.add(mesh)

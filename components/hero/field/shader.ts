@@ -223,10 +223,9 @@ void main() {
   float a0 = opacity * maskK * bottom * fadeK * clamp(uEntrance, 0.0, 1.0);
   // The paper under the highlight takes a pale wash of the highlight ink.
   vec3 sheet = mix(uPaper, uHiColor, clamp(hi * uHiStrength, 0.0, 1.0));
-  if (duty <= 0.0 || a0 <= 0.001) {
-    gl_FragColor = vec4(sheet, 1.0);
-    return;
-  }
+  // The ruling can be off (no line weight, or no ink here) while the glyph layer still draws, so
+  // instead of returning early its ink is zeroed.
+  float rule = (duty > 0.0 && a0 > 0.001) ? 1.0 : 0.0;
 
   float pitch = max(uPitch, 4.0 * max(pixel.x, pixel.y));
   vec2 direction = vec2(sin(uTheta), cos(uTheta));
@@ -294,7 +293,7 @@ void main() {
   vec2 edge = 0.5 * res - abs(p);
   float density = uEdgeFade > 0.0 ? mix(0.88, 1.0, smoothstep(0.0, uEdgeFade, min(edge.x, edge.y))) : 1.0;
   float grain = 0.5 * (grainWave(p, pixel, vec2(1.31, 1.73), 0.4) + grainWave(p, pixel, vec2(-1.97, 0.73), 1.7));
-  float a = clamp(a0 * density * (1.0 + clamp(uGrain, 0.0, 0.05) * grain), 0.0, 1.0);
+  float a = rule * clamp(a0 * density * (1.0 + clamp(uGrain, 0.0, 0.05) * grain), 0.0, 1.0);
 
   // Two opaque inks, as printed: where lines cross, screen 2 covers screen 1, so the
   // tone follows the UNION of the screens (c1 + c2 - overlap). That is what makes register
