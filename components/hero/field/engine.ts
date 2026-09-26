@@ -322,7 +322,9 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       blank.dispose()
       renderer.dispose()
     }
-  }, [sectionRef, copyRef, canvasRef, v, rm, activeRef, stepRef])
+    // fragment and vertex are module constants, inert in production; listing them here only
+    // matters for dev, where Fast Refresh gives them a new identity and must rebuild the material.
+  }, [sectionRef, copyRef, canvasRef, v, rm, activeRef, stepRef, fragment, vertex])
 
   useEffect(() => {
     kick.current()
