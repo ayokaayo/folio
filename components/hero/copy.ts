@@ -1,7 +1,8 @@
 /**
- * Home hero copy (British English). Headline lines break from md up; the subtitle wraps.
- * Settled 2026-09-25 with Miguel: "Intelligent Systems Designer" is his title across the
- * site, CV and LinkedIn.
+ * Home hero copy (British English). Headline lines break from md up; the first line holds on
+ * large screens and the rest wrap; the subtitle wraps. Settled 2026-09-25 with Miguel:
+ * "Intelligent Systems Designer" is his title across the site, CV and LinkedIn. Lines revised
+ * by Miguel 2026-09-26.
  */
 export interface HeroCopy {
   headline: string[]
@@ -10,9 +11,7 @@ export interface HeroCopy {
 }
 
 export const HERO_COPY: HeroCopy = {
-  headline: ['Intelligent Systems Designer.', 'Turning LLMs into tools', 'that teams can trust.'],
-  subhead: [
-    'Over a decade of highly regulated B2B products, from iGaming and localisation to enterprise software, where reliability is the product. Currently focusing on infrastructure and enablement for the new era.',
-  ],
+  headline: ['Intelligent Systems Designer.', 'Converting raw compute into trustworthy tools and products.'],
+  subhead: ['Building the infrastructure and enabling enterprises for the new era, humanly.'],
   cta: { label: 'View Work', href: '/work' },
 }

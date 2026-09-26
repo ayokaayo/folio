@@ -125,7 +125,7 @@ export function GhostHome() {
                         <br className="hidden md:block" />
                       </>
                     )}
-                    <span className="lg:whitespace-nowrap"><Words>{line}</Words></span>
+                    <span className={i === 0 ? 'lg:whitespace-nowrap' : undefined}><Words>{line}</Words></span>
                   </span>
                 ))}
               </h1>

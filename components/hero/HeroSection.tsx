@@ -57,8 +57,8 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
       <div className="relative z-10 pt-16 pb-16 md:pt-24 md:pb-24">
         <div className="lattice">
           <div ref={copyRef} className="w-full lg:w-[round(calc((100%-11*16px)/12*8+7*16px),1px)] lg:[container-type:inline-size]" style={{ textShadow }}>
-            {/* From lg the lines don't wrap, so the size follows the 8-column width (which steps with the lattice)
-                rather than the viewport: the longest line, 29 monospace characters at 0.575em each, always fits. */}
+            {/* From lg the title line doesn't wrap, so the size follows the 8-column width (which steps with the lattice)
+                rather than the viewport: the title line, 29 monospace characters at 0.575em each, always fits. */}
             <h1
               data-line="head"
               className="font-mono font-medium text-text-primary text-headline lg:text-[length:min(48px,calc(100cqw/16.9))]"
@@ -72,8 +72,8 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
                       <br className="hidden md:block" />
                     </>
                   )}
-                  {/* Each authored line holds on large screens. */}
-                  <span className="lg:whitespace-nowrap">{line}</span>
+                  {/* The title line holds on large screens (the size above is fitted to it); later lines wrap. */}
+                  <span className={i === 0 ? 'lg:whitespace-nowrap' : undefined}>{line}</span>
                 </Fragment>
               ))}
             </h1>
