@@ -54,7 +54,12 @@ export default function Lab() {
 
   const values = useMemo(() => {
     const out: Record<string, ParamValue> = {}
-    for (const p of entry.meta.params) out[p.key] = parseValue(p, search.get(`p.${p.key}`))
+    for (const p of entry.meta.params) {
+      const raw = search.get(`p.${p.key}`)
+      // Hidden params (every underlying key) only apply when a URL sets them, e.g. the checks.
+      if (p.hidden && raw === null) continue
+      out[p.key] = parseValue(p, raw)
+    }
     return out
   }, [entry, search])
 
@@ -179,16 +184,18 @@ export default function Lab() {
 
               <p className="text-white/55">{entry.meta.concept}</p>
 
-              {entry.meta.params.length > 0 && (
+              {entry.meta.params.filter(p => !p.hidden).length > 0 && (
                 <div className="space-y-3 pt-1">
-                  {entry.meta.params.map(p => (
-                    <Control
-                      key={p.key}
-                      param={p}
-                      value={values[p.key]}
-                      onChange={v => update(q => q.set(`p.${p.key}`, encodeValue(v)))}
-                    />
-                  ))}
+                  {entry.meta.params
+                    .filter(p => !p.hidden)
+                    .map(p => (
+                      <Control
+                        key={p.key}
+                        param={p}
+                        value={values[p.key]}
+                        onChange={v => update(q => q.set(`p.${p.key}`, encodeValue(v)))}
+                      />
+                    ))}
                 </div>
               )}
 

@@ -9,11 +9,12 @@ export type Author = 'claude' | 'codex' | 'together' | 'baseline'
 
 export type ParamValue = number | string | boolean
 
-export type Param =
+export type Param = (
   | { key: string; label: string; type: 'range'; min: number; max: number; step: number; default: number }
   | { key: string; label: string; type: 'color'; default: string }
   | { key: string; label: string; type: 'toggle'; default: boolean }
   | { key: string; label: string; type: 'select'; options: string[]; default: string }
+) & { hidden?: boolean }
 
 export interface VariantMeta {
   id: string
