@@ -47,4 +47,15 @@ export const HERO_SETTINGS: HeroValues = {
   hiPad: 7,
   hiRadius: 0,
   hiGap: 7.5,
+  // Glyph layer (docs/superpowers/specs/2026-09-26-hero-ascii-layer-design.md)
+  glyphs: true,
+  glyphRest: 0.8,
+  glyphWake: 1.0,
+  glyphMutate: 0.5,
+  glyphInkMax: 0.7,
+  glyphDeepen: 0.8,
+  glyphSpeed: 1,
+  glyphScale: 9,
+  bandGain: 1,
+  glyphScrollPhase: 0.02,
 }

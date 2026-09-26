@@ -25,6 +25,19 @@ const MOTION: Param[] = [
   { key: 'speedFull', label: 'Hand speed for full energy (px/s)', type: 'range', min: 200, max: 4000, step: 50, default: 1400 },
 ]
 
+const GLYPHS: Param[] = [
+  { key: 'glyphs', label: 'Glyph layer', type: 'toggle', default: true },
+  { key: 'glyphRest', label: 'Glyphs at rest (higher is sparser)', type: 'range', min: 0.3, max: 0.98, step: 0.01, default: 0.8 },
+  { key: 'glyphWake', label: 'Glyph lift from wake', type: 'range', min: 0, max: 4, step: 0.05, default: 1 },
+  { key: 'glyphMutate', label: 'Pattern bend in wake (cycles)', type: 'range', min: 0, max: 2, step: 0.05, default: 0.5 },
+  { key: 'glyphInkMax', label: 'Glyph ink at wake core', type: 'range', min: 0.1, max: 1, step: 0.01, default: 0.7 },
+  { key: 'glyphDeepen', label: 'Glyph ink deepening', type: 'range', min: 0, max: 1, step: 0.01, default: 0.8 },
+  { key: 'glyphSpeed', label: 'Pattern clock (×)', type: 'range', min: 0, max: 30, step: 0.25, default: 1 },
+  { key: 'glyphScale', label: 'Pattern scale (cells)', type: 'range', min: 3, max: 30, step: 0.5, default: 9 },
+  { key: 'bandGain', label: 'Scroll band strength', type: 'range', min: 0, max: 3, step: 0.05, default: 1 },
+  { key: 'glyphScrollPhase', label: 'Pattern morph per px scrolled (s)', type: 'range', min: 0, max: 0.1, step: 0.002, default: 0.02 },
+]
+
 const COMMON: Param[] = [
   { key: 'palette', label: 'Palette', type: 'select', options: Object.keys(PALETTES), default: 'accent' },
   { key: 'hue', label: 'Contour colour', type: 'range', min: 0, max: 2, step: 0.05, default: 0 },
@@ -49,6 +62,6 @@ const COMMON: Param[] = [
 ]
 
 
-export const HERO_PARAMS: Param[] = [...WAKE, ...MOTION, ...COMMON].map(p =>
+export const HERO_PARAMS: Param[] = [...WAKE, ...MOTION, ...GLYPHS, ...COMMON].map(p =>
   p.key in HERO_SETTINGS ? ({ ...p, default: HERO_SETTINGS[p.key] } as Param) : p,
 )
