@@ -11,7 +11,7 @@ export interface HeroCopy {
 }
 
 export const HERO_COPY: HeroCopy = {
-  headline: ['Intelligent Systems Designer.', 'Converting raw compute into trustworthy tools and products.'],
-  subhead: ['Building the infrastructure and enabling enterprises for the new era, humanly.'],
+  headline: ['Intelligent Systems Designer.', 'Converting raw compute into trustworthy tools & products.'],
+  subhead: ['Building the infrastructure and enabling enterprises for the new era.'],
   cta: { label: 'View Work', href: '/work' },
 }
