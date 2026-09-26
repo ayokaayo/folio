@@ -7,7 +7,8 @@
 import { colour } from './colour'
 import { glyphs } from './glyphs'
 
-export const MAX_MASK = 12
+import { MAX_MASK } from './glyphInputs'
+export { MAX_MASK }
 
 export const vertex = /* glsl */ `
 varying vec2 vUv;
@@ -72,6 +73,8 @@ uniform float uGlyphInkMax;
 uniform float uGlyphDeepen;
 uniform float uGlyphScale;
 uniform vec3 uInkDeep;      // --accent-deep
+uniform vec4 uCtaBox;       // CTA, CSS px from top-left
+uniform vec2 uCopyCol;      // copy column x0, x1
          // screen 2 rotates about this point, CSS px from top-left
 
 // Area of a unit box for which a*x + b*y <= t, with x,y in [-.5,.5].

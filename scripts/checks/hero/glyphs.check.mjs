@@ -82,15 +82,26 @@ for (const opts of [{}, { mobile: true, width: 375, height: 667 }]) {
   await browser.close()
 }
 
-// 5. Touch: taps raise wake glyphs.
+// 5. Touch: taps raise wake glyphs around the tap points.
 {
   const { browser, page } = await launch({ mobile: true })
   await openHero(page, GLYPH_ONLY)
-  // A tap drops a deliberately small ripple, so a burst of taps is measured by total glyph ink.
-  const rest = (await ink(page)).total
-  for (let i = 0; i < 12; i++) await page.touchscreen.tap(200 + (i % 4) * 12, 600 + Math.floor(i / 4) * 12)
+  // A tap drops a deliberately small ripple, so count inked cells whose centres lie within three
+  // cells (48 px) of any tap. The taps land in the copy column, where rest dots are suppressed, so
+  // every counted cell is a wake glyph. Measured 6 to 9 cells over six runs; the floor sits below.
+  const o = await uniform(page, 'uCellOrigin')
+  const top = await page.evaluate(() => document.querySelector('section canvas').getBoundingClientRect().top)
+  const taps = Array.from({ length: 12 }, (_, i) => [200 + (i % 4) * 12, 600 + Math.floor(i / 4) * 12])
+  const nearTaps = cells =>
+    cells.filter(c => {
+      const x = o.x + (c.cx + 0.5) * 16
+      const y = o.y + (c.cy + 0.5) * 16
+      return taps.some(([tx, ty]) => Math.hypot(x - tx, y - (ty - top)) <= 48)
+    }).length
+  const rest = nearTaps((await ink(page)).cells)
+  for (const [x, y] of taps) await page.touchscreen.tap(x, y)
   await page.waitForTimeout(100)
-  const tapped = (await ink(page)).total
-  assert(tapped > rest * 1.2, `taps raise wake glyphs (${rest} to ${tapped} ink px)`)
+  const tapped = nearTaps((await ink(page)).cells)
+  assert(tapped >= 5, `taps raise wake glyphs near the taps (${rest} to ${tapped} cells, floor 5)`)
   await browser.close()
 }

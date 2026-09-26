@@ -5,6 +5,9 @@
 
 export const CELL = 16
 
+/** Copy line boxes the shader can hold (headline plus subtitle lines). */
+export const MAX_MASK = 12
+
 /** Gaussian half-width of the scroll band, CSS px (the band reads as about six cells tall). */
 export const BAND_SIGMA = 48
 

@@ -3,6 +3,8 @@
  * chosen from a slowly blending geometric pattern and lifted by the wave field's energy.
  * See docs/superpowers/specs/2026-09-26-hero-ascii-layer-design.md.
  */
+import { MAX_MASK } from './glyphInputs'
+
 export const glyphs = /* glsl */ `
 const float CELL = 16.0;
 const float TAU = 6.28318531;
@@ -76,21 +78,42 @@ float glyphShape(int level, vec2 q, float px, vec2 snap) {
   return cover(min(min(abs(q.x - 2.0), abs(q.x + 2.0)), min(abs(q.y - 2.0), abs(q.y + 2.0))) - HW, px);
 }
 
+// Distance (CSS px) from a cell's rectangle to the nearest copy line box or the CTA; 0 when touching.
+// Measured per axis (the larger gap), so distance under d means the cell grown by d meets the box,
+// corners included.
+float copyDistance(vec2 cell) {
+  vec2 a = uCellOrigin + cell * CELL;
+  vec2 b = a + vec2(CELL);
+  float best = 1e6;
+  for (int i = 0; i < ${MAX_MASK}; i++) {
+    if (float(i) >= uMaskCount) break;
+    vec4 m = uMask[i] + vec4(-uHiPad, 0.0, uHiPad, 0.0);
+    vec2 gap = max(max(m.xy - b, a - m.zw), 0.0);
+    best = min(best, max(gap.x, gap.y));
+  }
+  vec2 gap = max(max(uCtaBox.xy - b, a - uCtaBox.zw), 0.0);
+  return min(best, max(gap.x, gap.y));
+}
+
 // Glyph layer at tl (CSS px from the section's top-left). Returns (coverage, intensity, E squared).
 vec3 glyphs(vec2 tl, float px) {
   vec2 cell = floor((tl - uCellOrigin) / CELL);
   vec2 ctr = uCellOrigin + (cell + 0.5) * CELL;
+  float dCopy = copyDistance(cell);
+  if (dCopy < CELL) return vec3(0.0); // one clear cell around every copy box and the CTA
+  bool inColumn = ctr.x >= uCopyCol.x && ctr.x <= uCopyCol.y;
   float h = fieldH(ctr);
   float E = fieldE(ctr);
   float E2 = E * E;
   float P = glyphPattern(cell, uGlyphT, uGlyphMutate * h);
   float shape = 0.35 + 0.65 * P;
-  float rest = 0.33 * smoothstep(uGlyphRest, 1.0, P);
+  // No rest dots in the copy column: beside monospace type they read as stray punctuation.
+  float rest = inColumn ? 0.0 : 0.33 * smoothstep(uGlyphRest, 1.0, P);
   float lift = uGlyphWake * E2 * shape;
   float I = clamp(rest + lift, 0.0, 1.0);
   // Neighbouring cells pass through the ramp at different moments; only in the wake, so rest stays soft.
   float stagger = (hash01(ivec2(cell)) - 0.5) * 0.6 * clamp(3.0 * lift, 0.0, 1.0);
-  float x = clamp(9.0 * I + stagger, 0.0, 9.0);
+  float x = clamp(9.0 * I + stagger, 0.0, dCopy < 3.0 * CELL ? 7.0 : 9.0);
   if (x < 0.05) return vec3(0.0);
   int lo = int(floor(x));
   float f = fract(x);

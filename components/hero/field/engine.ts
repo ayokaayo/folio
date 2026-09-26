@@ -121,6 +121,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uEntrance: { value: 0 },
         uCopyFade: { value: new THREE.Vector3(0, 1, 1) },
         uCellOrigin: { value: new THREE.Vector2(0, 0) },
+        uCtaBox: { value: new THREE.Vector4(0, 0, 0, 0) },
+        uCopyCol: { value: new THREE.Vector2(0, 0) },
         uGlyphCenter: { value: new THREE.Vector2(0, 0) },
         uGlyphs: { value: 0 },
         uGlyphT: { value: 0 },
@@ -178,6 +180,9 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         })
       }
       u.uMaskCount.value = n
+      // The CTA sits outside the highlight boxes; glyphs keep clear of it too.
+      const cta = copyRef.current?.querySelector('a')?.getBoundingClientRect()
+      if (cta) (u.uCtaBox.value as THREE.Vector4).set(cta.left - r.left, cta.top - r.top, cta.right - r.left, cta.bottom - r.top)
     }
 
     const resize = () => {
@@ -235,6 +240,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       // Broad fade across the copy column: from the copy's left edge to well past its right edge.
       const cr = copyRect.current
       u.uCopyFade.value.set(cr.x0, cr.x1 + size.current.w * 0.18, 1 - Number(vals.copyFade))
+      u.uCopyCol.value.set(cr.x0, cr.x1)
       // Glyph layer: cells on the page lattice, rows anchored to the bottom edge; the clock stops
       // (at 0) under reduced motion so the frame is a composed still.
       const org = cellOrigin(cr.x0, size.current.h)
