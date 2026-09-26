@@ -5,6 +5,7 @@
  */
 
 import { colour } from './colour'
+import { glyphs } from './glyphs'
 
 export const MAX_MASK = 12
 
@@ -60,6 +61,17 @@ uniform float uBottomFade;  // CSS px over which the ruling runs out into the ne
 uniform float uEntrance;    // 0-1 arrival: scales only the ruling, never the copy or highlights
 uniform float uAngle;       // screen angle, radians: lines parallel to type read as strike-through
 uniform vec3 uCopyFade;     // x0, x1 (CSS px from left): ink ramps from z (0-1) at x0 to full at x1
+uniform vec2 uCellOrigin;   // glyph cells: lattice column origin, bottom-anchored rows, CSS px
+uniform vec2 uGlyphCenter;  // section centre in cells
+uniform float uGlyphs;      // 0 off, 1 on
+uniform float uGlyphT;      // pattern clock, s (wrapped)
+uniform float uGlyphRest;
+uniform float uGlyphWake;
+uniform float uGlyphMutate;
+uniform float uGlyphInkMax;
+uniform float uGlyphDeepen;
+uniform float uGlyphScale;
+uniform vec3 uInkDeep;      // --accent-deep
          // screen 2 rotates about this point, CSS px from top-left
 
 // Area of a unit box for which a*x + b*y <= t, with x,y in [-.5,.5].
@@ -163,18 +175,19 @@ float grainWave(vec2 p, vec2 pixel, vec2 frequency, float phase) {
 }
 
 
+float fieldH(vec2 tl) {
+  vec2 uv = vec2(tl.x / uRes.x, 1.0 - tl.y / uRes.y);
+  return (texture2D(uField, uv).r - 0.5) * 2.0;
+}
+
 ${colour}
+${glyphs}
 
 float boxDist(vec2 q, vec4 r) {
   vec2 c = 0.5 * (r.xy + r.zw);
   vec2 h = 0.5 * (r.zw - r.xy);
   vec2 d = abs(q - c) - h;
   return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
-}
-
-float fieldH(vec2 tl) {
-  vec2 uv = vec2(tl.x / uRes.x, 1.0 - tl.y / uRes.y);
-  return (texture2D(uField, uv).r - 0.5) * 2.0;
 }
 
 void main() {
@@ -306,6 +319,21 @@ void main() {
   vec3 k1 = clamp(1.0 - ink1 / paper, 0.0, 1.0) * a;
   vec3 k2 = clamp(1.0 - ink2 / paper, 0.0, 1.0) * a;
   vec3 T = 1.0 - k1 * (cover1 - overlap) - k2 * cover2;
-  gl_FragColor = vec4(clamp(sheet * T, 0.0, 1.0), 1.0);
+  // Glyphs: an opaque ink laid over the ruling, so a glyph covers the lines it crosses:
+  // T' = T (1 - gc) + (1 - kg) gc, applied to the finished ruling colour sheet * T. Feeding T itself
+  // into new arithmetic lets the compiler fuse the ruling's own maths differently, which moved a
+  // few pixels by one step even with glyphs off; working on the finished colour keeps that frame exact.
+  vec3 outColour = sheet * T;
+  if (uGlyphs > 0.5) {
+    vec3 g = glyphs(tl, max(pixel.x, pixel.y));
+    if (g.x > 0.0) {
+      vec3 gInk = mix(ink2, uInkDeep, clamp(uGlyphDeepen * g.z, 0.0, 1.0));
+      float gA = mix(opacity, uGlyphInkMax, g.z) * bottom * clamp(uEntrance, 0.0, 1.0);
+      float gc = clamp(g.x * gA, 0.0, 1.0);
+      vec3 kg = clamp(1.0 - gInk / paper, 0.0, 1.0);
+      outColour = outColour * (1.0 - gc) + sheet * (1.0 - kg) * gc;
+    }
+  }
+  gl_FragColor = vec4(clamp(outColour, 0.0, 1.0), 1.0);
 }
 `

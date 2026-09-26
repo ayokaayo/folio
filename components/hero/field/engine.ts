@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import type { HeroValues } from '../settings'
 import { HIGHLIGHT, LATENT, colour, highlightHex, palette, resetTokens } from '../palettes'
 import { cappedDpr, useActive, useLatest } from './hooks'
+import { cellOrigin, CELL } from './glyphInputs'
 import { MAX_MASK, fragment, vertex } from './shader'
 
 /**
@@ -53,6 +54,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
   const copyRect = useRef({ x0: 0, x1: 1 })
   const lineKind = useRef<string[]>([])
   const entranceStart = useRef(0)
+  const glyphClock = useRef(0)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -118,6 +120,17 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uBottomFade: { value: 96 },
         uEntrance: { value: 0 },
         uCopyFade: { value: new THREE.Vector3(0, 1, 1) },
+        uCellOrigin: { value: new THREE.Vector2(0, 0) },
+        uGlyphCenter: { value: new THREE.Vector2(0, 0) },
+        uGlyphs: { value: 0 },
+        uGlyphT: { value: 0 },
+        uGlyphRest: { value: 0.8 },
+        uGlyphWake: { value: 1 },
+        uGlyphMutate: { value: 0.5 },
+        uGlyphInkMax: { value: 0.7 },
+        uGlyphDeepen: { value: 0.8 },
+        uGlyphScale: { value: 9 },
+        uInkDeep: { value: hexToVec3('#184937') },
         uPivot: { value: new THREE.Vector2(0, 0) },
       },
       depthTest: false,
@@ -222,6 +235,22 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       // Broad fade across the copy column: from the copy's left edge to well past its right edge.
       const cr = copyRect.current
       u.uCopyFade.value.set(cr.x0, cr.x1 + size.current.w * 0.18, 1 - Number(vals.copyFade))
+      // Glyph layer: cells on the page lattice, rows anchored to the bottom edge; the clock stops
+      // (at 0) under reduced motion so the frame is a composed still.
+      const org = cellOrigin(cr.x0, size.current.h)
+      u.uCellOrigin.value.set(org.x, org.y)
+      u.uGlyphCenter.value.set((size.current.w / 2 - org.x) / CELL, (size.current.h / 2 - org.y) / CELL)
+      u.uGlyphs.value = vals.glyphs === false ? 0 : 1
+      u.uGlyphRest.value = Number(vals.glyphRest)
+      u.uGlyphWake.value = Number(vals.glyphWake)
+      u.uGlyphMutate.value = Number(vals.glyphMutate)
+      u.uGlyphInkMax.value = Number(vals.glyphInkMax)
+      u.uGlyphDeepen.value = Number(vals.glyphDeepen)
+      u.uGlyphScale.value = Number(vals.glyphScale)
+      u.uInkDeep.value.copy(hexToVec3(colour('@accent-deep')))
+      if (rm.current) glyphClock.current = 0
+      else glyphClock.current = (glyphClock.current + dt * Number(vals.glyphSpeed)) % 3600
+      u.uGlyphT.value = glyphClock.current
 
       const moving = stepRef.current({ u, dt, now, w: size.current.w, h: size.current.h, values: vals, reducedMotion: rm.current })
       renderer.render(scene, camera)
