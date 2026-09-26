@@ -58,10 +58,10 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
         <div className="lattice">
           <div ref={copyRef} className="w-full lg:w-[round(calc((100%-11*16px)/12*8+7*16px),1px)] lg:[container-type:inline-size]" style={{ textShadow }}>
             {/* From lg the title line doesn't wrap, so the size follows the 8-column width (which steps with the lattice)
-                rather than the viewport: the title line, 29 monospace characters at 0.575em each, always fits. */}
+                rather than the viewport: the title line, 28 monospace characters at 0.575em each, always fits. */}
             <h1
               data-line="head"
-              className="font-mono font-medium text-text-primary text-headline lg:text-[length:min(48px,calc(100cqw/16.9))]"
+              className="font-mono font-medium text-text-primary text-headline lg:text-[length:min(48px,calc(100cqw/16.4))]"
               style={{ color: headColor }}
             >
               {copy.headline.map((line, i) => (
@@ -69,11 +69,12 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
                   {i > 0 && (
                     <>
                       {' '}
-                      <br className="hidden md:block" />
+                      <br />
                     </>
                   )}
-                  {/* The title line holds on large screens (the size above is fitted to it); later lines wrap. */}
-                  <span className={i === 0 ? 'lg:whitespace-nowrap' : undefined}>{line}</span>
+                  {/* The title sits on its own line at every width and holds on large screens (the size above is
+                      fitted to it); later lines wrap, in normal weight. */}
+                  <span className={i === 0 ? 'lg:whitespace-nowrap' : 'font-normal'}>{line}</span>
                 </Fragment>
               ))}
             </h1>
