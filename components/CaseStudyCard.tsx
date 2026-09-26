@@ -21,12 +21,10 @@ import { GRID_GAP } from './ExposedGrid'
 import GridLabel from './GridLabel'
 import { calculateCaseStudyReadingTime } from '@/lib/utils/readingTime'
 import ImageWithLoader from './ImageWithLoader'
+import { useCellHeight } from '@/lib/useCellHeight'
 
 /** Card-to-card spacing: 2 grid gaps (32px) - will be grid-aligned via CSS */
 export const CARD_GAP = GRID_GAP * 2
-
-/** Max card height on desktop: ~15% less than 510px, golden-ratio friendly (432 ≈ 233φ) */
-const CARD_MAX_HEIGHT_DESKTOP = 432
 
 interface CaseStudyCardProps {
   caseStudy: CaseStudy
@@ -45,6 +43,8 @@ export default function CaseStudyCard({
   const [isHovered, setIsHovered] = useState(false)
   const [showTrace, setShowTrace] = useState(false)
   const cardRef = useRef<HTMLDivElement>(null)
+  const articleRef = useRef<HTMLElement>(null)
+  useCellHeight(articleRef)
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const cardUrl = caseStudy.linkUrl || getWorkRoute(caseStudy.id)
@@ -89,6 +89,7 @@ export default function CaseStudyCard({
       >
         <Link href={cardUrl} className="block h-full">
         <article
+          ref={articleRef}
           className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary case-study-card-article"
           style={{ gap: `${GRID_GAP}px` }}
         >

@@ -106,7 +106,7 @@ export default function Navigation() {
         className="fixed top-0 left-0 right-0 z-50 bg-bg-surface border-b border-border-subtle"
         style={{ height: '80px' }}
       >
-        <div className="max-w-content mx-auto h-full" style={{ paddingLeft: '16px', paddingRight: '16px' }}>
+        <div className="lattice h-full">
           <div className="flex items-center justify-between h-full">
             {/* Avatar */}
             <Link
@@ -180,7 +180,7 @@ export default function Navigation() {
         }}
         aria-hidden={!isMobileMenuOpen}
       >
-        <div className="px-4 py-6 flex flex-col gap-3">
+        <div className="lattice py-6 flex flex-col gap-3">
           {NAV_ITEMS.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href)
             return (

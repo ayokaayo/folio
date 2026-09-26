@@ -10,6 +10,7 @@
 import { useMemo } from 'react'
 import ProjectCard from '@/components/ProjectCard'
 import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
+import GridCta from '@/components/GridCta'
 import { projects } from '@/lib/projects'
 
 export default function ProjectsPage() {
@@ -34,8 +35,7 @@ export default function ProjectsPage() {
         style={{ zIndex: 1 }}
       >
         <div
-          className="max-w-content mx-auto"
-          style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}
+          className="lattice"
         >
           <h1 className="font-mono font-medium text-text-primary text-headline">
             Projects
@@ -49,8 +49,8 @@ export default function ProjectsPage() {
 
       {/* Projects Grid - 2 columns on tablet, 3 on desktop */}
       <section
-        className="relative max-w-content mx-auto pb-24"
-        style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, zIndex: 1 }}
+        className="relative lattice pb-24"
+        style={{ zIndex: 1 }}
       >
         <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
@@ -67,15 +67,7 @@ export default function ProjectsPage() {
 
         {/* Behance CTA */}
         <div className="mt-16">
-          <a
-            href="https://www.behance.net/miguelangeloferreira"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-tertiary group"
-          >
-            <span className="font-mono text-label uppercase tracking-wide">View earlier work on Behance</span>
-            <span className="arrow">→</span>
-          </a>
+          <GridCta href="https://www.behance.net/miguelangeloferreira" label="View earlier work on Behance" external />
         </div>
       </section>
     </main>

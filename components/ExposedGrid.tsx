@@ -15,9 +15,6 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 
 // Grid constants - exported for use in other components
 export const GRID_GAP = 16
-export const GRID_COLUMNS_DESKTOP = 12
-export const GRID_COLUMNS_TABLET = 6
-export const GRID_COLUMNS_MOBILE = 4
 
 // Golden palette with refined variations
 const GOLDEN = {
@@ -112,18 +109,21 @@ export default function ExposedGrid({
   const calculateActiveColumn = useCallback((clientX: number) => {
     if (!gridRef.current) return null
 
-    const rect = gridRef.current.getBoundingClientRect()
-    const padding = GRID_GAP
+    // Columns live in the lattice container, whose side padding varies with the viewport.
+    const inner = gridRef.current.querySelector<HTMLElement>('.lattice')
+    if (!inner) return null
+    const rect = inner.getBoundingClientRect()
+    const cs = getComputedStyle(inner)
+    const padLeft = parseFloat(cs.paddingLeft)
+    const padRight = parseFloat(cs.paddingRight)
 
-    const relativeX = clientX - rect.left - padding
-    const contentWidth = rect.width - (padding * 2)
-    const slotWidth = contentWidth / columnCount
-    const columnIndex = Math.round(relativeX / slotWidth)
-
-    if (columnIndex >= 0 && columnIndex < columnCount) {
-      return columnIndex
-    }
-    return null
+    const relativeX = clientX - rect.left - padLeft
+    const contentWidth = rect.width - padLeft - padRight
+    if (relativeX < 0 || relativeX >= contentWidth) return null
+    // Column pitch is one column plus one gutter; a pointer over a gutter selects nothing.
+    const pitch = (contentWidth + GRID_GAP) / columnCount
+    const columnIndex = Math.floor(relativeX / pitch)
+    return relativeX - columnIndex * pitch < pitch - GRID_GAP ? columnIndex : null
   }, [columnCount])
 
   // Handle mouse move with RAF for smooth performance
@@ -234,12 +234,10 @@ export default function ExposedGrid({
     >
       {showColumns && (
         <div
-          className="h-full w-full max-w-content mx-auto"
+          className="lattice h-full"
           style={{
             display: 'flex',
             gap: `${GRID_GAP}px`,
-            paddingLeft: `${GRID_GAP}px`,
-            paddingRight: `${GRID_GAP}px`,
           }}
         >
           {Array.from({ length: columnCount }).map((_, i) => {
@@ -290,7 +288,7 @@ export default function ExposedGrid({
 
                 {/* Right edge - base line */}
                 <div
-                  className="absolute right-0 top-0 bottom-0 w-px"
+                  className="absolute -right-px top-0 bottom-0 w-px"
                   style={{
                     backgroundColor: 'var(--border-subtle)',
                     opacity: hasGlow ? opacity * (1 - intensity * 0.7) : opacity,
@@ -340,7 +338,7 @@ export default function ExposedGrid({
 
                 {/* Right edge - golden glow layer 1 (soft spread) */}
                 <div
-                  className="absolute right-0 top-0 bottom-0"
+                  className="absolute -right-px top-0 bottom-0"
                   style={{
                     width: '3px',
                     marginRight: '-1px',
@@ -358,7 +356,7 @@ export default function ExposedGrid({
 
                 {/* Right edge - golden glow layer 2 (core) */}
                 <div
-                  className="absolute right-0 top-0 bottom-0 w-px"
+                  className="absolute -right-px top-0 bottom-0 w-px"
                   style={{
                     background: `linear-gradient(
                       180deg,
@@ -399,7 +397,7 @@ export default function ExposedGrid({
 
                 {/* Top-right corner marker */}
                 <div
-                  className="absolute right-0 top-0"
+                  className="absolute -right-px top-0"
                   style={{
                     width: '4px',
                     height: '4px',
@@ -481,53 +479,12 @@ interface GridRowProps {
 export function GridRow({ children, className = '', style }: GridRowProps) {
   return (
     <div
-      className={`max-w-content mx-auto w-full ${className}`}
+      className={`lattice ${className}`}
       style={{
         display: 'flex',
         gap: `${GRID_GAP}px`,
-        paddingLeft: `${GRID_GAP}px`,
-        paddingRight: `${GRID_GAP}px`,
         ...style,
       }}
-    >
-      {children}
-    </div>
-  )
-}
-
-// Helper for spanning multiple columns
-// Supports responsive spans: span (desktop), spanTablet (6 cols), spanMobile (4 cols)
-interface GridColProps {
-  children: React.ReactNode
-  span?: number
-  spanTablet?: number
-  spanMobile?: number
-  className?: string
-}
-
-export function GridCol({
-  children,
-  span = 1,
-  spanTablet,
-  spanMobile,
-  className = '',
-}: GridColProps) {
-  // Default responsive behavior: clamp to available columns
-  const tablet = spanTablet ?? Math.min(span, 6)
-  const mobile = spanMobile ?? Math.min(span, 4)
-
-  return (
-    <div
-      className={className}
-      style={{
-        // Use CSS custom property for responsive flex
-        // Desktop: span, Tablet: tablet, Mobile: mobile
-        flex: `var(--col-span, ${span}) var(--col-span, ${span}) 0%`,
-        // @ts-ignore - CSS custom properties
-        '--col-span-desktop': span,
-        '--col-span-tablet': tablet,
-        '--col-span-mobile': mobile,
-      } as React.CSSProperties}
     >
       {children}
     </div>

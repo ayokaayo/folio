@@ -46,8 +46,8 @@ export default function AboutPage() {
 
       {/* Main Content - Split Layout */}
       <section
-        className="relative max-w-content mx-auto py-12 md:py-16 pb-24"
-        style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, zIndex: 1 }}
+        className="relative lattice py-12 md:py-16 pb-24"
+        style={{ zIndex: 1 }}
       >
         {/* Split layout: 4 cols image, gap, remaining cols content */}
         <div

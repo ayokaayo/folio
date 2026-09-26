@@ -312,11 +312,11 @@ function NextSectionPeek() {
       </div>
       <div className="relative z-10">
         <GridRow style={{ marginBottom: '49px', height: '32px', alignItems: 'center' }}>
-          <div style={{ flex: '8 8 0%' }}>
-            <GridLabel>Side Projects</GridLabel>
+          <div className="flex-[3_3_32px] sm:flex-[4_4_48px] lg:flex-[8_8_112px]">
+            <GridLabel size="md">Side Projects</GridLabel>
           </div>
-          <div style={{ flex: '4 4 0%' }} className="text-right">
-            <GridLabelMuted size="sm">005</GridLabelMuted>
+          <div className="flex-[1_1_0px] sm:flex-[2_2_16px] lg:flex-[4_4_48px] text-right">
+            <GridLabelMuted size="md">005</GridLabelMuted>
           </div>
         </GridRow>
         <div className="h-[240px]" />

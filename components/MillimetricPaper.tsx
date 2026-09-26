@@ -1,17 +1,10 @@
-'use client'
-
-import { useEffect, useState, useRef } from 'react'
-
 /**
  * MillimetricPaper: Engineering paper grid with square cells
  *
- * Uses the SAME flexbox structure as ExposedGrid:
- * - 12/6/4 responsive columns with flex: 1 1 0%
- * - 16px gaps between columns
- * - Fixed 16px baseline grid for predictable alignment
+ * One continuous 16px lattice across the whole content box, gutters included. The box is a
+ * `.lattice` container, whose width snaps so every column and gutter is a whole number of cells:
+ * column edges (ExposedGrid, GridRow children) therefore fall exactly on these lines.
  */
-
-import { GRID_GAP } from './ExposedGrid'
 
 interface MillimetricPaperProps {
   /** Opacity of the grid lines (0-1) */
@@ -27,21 +20,6 @@ export default function MillimetricPaper({
   opacity = 0.5,
   zIndex = 0,
 }: MillimetricPaperProps) {
-  const [columnCount, setColumnCount] = useState(12)
-
-  useEffect(() => {
-    const updateGrid = () => {
-      const cols = getComputedStyle(document.documentElement)
-        .getPropertyValue('--grid-columns')
-        .trim()
-      setColumnCount(parseInt(cols, 10) || 12)
-    }
-
-    updateGrid()
-    window.addEventListener('resize', updateGrid)
-    return () => window.removeEventListener('resize', updateGrid)
-  }, [])
-
   const lineColor = `rgba(229, 224, 216, ${opacity})`  // border-subtle
 
   return (
@@ -50,54 +28,18 @@ export default function MillimetricPaper({
       style={{ zIndex }}
       aria-hidden="true"
     >
-      {/* Container matches ExposedGrid exactly */}
-      <div
-        className="h-full w-full max-w-content mx-auto"
-        style={{
-          display: 'flex',
-          gap: `${GRID_GAP}px`,
-          paddingLeft: `${GRID_GAP}px`,
-          paddingRight: `${GRID_GAP}px`,
-        }}
-      >
-        {Array.from({ length: columnCount }).map((_, colIndex) => (
+      <div className="lattice h-full">
+        <div className="relative h-full">
+          {/* One pixel wider than the content box, so the closing line at the right edge is drawn. */}
           <div
-            key={colIndex}
-            className="relative h-full"
-            style={{ flex: '1 1 0%' }}
-          >
-            {/* Left edge line - matches ExposedGrid exactly */}
-            <div
-              className="absolute left-0 top-0 bottom-0 w-px bg-border-subtle"
-              style={{ opacity }}
-            />
-            {/* Right edge line - matches ExposedGrid exactly */}
-            <div
-              className="absolute right-0 top-0 bottom-0 w-px bg-border-subtle"
-              style={{ opacity }}
-            />
-            
-            {/* Vertical subdivision lines - 16px apart, offset to avoid edge doubling */}
-            <div
-              className="absolute top-0 bottom-0"
-              style={{
-                left: `${BASELINE_GRID}px`,
-                right: `${BASELINE_GRID}px`,
-                backgroundImage: `linear-gradient(to right, ${lineColor} 1px, transparent 1px)`,
-                backgroundSize: `${BASELINE_GRID}px 100%`,
-              }}
-            />
-
-            {/* Horizontal lines - fixed 16px baseline grid */}
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `linear-gradient(to bottom, ${lineColor} 1px, transparent 1px)`,
-                backgroundSize: `100% ${BASELINE_GRID}px`,
-              }}
-            />
-          </div>
-        ))}
+            className="absolute top-0 bottom-0 left-0"
+            style={{
+              right: '-1px',
+              backgroundImage: `linear-gradient(to right, ${lineColor} 1px, transparent 1px), linear-gradient(to bottom, ${lineColor} 1px, transparent 1px)`,
+              backgroundSize: `${BASELINE_GRID}px ${BASELINE_GRID}px`,
+            }}
+          />
+        </div>
       </div>
     </div>
   )

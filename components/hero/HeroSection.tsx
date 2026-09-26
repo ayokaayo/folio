@@ -3,7 +3,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { GRID_GAP } from '@/components/ExposedGrid'
 import { HERO_COPY, type HeroCopy } from './copy'
 import { HERO_SETTINGS, type HeroValues } from './settings'
 import { INK, sheetColor } from './palettes'
@@ -56,9 +55,15 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
     >
       <HeroField sectionRef={sectionRef} copyRef={copyRef} values={values} reducedMotion={reducedMotion ?? osReduced} />
       <div className="relative z-10 pt-16 pb-16 md:pt-24 md:pb-24">
-        <div className="max-w-content mx-auto" style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}>
-          <div ref={copyRef} className="w-full lg:w-[calc((100%-11*16px)/12*8+7*16px)]" style={{ textShadow }}>
-            <h1 data-line="head" className="font-mono font-medium text-text-primary text-headline" style={{ color: headColor }}>
+        <div className="lattice">
+          <div ref={copyRef} className="w-full lg:w-[round(calc((100%-11*16px)/12*8+7*16px),1px)] lg:[container-type:inline-size]" style={{ textShadow }}>
+            {/* From lg the lines don't wrap, so the size follows the 8-column width (which steps with the lattice)
+                rather than the viewport: the longest line, 29 monospace characters at 0.575em each, always fits. */}
+            <h1
+              data-line="head"
+              className="font-mono font-medium text-text-primary text-headline lg:text-[length:min(48px,calc(100cqw/16.9))]"
+              style={{ color: headColor }}
+            >
               {copy.headline.map((line, i) => (
                 <Fragment key={i}>
                   {i > 0 && (
@@ -67,7 +72,7 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
                       <br className="hidden md:block" />
                     </>
                   )}
-                  {/* Each authored line holds on large screens (~0.95vw per char fits the content width). */}
+                  {/* Each authored line holds on large screens. */}
                   <span className="lg:whitespace-nowrap">{line}</span>
                 </Fragment>
               ))}

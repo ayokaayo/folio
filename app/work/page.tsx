@@ -11,7 +11,7 @@
 import { useMemo } from 'react'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyCard, { CARD_GAP } from '@/components/CaseStudyCard'
-import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
+import ExposedGrid from '@/components/ExposedGrid'
 
 export default function WorkPage() {
   // Ensure stable order
@@ -35,8 +35,7 @@ export default function WorkPage() {
         style={{ zIndex: 1 }}
       >
         <div
-          className="max-w-content mx-auto"
-          style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}
+          className="lattice"
         >
           <h1 className="font-mono font-medium text-text-primary text-headline">
             Case Studies
@@ -50,8 +49,8 @@ export default function WorkPage() {
 
       {/* Case Studies List */}
       <section
-        className="relative max-w-content mx-auto pb-24"
-        style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px`, zIndex: 1 }}
+        className="relative lattice pb-24"
+        style={{ zIndex: 1 }}
       >
         <div className="flex flex-col" style={{ gap: `${CARD_GAP}px` }}>
           {orderedCaseStudies.map((caseStudy, index) => (

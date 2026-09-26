@@ -27,23 +27,20 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-bg-surface divider-dashed-grid relative z-10">
-      <div
-        className="max-w-content mx-auto py-16"
-        style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}
-      >
-        {/* 3-column layout using flexbox grid */}
+    <footer className="bg-bg-surface divider-dashed-grid lattice-origin relative z-10">
+      <div className="lattice py-16">
+        {/* 3 equal tracks (4 of 12 columns, 2 of 6); min-w-0 stops long content from widening a track off the lattice */}
         <div
-          className="flex flex-col md:flex-row"
+          className="grid grid-cols-1 md:grid-cols-3"
           style={{ gap: `${GRID_GAP}px` }}
         >
           {/* Contact - 4 columns */}
-          <div style={{ flex: '4 4 0%' }}>
+          <div className="min-w-0">
             <h3 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-4">
               Contact
             </h3>
             <div className="space-y-3">
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <span className="font-mono text-body text-text-primary">
                   *****@miguelangelo.tech
                 </span>
@@ -70,7 +67,7 @@ export default function Footer() {
           </div>
 
           {/* Resources - 4 columns */}
-          <div style={{ flex: '4 4 0%' }}>
+          <div className="min-w-0">
             <h3 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-4">
               Resources
             </h3>
@@ -86,7 +83,7 @@ export default function Footer() {
           </div>
 
           {/* Status - 4 columns */}
-          <div style={{ flex: '4 4 0%' }}>
+          <div className="min-w-0">
             <h3 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-4">
               Status
             </h3>

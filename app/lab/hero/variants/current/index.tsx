@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
+import ExposedGrid from '@/components/ExposedGrid'
 import type { VariantProps } from '../../types'
 
 export default function Current({ copy, values }: VariantProps) {
@@ -9,7 +9,7 @@ export default function Current({ copy, values }: VariantProps) {
     <section className="relative cursor-crosshair">
       <ExposedGrid showColumns showLabels showGaps opacity={Number(values.opacity)} interactive zIndex={5} />
       <div className="relative z-10 pt-12 pb-12 md:pt-16 md:pb-16 pointer-events-none">
-        <div className="max-w-content mx-auto" style={{ paddingLeft: `${GRID_GAP}px`, paddingRight: `${GRID_GAP}px` }}>
+        <div className="lattice">
           <div className="w-full lg:w-[calc((100%-11*16px)/12*8+7*16px)]">
             <h1 className="font-mono font-medium text-text-primary text-headline">
               {copy.headline[0]}

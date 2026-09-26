@@ -11,11 +11,13 @@
  */
 
 import Link from 'next/link'
+import { useRef } from 'react'
 import { SideProject } from '@/lib/projects'
 import { getProjectRoute } from '@/lib/constants'
 import FigmaFrame from './FigmaFrame'
 import GridLabel, { GridLabelMuted } from './GridLabel'
 import ImageWithLoader from './ImageWithLoader'
+import { useCellHeight } from '@/lib/useCellHeight'
 
 interface ProjectCardProps {
   project: SideProject
@@ -33,10 +35,12 @@ export default function ProjectCard({
 
   // Get reading time - use project's readingTime if available, otherwise default
   const readingTimeLabel = project.readingTime || '6 to 9 min read'
+  const articleRef = useRef<HTMLElement>(null)
+  useCellHeight(articleRef)
 
   return (
     <FigmaFrame label={readingTimeLabel}>
-      <article className="group bg-bg-surface overflow-hidden border border-border-subtle project-card-article">
+      <article ref={articleRef} className="group bg-bg-surface overflow-hidden border border-border-subtle project-card-article">
         <Link href={cardUrl} className="block h-full flex flex-col">
           {/* Image - height constrained to fit within grid-aligned card */}
           {project.imageUrl ? (
@@ -60,10 +64,10 @@ export default function ProjectCard({
             </div>
           ) : null}
 
-          {/* Content - padding aligned to grid, flex-grow to fill space */}
+          {/* Content - 15px padding plus the 1px border puts it on the lattice; flex-grow fills the card */}
           <div className="project-card-content flex flex-col flex-grow">
-            {/* Tags - Figma-style labels */}
-            <div className="flex items-center gap-2 mb-4">
+            {/* Tags - Figma-style labels, whole cells apart */}
+            <div className="flex items-center gap-4 mb-4">
               <GridLabel size="sm">{project.hashtag}</GridLabel>
               <GridLabelMuted size="sm">{project.year}</GridLabelMuted>
               {project.status && project.status !== 'live' && (
