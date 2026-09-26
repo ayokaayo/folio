@@ -250,15 +250,8 @@ export default function ZoomableImage({ src, alt, caption }: ZoomableImageProps)
           />
         </div>
 
-        {/* Loading state - shimmer */}
-        {!isLoaded && (
-          <div 
-            className="absolute inset-0 bg-text/5 overflow-hidden"
-            aria-hidden="true"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
-          </div>
-        )}
+        {/* Ghost until the image arrives */}
+        {!isLoaded && <div className="absolute inset-0 ghost" aria-hidden="true" />}
 
         {/* Tap to interact overlay - mobile only, when not active */}
         {isLoaded && !isActive && (

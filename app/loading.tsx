@@ -1,8 +1,5 @@
-import Loading from '@/components/Loading'
+import { GhostHome } from '@/components/Ghost'
 
-export default function PageLoading() {
-  return <Loading />
+export default function Loading() {
+  return <GhostHome />
 }
-
-
-

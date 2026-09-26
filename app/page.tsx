@@ -58,7 +58,7 @@ export default function Home() {
         {/* PROJECTS SECTION */}
         <div className="relative z-10">
         {/* Section Header - height aligned to grid (32px = 2 cells). `flex: s s (s-1)·16px` makes each side span s whole columns (3+1, 4+2, 8+4). */}
-        <GridRow style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
+        <GridRow reveal style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
           <div className="flex-[3_3_32px] sm:flex-[4_4_48px] lg:flex-[8_8_112px]">
             <GridLabel size="md">Side Projects</GridLabel>
           </div>
@@ -83,7 +83,7 @@ export default function Home() {
           ))}
         </GridRow>
 
-        <GridRow style={{ marginTop: '48px' }}>
+        <GridRow reveal style={{ marginTop: '48px' }}>
           <div style={{ flex: '1 1 0%' }}>
             <GridCta href={ROUTES.PROJECTS} label="View all projects" />
           </div>
@@ -93,7 +93,7 @@ export default function Home() {
         {/* SELECTED WORKS SECTION */}
         <div className="relative z-10" style={{ marginTop: '64px' }}>
         {/* Section Header - height aligned to grid (32px = 2 cells) */}
-        <GridRow style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
+        <GridRow reveal style={{ marginBottom: '48px', height: '32px', alignItems: 'center' }}>
           <div className="flex-[3_3_32px] sm:flex-[4_4_48px] lg:flex-[8_8_112px]">
             <GridLabel size="md">Selected Works</GridLabel>
           </div>
@@ -114,7 +114,7 @@ export default function Home() {
           ))}
         </GridRow>
 
-        <GridRow style={{ marginTop: '48px' }}>
+        <GridRow reveal style={{ marginTop: '48px' }}>
           <div style={{ flex: '1 1 0%' }}>
             <GridCta href={ROUTES.WORK} label="View all work" />
           </div>

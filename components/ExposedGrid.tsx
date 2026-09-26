@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, useRef, useCallback } from 'react'
+import { REVEAL } from '@/lib/reveal'
 
 /**
  * ExposedGrid: Visual grid overlay with refined golden spotlight effect
@@ -474,12 +475,15 @@ interface GridRowProps {
   children: React.ReactNode
   className?: string
   style?: React.CSSProperties
+  /** Settle into place on scroll (lib/reveal.ts) */
+  reveal?: boolean
 }
 
-export function GridRow({ children, className = '', style }: GridRowProps) {
+export function GridRow({ children, className = '', style, reveal = false }: GridRowProps) {
   return (
     <div
       className={`lattice ${className}`}
+      {...(reveal ? REVEAL : {})}
       style={{
         display: 'flex',
         gap: `${GRID_GAP}px`,

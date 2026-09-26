@@ -95,7 +95,6 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
                 objectFit="contain"
                 className="shadow-2xl"
                 containerClassName="bg-black"
-                shimmerClassName="after:via-white/10"
               />
             </div>
           </motion.div>

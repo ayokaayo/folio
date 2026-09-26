@@ -9,6 +9,7 @@
  */
 
 import { ReactNode } from 'react'
+import { REVEAL } from '@/lib/reveal'
 
 interface FigmaFrameProps {
   children: ReactNode
@@ -20,6 +21,8 @@ interface FigmaFrameProps {
   showPill?: boolean
   /** Custom text for the pill (default: "Click to open") */
   pillText?: string
+  /** Settle into place on scroll (lib/reveal.ts) */
+  reveal?: boolean
 }
 
 export default function FigmaFrame({
@@ -29,10 +32,12 @@ export default function FigmaFrame({
   alwaysVisible = false,
   showPill = true,
   pillText = 'Click to open',
+  reveal = false,
 }: FigmaFrameProps) {
   return (
     <div
       className={`figma-frame group relative ${className} ${alwaysVisible ? 'figma-frame--always-visible' : ''}`}
+      {...(reveal ? REVEAL : {})}
     >
       {/* Corner handles - always visible */}
       <div className="corner-handle top-left" />

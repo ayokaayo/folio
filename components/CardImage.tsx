@@ -44,7 +44,7 @@ export default function CardImage({
     )
   }
 
-  // Use ImageWithLoader for optimized images with shimmer loading state
+  // Use ImageWithLoader for optimized images with a ghost loading state
   return (
     <div className={`relative w-full aspect-[3/2] ${className}`}>
       <ImageWithLoader

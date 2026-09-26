@@ -9,6 +9,7 @@ import StructuredData from '@/components/StructuredData'
 import EasterEgg from '@/components/EasterEgg'
 import { SITE } from '@/lib/constants'
 import { PALETTE_BOOT } from '@/lib/palette/preview'
+import { REVEAL_BOOT } from '@/lib/reveal'
 
 // MONO ONLY: IBM Plex Mono for all typography
 const ibmPlexMono = IBM_Plex_Mono({
@@ -67,13 +68,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${ibmPlexMono.variable}`} suppressHydrationWarning={process.env.NODE_ENV !== 'production'}>
-      {process.env.NODE_ENV !== 'production' && (
-        <head>
-          {/* Dev-only palette preview; see lib/palette/preview.ts */}
-          <script dangerouslySetInnerHTML={{ __html: PALETTE_BOOT }} />
-        </head>
-      )}
+    // Boot scripts set attributes on <html> before hydration (reveal state; the dev palette).
+    <html lang="en" className={`${ibmPlexMono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Scroll reveal; see lib/reveal.ts */}
+        <script dangerouslySetInnerHTML={{ __html: REVEAL_BOOT }} />
+        {/* Dev-only palette preview; see lib/palette/preview.ts */}
+        {process.env.NODE_ENV !== 'production' && <script dangerouslySetInnerHTML={{ __html: PALETTE_BOOT }} />}
+      </head>
       <body className={`${ibmPlexMono.className} antialiased`}>
         <EasterEgg />
         <StructuredData />

@@ -39,7 +39,7 @@ export default function ProjectCard({
   useCellHeight(articleRef)
 
   return (
-    <FigmaFrame label={readingTimeLabel}>
+    <FigmaFrame label={readingTimeLabel} reveal>
       <article ref={articleRef} className="group bg-bg-surface overflow-hidden border border-border-subtle project-card-article">
         <Link href={cardUrl} className="block h-full flex flex-col">
           {/* Image - height constrained to fit within grid-aligned card */}

@@ -638,6 +638,22 @@ a {
 }
 
 /* Reduced motion preferences */
+/* Scroll reveal (lib/reveal.ts): settle onto the lattice, a fade while rising one 16px cell. Content is
+   hidden only once the boot script has run on a screen that allows motion. Keep data-reveal on wrappers:
+   this transition would override transition utilities on the same element. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  html[data-reveal-on] [data-reveal] {
+    transition:
+      opacity 600ms cubic-bezier(0.22, 0.61, 0.36, 1),
+      transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  html[data-reveal-on] [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -808,26 +824,54 @@ a {
   }
 }
 
-/* Image shimmer loading animation */
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+/* Ghost loading (components/Ghost.tsx, ImageWithLoader): surface-toned blocks with a soft sweep. */
+.ghost {
+  --ghost-fill: #ECE8E0;
+  --ghost-glint: #F6F3EE;
+  background: linear-gradient(100deg, var(--ghost-fill) 40%, var(--ghost-glint) 50%, var(--ghost-fill) 60%);
+  background-size: 300% 100%;
+  animation: ghost-sweep 1.6s linear infinite;
 }
 
-.animate-shimmer {
-  animation: shimmer 1.5s ease-in-out infinite;
+/* Ghost filling a card's image slot. */
+.project-card-image > .ghost,
+.case-study-visual-col > .ghost {
+  position: absolute;
+  inset: 0;
 }
 
-/* Respect reduced motion */
+/* Transparent words on ghost bars: a paper-coloured top layer trims each line's box to a bar. */
+.ghost.ghost-words {
+  color: transparent;
+  background:
+    linear-gradient(to bottom, var(--bg-primary) 22%, transparent 22% 78%, var(--bg-primary) 78%),
+    linear-gradient(100deg, var(--ghost-fill) 40%, var(--ghost-glint) 50%, var(--ghost-fill) 60%);
+  background-size: 100% 100%, 300% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  user-select: none;
+}
+
+.ghost-line {
+  display: inline-block;
+  height: 0.72em;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+@keyframes ghost-sweep {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-shimmer {
+  .ghost {
     animation: none;
+    background: var(--ghost-fill);
   }
-  .animate-shimmer::after {
-    opacity: 0.1;
+
+  .ghost.ghost-words {
+    background: linear-gradient(to bottom, var(--bg-primary) 22%, var(--ghost-fill) 22% 78%, var(--bg-primary) 78%);
   }
 }
+

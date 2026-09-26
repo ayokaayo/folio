@@ -11,6 +11,7 @@
 import { useMemo } from 'react'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyCard, { CARD_GAP } from '@/components/CaseStudyCard'
+import { REVEAL } from '@/lib/reveal'
 import ExposedGrid from '@/components/ExposedGrid'
 
 export default function WorkPage() {
@@ -34,9 +35,7 @@ export default function WorkPage() {
         className="relative py-12 md:py-16"
         style={{ zIndex: 1 }}
       >
-        <div
-          className="lattice"
-        >
+        <div className="lattice" {...REVEAL}>
           <h1 className="font-mono font-medium text-text-primary text-headline">
             Case Studies
           </h1>

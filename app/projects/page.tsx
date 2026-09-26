@@ -9,6 +9,7 @@
 
 import { useMemo } from 'react'
 import ProjectCard from '@/components/ProjectCard'
+import { REVEAL } from '@/lib/reveal'
 import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
 import GridCta from '@/components/GridCta'
 import { projects } from '@/lib/projects'
@@ -34,9 +35,7 @@ export default function ProjectsPage() {
         className="relative py-12 md:py-16"
         style={{ zIndex: 1 }}
       >
-        <div
-          className="lattice"
-        >
+        <div className="lattice" {...REVEAL}>
           <h1 className="font-mono font-medium text-text-primary text-headline">
             Projects
           </h1>
@@ -66,7 +65,7 @@ export default function ProjectsPage() {
         </div>
 
         {/* Behance CTA */}
-        <div className="mt-16">
+        <div className="mt-16" {...REVEAL}>
           <GridCta href="https://www.behance.net/miguelangeloferreira" label="View earlier work on Behance" external />
         </div>
       </section>

@@ -79,7 +79,7 @@ export default function CaseStudyCard({
   const cardDescription = caseStudy.cardSummary || caseStudy.subtitle
 
   return (
-    <FigmaFrame label={readingTimeLabel}>
+    <FigmaFrame label={readingTimeLabel} reveal>
       <div
         ref={cardRef}
         className="group relative"

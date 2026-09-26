@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { copyEmailToClipboard } from '@/lib/utils/email'
 import { SITE } from '@/lib/constants'
 import { GRID_GAP } from './ExposedGrid'
+import { REVEAL } from '@/lib/reveal'
 
 export default function Footer() {
   const [copied, setCopied] = useState(false)
@@ -35,7 +36,7 @@ export default function Footer() {
           style={{ gap: `${GRID_GAP}px` }}
         >
           {/* Contact - 4 columns */}
-          <div className="min-w-0">
+          <div className="min-w-0" {...REVEAL}>
             <h3 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-4">
               Contact
             </h3>
@@ -67,7 +68,7 @@ export default function Footer() {
           </div>
 
           {/* Resources - 4 columns */}
-          <div className="min-w-0">
+          <div className="min-w-0" {...REVEAL}>
             <h3 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-4">
               Resources
             </h3>
@@ -83,7 +84,7 @@ export default function Footer() {
           </div>
 
           {/* Status - 4 columns */}
-          <div className="min-w-0">
+          <div className="min-w-0" {...REVEAL}>
             <h3 className="font-mono text-label uppercase tracking-wide text-text-secondary mb-4">
               Status
             </h3>

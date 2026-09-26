@@ -9,6 +9,7 @@
  * - Grid visible from bottom extending upward
  */
 
+import { REVEAL } from '@/lib/reveal'
 import ExposedGrid, { GRID_GAP } from '@/components/ExposedGrid'
 import ImageWithLoader from '@/components/ImageWithLoader'
 import FigmaFrame from '@/components/FigmaFrame'
@@ -55,7 +56,7 @@ export default function AboutPage() {
           style={{ gap: `${GRID_GAP}px` }}
         >
           {/* Left Column - Image: visible only on desktop (12 cols), hidden on tablet (6) and mobile (4) */}
-          <div className="hidden lg:block w-full lg:w-[calc((100%-11*16px)/12*4+3*16px)] lg:shrink-0">
+          <div className="hidden lg:block w-full lg:w-[calc((100%-11*16px)/12*4+3*16px)] lg:shrink-0" {...REVEAL}>
             <FigmaFrame
               label="That's me"
               alwaysVisible
@@ -91,7 +92,7 @@ export default function AboutPage() {
           {/* Right Column - Content (gap + remaining columns) */}
           <div className="flex-1 mt-12 lg:mt-0">
             {/* Introduction */}
-            <div className="mb-12">
+            <div className="mb-12" {...REVEAL}>
               <h1 className="font-mono font-medium text-text-primary text-headline mb-8">
                 Intelligent Systems Designer. <br></br>Pragmatic Builder.
               </h1>
@@ -113,7 +114,7 @@ export default function AboutPage() {
             </div>
 
             {/* Where I&apos;m Most Useful */}
-            <div className="mb-12">
+            <div className="mb-12" {...REVEAL}>
               <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-accent px-4 py-2 rounded mb-6">
                 Where I&apos;m Most Useful
               </h2>
@@ -139,7 +140,7 @@ export default function AboutPage() {
             </div>
 
             {/* Recognition */}
-            <div className="mb-12">
+            <div className="mb-12" {...REVEAL}>
               <h2 className="inline-block font-mono text-label uppercase tracking-wide text-white bg-accent px-4 py-2 rounded mb-6">
                 Recognition
               </h2>
