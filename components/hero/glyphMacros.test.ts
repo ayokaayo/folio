@@ -6,6 +6,7 @@ import { GLYPH_MACROS, expandGlyphMacros, type GlyphMacros } from './glyphMacros
 // 12.1 swaps a second, and streams fell at 11 times their nominal speed.
 const LOCKED: Record<string, number> = {
   glyphRest: 0.77,
+  glyphKeep: 1,
   glyphChurn: 12.1,
   glyphStreamSpeed: 11,
   glyphSpeed: 11,
@@ -31,7 +32,19 @@ test('default macros reproduce the locked look within 2%', () => {
 test('density 0 leaves rest nearly empty but keeps the layer on', () => {
   const v = expandGlyphMacros({ ...GLYPH_MACROS, density: 0 })
   assert.ok(Number(v.glyphRest) >= 0.98)
+  assert.equal(v.glyphKeep, 0)
   assert.equal(v.glyphs, true)
+})
+
+test('low density thins rest glyphs by occupancy', () => {
+  assert.ok(near(expandGlyphMacros({ ...GLYPH_MACROS, density: 0.1 }).glyphKeep, 0.25, 1e-9))
+  assert.equal(expandGlyphMacros({ ...GLYPH_MACROS, density: 1 }).glyphKeep, 1)
+})
+
+test('scroll ramps band gain quadratically: 0, 1 at the default, 4 at full', () => {
+  assert.equal(expandGlyphMacros({ ...GLYPH_MACROS, scroll: 0 }).bandGain, 0)
+  assert.ok(near(expandGlyphMacros({ ...GLYPH_MACROS, scroll: 0.5 }).bandGain, 1, 1e-9))
+  assert.ok(near(expandGlyphMacros({ ...GLYPH_MACROS, scroll: 1 }).bandGain, 4, 1e-9))
 })
 
 test('motion 0 stops churn, streams and the pattern clock', () => {

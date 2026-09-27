@@ -41,6 +41,7 @@ const CONTROLS: Param[] = [
 const RAW_GLYPHS: Param[] = [
   { key: 'glyphs', label: 'Glyph layer', type: 'toggle', default: true },
   { key: 'glyphRest', label: 'glyphRest', type: 'range', min: 0.3, max: 0.999, step: 0.001, default: 0.77 },
+  { key: 'glyphKeep', label: 'glyphKeep', type: 'range', min: 0, max: 1, step: 0.01, default: 1 },
   { key: 'glyphRestTop', label: 'glyphRestTop', type: 'range', min: 1, max: 6, step: 1, default: 3 },
   { key: 'glyphChurn', label: 'glyphChurn', type: 'range', min: 0, max: 20, step: 0.1, default: 12.1 },
   { key: 'glyphSpeed', label: 'glyphSpeed', type: 'range', min: 0, max: 30, step: 0.25, default: 11 },

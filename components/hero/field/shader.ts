@@ -75,6 +75,7 @@ uniform float uGlyphScale;
 uniform float uGlyphChurn;   // rest glyph swaps per second
 uniform float uGlyphRestTop; // highest rest level, 1-6
 uniform float uGlyphRain;    // share of columns carrying a falling stream
+uniform float uGlyphKeep;    // share of cells that may carry pattern rest glyphs, 0-1
 uniform float uChurnT;       // churn and stream clock, s of real time (wrapped)
 uniform float uStreamSpeed;  // stream speed multiplier
 uniform float uStreamTrail;  // stream trail length, rows

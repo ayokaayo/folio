@@ -143,6 +143,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uGlyphChurn: { value: 1.5 },
         uGlyphRestTop: { value: 6 },
         uGlyphRain: { value: 0.12 },
+        uGlyphKeep: { value: 1 },
         uChurnT: { value: 0 },
         uStreamSpeed: { value: 1 },
         uStreamTrail: { value: 12 },
@@ -273,6 +274,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       u.uGlyphChurn.value = Number(vals.glyphChurn)
       u.uGlyphRestTop.value = Number(vals.glyphRestTop)
       u.uGlyphRain.value = Number(vals.glyphRain)
+      u.uGlyphKeep.value = Number(vals.glyphKeep)
       u.uStreamSpeed.value = Number(vals.glyphStreamSpeed)
       u.uStreamTrail.value = Number(vals.glyphTrail)
       u.uInkDeep.value.copy(hexToVec3(colour('@accent-deep')))

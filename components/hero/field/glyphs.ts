@@ -101,6 +101,8 @@ float copyDistance(vec2 cell) {
 vec3 restGlyph(vec2 cell, float P, float t) {
   ivec2 ic = ivec2(cell);
   float presence = smoothstep(uGlyphRest, 1.0, P);
+  // Occupancy: only a hashed share of cells may carry pattern glyphs (stream trails are unaffected).
+  if (hash01(ic * 5 + 3) >= uGlyphKeep) presence = 0.0;
   float head = 0.0;
   uint hc = hashCell(ivec2(ic.x, 7919));
   float col = float(hc & 0xffffu) / 65535.0;
@@ -111,7 +113,8 @@ vec3 restGlyph(vec2 cell, float P, float t) {
     float headRow = mod(t * speed + col * 997.0, rows);
     float d = headRow - cell.y;
     if (d >= 0.0 && d < trail) {
-      presence = max(presence, exp(-d / 4.0));
+      // Fade over a third of the trail, so the trail length shows (exp(-d/4) at the default of 12).
+      presence = max(presence, exp(-d / (trail / 3.0)));
       head = 1.0 - smoothstep(0.0, 1.5, d);
     }
   }

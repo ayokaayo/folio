@@ -35,6 +35,9 @@ export function expandGlyphMacros(m: GlyphMacros): HeroValues {
   return {
     glyphs: true,
     glyphRest: 0.99 - 0.55 * d,
+    // Below 0.4 a hashed share of cells drops out, so low density thins rest glyphs instead of
+    // leaving the saturated pattern peaks drawn.
+    glyphKeep: Math.min(1, d / 0.4),
     glyphChurn: 20 * mo,
     glyphStreamSpeed: 18 * mo,
     glyphSpeed: 18 * mo,
@@ -45,7 +48,8 @@ export function expandGlyphMacros(m: GlyphMacros): HeroValues {
     glyphInkMax: 0.4 + 0.6 * b,
     // The shader clamps deepening at 1, so the upper half of the range saturates sooner.
     glyphDeepen: 2 * b,
-    bandGain: 2 * r,
+    // Quadratic, so the default (0.5) keeps the locked gain of 1 and the top of the range reaches 4.
+    bandGain: 4 * r * r,
     glyphScrollPhase: 0.2 * r,
     glyphScale: 3 * Math.pow(10, z),
   }
