@@ -21,7 +21,7 @@ export interface GlyphMacros {
   size: number
 }
 
-export const GLYPH_MACROS: GlyphMacros = { density: 0.4, motion: 0.605, streams: 0.314, burst: 0.5, scroll: 0.5, size: 0.564 }
+export const GLYPH_MACROS: GlyphMacros = { density: 0.4, motion: 0.405, streams: 0.314, burst: 0.5, scroll: 0.5, size: 0.564 }
 
 const unit = (x: number) => Math.min(1, Math.max(0, Number(x)))
 

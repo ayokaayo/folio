@@ -51,11 +51,11 @@ export const HERO_SETTINGS: HeroValues = {
   hiGap: 7.5,
   // Glyph layer: six controls (glyphMacros.ts); tune them in the lab, paste into GLYPH_MACROS
   ...expandGlyphMacros(GLYPH_MACROS),
-  // Rest glyphs stop at level 3 (the colon), as in the look Miguel locked on 2026-09-26.
-  glyphRestTop: 3,
-  // Upgrades under comparison in the lab (spec amendment 2026-09-26), all off in production.
+  // Rest glyphs run up to the diamond (. · : + × ◇): Miguel wanted more than dots at idle (2026-09-27).
+  glyphRestTop: 6,
+  // Upgrades compared in the lab (spec amendment 2026-09-26); Miguel chose wave edges (2026-09-27).
   fxFringe: false,
   fxFlurry: false,
   fxWrite: false,
-  fxEdges: false,
+  fxEdges: true,
 }

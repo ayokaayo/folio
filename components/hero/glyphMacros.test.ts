@@ -2,14 +2,14 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { GLYPH_MACROS, expandGlyphMacros, type GlyphMacros } from './glyphMacros.ts'
 
-// The look Miguel locked on 2026-09-26, as effective rates: churn 1.1 on a pattern clock at x11 is
-// 12.1 swaps a second, and streams fell at 11 times their nominal speed.
+// The look Miguel approved, as effective rates: locked 2026-09-26 (churn 1.1 on a pattern clock at x11,
+// i.e. 12.1 swaps a second, streams at 11 times nominal), then idle motion slowed by a third on 2026-09-27.
 const LOCKED: Record<string, number> = {
   glyphRest: 0.77,
   glyphKeep: 1,
-  glyphChurn: 12.1,
-  glyphStreamSpeed: 11,
-  glyphSpeed: 11,
+  glyphChurn: 8.1,
+  glyphStreamSpeed: 7.29,
+  glyphSpeed: 7.29,
   glyphRain: 0.11,
   glyphTrail: 12,
   glyphWake: 2,
