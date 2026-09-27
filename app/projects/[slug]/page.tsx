@@ -15,7 +15,7 @@ import ImageModal from '@/components/ImageModal'
 import DensityToggle from '@/components/DensityToggle'
 import ZoomableImage from '@/components/ZoomableImage'
 import TestimonialCarousel from '@/components/TestimonialCarousel'
-import { outboundHost, track } from '@/lib/analytics'
+import { liveProductHost, track } from '@/lib/analytics'
 
 interface ProjectDetailPageProps {
   params: {
@@ -85,9 +85,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
     notFound()
   }
 
-  // Outbound links (the live product buttons and links in the write up) are counted with one handler.
+  // Clicks on the project's designated live product links (type 'live') are counted with one handler.
   const onOutboundClick = (e: React.MouseEvent) => {
-    const host = outboundHost(e.target)
+    const host = liveProductHost(e.target)
     if (host) track('live_product_click', { project: project.id, host })
   }
 
@@ -323,6 +323,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 <a
                   key={index}
                   href={link.url}
+                  data-live-product={link.type === 'live' ? '' : undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 font-mono text-caption uppercase tracking-wide border border-border-subtle bg-transparent text-text-secondary hover:text-text-primary hover:border-text-tertiary transition-all duration-150"

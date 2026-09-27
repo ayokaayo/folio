@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
-import { notFoundPath, track } from '@/lib/analytics'
+import { NOT_FOUND_MARKER, notFoundPath, track } from '@/lib/analytics'
 import HeroSection from './hero/HeroSection'
 import type { HeroCopy } from './hero/copy'
 import { NOT_FOUND, displayPath, truncateMiddle, variantFor } from './hero/notFoundCopy'
@@ -30,7 +30,8 @@ export default function NotFoundHero() {
     cta2: v.secondary,
   }
   return (
-    <main id="main-content">
+    // The marker tells the analytics payload hook to report this page as /404.
+    <main id="main-content" {...{ [NOT_FOUND_MARKER]: '' }}>
       <HeroSection copy={copy} shape="404" />
     </main>
   )

@@ -137,6 +137,17 @@ try {
     ev = await events(page)
     assert(ev.filter(e => e.name === 'live_product_click').length === 1, 'internal links on a project page are not counted as outbound')
 
+    await open(page, '/projects/kallax')
+    await page.locator('main a[href^="https://github.com"]').first().click()
+    await page.waitForTimeout(500)
+    ev = (await events(page)).filter(e => e.name === 'live_product_click')
+    assert(ev.length === 0, 'a code link (GitHub) is not counted as a live product')
+    await page.locator('main a[href="https://kallax.app"]').first().click()
+    ev = await waitEvent(page, 'live_product_click')
+    await page.waitForTimeout(300)
+    ev = (await events(page)).filter(e => e.name === 'live_product_click')
+    assert(ev.length === 1 && same(ev[0].data, { project: 'kallax', host: 'kallax.app' }), `a designated live link counts (${JSON.stringify(ev)})`)
+
     await open(page, '/work/sms-characters')
     const fig = page.locator('main figure.cursor-pointer').first()
     await fig.scrollIntoViewIfNeeded()
@@ -156,6 +167,10 @@ try {
     ev = await waitEvent(page, 'not_found')
     const path = ev[0]?.data?.path ?? ''
     assert(ev.length === 1 && path.length === 60 && !path.includes('?'), `not_found path is cut to 60 characters with no query (${path.length})`)
+
+    await page.goto(BASE + '/Order-1234567/A%40B.com', { waitUntil: 'load', timeout: 90000 })
+    ev = await waitEvent(page, 'not_found')
+    assert(ev.length === 1 && same(ev[0].data, { path: '/order-#/ab.com' }), `not_found path keeps only [a-z0-9-_/.] and masks long digit runs (${JSON.stringify(ev)})`)
 
     const priv = await page.goto(BASE + '/privacy', { waitUntil: 'load', timeout: 90000 })
     const h1 = await page.locator('main h1').textContent()

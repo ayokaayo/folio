@@ -31,8 +31,12 @@ export default function PrivacyPage() {
             I use Umami, a privacy-friendly analytics tool, to count visits and see which pages and case studies are
             read, which links are clicked, and roughly where visitors come from (country, device, referring site).
           </p>
-          <p>It doesn&apos;t store personal data or IP addresses, and doesn&apos;t recognise you on your next visit.</p>
-          <p>Data is kept for six months.</p>
+          <p>It doesn&apos;t store personal data or IP addresses.</p>
+          <p>
+            Any visit identifier is anonymous and short-lived, so it can&apos;t build a profile of you or recognise
+            you over time.
+          </p>
+          <p>Data is kept for a limited period, set by the analytics provider.</p>
           <p>Browsers that send Do Not Track are not counted.</p>
           <p>
             Questions: reach me via{' '}
