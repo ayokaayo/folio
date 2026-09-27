@@ -9,6 +9,14 @@ interface WorkDetailLayoutProps {
   }
 }
 
+// Every id is known at build time; any other renders the root not-found page at routing time, with a 404
+// status (a notFound() from the page itself comes after app/loading.tsx has started a 200 response).
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return caseStudies.map(cs => ({ id: cs.id }))
+}
+
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const caseStudy = caseStudies.find((cs) => cs.id === params.id)
 

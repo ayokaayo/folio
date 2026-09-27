@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getProjectBySlug } from '@/lib/projects'
+import { getProjectBySlug, projects } from '@/lib/projects'
 import { SITE } from '@/lib/constants'
 
 interface ProjectDetailLayoutProps {
@@ -7,6 +7,14 @@ interface ProjectDetailLayoutProps {
   params: {
     slug: string
   }
+}
+
+// Every slug is known at build time; any other renders the root not-found page at routing time, with a 404
+// status (a notFound() from the page itself comes after app/loading.tsx has started a 200 response).
+export const dynamicParams = false
+
+export function generateStaticParams() {
+  return projects.map(p => ({ slug: p.id }))
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

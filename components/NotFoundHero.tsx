@@ -8,7 +8,8 @@ import { NOT_FOUND, displayPath, truncateMiddle, variantFor } from './hero/notFo
 /**
  * The not-found pages: the home hero with a large 404 drawn in glyphs beside (or below) the copy. The
  * missing path is read on the client and rendered as text, so React escapes it. Without a variant the copy
- * follows the path, so the root page also serves unknown case studies and projects (see middleware.ts).
+ * follows the path, so the root page also serves unknown case studies and projects (their layouts set
+ * dynamicParams = false, so unknown ids 404 at routing time).
  */
 export default function NotFoundHero({ variant }: { variant?: keyof typeof NOT_FOUND }) {
   const pathname = usePathname() ?? ''
