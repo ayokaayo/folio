@@ -18,6 +18,7 @@ import FigmaFrame from './FigmaFrame'
 import GridLabel, { GridLabelMuted } from './GridLabel'
 import ImageWithLoader from './ImageWithLoader'
 import { useCellHeight } from '@/lib/useCellHeight'
+import { track } from '@/lib/analytics'
 
 interface ProjectCardProps {
   project: SideProject
@@ -41,7 +42,7 @@ export default function ProjectCard({
   return (
     <FigmaFrame label={readingTimeLabel} reveal>
       <article ref={articleRef} className="group bg-bg-surface overflow-hidden border border-border-subtle project-card-article">
-        <Link href={cardUrl} className="block h-full flex flex-col">
+        <Link href={cardUrl} className="block h-full flex flex-col" onClick={() => track('project_open', { id: project.id })}>
           {/* Image - height constrained to fit within grid-aligned card */}
           {project.imageUrl ? (
             <div className="project-card-image flex-shrink-0">

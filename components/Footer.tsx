@@ -9,16 +9,20 @@
  */
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { copyEmailToClipboard } from '@/lib/utils/email'
 import { SITE } from '@/lib/constants'
 import { GRID_GAP } from './ExposedGrid'
 import { REVEAL } from '@/lib/reveal'
+import { track } from '@/lib/analytics'
 
 export default function Footer() {
   const [copied, setCopied] = useState(false)
 
   const handleCopyEmail = async () => {
     const success = await copyEmailToClipboard()
+    // copyEmailToClipboard catches its own errors and returns false, so false is the failure path.
+    track('email_copy', { result: success ? 'ok' : 'failed' })
     if (success) {
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
@@ -57,6 +61,7 @@ export default function Footer() {
 
               <a
                 href={SITE.LINKEDIN}
+                onClick={() => track('linkedin_click', { from: 'footer' })}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-[var(--quiet-text)] bg-[var(--quiet-bg)] border border-[var(--quiet-border)] px-3 py-1.5 rounded hover:bg-[var(--quiet-bg-hover)] hover:border-[var(--quiet-border-hover)] hover:text-[var(--quiet-text-hover)] transition-all duration-150"
@@ -74,6 +79,7 @@ export default function Footer() {
             </h3>
             <a
               href="/cv/Miguel_Ferreira_Resume.pdf"
+              onClick={() => track('cv_download', { from: 'footer' })}
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center gap-2 font-mono text-label uppercase tracking-wide text-[var(--quiet-text)] bg-[var(--quiet-bg)] border border-[var(--quiet-border)] px-3 py-1.5 rounded hover:bg-[var(--quiet-bg-hover)] hover:border-[var(--quiet-border-hover)] hover:text-[var(--quiet-text-hover)] transition-all duration-150"
@@ -108,10 +114,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 divider-dashed-grid">
+        <div className="mt-16 pt-8 divider-dashed-grid flex flex-wrap items-center gap-x-6 gap-y-2">
           <p className="font-mono text-caption text-text-tertiary">
             © {currentYear} miguelangelo.tech
           </p>
+          <Link
+            href="/privacy"
+            className="font-mono text-caption text-text-tertiary hover:text-text-primary transition-colors duration-150"
+          >
+            Privacy
+          </Link>
         </div>
       </div>
     </footer>

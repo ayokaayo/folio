@@ -469,7 +469,7 @@ export interface PointerState {
  * that stays 120 ms becomes the pointer and a 450 ms hold is a press, so a scroll (which
  * cancels within ~100 ms) never disturbs the page.
  */
-export function usePointer(sectionRef: RefObject<HTMLElement>, kick: RefObject<() => void>) {
+export function usePointer(sectionRef: RefObject<HTMLElement>, kick: RefObject<() => void>, onPlay?: RefObject<(kind: 'pointer' | 'touch') => void>) {
   const state = useRef<PointerState>({ x: 0, y: 0, inside: false, down: false, speed: 0, path: [], taps: [] })
   useEffect(() => {
     const section = sectionRef.current
@@ -493,6 +493,8 @@ export function usePointer(sectionRef: RefObject<HTMLElement>, kick: RefObject<(
         if (Math.hypot(q.x - tap.x, q.y - tap.y) > 8) tap.far = true
       }
       if (!P.inside) return
+      // The first stroke that actually disturbs the field counts as play (HeroField keeps it to once).
+      onPlay?.current?.(e.pointerType === 'touch' ? 'touch' : 'pointer')
       const q = at(e)
       const now = performance.now()
       const dt = Math.max(1, now - lastT) / 1000
@@ -546,6 +548,7 @@ export function usePointer(sectionRef: RefObject<HTMLElement>, kick: RefObject<(
         if (tap && !tap.far && performance.now() - tap.t < 250) {
           P.taps.push({ x: tap.x, y: tap.y })
           if (P.taps.length > 8) P.taps.shift()
+          onPlay?.current?.('touch')
         }
         tap = null
         window.clearTimeout(liftTimer)
@@ -570,7 +573,7 @@ export function usePointer(sectionRef: RefObject<HTMLElement>, kick: RefObject<(
       section.removeEventListener('pointercancel', lift)
       window.removeEventListener('pointerup', onUp)
     }
-  }, [sectionRef, kick])
+  }, [sectionRef, kick, onPlay])
   return state
 }
 

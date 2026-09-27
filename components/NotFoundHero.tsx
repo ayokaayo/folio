@@ -1,6 +1,8 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
+import { notFoundPath, track } from '@/lib/analytics'
 import HeroSection from './hero/HeroSection'
 import type { HeroCopy } from './hero/copy'
 import { NOT_FOUND, displayPath, truncateMiddle, variantFor } from './hero/notFoundCopy'
@@ -14,6 +16,13 @@ import { NOT_FOUND, displayPath, truncateMiddle, variantFor } from './hero/notFo
 export default function NotFoundHero() {
   const pathname = usePathname() ?? ''
   const v = NOT_FOUND[variantFor(pathname)]
+  // Once per visit to the page; the ref also absorbs React's double effect run in development.
+  const counted = useRef(false)
+  useEffect(() => {
+    if (counted.current || !pathname) return
+    counted.current = true
+    track('not_found', { path: notFoundPath(pathname) })
+  }, [pathname])
   const copy: HeroCopy = {
     headline: [v.headline, `Nothing lives at ${truncateMiddle(displayPath(pathname))}.`],
     subhead: [],

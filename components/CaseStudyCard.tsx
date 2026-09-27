@@ -22,6 +22,7 @@ import GridLabel from './GridLabel'
 import { calculateCaseStudyReadingTime } from '@/lib/utils/readingTime'
 import ImageWithLoader from './ImageWithLoader'
 import { useCellHeight } from '@/lib/useCellHeight'
+import { track } from '@/lib/analytics'
 
 /** Card-to-card spacing: 2 grid gaps (32px) - will be grid-aligned via CSS */
 export const CARD_GAP = GRID_GAP * 2
@@ -87,7 +88,7 @@ export default function CaseStudyCard({
         onMouseLeave={handleMouseLeave}
         data-case-study-id={caseStudy.id}
       >
-        <Link href={cardUrl} className="block h-full">
+        <Link href={cardUrl} className="block h-full" onClick={() => track('case_study_open', { id: caseStudy.id })}>
         <article
           ref={articleRef}
           className="flex flex-col lg:flex-row bg-bg-surface overflow-hidden transition-all duration-200 border border-border-subtle hover:border-text-tertiary case-study-card-article"

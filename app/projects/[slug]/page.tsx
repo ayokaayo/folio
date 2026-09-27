@@ -15,6 +15,7 @@ import ImageModal from '@/components/ImageModal'
 import DensityToggle from '@/components/DensityToggle'
 import ZoomableImage from '@/components/ZoomableImage'
 import TestimonialCarousel from '@/components/TestimonialCarousel'
+import { outboundHost, track } from '@/lib/analytics'
 
 interface ProjectDetailPageProps {
   params: {
@@ -84,8 +85,14 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
     notFound()
   }
 
+  // Outbound links (the live product buttons and links in the write up) are counted with one handler.
+  const onOutboundClick = (e: React.MouseEvent) => {
+    const host = outboundHost(e.target)
+    if (host) track('live_product_click', { project: project.id, host })
+  }
+
   return (
-    <main id="main-content" className="pt-20 md:pt-24">
+    <main id="main-content" className="pt-20 md:pt-24" onClick={onOutboundClick}>
       {/* Header */}
       <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <motion.div

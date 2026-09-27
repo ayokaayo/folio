@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import type { RefObject } from 'react'
 import type { HeroValues } from '../settings'
 import { newAmbient, restForm, stepAmbient, useMoire, usePointer, type Frame } from './engine'
+import { track } from '@/lib/analytics'
 
 const DEG = Math.PI / 180
 const CELL = 10 // CSS px per field cell
@@ -121,6 +122,14 @@ export default function HeroField({ sectionRef, copyRef, values, reducedMotion, 
   const acc = useRef(0)
   const ambient = useRef(newAmbient())
   const wasStill = useRef(false)
+  // hero_play: the first pointer, touch or scroll play with the home hero, once per page view. Not on
+  // the not-found pages, which draw a shape with the same field.
+  const played = useRef(false)
+  const play = useRef((kind: 'pointer' | 'touch' | 'scroll') => {
+    if (played.current) return
+    played.current = true
+    track('hero_play', { kind })
+  })
 
   useEffect(() => {
     const f = field.current
@@ -163,6 +172,7 @@ export default function HeroField({ sectionRef, copyRef, values, reducedMotion, 
       // Scroll: a light line impulse along the band, so the ruling answers too and the wake field
       // carries the band's afterglow into the glyphs. The strength already carries the scroll gain, and
       // the impulse is per 60 Hz frame, scaled by elapsed time so any refresh rate deposits the same.
+      if (f.band.strength > 0.05 && !played.current && !shape) play.current('scroll')
       if (f.band.strength > 0.05) F.deposit(0, f.band.y, w, f.band.y, Number(vals.impulse) * 0.4 * f.band.strength * dt * 60)
       // Fixed 120 Hz simulation, independent of display rate.
       acc.current += dt
@@ -187,7 +197,7 @@ export default function HeroField({ sectionRef, copyRef, values, reducedMotion, 
   }
 
   const m = useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion, step, shape, onShape })
-  pointer.current = usePointer(sectionRef, m.kick)
+  pointer.current = usePointer(sectionRef, m.kick, shape ? undefined : play)
 
   // Without a field the stand-in type has to stay.
   useEffect(() => {

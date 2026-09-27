@@ -1,9 +1,11 @@
 'use client'
 
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useReducedMotion } from '@/lib/hooks/useReducedMotion'
 import ImageWithLoader from './ImageWithLoader'
+import { pageIdFromPath, track } from '@/lib/analytics'
 
 interface ImageModalProps {
   image: {
@@ -16,6 +18,17 @@ interface ImageModalProps {
 
 export default function ImageModal({ image, onClose }: ImageModalProps) {
   const prefersReducedMotion = useReducedMotion()
+  const pathname = usePathname() ?? ''
+  const isOpen = image !== null
+
+  // Counts each time an image is enlarged, as proof opened on this case study or project.
+  useEffect(() => {
+    if (!isOpen) return
+    const page = pageIdFromPath(pathname)
+    if (page) track('proof_open', { page, kind: 'image' })
+    // Fires on open only; switching the path while open is not a new enlarge.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen])
 
   // Close on ESC key
   useEffect(() => {
