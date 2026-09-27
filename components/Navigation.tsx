@@ -15,7 +15,11 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { NAV_ITEMS } from '@/lib/constants'
 
-/** Hamburger icon that animates to X when open. Rotations use viewBox center (12,12) so the X is centered. */
+/**
+ * Hamburger icon that animates to X when open. Each outer line first slides to the middle (y 12) and
+ * then turns about the viewBox centre (12,12), so both strokes cross at the centre. CSS applies the
+ * rightmost transform first, hence rotate before translate in the list.
+ */
 const X_CENTER = '12px 12px'
 
 function HamburgerIcon({ open }: { open: boolean }) {
@@ -39,7 +43,7 @@ function HamburgerIcon({ open }: { open: boolean }) {
         className="transition-transform duration-300 ease-out"
         style={{
           transformOrigin: X_CENTER,
-          transform: open ? 'translateY(5px) rotate(45deg)' : 'translateY(0) rotate(0)',
+          transform: open ? 'rotate(45deg) translateY(5px)' : 'rotate(0deg) translateY(0px)',
         }}
       />
       {/* Middle line */}
@@ -60,7 +64,7 @@ function HamburgerIcon({ open }: { open: boolean }) {
         className="transition-transform duration-300 ease-out"
         style={{
           transformOrigin: X_CENTER,
-          transform: open ? 'translateY(-5px) rotate(-45deg)' : 'translateY(0) rotate(0)',
+          transform: open ? 'rotate(-45deg) translateY(-5px)' : 'rotate(0deg) translateY(0px)',
         }}
       />
     </svg>
@@ -79,6 +83,13 @@ export default function Navigation() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // On the home page the links wait out of sight at the top, so the hero reads on its own, and fade in
+  // with the backdrop once the page scrolls. Keyboard focus on a link reveals the bar at once, so no
+  // one tabs into an invisible link.
+  const [linkFocus, setLinkFocus] = useState(false)
+  const barShown = scrolled || isMobileMenuOpen || linkFocus
+  const linksHidden = pathname === '/' && !barShown
 
   // Close mobile menu on ESC key
   useEffect(() => {
@@ -115,9 +126,9 @@ export default function Navigation() {
         className="fixed top-0 left-0 right-0 z-50 transition-[background-color,backdrop-filter] duration-300"
         style={{
           height: '80px',
-          backgroundColor: scrolled || isMobileMenuOpen ? 'rgb(247 245 240 / 0.88)' : 'transparent',
-          backdropFilter: scrolled || isMobileMenuOpen ? 'blur(8px)' : 'none',
-          WebkitBackdropFilter: scrolled || isMobileMenuOpen ? 'blur(8px)' : 'none',
+          backgroundColor: barShown ? 'rgb(247 245 240 / 0.88)' : 'transparent',
+          backdropFilter: barShown ? 'blur(8px)' : 'none',
+          WebkitBackdropFilter: barShown ? 'blur(8px)' : 'none',
         }}
       >
         <div className="lattice h-full">
@@ -142,7 +153,14 @@ export default function Navigation() {
             </Link>
 
             {/* Desktop Navigation: aligned right */}
-            <div className="hidden md:flex items-center gap-10">
+            <div
+              className="hidden md:flex items-center gap-10 transition-opacity duration-300"
+              style={{ opacity: linksHidden ? 0 : 1, pointerEvents: linksHidden ? 'none' : undefined }}
+              onFocus={() => setLinkFocus(true)}
+              onBlur={e => {
+                if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setLinkFocus(false)
+              }}
+            >
               {NAV_ITEMS.map((item) => {
                 const isActive = pathname === item.href || pathname.startsWith(item.href)
                 return (
