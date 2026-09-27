@@ -8,6 +8,8 @@ export interface HeroCopy {
   headline: string[]
   subhead: string[]
   cta: { label: string; href: string }
+  /** A second, quieter CTA beside the first (the not-found pages); the home hero has none. */
+  cta2?: { label: string; href: string }
 }
 
 export const HERO_COPY: HeroCopy = {

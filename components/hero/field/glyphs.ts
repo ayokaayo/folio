@@ -184,6 +184,23 @@ vec3 restGlyph(vec2 cell, float P, float t) {
   return vec3(level, mix(0.5, 1.0, presence), 0.6 * head);
 }
 
+// Shape (the not-found pages' 404): the covered share of the cell, 0 to 1, from engine.ts; 0 off the grid.
+float shapeAt(vec2 cell) {
+  ivec2 ij = ivec2(cell) + 1;
+  ivec2 size = textureSize(uShape, 0);
+  if (ij.x < 0 || ij.y < 0 || ij.x >= size.x || ij.y >= size.y) return 0.0;
+  return texelFetch(uShape, ij, 0).r;
+}
+
+// A shape cell's glyph: a heavy mark (+ × ◇ ┼ ╬, levels 4 to 8) swapped on the rest glyphs' churn clock,
+// at full ink scale and part deepened so the digits read darker than the field around them.
+vec3 shapeGlyph(ivec2 ic, float t) {
+  float rate = uGlyphChurn * mix(0.4, 1.6, hash01(ic * 3 + 1));
+  int tick = int(floor(t * rate + 7.0 * hash01(ic + ivec2(13, 5))));
+  float pick = float(hashCell(ic + ivec2(tick * 7919 + 31, tick * 104729 + 17)) & 0xffffu) / 65535.0;
+  return vec3(4.0 + min(floor(pick * 5.0), 4.0), 1.0, 0.8);
+}
+
 // Scroll band: a horizontal Gaussian lift centred on uBand.x, sigma uBand.z.
 float glyphBand(vec2 ctr) {
   float z = (ctr.y - uBand.x) / max(uBand.z, 1.0);
@@ -216,6 +233,14 @@ vec3 glyphs(vec2 tl, float px) {
   }
   // No rest glyphs in the copy column: beside monospace type they read as stray punctuation.
   vec3 rg = inColumn ? vec3(0.0) : restGlyph(cell, P, uChurnT);
+  // Shape cells (at least half covered) hold a heavy mark while the field is calm. Wake energy thins them,
+  // each cell dropping out at its own hashed level as E rises past a few hundredths to a quarter, so the
+  // digits break into the ordinary wake where it passes (below E 0.5 the wake itself draws only light
+  // marks, so the gap reads) and re-form as it decays.
+  if (uShapeOn > 0.5 && shapeAt(cell) >= 0.5) {
+    float presence = 1.0 - smoothstep(0.03, 0.25, E);
+    if (presence > mix(0.1, 0.9, hash01(ivec2(cell) * 9 + 4))) rg = shapeGlyph(ivec2(cell), uChurnT);
+  }
   // Wave edges: the energy gradient across a cell lifts the burst's expanding edge into a crisp ring.
   // Scaled by the burst control's wake, so burst 0 still draws no wake and the default is unscaled.
   float edge = 0.0;

@@ -150,6 +150,8 @@ uniform vec3 uInkDeep;      // --accent-deep
 uniform vec4 uCtaBox;       // CTA, CSS px from top-left
 uniform vec4 uCopyCol;      // copy column x0, x1 and the copy block's top and the CTA's bottom
 uniform vec4 uFx;           // lab upgrades, 0 or 1: fringes, flurries, writing streams, wave edges
+uniform sampler2D uShape;   // shape coverage per lattice cell (R, 0 to 1), cell (cx, cy) at texel (cx + 1, cy + 1)
+uniform float uShapeOn;     // 0 no shape (home), 1 draw it
          // screen 2 rotates about this point, CSS px from top-left
 
 // Area of a unit box for which a*x + b*y <= t, with x,y in [-.5,.5].

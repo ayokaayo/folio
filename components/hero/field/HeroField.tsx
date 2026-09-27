@@ -103,13 +103,17 @@ export interface HeroFieldProps {
   copyRef: RefObject<HTMLDivElement>
   values: HeroValues
   reducedMotion: boolean
+  /** Text drawn as dense glyphs (the not-found pages); see HeroSection. */
+  shape?: string
+  /** Told whether the shape is currently drawn in glyphs, so the plain-type stand-in can hide. */
+  onShape?: (drawn: boolean) => void
 }
 
 /**
  * The hero's WebGL layer: two line screens over a damped wave surface the pointer disturbs.
  * Renders only the canvas; HeroSection owns the copy and loads this lazily.
  */
-export default function HeroField({ sectionRef, copyRef, values, reducedMotion }: HeroFieldProps) {
+export default function HeroField({ sectionRef, copyRef, values, reducedMotion, shape, onShape }: HeroFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const field = useRef<WaveField>(null as unknown as WaveField)
   field.current ??= new WaveField()
@@ -182,8 +186,13 @@ export default function HeroField({ sectionRef, copyRef, values, reducedMotion }
     return !still
   }
 
-  const m = useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion, step })
+  const m = useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion, step, shape, onShape })
   pointer.current = usePointer(sectionRef, m.kick)
+
+  // Without a field the stand-in type has to stay.
+  useEffect(() => {
+    if (m.glFailed) onShape?.(false)
+  }, [m.glFailed, onShape])
 
   if (m.glFailed) return null
   return <canvas ref={canvasRef} aria-hidden className="absolute inset-0 w-full h-full block" />

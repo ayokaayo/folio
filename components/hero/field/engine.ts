@@ -7,6 +7,7 @@ import { HIGHLIGHT, LATENT, colour, highlightHex, palette, resetTokens } from '.
 import { cappedDpr, useActive, useLatest } from './hooks'
 import { BAND_SIGMA, bandY, cellOrigin, CELL, CLOCK_WRAP, glyphClockTerms, newScrollBand, stepScroll } from './glyphInputs'
 import { MAX_MASK, fragment, vertex } from './shader'
+import { rasterShape, reduceToCells, type ShapeGrid } from './shape'
 
 /**
  * Moiré engine: renderer, line measurement for the highlights, palette, and a render loop
@@ -43,9 +44,13 @@ interface Options {
   values: HeroValues
   reducedMotion: boolean
   step: (f: Frame) => boolean
+  /** Text drawn as dense glyphs in the section's [data-shape-box] (the not-found pages); none on home. */
+  shape?: string
+  /** Told whether the shape is currently drawn. */
+  onShape?: (drawn: boolean) => void
 }
 
-export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion, step }: Options) {
+export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion, step, shape, onShape }: Options) {
   const active = useActive(sectionRef)
   const [glFailed, setGlFailed] = useState(false)
 
@@ -53,6 +58,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
   const rm = useLatest(reducedMotion)
   const activeRef = useLatest(active)
   const stepRef = useLatest(step)
+  const shapeRef = useLatest(shape)
+  const onShapeRef = useLatest(onShape)
   const raf = useRef<number | null>(null)
   const kick = useRef<() => void>(() => {})
   const size = useRef({ w: 1, h: 1 })
@@ -87,6 +94,14 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
     }
     const blank = new THREE.DataTexture(new Uint8Array([128, 0, 0, 255]), 1, 1)
     blank.needsUpdate = true
+    // The shape texture: one byte per lattice cell (shape.ts); a single empty cell until a shape is drawn.
+    const noShape = new THREE.DataTexture(new Uint8Array([0]), 1, 1, THREE.RedFormat, THREE.UnsignedByteType)
+    noShape.unpackAlignment = 1
+    noShape.needsUpdate = true
+    let shapeTex: THREE.DataTexture | null = null
+    let shapeGrid: ShapeGrid | null = null
+    // The shape is set in the site mono, so it waits for the fonts.
+    let fontsIn = false
 
     const material = new THREE.ShaderMaterial({
       vertexShader: vertex,
@@ -159,6 +174,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uFx: { value: new THREE.Vector4(0, 0, 0, 0) },
         uInkDeep: { value: hexToVec3('#184937') },
         uPivot: { value: new THREE.Vector2(0, 0) },
+        uShape: { value: noShape },
+        uShapeOn: { value: 0 },
       },
       depthTest: false,
       depthWrite: false,
@@ -166,7 +183,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
     })
     const u = material.uniforms
     if (process.env.NODE_ENV !== 'production') {
-      ;(window as unknown as { __hero?: unknown }).__hero = { u, size: () => size.current }
+      ;(window as unknown as { __hero?: unknown }).__hero = { u, size: () => size.current, shape: () => shapeGrid }
     }
     const scene = new THREE.Scene()
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material)
@@ -205,11 +222,57 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         })
       }
       u.uMaskCount.value = n
-      // The CTA sits outside the highlight boxes; glyphs keep clear of it too.
-      const cta = copyRef.current?.querySelector('a')?.getBoundingClientRect()
+      // The CTA sits outside the highlight boxes; glyphs keep clear of it too. With a second CTA beside
+      // it (the not-found pages) the box spans both.
+      const cta = Array.from(copyRef.current?.querySelectorAll('a') ?? [])
+        .map(a => a.getBoundingClientRect())
+        .reduce<DOMRect | undefined>((acc, b) => {
+          if (!acc) return b
+          const x0 = Math.min(acc.left, b.left)
+          const y0 = Math.min(acc.top, b.top)
+          return new DOMRect(x0, y0, Math.max(acc.right, b.right) - x0, Math.max(acc.bottom, b.bottom) - y0)
+        }, undefined)
       if (cta) (u.uCtaBox.value as THREE.Vector4).set(cta.left - r.left, cta.top - r.top, cta.right - r.left, cta.bottom - r.top)
       const block = copyRef.current?.getBoundingClientRect()
       if (block) copySpan.current = { top: block.top - r.top, bottom: (cta ?? block).bottom - r.top }
+    }
+
+    // Rasterises the shape into the visible [data-shape-box] and reduces it to lattice cells, against the
+    // same cell origin the frame sets (the copy's left edge and the section's height).
+    const buildShape = (r: DOMRect) => {
+      const text = shapeRef.current
+      let box: { b: DOMRect; align: 'start' | 'center' } | null = null
+      if (text && fontsIn) {
+        for (const el of Array.from(section.querySelectorAll<HTMLElement>('[data-shape-box]'))) {
+          const b = el.getBoundingClientRect()
+          if (b.width >= CELL && b.height >= CELL) {
+            box = { b, align: el.dataset.align === 'start' ? 'start' : 'center' }
+            break
+          }
+        }
+      }
+      if (!text || !box) {
+        u.uShapeOn.value = 0
+        shapeGrid = null
+        onShapeRef.current?.(false)
+        return
+      }
+      const bx = Math.round(box.b.left - r.left)
+      const by = Math.round(box.b.top - r.top)
+      const bw = Math.round(box.b.width)
+      const bh = Math.round(box.b.height)
+      const px = rasterShape(text, bw, bh, box.align, getComputedStyle(document.body).fontFamily)
+      const org = cellOrigin(copyRect.current.x0, r.height)
+      const grid = reduceToCells(px, bw, bh, bx, by, org.x, org.y, r.width, r.height)
+      const tex = new THREE.DataTexture(grid.bytes, grid.cols, grid.rows, THREE.RedFormat, THREE.UnsignedByteType)
+      tex.unpackAlignment = 1
+      tex.needsUpdate = true
+      shapeTex?.dispose()
+      shapeTex = tex
+      shapeGrid = grid
+      u.uShape.value = tex
+      u.uShapeOn.value = 1
+      onShapeRef.current?.(true)
     }
 
     const resize = () => {
@@ -223,6 +286,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       const c = copyRef.current?.getBoundingClientRect()
       if (c) copyRect.current = { x0: c.left - r.left, x1: c.right - r.left }
       measureLines(r)
+      buildShape(r)
       kick.current()
     }
 
@@ -327,11 +391,18 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
     })
     ro.observe(section)
     resize()
-    document.fonts.ready.then(() => {
+    const arrive = () => {
       if (!alive) return
+      fontsIn = true
       resize()
       if (entranceStart.current === 0) entranceStart.current = performance.now()
       kick.current()
+    }
+    document.fonts.ready.then(() => {
+      if (!alive) return
+      // The shape is set in the mono's medium weight; make sure that face is in before it rasterises.
+      if (shapeRef.current) document.fonts.load(`500 100px ${getComputedStyle(document.body).fontFamily}`).then(arrive, arrive)
+      else arrive()
     })
 
     const onLost = (e: Event) => {
@@ -363,12 +434,14 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       mesh.geometry.dispose()
       material.dispose()
       blank.dispose()
+      noShape.dispose()
+      shapeTex?.dispose()
       renderer.dispose()
     }
     // fragment and vertex are module constants, inert in production; listing them here only
     // matters for dev, where Fast Refresh gives them a new identity and must rebuild the material.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sectionRef, copyRef, canvasRef, v, rm, activeRef, stepRef, fragment, vertex])
+  }, [sectionRef, copyRef, canvasRef, v, rm, activeRef, stepRef, shapeRef, onShapeRef, fragment, vertex])
 
   useEffect(() => {
     kick.current()

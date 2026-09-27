@@ -1,8 +1,9 @@
 'use client'
 
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import GridCta from '../GridCta'
 import { HERO_COPY, type HeroCopy } from './copy'
 import { HERO_SETTINGS, type HeroValues } from './settings'
 import { INK, sheetColor } from './palettes'
@@ -31,12 +32,61 @@ interface HeroSectionProps {
   values?: HeroValues
   /** Forces reduced motion (lab); otherwise follows the OS setting. */
   reducedMotion?: boolean
+  /**
+   * Text the glyph field draws as dense heavy marks (the not-found pages pass "404"): right of the copy
+   * from lg, below it on smaller screens. Absent on the home hero, which then renders exactly as before.
+   */
+  shape?: string
 }
 
-export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, reducedMotion }: HeroSectionProps) {
+/**
+ * Where the shape goes. The engine reads the visible box's rectangle (and data-align) to fit the text; the
+ * same text sits inside as plain type, shown until the field has drawn the glyph version, and for good
+ * when there is no field (no WebGL, a lost context, or no script).
+ */
+function ShapeBox({ text, align, className, color, hidden, reduced }: {
+  text: string
+  align: 'start' | 'center'
+  className: string
+  color: string | undefined
+  hidden: boolean
+  reduced: boolean
+}) {
+  return (
+    <div data-shape-box data-align={align} aria-hidden className={`[container-type:size] flex items-center ${align === 'center' ? 'justify-center' : ''} ${className}`}>
+      <span
+        className="font-mono font-medium leading-none select-none"
+        style={{
+          // Three monospace digits are about 1.8em wide and their figures 0.7em tall; like the glyph version
+          // (field/shape.ts) they are drawn taller than set, which scaleY approximates.
+          fontSize: 'min(calc((100cqw - 32px) / 1.85), calc((100cqh - 32px) / 0.8 / 1.6))',
+          transform: 'scaleY(1.6)',
+          color,
+          opacity: hidden ? 0 : 0.9,
+          transition: reduced ? 'none' : 'opacity 450ms ease-out',
+        }}
+      >
+        {text}
+      </span>
+    </div>
+  )
+}
+
+/**
+ * From lg the title line holds on one line at a size fitted to the 8-column copy width: n monospace
+ * characters at 0.575em each, plus a little slack (the home title's 28 characters give 16.4).
+ */
+function titleFit(title: string) {
+  return (Array.from(title).length * 0.575 + 0.3).toFixed(2)
+}
+
+export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, reducedMotion, shape }: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const copyRef = useRef<HTMLDivElement>(null)
   const osReduced = usePrefersReducedMotion()
+  const reduced = reducedMotion ?? osReduced
+  // True once the field has drawn the shape in glyphs; the plain type fades out then.
+  const [shapeDrawn, setShapeDrawn] = useState(false)
   const paper = String(values.paper)
   const halo = Number(values.halo)
   const hc = sheetColor(values)
@@ -53,7 +103,13 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
       className="relative overflow-hidden"
       style={{ background: paper, touchAction: 'pan-y pinch-zoom', minHeight: 'calc(clamp(560px, 74vh, 780px) + 80px)' }}
     >
-      <HeroField sectionRef={sectionRef} copyRef={copyRef} values={values} reducedMotion={reducedMotion ?? osReduced} />
+      <HeroField
+        sectionRef={sectionRef}
+        copyRef={copyRef}
+        values={values}
+        reducedMotion={reduced}
+        {...(shape ? { shape, onShape: setShapeDrawn } : {})}
+      />
       {/* The hero runs up behind the transparent nav (80px), so the field fills the top of the screen. */}
       <div className="relative z-10 pt-36 pb-16 md:pt-44 md:pb-24">
         <div className="lattice">
@@ -62,8 +118,12 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
                 rather than the viewport: the title line, 28 monospace characters at 0.575em each, always fits. */}
             <h1
               data-line="head"
-              className="font-mono font-medium text-text-primary text-headline lg:text-[length:min(48px,calc(100cqw/16.4))]"
-              style={{ color: headColor }}
+              className={
+                shape
+                  ? 'font-mono font-medium text-text-primary text-headline lg:text-[length:min(48px,calc(100cqw/var(--hero-fit)))]'
+                  : 'font-mono font-medium text-text-primary text-headline lg:text-[length:min(48px,calc(100cqw/16.4))]'
+              }
+              style={shape ? ({ color: headColor, '--hero-fit': titleFit(copy.headline[0] ?? '') } as CSSProperties) : { color: headColor }}
             >
               {copy.headline.map((line, i) => (
                 <Fragment key={i}>
@@ -79,20 +139,23 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
                 </Fragment>
               ))}
             </h1>
-            <p data-line="sub" className={`font-mono text-subhead text-text-secondary mt-6 ${subWeight ? 'font-medium' : ''}`} style={{ color: subColor }}>
-              {copy.subhead.map((line, i) => (
-                <Fragment key={i}>
-                  {i > 0 && (
-                    <>
-                      {' '}
-                      <br className="hidden md:block" />
-                    </>
-                  )}
-                  {line}
-                </Fragment>
-              ))}
-            </p>
-            <div className="mt-12">
+            {copy.subhead.length > 0 && (
+              <p data-line="sub" className={`font-mono text-subhead text-text-secondary mt-6 ${subWeight ? 'font-medium' : ''}`} style={{ color: subColor }}>
+                {copy.subhead.map((line, i) => (
+                  <Fragment key={i}>
+                    {i > 0 && (
+                      <>
+                        {' '}
+                        <br className="hidden md:block" />
+                      </>
+                    )}
+                    {line}
+                  </Fragment>
+                ))}
+              </p>
+            )}
+            {/* A second CTA starts one gutter after the first, which is two columns wide, so both sit on the lattice. */}
+            <div className={copy.cta2 ? 'mt-12 flex flex-wrap items-start gap-4' : 'mt-12'}>
               <Link
                 href={copy.cta.href}
                 className="btn-primary hero-cta inline-flex justify-between cta-2col"
@@ -103,10 +166,23 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </Link>
+              {copy.cta2 && <GridCta href={copy.cta2.href} label={copy.cta2.label} />}
             </div>
           </div>
+          {shape && (
+            <ShapeBox text={shape} align="start" className="mt-12 h-[288px] lg:hidden" color={headColor} hidden={shapeDrawn} reduced={reduced} />
+          )}
         </div>
       </div>
+      {/* From lg the shape takes the open columns right of the copy (9 to 12), below the nav band. */}
+      {shape && (
+        <div className="absolute inset-0 z-10 hidden lg:block pointer-events-none">
+          <div className="lattice flex h-full pt-24 pb-16">
+            <div className="shrink-0 w-[round(calc((100%-11*16px)/12*8+7*16px),1px)]" />
+            <ShapeBox text={shape} align="center" className="flex-1 ml-8" color={headColor} hidden={shapeDrawn} reduced={reduced} />
+          </div>
+        </div>
+      )}
     </section>
   )
 }
