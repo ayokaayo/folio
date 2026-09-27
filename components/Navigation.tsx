@@ -88,8 +88,9 @@ export default function Navigation() {
   // with the backdrop once the page scrolls. Keyboard focus on a link reveals the bar at once, so no
   // one tabs into an invisible link.
   const [linkFocus, setLinkFocus] = useState(false)
-  const barShown = scrolled || isMobileMenuOpen || linkFocus
-  const linksHidden = pathname === '/' && !barShown
+  const onHome = pathname === '/'
+  const barShown = scrolled || isMobileMenuOpen || (onHome && linkFocus)
+  const linksHidden = onHome && !barShown
 
   // Close mobile menu on ESC key
   useEffect(() => {
