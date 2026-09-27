@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { getProjectBySlug, projects } from '@/lib/projects'
 import { SITE } from '@/lib/constants'
 
@@ -20,12 +21,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const project = getProjectBySlug(params.slug)
 
-  if (!project) {
-    return {
-      title: 'Project Not Found - Miguel Angelo',
-      description: 'The requested project could not be found.',
-    }
-  }
+  // Unreachable for unknown ids (dynamicParams = false); narrows the type.
+  if (!project) notFound()
 
   const title = `${project.title} - Miguel Angelo`
   const description = project.subtitle || project.description

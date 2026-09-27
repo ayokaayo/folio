@@ -4,6 +4,7 @@ import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import GridCta from '../GridCta'
+import { SHAPE_PAD, STRETCH_MAX, fitShape, measureShape, type ShapeFit } from './field/shape'
 import { HERO_COPY, type HeroCopy } from './copy'
 import { HERO_SETTINGS, type HeroValues } from './settings'
 import { INK, sheetColor } from './palettes'
@@ -42,7 +43,8 @@ interface HeroSectionProps {
 /**
  * Where the shape goes. The engine reads the visible box's rectangle (and data-align) to fit the text; the
  * same text sits inside as plain type, shown until the field has drawn the glyph version, and for good
- * when there is no field (no WebGL, a lost context, or no script).
+ * when there is no field (no WebGL, a lost context, or no script). Once script runs, the plain type is set
+ * with the engine's own fit (field/shape.ts), so the crossfade doesn't jump; before that, CSS approximates it.
  */
 function ShapeBox({ text, align, className, color, hidden, reduced }: {
   text: string
@@ -52,22 +54,67 @@ function ShapeBox({ text, align, className, color, hidden, reduced }: {
   hidden: boolean
   reduced: boolean
 }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [fit, setFit] = useState<{ f: ShapeFit; w: number; h: number } | null>(null)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let alive = true
+    const measure = () => {
+      if (!alive) return
+      const b = el.getBoundingClientRect()
+      const w = Math.round(b.width)
+      const h = Math.round(b.height)
+      const m = w >= SHAPE_PAD && h >= SHAPE_PAD ? measureShape(text, getComputedStyle(document.body).fontFamily) : null
+      setFit(m ? { f: fitShape(m, w, h, align), w, h } : null)
+    }
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    // Metrics taken before the mono loads belong to the fallback face.
+    document.fonts.ready.then(measure)
+    return () => {
+      alive = false
+      ro.disconnect()
+    }
+  }, [text, align])
+  const fade = { color, opacity: hidden ? 0 : 0.9, transition: reduced ? 'none' : 'opacity 450ms ease-out' }
   return (
-    <div data-shape-box data-align={align} aria-hidden className={`[container-type:size] flex items-center ${align === 'center' ? 'justify-center' : ''} ${className}`}>
-      <span
-        className="font-mono font-medium leading-none select-none"
-        style={{
-          // Three monospace digits are about 1.8em wide and their figures 0.7em tall; like the glyph version
-          // (field/shape.ts) they are drawn taller than set, which scaleY approximates.
-          fontSize: 'min(calc((100cqw - 32px) / 1.85), calc((100cqh - 32px) / 0.8 / 1.6))',
-          transform: 'scaleY(1.6)',
-          color,
-          opacity: hidden ? 0 : 0.9,
-          transition: reduced ? 'none' : 'opacity 450ms ease-out',
-        }}
-      >
-        {text}
-      </span>
+    <div
+      ref={ref}
+      data-shape-box
+      data-align={align}
+      aria-hidden
+      className={`relative [container-type:size] flex items-center ${align === 'center' ? 'justify-center' : ''} ${className}`}
+    >
+      {fit ? (
+        <svg className="absolute inset-0 select-none" width={fit.w} height={fit.h} style={fade}>
+          <text
+            x={fit.f.x}
+            y={fit.f.y}
+            transform={`scale(1 ${fit.f.sy})`}
+            fontSize={fit.f.size}
+            fontWeight={500}
+            fill="currentColor"
+            stroke="currentColor"
+            strokeWidth={fit.f.lw}
+            strokeLinejoin="round"
+          >
+            {text}
+          </text>
+        </svg>
+      ) : (
+        <span
+          className="font-mono font-medium leading-none select-none"
+          style={{
+            // Three monospace digits are about 1.8em wide and their figures 0.7em tall, stretched as the glyphs are.
+            fontSize: `min(calc((100cqw - ${align === 'center' ? 2 * SHAPE_PAD : 0}px) / 1.85), calc((100cqh - ${2 * SHAPE_PAD}px) / 0.8 / ${STRETCH_MAX}))`,
+            transform: `scaleY(${STRETCH_MAX})`,
+            ...fade,
+          }}
+        >
+          {text}
+        </span>
+      )}
     </div>
   )
 }
@@ -134,8 +181,20 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
                     </>
                   )}
                   {/* The title sits on its own line at every width and holds on large screens (the size above is
-                      fitted to it); later lines wrap, in light weight. */}
-                  <span className={i === 0 ? 'lg:whitespace-nowrap' : 'font-light'}>{line}</span>
+                      fitted to it); later lines wrap, in light weight. On the not-found pages a long path moves whole to
+                      the next line and breaks inside only when it must. An inline-block would do the same, but its box
+                      joins the line rectangles the engine measures and widens the highlight and the copy clearance. */}
+                  <span
+                    className={
+                      i === 0
+                        ? 'lg:whitespace-nowrap'
+                        : shape
+                          ? 'font-light [overflow-wrap:anywhere]'
+                          : 'font-light'
+                    }
+                  >
+                    {line}
+                  </span>
                 </Fragment>
               ))}
             </h1>
@@ -174,12 +233,12 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
           )}
         </div>
       </div>
-      {/* From lg the shape takes the open columns right of the copy (9 to 12), below the nav band. */}
+      {/* From lg the shape takes columns 8 to 12, below the nav band; copy clearance keeps its glyphs off the copy. */}
       {shape && (
         <div className="absolute inset-0 z-10 hidden lg:block pointer-events-none">
           <div className="lattice flex h-full pt-24 pb-16">
-            <div className="shrink-0 w-[round(calc((100%-11*16px)/12*8+7*16px),1px)]" />
-            <ShapeBox text={shape} align="center" className="flex-1 ml-8" color={headColor} hidden={shapeDrawn} reduced={reduced} />
+            <div className="shrink-0 w-[round(calc((100%-11*16px)/12*7+6*16px),1px)]" />
+            <ShapeBox text={shape} align="center" className="flex-1 ml-4" color={headColor} hidden={shapeDrawn} reduced={reduced} />
           </div>
         </div>
       )}

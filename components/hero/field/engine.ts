@@ -7,7 +7,7 @@ import { HIGHLIGHT, LATENT, colour, highlightHex, palette, resetTokens } from '.
 import { cappedDpr, useActive, useLatest } from './hooks'
 import { BAND_SIGMA, bandY, cellOrigin, CELL, CLOCK_WRAP, glyphClockTerms, newScrollBand, stepScroll } from './glyphInputs'
 import { MAX_MASK, fragment, vertex } from './shader'
-import { rasterShape, reduceToCells, type ShapeGrid } from './shape'
+import { haloCells, rasterShape, reduceToCells, type ShapeGrid } from './shape'
 
 /**
  * Moiré engine: renderer, line measurement for the highlights, palette, and a render loop
@@ -263,7 +263,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       const bh = Math.round(box.b.height)
       const px = rasterShape(text, bw, bh, box.align, getComputedStyle(document.body).fontFamily)
       const org = cellOrigin(copyRect.current.x0, r.height)
-      const grid = reduceToCells(px, bw, bh, bx, by, org.x, org.y, r.width, r.height)
+      // A two-cell halo around the digits keeps rest glyphs out, so the silhouette and the counters read.
+      const grid = haloCells(reduceToCells(px, bw, bh, bx, by, org.x, org.y, r.width, r.height), 2)
       const tex = new THREE.DataTexture(grid.bytes, grid.cols, grid.rows, THREE.RedFormat, THREE.UnsignedByteType)
       tex.unpackAlignment = 1
       tex.needsUpdate = true

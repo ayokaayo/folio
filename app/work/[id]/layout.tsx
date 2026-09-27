@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { caseStudies } from '@/lib/caseStudies'
 import { SITE } from '@/lib/constants'
 
@@ -20,12 +21,8 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const caseStudy = caseStudies.find((cs) => cs.id === params.id)
 
-  if (!caseStudy) {
-    return {
-      title: 'Case Study Not Found - Miguel Angelo',
-      description: 'The requested case study could not be found.',
-    }
-  }
+  // Unreachable for unknown ids (dynamicParams = false); narrows the type.
+  if (!caseStudy) notFound()
 
   // Metadata is plain text, so markdown links in the subtitle keep only their label
   const plainSubtitle = caseStudy.subtitle.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')

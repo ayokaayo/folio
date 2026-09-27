@@ -233,13 +233,19 @@ vec3 glyphs(vec2 tl, float px) {
   }
   // No rest glyphs in the copy column: beside monospace type they read as stray punctuation.
   vec3 rg = inColumn ? vec3(0.0) : restGlyph(cell, P, uChurnT);
-  // Shape cells (at least half covered) hold a heavy mark while the field is calm. Wake energy thins them,
-  // each cell dropping out at its own hashed level as E rises past a few hundredths to a quarter, so the
-  // digits break into the ordinary wake where it passes (below E 0.5 the wake itself draws only light
-  // marks, so the gap reads) and re-form as it decays.
-  if (uShapeOn > 0.5 && shapeAt(cell) >= 0.5) {
-    float presence = 1.0 - smoothstep(0.03, 0.25, E);
-    if (presence > mix(0.1, 0.9, hash01(ivec2(cell) * 9 + 4))) rg = shapeGlyph(ivec2(cell), uChurnT);
+  // Shape cells (at least half covered) hold a heavy mark while the field is calm. Wake energy and the
+  // scroll band thin them, each cell dropping out at its own hashed level as they rise past a few hundredths
+  // to a quarter, so the digits break into the ordinary wake where it passes (below E 0.5 the wake itself
+  // draws only light marks, so the gap reads) and re-form as it decays. Halo cells around the digits (under
+  // half) carry no rest glyphs, so the silhouette and the counters stay clean; the wake still draws there.
+  if (uShapeOn > 0.5) {
+    float sc = shapeAt(cell);
+    if (sc >= 0.5) {
+      float presence = 1.0 - smoothstep(0.03, 0.25, E + glyphBand(ctr));
+      if (presence > mix(0.1, 0.9, hash01(ivec2(cell) * 9 + 4))) rg = shapeGlyph(ivec2(cell), uChurnT);
+    } else if (sc > 0.0) {
+      rg = vec3(0.0);
+    }
   }
   // Wave edges: the energy gradient across a cell lifts the burst's expanding edge into a crisp ring.
   // Scaled by the burst control's wake, so burst 0 still draws no wake and the default is unscaled.

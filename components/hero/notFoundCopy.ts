@@ -30,7 +30,7 @@ export function variantFor(pathname: string): keyof typeof NOT_FOUND {
 }
 
 /** The longest path shown in full; longer ones keep both ends around a middle ellipsis. */
-export const PATH_MAX = 40
+export const PATH_MAX = 28
 
 /** Shortens text over max characters to max, keeping its start and end either side of an ellipsis. */
 export function truncateMiddle(text: string, max = PATH_MAX): string {
@@ -41,11 +41,16 @@ export function truncateMiddle(text: string, max = PATH_MAX): string {
   return chars.slice(0, head).join('') + '…' + chars.slice(chars.length - (keep - head)).join('')
 }
 
-/** The path as the visitor typed it: percent escapes decoded where they form valid UTF-8. */
+/**
+ * The path as the visitor typed it: percent escapes decoded where they form valid UTF-8, then control and
+ * format characters (including bidi overrides and zero-width marks) removed, so the line shows what it says.
+ */
 export function displayPath(pathname: string): string {
+  let path = pathname
   try {
-    return decodeURIComponent(pathname)
+    path = decodeURIComponent(pathname)
   } catch {
-    return pathname
+    // Malformed escapes stay as typed.
   }
+  return path.replace(/[\p{Cc}\p{Cf}]/gu, '')
 }

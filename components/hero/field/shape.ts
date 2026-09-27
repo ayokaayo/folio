@@ -53,48 +53,110 @@ export function reduceToCells(
 }
 
 /** Stroke laid over the fill, in em: the site loads the mono up to medium, and the digits want bold. */
-const EMBOLDEN = 0.07
+export const EMBOLDEN = 0.07
 /**
- * How far the type may be stretched vertically to fill a tall box. Three monospace digits across a few columns
- * come out only nine or ten cells high, too coarse for the counters of 0 and 4 to read; drawn taller and
- * condensed, they read at a glance, like a segment display.
+ * How far the type may be stretched vertically to fill a tall box. Set straight, three monospace digits
+ * across a few columns come out too few cells high for the counters of 0 and 4 to read; a little taller and
+ * condensed, they read at a glance.
  */
-export const STRETCH_MAX = 1.8
+export const STRETCH_MAX = 1.4
+/** Clear space kept inside the box: one cell top and bottom, and at the sides when centred. */
+export const SHAPE_PAD = CELL
+
+/** Ink extents of the text at 1px font size (canvas measureText divided by the size). */
+export interface ShapeMetrics {
+  left: number
+  right: number
+  ascent: number
+  descent: number
+}
 
 /**
- * Sets text as large as fits a bw by bh box (one cell clear top and bottom, and at the sides when centred),
- * in the given font family's medium weight, stretched up to STRETCH_MAX times vertically to fill the box's
- * height, and returns the box's RGBA pixels.
+ * Where and how large to set the text in a bw by bh box: font size, vertical stretch, stroke width, and the
+ * pen origin (x, and y in the stretched frame, so the drawn baseline sits at y * sy). Shared by the glyph
+ * raster and the plain-type stand-in (HeroSection), so the two show the same digits.
  */
+export interface ShapeFit {
+  size: number
+  sy: number
+  lw: number
+  x: number
+  y: number
+}
+
+export function fitShape(m: ShapeMetrics, bw: number, bh: number, align: 'start' | 'center'): ShapeFit {
+  const inkW = m.left + m.right + EMBOLDEN
+  const inkH = m.ascent + m.descent + EMBOLDEN
+  const padX = align === 'center' ? SHAPE_PAD : 0
+  const byHeight = (bh - 2 * SHAPE_PAD) / inkH
+  const size = Math.max(8, Math.min((bw - 2 * padX) / inkW, byHeight))
+  const sy = Math.min(STRETCH_MAX, Math.max(1, byHeight / size))
+  const lw = EMBOLDEN * size
+  const x = (align === 'center' ? (bw - inkW * size) / 2 : 0) + lw / 2 + m.left * size
+  const y = (bh - inkH * size * sy) / 2 / sy + lw / 2 + m.ascent * size
+  return { size, sy, lw, x, y }
+}
+
+/** Measures text in the given family's medium weight; null without a 2D canvas. */
+export function measureShape(text: string, family: string): ShapeMetrics | null {
+  const ctx = document.createElement('canvas').getContext('2d')
+  if (!ctx) return null
+  const REF = 100
+  ctx.font = `500 ${REF}px ${family}`
+  const m = ctx.measureText(text)
+  return {
+    left: m.actualBoundingBoxLeft / REF,
+    right: m.actualBoundingBoxRight / REF,
+    ascent: m.actualBoundingBoxAscent / REF,
+    descent: m.actualBoundingBoxDescent / REF,
+  }
+}
+
+/** Sets text in a bw by bh box as fitShape places it and returns the box's RGBA pixels. */
 export function rasterShape(text: string, bw: number, bh: number, align: 'start' | 'center', family: string): Uint8ClampedArray {
   const canvas = document.createElement('canvas')
   canvas.width = bw
   canvas.height = bh
   const ctx = canvas.getContext('2d', { willReadFrequently: true })
-  if (!ctx) return new Uint8ClampedArray(bw * bh * 4)
-  const REF = 100
-  ctx.font = `500 ${REF}px ${family}`
-  const m = ctx.measureText(text)
-  const inkW = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) / REF + EMBOLDEN
-  const inkH = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) / REF + EMBOLDEN
-  const padX = align === 'center' ? CELL : 0
-  const byHeight = (bh - 2 * CELL) / inkH
-  const size = Math.max(8, Math.min((bw - 2 * padX) / inkW, byHeight))
-  const sy = Math.min(STRETCH_MAX, Math.max(1, byHeight / size))
-  ctx.font = `500 ${size}px ${family}`
-  const f = ctx.measureText(text)
-  const lw = EMBOLDEN * size
-  const iw = f.actualBoundingBoxLeft + f.actualBoundingBoxRight + lw
-  const ih = f.actualBoundingBoxAscent + f.actualBoundingBoxDescent + lw
-  const x = (align === 'center' ? (bw - iw) / 2 : 0) + lw / 2 + f.actualBoundingBoxLeft
-  // y in the stretched frame: the ink is sy times taller on the canvas.
-  const y = (bh - ih * sy) / 2 / sy + lw / 2 + f.actualBoundingBoxAscent
-  ctx.setTransform(1, 0, 0, sy, 0, 0)
+  const m = measureShape(text, family)
+  if (!ctx || !m) return new Uint8ClampedArray(bw * bh * 4)
+  const f = fitShape(m, bw, bh, align)
+  ctx.font = `500 ${f.size}px ${family}`
+  ctx.setTransform(1, 0, 0, f.sy, 0, 0)
   ctx.fillStyle = '#000'
   ctx.strokeStyle = '#000'
-  ctx.lineWidth = lw
+  ctx.lineWidth = f.lw
   ctx.lineJoin = 'round'
-  ctx.fillText(text, x, y)
-  ctx.strokeText(text, x, y)
+  ctx.fillText(text, f.x, f.y)
+  ctx.strokeText(text, f.x, f.y)
   return ctx.getImageData(0, 0, bw, bh).data
+}
+
+/** Byte a halo cell carries: below the shape's 0.5 threshold, above zero. */
+export const HALO = 64
+
+/**
+ * Rings the shape (cells at 128 or more) with a halo of the given radius in cells, where the glyph shader
+ * keeps rest glyphs out, so the digits' silhouette and counters stay clean. Partly covered cells under the
+ * threshold join the halo too. Returns a new grid.
+ */
+export function haloCells(g: ShapeGrid, radius: number): ShapeGrid {
+  const { cols, rows, bytes } = g
+  const out = new Uint8Array(bytes)
+  const r2 = radius * radius + 0.5
+  for (let j = 0; j < rows; j++) {
+    for (let i = 0; i < cols; i++) {
+      if (bytes[j * cols + i] < 128) continue
+      for (let dj = -radius; dj <= radius; dj++) {
+        for (let di = -radius; di <= radius; di++) {
+          const ii = i + di
+          const jj = j + dj
+          if (ii < 0 || jj < 0 || ii >= cols || jj >= rows || di * di + dj * dj > r2) continue
+          const k = jj * cols + ii
+          if (out[k] < 128) out[k] = HALO
+        }
+      }
+    }
+  }
+  return { ...g, bytes: out }
 }

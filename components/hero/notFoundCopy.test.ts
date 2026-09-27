@@ -26,6 +26,10 @@ test('paths decode percent escapes, and malformed ones stay as they are', () => 
   assert.equal(displayPath('/100%'), '/100%')
 })
 
+test('control and format characters are removed after decoding', () => {
+  assert.equal(displayPath('/a%E2%80%AEb%00c%E2%80%8Bd%0A'), '/abcd')
+})
+
 test('each variant names its own place and offers two ways back', () => {
   assert.equal(NOT_FOUND.page.headline, 'This page drifted off the grid')
   assert.equal(NOT_FOUND.work.primary.href, '/work')
