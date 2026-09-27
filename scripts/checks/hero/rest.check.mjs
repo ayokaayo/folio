@@ -3,8 +3,9 @@
 import { assert, ink, launch, openHero } from './lib.mjs'
 
 // The mechanism under test, pinned independently of the approved tuning (settings.ts), which may cap
-// rest glyphs at dots or run the pattern clock fast.
-const BASE = { coverage: 0, glyphRestTop: 6, glyphSpeed: 1, glyphChurn: 1.5, glyphScale: 9 }
+// rest glyphs at dots or run the pattern clock fast. Streams keep the speed and trail they had when the
+// check was written (they now run on their own clock, with their own speed and trail settings).
+const BASE = { coverage: 0, glyphRestTop: 6, glyphSpeed: 1, glyphChurn: 1.5, glyphScale: 9, glyphStreamSpeed: 1, glyphTrail: 12 }
 
 const box = c => c.x1 - c.x0 >= 15 || c.y1 - c.y0 >= 15
 // A solid fills most of its box (n counts device pixels); stroke glyphs such as + × ◇ fill well under half.

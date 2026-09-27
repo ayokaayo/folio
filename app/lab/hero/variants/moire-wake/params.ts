@@ -33,24 +33,27 @@ const CONTROLS: Param[] = [
   { key: 'streams', label: 'Streams', type: 'range', min: 0, max: 1, step: 0.01, default: GLYPH_MACROS.streams },
   { key: 'burst', label: 'Burst', type: 'range', min: 0, max: 1, step: 0.01, default: GLYPH_MACROS.burst },
   { key: 'scroll', label: 'Scroll', type: 'range', min: 0, max: 1, step: 0.01, default: GLYPH_MACROS.scroll },
-  { key: 'size', label: 'Pattern size', type: 'range', min: 3, max: 30, step: 0.5, default: GLYPH_MACROS.size },
+  // 0 to 1 on a log scale: 3 to 30 cells.
+  { key: 'size', label: 'Pattern size', type: 'range', min: 0, max: 1, step: 0.01, default: GLYPH_MACROS.size },
 ]
 
 // Every underlying key stays settable by URL (p.key=value) for the checks, but none show in the panel.
 const RAW_GLYPHS: Param[] = [
   { key: 'glyphs', label: 'Glyph layer', type: 'toggle', default: true },
-  { key: 'glyphRest', label: 'glyphRest', type: 'range', min: 0.3, max: 0.99, step: 0.01, default: 0.8 },
-  { key: 'glyphRestTop', label: 'glyphRestTop', type: 'range', min: 1, max: 6, step: 1, default: 6 },
-  { key: 'glyphChurn', label: 'glyphChurn', type: 'range', min: 0, max: 8, step: 0.1, default: 1.5 },
-  { key: 'glyphSpeed', label: 'glyphSpeed', type: 'range', min: 0, max: 30, step: 0.25, default: 1 },
-  { key: 'glyphRain', label: 'glyphRain', type: 'range', min: 0, max: 1, step: 0.01, default: 0.12 },
-  { key: 'glyphWake', label: 'glyphWake', type: 'range', min: 0, max: 4, step: 0.05, default: 1 },
-  { key: 'glyphMutate', label: 'glyphMutate', type: 'range', min: 0, max: 2, step: 0.05, default: 0.5 },
+  { key: 'glyphRest', label: 'glyphRest', type: 'range', min: 0.3, max: 0.999, step: 0.001, default: 0.77 },
+  { key: 'glyphRestTop', label: 'glyphRestTop', type: 'range', min: 1, max: 6, step: 1, default: 3 },
+  { key: 'glyphChurn', label: 'glyphChurn', type: 'range', min: 0, max: 20, step: 0.1, default: 12.1 },
+  { key: 'glyphSpeed', label: 'glyphSpeed', type: 'range', min: 0, max: 30, step: 0.25, default: 11 },
+  { key: 'glyphStreamSpeed', label: 'glyphStreamSpeed', type: 'range', min: 0, max: 30, step: 0.25, default: 11 },
+  { key: 'glyphRain', label: 'glyphRain', type: 'range', min: 0, max: 1, step: 0.01, default: 0.11 },
+  { key: 'glyphTrail', label: 'glyphTrail', type: 'range', min: 4, max: 30, step: 1, default: 12 },
+  { key: 'glyphWake', label: 'glyphWake', type: 'range', min: 0, max: 4, step: 0.05, default: 2 },
+  { key: 'glyphMutate', label: 'glyphMutate', type: 'range', min: 0, max: 2, step: 0.05, default: 0 },
   { key: 'glyphInkMax', label: 'glyphInkMax', type: 'range', min: 0.1, max: 1, step: 0.01, default: 0.7 },
-  { key: 'glyphDeepen', label: 'glyphDeepen', type: 'range', min: 0, max: 1, step: 0.01, default: 0.8 },
-  { key: 'glyphScale', label: 'glyphScale', type: 'range', min: 3, max: 30, step: 0.5, default: 9 },
+  { key: 'glyphDeepen', label: 'glyphDeepen', type: 'range', min: 0, max: 2, step: 0.01, default: 1 },
+  { key: 'glyphScale', label: 'glyphScale', type: 'range', min: 3, max: 30, step: 0.5, default: 11 },
   { key: 'bandGain', label: 'bandGain', type: 'range', min: 0, max: 3, step: 0.05, default: 1 },
-  { key: 'glyphScrollPhase', label: 'glyphScrollPhase', type: 'range', min: 0, max: 0.1, step: 0.002, default: 0.02 },
+  { key: 'glyphScrollPhase', label: 'glyphScrollPhase', type: 'range', min: 0, max: 0.2, step: 0.002, default: 0.1 },
 ]
 
 const COMMON: Param[] = [

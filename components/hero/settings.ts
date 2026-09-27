@@ -51,19 +51,6 @@ export const HERO_SETTINGS: HeroValues = {
   hiGap: 7.5,
   // Glyph layer: six controls (glyphMacros.ts); tune them in the lab, paste into GLYPH_MACROS
   ...expandGlyphMacros(GLYPH_MACROS),
-  // Locked 2026-09-26: the look Miguel approved in the lab. The six controls are being remapped
-  // so their defaults reproduce it; until then these values take precedence.
-  glyphs: true,
-  glyphRest: 0.77,
+  // Rest glyphs stop at level 3 (the colon), as in the look Miguel locked on 2026-09-26.
   glyphRestTop: 3,
-  glyphChurn: 1.1,
-  glyphSpeed: 11,
-  glyphRain: 0.11,
-  glyphWake: 2,
-  glyphMutate: 0,
-  glyphInkMax: 0.7,
-  glyphDeepen: 1,
-  bandGain: 1,
-  glyphScrollPhase: 0.1,
-  glyphScale: 11,
 }

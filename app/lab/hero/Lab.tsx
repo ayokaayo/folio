@@ -193,7 +193,14 @@ export default function Lab() {
                         key={p.key}
                         param={p}
                         value={values[p.key]}
-                        onChange={v => update(q => q.set(`p.${p.key}`, encodeValue(v)))}
+                        onChange={v =>
+                          update(q => {
+                            // Moving a visible control drops every hidden raw value, so a stale raw
+                            // key can't override what the control now sets.
+                            for (const h of entry.meta.params) if (h.hidden) q.delete(`p.${h.key}`)
+                            q.set(`p.${p.key}`, encodeValue(v))
+                          })
+                        }
                       />
                     ))}
                 </div>

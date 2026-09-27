@@ -59,6 +59,9 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
   const lineKind = useRef<string[]>([])
   const entranceStart = useRef(0)
   const glyphClock = useRef(0)
+  // Churn and streams run on real time, apart from the pattern clock, so Motion can speed the churn
+  // without racing the pattern.
+  const churnClock = useRef(0)
   const scroll = useRef(newScrollBand())
 
   useEffect(() => {
@@ -140,6 +143,9 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uGlyphChurn: { value: 1.5 },
         uGlyphRestTop: { value: 6 },
         uGlyphRain: { value: 0.12 },
+        uChurnT: { value: 0 },
+        uStreamSpeed: { value: 1 },
+        uStreamTrail: { value: 12 },
         uBand: { value: new THREE.Vector3(0, 0, BAND_SIGMA) },
         uInkDeep: { value: hexToVec3('#184937') },
         uPivot: { value: new THREE.Vector2(0, 0) },
@@ -267,6 +273,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       u.uGlyphChurn.value = Number(vals.glyphChurn)
       u.uGlyphRestTop.value = Number(vals.glyphRestTop)
       u.uGlyphRain.value = Number(vals.glyphRain)
+      u.uStreamSpeed.value = Number(vals.glyphStreamSpeed)
+      u.uStreamTrail.value = Number(vals.glyphTrail)
       u.uInkDeep.value.copy(hexToVec3(colour('@accent-deep')))
       // Scroll: sampled each frame while the hero is live; null frames forget the position.
       const live = activeRef.current && !rm.current
@@ -276,6 +284,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       if (rm.current) glyphClock.current = 0
       else glyphClock.current = (((glyphClock.current + dt * Number(vals.glyphSpeed)) % 3600) + 3600) % 3600
       u.uGlyphT.value = rm.current ? 0 : (((glyphClock.current + scroll.current.phase) % 3600) + 3600) % 3600
+      churnClock.current = rm.current ? 0 : (churnClock.current + dt) % 3600
+      u.uChurnT.value = churnClock.current
 
       const moving = stepRef.current({ u, dt, now, w: size.current.w, h: size.current.h, values: vals, reducedMotion: rm.current, band })
       renderer.render(scene, camera)

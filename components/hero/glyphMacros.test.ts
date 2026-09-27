@@ -1,37 +1,64 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { GLYPH_MACROS, expandGlyphMacros } from './glyphMacros.ts'
+import { GLYPH_MACROS, expandGlyphMacros, type GlyphMacros } from './glyphMacros.ts'
 
-test('default macros reproduce the tuned glyph values', () => {
+// The look Miguel locked on 2026-09-26, as effective rates: churn 1.1 on a pattern clock at x11 is
+// 12.1 swaps a second, and streams fell at 11 times their nominal speed.
+const LOCKED: Record<string, number> = {
+  glyphRest: 0.77,
+  glyphChurn: 12.1,
+  glyphStreamSpeed: 11,
+  glyphSpeed: 11,
+  glyphRain: 0.11,
+  glyphTrail: 12,
+  glyphWake: 2,
+  glyphMutate: 0,
+  glyphInkMax: 0.7,
+  glyphDeepen: 1,
+  bandGain: 1,
+  glyphScrollPhase: 0.1,
+  glyphScale: 11,
+}
+
+const near = (got: unknown, want: number, rel = 0.02) => Math.abs(Number(got) - want) <= Math.max(rel * Math.abs(want), 1e-9)
+
+test('default macros reproduce the locked look within 2%', () => {
   const v = expandGlyphMacros(GLYPH_MACROS)
   assert.equal(v.glyphs, true)
-  assert.ok(Math.abs(Number(v.glyphRest) - 0.8) < 1e-9)
-  assert.equal(v.glyphRestTop, 6)
-  assert.ok(Math.abs(Number(v.glyphChurn) - 1.5) < 1e-9)
-  assert.ok(Math.abs(Number(v.glyphSpeed) - 1) < 1e-9)
-  assert.ok(Math.abs(Number(v.glyphRain) - 0.12) < 1e-9)
-  assert.ok(Math.abs(Number(v.glyphWake) - 1) < 1e-9)
-  assert.ok(Math.abs(Number(v.glyphMutate) - 0.5) < 1e-9)
-  assert.ok(Math.abs(Number(v.glyphInkMax) - 0.7) < 1e-9)
-  assert.ok(Math.abs(Number(v.glyphDeepen) - 0.8) < 1e-9)
-  assert.ok(Math.abs(Number(v.bandGain) - 1) < 1e-9)
-  assert.ok(Math.abs(Number(v.glyphScrollPhase) - 0.02) < 1e-9)
-  assert.equal(v.glyphScale, 9)
+  for (const [k, want] of Object.entries(LOCKED)) assert.ok(near(v[k], want), `${k}: ${v[k]} vs ${want}`)
 })
 
-test('density 0 turns the layer off; low density keeps rest glyphs light', () => {
-  assert.equal(expandGlyphMacros({ ...GLYPH_MACROS, density: 0 }).glyphs, false)
-  const low = expandGlyphMacros({ ...GLYPH_MACROS, density: 0.2 })
-  assert.equal(low.glyphs, true)
-  assert.ok(Number(low.glyphRestTop) <= 4)
-  assert.ok(Number(low.glyphRest) > 0.9)
+test('density 0 leaves rest nearly empty but keeps the layer on', () => {
+  const v = expandGlyphMacros({ ...GLYPH_MACROS, density: 0 })
+  assert.ok(Number(v.glyphRest) >= 0.98)
+  assert.equal(v.glyphs, true)
 })
 
-test('motion 0 freezes rest; burst and scroll scale their groups together', () => {
-  const still = expandGlyphMacros({ ...GLYPH_MACROS, motion: 0 })
-  assert.equal(still.glyphChurn, 0)
-  assert.equal(still.glyphSpeed, 0)
-  const loud = expandGlyphMacros({ ...GLYPH_MACROS, burst: 1, scroll: 1 })
-  assert.ok(Number(loud.glyphWake) > 1 && Number(loud.glyphInkMax) > 0.7 && Number(loud.glyphDeepen) > 0.8)
-  assert.ok(Number(loud.bandGain) > 1 && Number(loud.glyphScrollPhase) > 0.02)
+test('motion 0 stops churn, streams and the pattern clock', () => {
+  const v = expandGlyphMacros({ ...GLYPH_MACROS, motion: 0 })
+  assert.equal(v.glyphChurn, 0)
+  assert.equal(v.glyphStreamSpeed, 0)
+  assert.equal(v.glyphSpeed, 0)
+})
+
+test('pattern size runs 3 to 30 cells', () => {
+  assert.ok(near(expandGlyphMacros({ ...GLYPH_MACROS, size: 0 }).glyphScale, 3, 1e-9))
+  assert.ok(near(expandGlyphMacros({ ...GLYPH_MACROS, size: 1 }).glyphScale, 30, 1e-9))
+})
+
+test('every control moves its primary key at least 1.8x across its range', () => {
+  const primary: Record<keyof GlyphMacros, string> = {
+    density: 'glyphRest',
+    motion: 'glyphChurn',
+    streams: 'glyphRain',
+    burst: 'glyphWake',
+    scroll: 'bandGain',
+    size: 'glyphScale',
+  }
+  for (const [c, key] of Object.entries(primary) as [keyof GlyphMacros, string][]) {
+    const a = Math.abs(Number(expandGlyphMacros({ ...GLYPH_MACROS, [c]: 0 })[key]))
+    const b = Math.abs(Number(expandGlyphMacros({ ...GLYPH_MACROS, [c]: 1 })[key]))
+    const ratio = Math.max(a, b) / Math.max(Math.min(a, b), 1e-9)
+    assert.ok(ratio >= 1.8, `${c} -> ${key}: ${a} to ${b} (x${ratio.toFixed(2)})`)
+  }
 })

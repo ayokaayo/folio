@@ -96,7 +96,8 @@ float copyDistance(vec2 cell) {
 }
 
 // Rest glyph for a cell: presence from the pattern (or a falling stream), identity from a per-cell churn
-// clock, so present cells keep swapping characters. Returns (level 0-6, ink scale, deepen); 0 is empty.
+// clock, so present cells keep swapping characters. t is the churn clock (real time, not the pattern's).
+// Returns (level 0-6, ink scale, deepen); 0 is empty.
 vec3 restGlyph(vec2 cell, float P, float t) {
   ivec2 ic = ivec2(cell);
   float presence = smoothstep(uGlyphRest, 1.0, P);
@@ -104,11 +105,12 @@ vec3 restGlyph(vec2 cell, float P, float t) {
   uint hc = hashCell(ivec2(ic.x, 7919));
   float col = float(hc & 0xffffu) / 65535.0;
   if (col < uGlyphRain) {
-    float speed = mix(4.0, 10.0, float((hc >> 16u) & 0xffu) / 255.0);
-    float rows = uRes.y / CELL + 12.0;
+    float speed = mix(4.0, 10.0, float((hc >> 16u) & 0xffu) / 255.0) * uStreamSpeed;
+    float trail = max(uStreamTrail, 1.0);
+    float rows = uRes.y / CELL + trail;
     float headRow = mod(t * speed + col * 997.0, rows);
     float d = headRow - cell.y;
-    if (d >= 0.0 && d < 12.0) {
+    if (d >= 0.0 && d < trail) {
       presence = max(presence, exp(-d / 4.0));
       head = 1.0 - smoothstep(0.0, 1.5, d);
     }
@@ -146,7 +148,7 @@ vec3 glyphs(vec2 tl, float px) {
   float P = glyphPattern(cell, uGlyphT, uGlyphMutate * h);
   float shape = 0.35 + 0.65 * P;
   // No rest glyphs in the copy column: beside monospace type they read as stray punctuation.
-  vec3 rg = inColumn ? vec3(0.0) : restGlyph(cell, P, uGlyphT);
+  vec3 rg = inColumn ? vec3(0.0) : restGlyph(cell, P, uChurnT);
   float lift = (uGlyphWake * E2 + glyphBand(ctr)) * shape;
   // Neighbouring cells pass through the ramp at different moments; only in the wake.
   float stagger = (hash01(ivec2(cell)) - 0.5) * 0.6 * clamp(3.0 * lift, 0.0, 1.0);
