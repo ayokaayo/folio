@@ -111,9 +111,9 @@ function FixedColumns() {
 
 export function GhostHome() {
   return (
-    <main id="main-content" className="pt-20" aria-busy="true">
-      <section className="relative" style={{ minHeight: 'clamp(560px, 74vh, 780px)' }}>
-        <div className="pt-16 pb-16 md:pt-24 md:pb-24">
+    <main id="main-content" aria-busy="true">
+      <section className="relative" style={{ minHeight: 'calc(clamp(560px, 74vh, 780px) + 80px)' }}>
+        <div className="pt-36 pb-16 md:pt-44 md:pb-24">
           <div className="lattice">
             <div className="w-full lg:w-[round(calc((100%-11*16px)/12*8+7*16px),1px)] lg:[container-type:inline-size]">
               <h1 className="font-mono font-medium text-headline lg:text-[length:min(48px,calc(100cqw/16.4))]">

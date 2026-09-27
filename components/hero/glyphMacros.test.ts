@@ -3,13 +3,13 @@ import assert from 'node:assert/strict'
 import { GLYPH_MACROS, expandGlyphMacros, type GlyphMacros } from './glyphMacros.ts'
 
 // The look Miguel approved, as effective rates: locked 2026-09-26 (churn 1.1 on a pattern clock at x11,
-// i.e. 12.1 swaps a second, streams at 11 times nominal), then idle motion slowed by a third on 2026-09-27.
+// i.e. 12.1 swaps a second, streams at 11 times nominal), then idle motion slowed to a quarter of that on 2026-09-27 to match the moiré's slow flow.
 const LOCKED: Record<string, number> = {
   glyphRest: 0.77,
   glyphKeep: 1,
-  glyphChurn: 8.1,
-  glyphStreamSpeed: 7.29,
-  glyphSpeed: 7.29,
+  glyphChurn: 2,
+  glyphStreamSpeed: 1.8,
+  glyphSpeed: 1.8,
   glyphRain: 0.11,
   glyphTrail: 12,
   glyphWake: 2,

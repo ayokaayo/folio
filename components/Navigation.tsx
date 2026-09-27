@@ -70,6 +70,15 @@ function HamburgerIcon({ open }: { open: boolean }) {
 export default function Navigation() {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  // No bar over the hero: the nav is clear at the top of the page and takes a soft paper backdrop
+  // only once content scrolls beneath it, so links never sit on top of text.
+  const [scrolled, setScrolled] = useState(false)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Close mobile menu on ESC key
   useEffect(() => {
@@ -103,8 +112,13 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-50 bg-bg-surface border-b border-border-subtle"
-        style={{ height: '80px' }}
+        className="fixed top-0 left-0 right-0 z-50 transition-[background-color,backdrop-filter] duration-300"
+        style={{
+          height: '80px',
+          backgroundColor: scrolled || isMobileMenuOpen ? 'rgb(247 245 240 / 0.88)' : 'transparent',
+          backdropFilter: scrolled || isMobileMenuOpen ? 'blur(8px)' : 'none',
+          WebkitBackdropFilter: scrolled || isMobileMenuOpen ? 'blur(8px)' : 'none',
+        }}
       >
         <div className="lattice h-full">
           <div className="flex items-center justify-between h-full">

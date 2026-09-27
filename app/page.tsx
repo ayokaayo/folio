@@ -41,7 +41,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main id="main-content" className="pt-20">
+    <main id="main-content">
       {/* HERO: moiré wake field behind server-rendered copy (components/hero) */}
       <HeroSection />
 

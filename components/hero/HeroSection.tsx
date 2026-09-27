@@ -51,10 +51,11 @@ export default function HeroSection({ copy = HERO_COPY, values = HERO_SETTINGS, 
     <section
       ref={sectionRef}
       className="relative overflow-hidden"
-      style={{ background: paper, touchAction: 'pan-y pinch-zoom', minHeight: 'clamp(560px, 74vh, 780px)' }}
+      style={{ background: paper, touchAction: 'pan-y pinch-zoom', minHeight: 'calc(clamp(560px, 74vh, 780px) + 80px)' }}
     >
       <HeroField sectionRef={sectionRef} copyRef={copyRef} values={values} reducedMotion={reducedMotion ?? osReduced} />
-      <div className="relative z-10 pt-16 pb-16 md:pt-24 md:pb-24">
+      {/* The hero runs up behind the transparent nav (80px), so the field fills the top of the screen. */}
+      <div className="relative z-10 pt-36 pb-16 md:pt-44 md:pb-24">
         <div className="lattice">
           <div ref={copyRef} className="w-full lg:w-[round(calc((100%-11*16px)/12*8+7*16px),1px)] lg:[container-type:inline-size]" style={{ textShadow }}>
             {/* From lg the title line doesn't wrap, so the size follows the 8-column width (which steps with the lattice)

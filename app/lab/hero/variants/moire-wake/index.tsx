@@ -15,5 +15,6 @@ export default function Wake({ values, reducedMotion }: VariantProps) {
     if ((MACRO_KEYS as string[]).includes(k)) macros[k as keyof GlyphMacros] = Number(v)
     else raw[k] = v
   }
-  return <HeroSection values={{ ...HERO_SETTINGS, ...expandGlyphMacros(macros), ...raw }} reducedMotion={reducedMotion} />
+  // The lab's main is padded for the nav; the production hero runs up behind it, so pull it back.
+  return <div className="-mt-20"><HeroSection values={{ ...HERO_SETTINGS, ...expandGlyphMacros(macros), ...raw }} reducedMotion={reducedMotion} /></div>
 }

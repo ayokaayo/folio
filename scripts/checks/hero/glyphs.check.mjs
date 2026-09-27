@@ -47,7 +47,9 @@ for (const opts of [{}, { mobile: true, width: 375, height: 667 }]) {
 
   // 3. Wake: a drag across the open side of the hero lifts density and wake-only glyphs, then decays.
   // A stronger wake lift, so the drag must reach the box glyphs and the solid.
-  await openHero(page, { ...GLYPH_ONLY, glyphSpeed: 20, glyphWake: 2.5 })
+  // Rest thinned here (the approved tuning is denser than the tuning this check was written for), so the
+  // wake ratio measures the wake rather than how busy rest is.
+  await openHero(page, { ...GLYPH_ONLY, glyphSpeed: 20, glyphWake: 2.5, glyphRest: 0.85 })
   await page.mouse.move(10, 890)
   const rest = (await ink(page)).cells.length
   await page.mouse.move(900, 200)
