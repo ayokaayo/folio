@@ -156,6 +156,9 @@ export default function HeroField({ sectionRef, copyRef, values, reducedMotion }
       for (const t of P.taps) F.deposit(t.x, t.y, t.x, t.y, Number(vals.impulse) * 0.35)
       P.taps.length = 0
       if (P.down && P.inside) F.deposit(P.x, P.y, P.x, P.y, imp * 0.15)
+      // Scroll: a light line impulse along the band, so the ruling answers too and the wake field
+      // carries the band's afterglow into the glyphs.
+      if (f.band.strength > 0.05) F.deposit(0, f.band.y, w, f.band.y, Number(vals.impulse) * 0.4 * f.band.strength)
       // Fixed 120 Hz simulation, independent of display rate.
       acc.current += dt
       while (acc.current >= 1 / 120) {

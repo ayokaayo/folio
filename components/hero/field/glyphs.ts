@@ -124,6 +124,12 @@ vec3 restGlyph(vec2 cell, float P, float t) {
   return vec3(level, mix(0.5, 1.0, presence), 0.6 * head);
 }
 
+// Scroll band: a horizontal Gaussian lift centred on uBand.x, sigma uBand.z.
+float glyphBand(vec2 ctr) {
+  float z = (ctr.y - uBand.x) / max(uBand.z, 1.0);
+  return uBand.y * exp(-z * z);
+}
+
 // Glyph layer at tl (CSS px from the section's top-left). Returns (coverage, intensity, deepen): deepen is
 // the larger of E squared and a stream head's deepening.
 vec3 glyphs(vec2 tl, float px) {
@@ -141,7 +147,7 @@ vec3 glyphs(vec2 tl, float px) {
   float shape = 0.35 + 0.65 * P;
   // No rest glyphs in the copy column: beside monospace type they read as stray punctuation.
   vec3 rg = inColumn ? vec3(0.0) : restGlyph(cell, P, uGlyphT);
-  float lift = (uGlyphWake * E2) * shape;
+  float lift = (uGlyphWake * E2 + glyphBand(ctr)) * shape;
   // Neighbouring cells pass through the ramp at different moments; only in the wake.
   float stagger = (hash01(ivec2(cell)) - 0.5) * 0.6 * clamp(3.0 * lift, 0.0, 1.0);
   float xw = clamp(9.0 * clamp(lift, 0.0, 1.0) + stagger, 0.0, dCopy < 3.0 * CELL ? 7.0 : 9.0);

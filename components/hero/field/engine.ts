@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import type { HeroValues } from '../settings'
 import { HIGHLIGHT, LATENT, colour, highlightHex, palette, resetTokens } from '../palettes'
 import { cappedDpr, useActive, useLatest } from './hooks'
-import { cellOrigin, CELL } from './glyphInputs'
+import { BAND_SIGMA, bandY, cellOrigin, CELL, newScrollBand, stepScroll } from './glyphInputs'
 import { MAX_MASK, fragment, vertex } from './shader'
 
 /**
@@ -29,6 +29,8 @@ export interface Frame {
   h: number
   values: HeroValues
   reducedMotion: boolean
+  /** Scroll band: y in section CSS px, strength 0 to 1 (0 when inactive or under reduced motion). */
+  band: { y: number; strength: number }
 }
 
 interface Options {
@@ -57,6 +59,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
   const lineKind = useRef<string[]>([])
   const entranceStart = useRef(0)
   const glyphClock = useRef(0)
+  const scroll = useRef(newScrollBand())
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -137,6 +140,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uGlyphChurn: { value: 1.5 },
         uGlyphRestTop: { value: 6 },
         uGlyphRain: { value: 0.12 },
+        uBand: { value: new THREE.Vector3(0, 0, BAND_SIGMA) },
         uInkDeep: { value: hexToVec3('#184937') },
         uPivot: { value: new THREE.Vector2(0, 0) },
       },
@@ -264,11 +268,16 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       u.uGlyphRestTop.value = Number(vals.glyphRestTop)
       u.uGlyphRain.value = Number(vals.glyphRain)
       u.uInkDeep.value.copy(hexToVec3(colour('@accent-deep')))
+      // Scroll: sampled each frame while the hero is live; null frames forget the position.
+      const live = activeRef.current && !rm.current
+      stepScroll(scroll.current, live ? window.scrollY : null, dt, Number(vals.glyphScrollPhase))
+      const band = { y: bandY(window.innerHeight, section.getBoundingClientRect().top), strength: live ? scroll.current.strength : 0 }
+      u.uBand.value.set(band.y, band.strength * Number(vals.bandGain), BAND_SIGMA)
       if (rm.current) glyphClock.current = 0
-      else glyphClock.current = (glyphClock.current + dt * Number(vals.glyphSpeed)) % 3600
-      u.uGlyphT.value = glyphClock.current
+      else glyphClock.current = (((glyphClock.current + dt * Number(vals.glyphSpeed)) % 3600) + 3600) % 3600
+      u.uGlyphT.value = rm.current ? 0 : (((glyphClock.current + scroll.current.phase) % 3600) + 3600) % 3600
 
-      const moving = stepRef.current({ u, dt, now, w: size.current.w, h: size.current.h, values: vals, reducedMotion: rm.current })
+      const moving = stepRef.current({ u, dt, now, w: size.current.w, h: size.current.h, values: vals, reducedMotion: rm.current, band })
       renderer.render(scene, camera)
       if (moving && !rm.current && activeRef.current) raf.current = requestAnimationFrame(frame)
       else last = 0

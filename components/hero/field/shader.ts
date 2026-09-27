@@ -75,6 +75,7 @@ uniform float uGlyphScale;
 uniform float uGlyphChurn;   // rest glyph swaps per second
 uniform float uGlyphRestTop; // highest rest level, 1-6
 uniform float uGlyphRain;    // share of columns carrying a falling stream
+uniform vec3 uBand;      // scroll band: y (CSS px), strength, sigma (CSS px)
 uniform vec3 uInkDeep;      // --accent-deep
 uniform vec4 uCtaBox;       // CTA, CSS px from top-left
 uniform vec4 uCopyCol;      // copy column x0, x1 and the copy block's top and the CTA's bottom
