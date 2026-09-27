@@ -94,6 +94,13 @@ for (const opts of [{}, { mobile: true, width: 375, height: 667 }]) {
   const b = await ink(page)
   assert(a.cells.length > 0, 'reduced motion shows rest glyphs')
   assert(a.fingerprint === b.fingerprint, 'reduced motion frame does not move')
+  // No streams: the frame matches the same page with streams off (raw glyphRain 0), even at a heavy rain.
+  assert((await uniform(page, 'uGlyphRain')) === 0, 'reduced motion sets no stream columns')
+  await openHero(page, { ...GLYPH_ONLY, glyphRain: 0.5 }, '&rm=1')
+  const rain = await ink(page)
+  await openHero(page, { ...GLYPH_ONLY, glyphRain: 0 }, '&rm=1')
+  const dry = await ink(page)
+  assert(rain.fingerprint === dry.fingerprint && a.fingerprint === dry.fingerprint, `reduced motion shows no stream runs (${rain.fingerprint}, ${dry.fingerprint}, ${a.fingerprint})`)
   await browser.close()
 }
 

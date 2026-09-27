@@ -29,7 +29,10 @@ export interface Frame {
   h: number
   values: HeroValues
   reducedMotion: boolean
-  /** Scroll band: y in section CSS px, strength 0 to 1 (0 when inactive or under reduced motion). */
+  /**
+   * Scroll band: y in section CSS px, strength 0 to 1 times the scroll gain (bandGain), so 0 when the
+   * hero is inactive, motion is reduced or the Scroll control is at 0.
+   */
   band: { y: number; strength: number }
 }
 
@@ -290,8 +293,11 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       // Scroll: sampled each frame while the hero is live; null frames forget the position.
       const live = activeRef.current && !rm.current
       stepScroll(scroll.current, live ? window.scrollY : null, dt, Number(vals.glyphScrollPhase))
-      const band = { y: bandY(window.innerHeight, section.getBoundingClientRect().top), strength: live ? scroll.current.strength : 0 }
-      u.uBand.value.set(band.y, band.strength * Number(vals.bandGain), BAND_SIGMA)
+      // The scroll control's gain scales both the glyph band and the field deposit, so Scroll 0 leaves
+      // the moiré untouched too.
+      const gain = Math.max(0, Number(vals.bandGain))
+      const band = { y: bandY(window.innerHeight, section.getBoundingClientRect().top), strength: live ? scroll.current.strength * gain : 0 }
+      u.uBand.value.set(band.y, band.strength, BAND_SIGMA)
       const wrap = (x: number) => ((x % CLOCK_WRAP) + CLOCK_WRAP) % CLOCK_WRAP
       if (rm.current) glyphClock.current = 0
       else glyphClock.current = wrap(glyphClock.current + dt * Number(vals.glyphSpeed))

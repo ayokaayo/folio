@@ -238,12 +238,13 @@ vec3 glyphs(vec2 tl, float px) {
     // Rest: whole characters, swapped instantly by the churn clock.
     cov = glyphShape(int(rg.x), q, px, snap) * rg.y;
   } else {
-    // Wake: the crossfaded ramp, as before. A rest glyph's ink scale carries into the first stretch of
-    // the lift, so the crossover from rest to wake doesn't pop.
+    // Wake: the crossfaded ramp, as before. A rest glyph's ink scale carries over the two levels above
+    // it, measured from where the wake overtakes that glyph, so the crossover doesn't pop even for the
+    // heavier rest glyphs (a lift-based blend had already finished by the time it passed a diamond).
     int lo = int(floor(xw));
     float f = fract(xw);
     cov = (1.0 - f) * glyphShape(lo, q, px, snap) + f * glyphShape(min(lo + 1, 9), q, px, snap);
-    cov *= mix(rg.x > 0.5 ? rg.y : 1.0, 1.0, clamp(3.0 * lift, 0.0, 1.0));
+    cov *= mix(rg.x > 0.5 ? rg.y : 1.0, 1.0, smoothstep(rg.x, rg.x + 2.0, xw));
   }
   return vec3(cov, max(xw, rg.x) / 9.0, max(E2, rg.z));
 }

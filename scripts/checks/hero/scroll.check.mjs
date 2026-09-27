@@ -1,5 +1,6 @@
 // Scrolling sends a band of glyphs through the hero in the scroll direction and morphs the pattern;
-// both settle when scrolling stops. Reduced motion ignores scroll.
+// both settle when scrolling stops. Scroll at 0 leaves the wave field (and so the moiré) untouched.
+// Reduced motion ignores scroll.
 import { assert, ink, launch, openHero, uniform } from './lib.mjs'
 
 // Locked seconds of pattern clock per px scrolled (settings.ts), set raw so the threshold is explicit.
@@ -43,6 +44,37 @@ const delta = (a, b) => ((((b - a + WRAP / 2) % WRAP) + WRAP) % WRAP) - WRAP / 2
   const down = delta(t2, t3)
   assert(down < -320 * PHASE * 0.8, `scrolling up reverses the morph (${down.toFixed(2)} s)`)
   await browser.close()
+}
+
+// Scroll 0 (raw bandGain 0): the same wheel sequence deposits nothing in the wave field; at the default
+// gain it does. The pointer never enters the hero (a wheel sends no pointer moves), so any field energy
+// comes from scroll. Reads the field texture's bytes: R is height (128 flat), G is energy.
+async function fieldAfterScroll(params) {
+  const { browser, page } = await launch()
+  await openHero(page, { coverage: 0, ...params })
+  for (let i = 0; i < 8; i++) {
+    await page.mouse.wheel(0, 40)
+    await page.waitForTimeout(16)
+  }
+  await page.waitForTimeout(50)
+  const f = await page.evaluate(() => {
+    const d = window.__hero.u.uField.value.image.data
+    let h = 0
+    let e = 0
+    for (let i = 0; i < d.length; i += 4) {
+      h = Math.max(h, Math.abs(d[i] - 128))
+      e = Math.max(e, d[i + 1])
+    }
+    return { h, e }
+  })
+  await browser.close()
+  return f
+}
+{
+  const quiet = await fieldAfterScroll({ bandGain: 0 })
+  assert(quiet.h <= 1 && quiet.e === 0, `scroll 0 leaves the wave field flat (height ${quiet.h}, energy ${quiet.e} of 255)`)
+  const live = await fieldAfterScroll({})
+  assert(live.e >= 3, `default scroll still disturbs the field (height ${live.h}, energy ${live.e} of 255)`)
 }
 
 {
