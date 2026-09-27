@@ -4,11 +4,11 @@ import { chromium } from 'playwright-core'
 export const BASE = process.env.HERO_BASE ?? 'http://localhost:3000'
 const PAPER = [0xf7, 0xf5, 0xf0]
 
-export async function launch({ mobile = false, width = mobile ? 390 : 1440, height = mobile ? 844 : 900, reducedMotion = false } = {}) {
-  const browser = await chromium.launch({ channel: 'chrome' })
+export async function launch({ mobile = false, width = mobile ? 390 : 1440, height = mobile ? 844 : 900, reducedMotion = false, dpr = 1, args = [] } = {}) {
+  const browser = await chromium.launch({ channel: 'chrome', args })
   const context = await browser.newContext({
     viewport: { width, height },
-    deviceScaleFactor: 1,
+    deviceScaleFactor: dpr,
     isMobile: mobile,
     hasTouch: mobile,
     reducedMotion: reducedMotion ? 'reduce' : 'no-preference',

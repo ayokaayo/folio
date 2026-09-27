@@ -18,7 +18,7 @@ const FX = [
 type FxKey = (typeof FX)[number]['key']
 
 const TILES: { title: string; note: string; on: FxKey[] }[] = [
-  { title: 'Base', note: 'the locked look, no upgrades', on: [] },
+  { title: 'Base', note: 'no upgrades', on: [] },
   ...FX.map(f => ({ title: `+ ${f.label}`, note: f.note, on: [f.key] as FxKey[] })),
   { title: 'All four', note: 'every upgrade combined', on: FX.map(f => f.key) },
 ]
@@ -31,7 +31,8 @@ const VIEWPORTS = [
 function labUrl(on: FxKey[], embed: boolean) {
   const q = new URLSearchParams({ v: 'moire-wake' })
   if (embed) q.set('embed', '1')
-  for (const k of on) q.set(`p.${k}`, '1')
+  // Every toggle is set explicitly: the lab now starts from production, which has wave edges on.
+  for (const f of FX) q.set(`p.${f.key}`, on.includes(f.key) ? '1' : '0')
   return `/lab/hero?${q.toString()}`
 }
 

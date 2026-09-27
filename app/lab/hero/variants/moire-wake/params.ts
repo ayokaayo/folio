@@ -37,13 +37,13 @@ const CONTROLS: Param[] = [
   { key: 'size', label: 'Pattern size', type: 'range', min: 0, max: 1, step: 0.01, default: GLYPH_MACROS.size },
 ]
 
-// Four upgrades to compare (spec amendment 2026-09-26), shown after the controls; each is off by
-// default and they combine. /lab/hero/compare shows them side by side.
+// Four upgrades to compare (spec amendment 2026-09-26), shown after the controls; they combine, and
+// each starts where production has it (HERO_SETTINGS). /lab/hero/compare shows them side by side.
 const UPGRADES: Param[] = [
-  { key: 'fxFringe', label: 'Fringes', type: 'toggle', default: false, group: 'Upgrades' },
-  { key: 'fxFlurry', label: 'Flurries', type: 'toggle', default: false, group: 'Upgrades' },
-  { key: 'fxWrite', label: 'Writing streams', type: 'toggle', default: false, group: 'Upgrades' },
-  { key: 'fxEdges', label: 'Wave edges', type: 'toggle', default: false, group: 'Upgrades' },
+  { key: 'fxFringe', label: 'Fringes', type: 'toggle', default: HERO_SETTINGS.fxFringe === true, group: 'Upgrades' },
+  { key: 'fxFlurry', label: 'Flurries', type: 'toggle', default: HERO_SETTINGS.fxFlurry === true, group: 'Upgrades' },
+  { key: 'fxWrite', label: 'Writing streams', type: 'toggle', default: HERO_SETTINGS.fxWrite === true, group: 'Upgrades' },
+  { key: 'fxEdges', label: 'Wave edges', type: 'toggle', default: HERO_SETTINGS.fxEdges === true, group: 'Upgrades' },
 ]
 
 // Every underlying key stays settable by URL (p.key=value) for the checks, but none show in the panel.
