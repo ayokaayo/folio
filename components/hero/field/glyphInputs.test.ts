@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { BAND_SIGMA, CELL, bandY, cellOrigin, newScrollBand, stepScroll } from './glyphInputs.ts'
+import { BAND_LINE, BAND_SIGMA, CELL, bandY, cellOrigin, newScrollBand, stepScroll } from './glyphInputs.ts'
 
 test('cell columns follow the lattice origin and rows are anchored to the bottom edge', () => {
   assert.equal(CELL, 16)
@@ -46,8 +46,9 @@ test('an inactive frame resets the position, so coming back does not spike', () 
   assert.equal(s.phase, 0)
 })
 
-test('the band is pinned to 62% of the viewport, in section coordinates', () => {
-  assert.equal(bandY(1000, 80), 540)
-  assert.equal(bandY(1000, -300), 920)
+test('the band is pinned to BAND_LINE (12%) of the viewport, in section coordinates', () => {
+  assert.equal(BAND_LINE, 0.12)
+  assert.equal(bandY(1000, 80), 40)
+  assert.equal(bandY(1000, -300), 420)
   assert.equal(BAND_SIGMA, 48)
 })

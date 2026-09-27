@@ -2,29 +2,36 @@
 // both settle when scrolling stops. Reduced motion ignores scroll.
 import { assert, ink, launch, openHero, uniform } from './lib.mjs'
 
+// Locked seconds of pattern clock per px scrolled (settings.ts), set raw so the threshold is explicit.
+const PHASE = 0.1
+// Signed clock change, allowing for the 3600 s wrap.
+const delta = (a, b) => ((((b - a + 1800) % 3600) + 3600) % 3600) - 1800
+
 {
   const { browser, page } = await launch()
-  await openHero(page, { coverage: 0 })
+  // glyphSpeed 0 stops the time term, so any clock movement comes from scroll alone.
+  await openHero(page, { coverage: 0, glyphSpeed: 0, glyphScrollPhase: PHASE })
   const heavy = r => r.cells.filter(c => c.x1 - c.x0 >= 9 || c.y1 - c.y0 >= 9).length
   const rest = heavy(await ink(page))
   const t0 = await uniform(page, 'uGlyphT')
-  // The band sits on a fixed viewport line (62% down), so it leaves the hero's bottom edge after about
-  // 190 px of scroll at 1440x900 (hero 666 px tall, top at 80 px). Glyphs are counted mid-sweep, while
-  // the band is still inside the hero; strength and clock are read after the full 320 px.
-  let during = 0
   for (let i = 0; i < 8; i++) {
     await page.mouse.wheel(0, 40)
     await page.waitForTimeout(16)
-    if (i === 2) during = heavy(await ink(page))
   }
   const band = await uniform(page, 'uBand')
+  const during = heavy(await ink(page))
   const t1 = await uniform(page, 'uGlyphT')
+  const h = (await page.evaluate(() => window.__hero.size())).h
+  assert(band.x > 0 && band.x < h, `band inside the hero at the glyph count (y ${band.x.toFixed(0)} of ${h})`)
   assert(band.y > 0.3, `band strength while scrolling (${band.y.toFixed(2)})`)
   assert(during > rest + 5, `band lifts glyphs (${rest} to ${during})`)
-  assert(t1 - t0 > 320 * 0.02 * 0.8, `pattern clock advanced with scroll (${(t1 - t0).toFixed(2)} s)`)
+  const up = delta(t0, t1)
+  assert(up > 320 * PHASE * 0.8, `pattern clock advanced with scroll alone (${up.toFixed(2)} s)`)
   await page.waitForTimeout(1500)
   const settled = await uniform(page, 'uBand')
   assert(settled.y < 0.05, `band settles after scrolling stops (${settled.y.toFixed(3)})`)
+  const idle = delta(t1, await uniform(page, 'uGlyphT'))
+  assert(Math.abs(idle) < 1e-6, `clock holds while scroll is still at glyphSpeed 0 (${idle.toFixed(3)} s)`)
   // Scroll back up: the clock runs back.
   const t2 = await uniform(page, 'uGlyphT')
   for (let i = 0; i < 8; i++) {
@@ -32,7 +39,8 @@ import { assert, ink, launch, openHero, uniform } from './lib.mjs'
     await page.waitForTimeout(16)
   }
   const t3 = await uniform(page, 'uGlyphT')
-  assert(t3 < t2 + 1, 'scrolling up reverses the morph')
+  const down = delta(t2, t3)
+  assert(down < -320 * PHASE * 0.8, `scrolling up reverses the morph (${down.toFixed(2)} s)`)
   await browser.close()
 }
 

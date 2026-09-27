@@ -63,7 +63,13 @@ export function stepScroll(s: ScrollBand, y: number | null, dt: number, phasePer
   s.strength = Math.max(target, s.strength * decay)
 }
 
-/** The band sits on a fixed viewport line (62% down); in section coordinates it sweeps as the page scrolls. */
+/** Where the scroll band sits, as a fraction of the viewport height: just under the nav. */
+export const BAND_LINE = 0.12
+
+/**
+ * The band sits on a fixed viewport line (BAND_LINE down, just under the nav); in section coordinates it
+ * sweeps the whole hero from top to bottom as the hero scrolls away, and back up on the way back.
+ */
 export function bandY(innerHeight: number, sectionTop: number): number {
-  return 0.62 * innerHeight - sectionTop
+  return BAND_LINE * innerHeight - sectionTop
 }
