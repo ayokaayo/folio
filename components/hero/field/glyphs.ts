@@ -26,21 +26,27 @@ float fieldE(vec2 tl) {
   return texture2D(uField, uv).g;
 }
 
+// Raw (R, G) at tl: R is height (0.5 = flat), G is energy.
+vec2 fieldHE(vec2 tl) {
+  vec2 uv = vec2(tl.x / uRes.x, 1.0 - tl.y / uRes.y);
+  return texture2D(uField, uv).rg;
+}
+
 // Pattern value 0 to 1 at a cell (cell units). Three fields blend on incommensurate slow clocks;
 // the blend is amplitude-normalised so rest glyphs never vanish when the weights even out.
 // bend (cycles) shifts every field's phase: the wake bends the pattern where it passes.
-float glyphPattern(vec2 c, float t, float bend) {
+// Everything that depends only on the pattern clock (the blend weights, both centres, the diamond's
+// turn and the rosette's spin) is worked out once per frame in engine.ts (glyphClockTerms).
+float glyphPattern(vec2 c, float bend) {
   float s = max(uGlyphScale, 2.0);
-  vec3 w = 0.5 + 0.5 * sin(TAU * t / vec3(40.0, 53.0, 67.0) + vec3(0.0, 2.1, 4.2));
-  w /= max(w.x + w.y + w.z, 1e-3);
-  vec2 o1 = uGlyphCenter + vec2(18.0 * sin(t / 29.0), 9.0 * sin(t / 37.0 + 1.0));
+  vec3 w = uGlyphW;
+  vec2 o1 = uGlyphCenter + uGlyphO1;
   float f1 = cos(TAU * (length(c - o1) / s + bend));
-  float a = t / 90.0;
-  vec2 r = mat2(cos(a), -sin(a), sin(a), cos(a)) * (c - uGlyphCenter);
+  vec2 r = mat2(uGlyphRot.x, -uGlyphRot.y, uGlyphRot.y, uGlyphRot.x) * (c - uGlyphCenter);
   float f2 = cos(TAU * ((abs(r.x) + abs(r.y)) / (s * 1.3) + bend));
-  vec2 o2 = uGlyphCenter + vec2(-14.0 * sin(t / 43.0 + 2.0), 7.0 * sin(t / 31.0));
+  vec2 o2 = uGlyphCenter + uGlyphO2;
   vec2 d = c - o2 + vec2(1e-3);
-  float f3 = cos(6.0 * atan(d.y, d.x) + TAU * (length(d) / (s * 1.7) + bend) - t / 7.0);
+  float f3 = cos(6.0 * atan(d.y, d.x) + TAU * (length(d) / (s * 1.7) + bend) - uGlyphSpin);
   float S = dot(w, vec3(f1, f2, f3)) / sqrt(dot(w, w));
   return clamp(0.5 + 0.5 * S, 0.0, 1.0);
 }
@@ -194,10 +200,12 @@ vec3 glyphs(vec2 tl, float px) {
   // The column rule covers the copy block's height (top to the CTA's bottom) plus one cell; below it,
   // on phones where the column is nearly full width, rest glyphs and streams still appear.
   bool inColumn = ctr.x >= uCopyCol.x && ctr.x <= uCopyCol.y && ctr.y >= uCopyCol.z - CELL && ctr.y <= uCopyCol.w + CELL;
-  float h = fieldH(ctr);
-  float E = fieldE(ctr);
+  // Height and energy share a texel: one tap reads both.
+  vec2 hE = fieldHE(ctr);
+  float h = (hE.x - 0.5) * 2.0;
+  float E = hE.y;
   float E2 = E * E;
-  float P = glyphPattern(cell, uGlyphT, uGlyphMutate * h);
+  float P = glyphPattern(cell, uGlyphMutate * h);
   float shape = 0.35 + 0.65 * P;
   // Fringes: rest presence leans toward the moiré's interference phase at the cell, so rest glyphs
   // gather where the two screens fall into register.

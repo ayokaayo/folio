@@ -126,7 +126,12 @@ uniform vec3 uCopyFade;     // x0, x1 (CSS px from left): ink ramps from z (0-1)
 uniform vec2 uCellOrigin;   // glyph cells: lattice column origin, bottom-anchored rows, CSS px
 uniform vec2 uGlyphCenter;  // section centre in cells
 uniform float uGlyphs;      // 0 off, 1 on
-uniform float uGlyphT;      // pattern clock, s (wrapped)
+uniform float uGlyphT;      // pattern clock, s (wrapped); the shader reads the terms below instead
+uniform vec3 uGlyphW;       // pattern blend weights, normalised to sum 1
+uniform vec2 uGlyphO1;      // ring centre offset from uGlyphCenter, cells
+uniform vec2 uGlyphO2;      // rosette centre offset from uGlyphCenter, cells
+uniform vec2 uGlyphRot;     // diamond turn: cos, sin
+uniform float uGlyphSpin;   // rosette spin, radians (wrapped to one turn)
 uniform float uGlyphRest;
 uniform float uGlyphWake;
 uniform float uGlyphMutate;

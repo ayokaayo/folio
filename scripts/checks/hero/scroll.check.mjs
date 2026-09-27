@@ -4,8 +4,9 @@ import { assert, ink, launch, openHero, uniform } from './lib.mjs'
 
 // Locked seconds of pattern clock per px scrolled (settings.ts), set raw so the threshold is explicit.
 const PHASE = 0.1
-// Signed clock change, allowing for the 3600 s wrap.
-const delta = (a, b) => ((((b - a + 1800) % 3600) + 3600) % 3600) - 1800
+// Signed clock change, allowing for the 36000 s wrap (CLOCK_WRAP in glyphInputs.ts).
+const WRAP = 36000
+const delta = (a, b) => ((((b - a + WRAP / 2) % WRAP) + WRAP) % WRAP) - WRAP / 2
 
 {
   const { browser, page } = await launch()

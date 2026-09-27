@@ -5,7 +5,7 @@ import * as THREE from 'three'
 import type { HeroValues } from '../settings'
 import { HIGHLIGHT, LATENT, colour, highlightHex, palette, resetTokens } from '../palettes'
 import { cappedDpr, useActive, useLatest } from './hooks'
-import { BAND_SIGMA, bandY, cellOrigin, CELL, newScrollBand, stepScroll } from './glyphInputs'
+import { BAND_SIGMA, bandY, cellOrigin, CELL, CLOCK_WRAP, glyphClockTerms, newScrollBand, stepScroll } from './glyphInputs'
 import { MAX_MASK, fragment, vertex } from './shader'
 
 /**
@@ -134,6 +134,11 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uGlyphCenter: { value: new THREE.Vector2(0, 0) },
         uGlyphs: { value: 0 },
         uGlyphT: { value: 0 },
+        uGlyphW: { value: new THREE.Vector3(1 / 3, 1 / 3, 1 / 3) },
+        uGlyphO1: { value: new THREE.Vector2(0, 0) },
+        uGlyphO2: { value: new THREE.Vector2(0, 0) },
+        uGlyphRot: { value: new THREE.Vector2(1, 0) },
+        uGlyphSpin: { value: 0 },
         uGlyphRest: { value: 0.8 },
         uGlyphWake: { value: 1 },
         uGlyphMutate: { value: 0.5 },
@@ -274,7 +279,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       u.uGlyphScale.value = Number(vals.glyphScale)
       u.uGlyphChurn.value = Number(vals.glyphChurn)
       u.uGlyphRestTop.value = Number(vals.glyphRestTop)
-      u.uGlyphRain.value = Number(vals.glyphRain)
+      // Reduced motion is a composed still of rest glyphs only: no streams.
+      u.uGlyphRain.value = rm.current ? 0 : Number(vals.glyphRain)
       u.uGlyphKeep.value = Number(vals.glyphKeep)
       u.uStreamSpeed.value = Number(vals.glyphStreamSpeed)
       u.uStreamTrail.value = Number(vals.glyphTrail)
@@ -286,10 +292,17 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       stepScroll(scroll.current, live ? window.scrollY : null, dt, Number(vals.glyphScrollPhase))
       const band = { y: bandY(window.innerHeight, section.getBoundingClientRect().top), strength: live ? scroll.current.strength : 0 }
       u.uBand.value.set(band.y, band.strength * Number(vals.bandGain), BAND_SIGMA)
+      const wrap = (x: number) => ((x % CLOCK_WRAP) + CLOCK_WRAP) % CLOCK_WRAP
       if (rm.current) glyphClock.current = 0
-      else glyphClock.current = (((glyphClock.current + dt * Number(vals.glyphSpeed)) % 3600) + 3600) % 3600
-      u.uGlyphT.value = rm.current ? 0 : (((glyphClock.current + scroll.current.phase) % 3600) + 3600) % 3600
-      churnClock.current = rm.current ? 0 : (churnClock.current + dt) % 3600
+      else glyphClock.current = wrap(glyphClock.current + dt * Number(vals.glyphSpeed))
+      u.uGlyphT.value = rm.current ? 0 : wrap(glyphClock.current + scroll.current.phase)
+      const g = glyphClockTerms(u.uGlyphT.value)
+      u.uGlyphW.value.set(...g.w)
+      u.uGlyphO1.value.set(...g.o1)
+      u.uGlyphO2.value.set(...g.o2)
+      u.uGlyphRot.value.set(...g.rot)
+      u.uGlyphSpin.value = g.spin
+      churnClock.current = rm.current ? 0 : wrap(churnClock.current + dt)
       u.uChurnT.value = churnClock.current
 
       const moving = stepRef.current({ u, dt, now, w: size.current.w, h: size.current.h, values: vals, reducedMotion: rm.current, band })
@@ -348,6 +361,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
     }
     // fragment and vertex are module constants, inert in production; listing them here only
     // matters for dev, where Fast Refresh gives them a new identity and must rebuild the material.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sectionRef, copyRef, canvasRef, v, rm, activeRef, stepRef, fragment, vertex])
 
   useEffect(() => {

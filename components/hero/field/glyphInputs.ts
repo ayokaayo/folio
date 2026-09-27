@@ -73,3 +73,37 @@ export const BAND_LINE = 0.12
 export function bandY(innerHeight: number, sectionTop: number): number {
   return BAND_LINE * innerHeight - sectionTop
 }
+
+/** The pattern clock wraps here, s: ten hours, so the pattern never visibly re-rolls in a visit. */
+export const CLOCK_WRAP = 36000
+
+export interface GlyphClockTerms {
+  /** Blend weights of the three fields, normalised to sum 1. */
+  w: [number, number, number]
+  /** Ring centre offset from the section centre, cells. */
+  o1: [number, number]
+  /** Rosette centre offset from the section centre, cells. */
+  o2: [number, number]
+  /** Diamond turn: cos and sin. */
+  rot: [number, number]
+  /** Rosette spin, radians, wrapped to one turn. */
+  spin: number
+}
+
+/**
+ * The glyph pattern's terms that depend only on the pattern clock t (s), worked out once per frame
+ * rather than per pixel. Mirrors glyphPattern in glyphs.ts.
+ */
+export function glyphClockTerms(t: number): GlyphClockTerms {
+  const TAU = Math.PI * 2
+  const w = [40, 53, 67].map((p, i) => 0.5 + 0.5 * Math.sin((TAU * t) / p + 2.1 * i)) as [number, number, number]
+  const sum = Math.max(w[0] + w[1] + w[2], 1e-3)
+  const a = t / 90
+  return {
+    w: [w[0] / sum, w[1] / sum, w[2] / sum],
+    o1: [18 * Math.sin(t / 29), 9 * Math.sin(t / 37 + 1)],
+    o2: [-14 * Math.sin(t / 43 + 2), 7 * Math.sin(t / 31)],
+    rot: [Math.cos(a), Math.sin(a)],
+    spin: (((t / 7) % TAU) + TAU) % TAU,
+  }
+}
