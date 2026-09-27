@@ -45,9 +45,6 @@ export const SITE = {
   LINKEDIN: 'https://linkedin.com/in/ferreiramiguelangelo',
   // New file name so link previews (WhatsApp, LinkedIn) fetch the new image instead of a cached one.
   OG_IMAGE: '/img/og-image-2026-09b.jpg',
-  // Google Analytics 4 Measurement ID
-  // Replace with your actual GA4 ID: G-XXXXXXXXXX
-  GA_ID: process.env.NEXT_PUBLIC_GA_ID || '',
   // 🎨 Design inspiration credit: This portfolio's aesthetic was inspired by thoughtful minimalism
   // and clean typography. Sometimes the best designs come from appreciating great work and making it your own.
 } as const

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { IBM_Plex_Mono } from 'next/font/google'
-import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
@@ -10,6 +10,7 @@ import EasterEgg from '@/components/EasterEgg'
 import { SITE } from '@/lib/constants'
 import { PALETTE_BOOT } from '@/lib/palette/preview'
 import { REVEAL_BOOT } from '@/lib/reveal'
+import { UMAMI_WEBSITE_ID } from '@/lib/analytics'
 
 // MONO ONLY: IBM Plex Mono for all typography
 const ibmPlexMono = IBM_Plex_Mono({
@@ -87,8 +88,19 @@ export default function RootLayout({
           {children}
           <Footer />
         </ErrorBoundary>
+        {/* Cookieless analytics (lib/analytics.ts), proxied through /stats (next.config.js). Counts only on
+            the production domains and skips browsers that send Do Not Track. */}
+        {UMAMI_WEBSITE_ID && (
+          <Script
+            src="/stats/script.js"
+            strategy="afterInteractive"
+            data-website-id={UMAMI_WEBSITE_ID}
+            data-host-url="/stats"
+            data-do-not-track="true"
+            data-domains="miguelangelo.tech,www.miguelangelo.tech"
+          />
+        )}
       </body>
-      {SITE.GA_ID && <GoogleAnalytics gaId={SITE.GA_ID} />}
     </html>
   )
 }

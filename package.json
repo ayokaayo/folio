@@ -10,7 +10,6 @@
     "test:hero": "node --test \"components/hero/**/*.test.ts\""
   },
   "dependencies": {
-    "@next/third-parties": "^16.1.6",
     "framer-motion": "^10.16.16",
     "next": "^14.0.4",
     "react": "^18.2.0",
