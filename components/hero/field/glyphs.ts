@@ -95,6 +95,29 @@ float copyDistance(vec2 cell) {
   return min(best, max(gap.x, gap.y));
 }
 
+// Churned level for a cell at a churn tick: hashed, biased toward the lighter glyphs, 1 to top.
+float churnLevel(ivec2 ic, int tick, float top) {
+  float pick = float(hashCell(ic + ivec2(tick * 7919, tick * 104729)) & 0xffffu) / 65535.0;
+  return min(1.0 + floor(pow(pick, 1.6) * top), top);
+}
+
+// Flurries (uFx.y): a churn level that never repeats the previous tick's. Even ticks pick freely; an
+// odd tick starts from its own pick and steps by +1 (wrapping within 1 to top) past both neighbours,
+// so no two consecutive ticks match, which a single step past the previous tick can't promise.
+float flurryLevel(ivec2 ic, int tick, float top) {
+  if (top < 1.5) return 1.0;
+  if (top < 2.5) return 1.0 + mod(float(tick), 2.0);
+  bool odd = tick - 2 * (tick / 2) != 0;
+  if (!odd) return churnLevel(ic, tick, top);
+  float a = churnLevel(ic, tick - 1, top);
+  float b = churnLevel(ic, tick + 1, top);
+  float level = churnLevel(ic, tick, top);
+  for (int i = 0; i < 2; i++) {
+    if (level == a || level == b) level = mod(level, top) + 1.0;
+  }
+  return level;
+}
+
 // Rest glyph for a cell: presence from the pattern (or a falling stream), identity from a per-cell churn
 // clock, so present cells keep swapping characters. t is the churn clock (real time, not the pattern's).
 // Returns (level 0-6, ink scale, deepen); 0 is empty.
@@ -104,6 +127,7 @@ vec3 restGlyph(vec2 cell, float P, float t) {
   // Occupancy: only a hashed share of cells may carry pattern glyphs (stream trails are unaffected).
   if (hash01(ic * 5 + 3) >= uGlyphKeep) presence = 0.0;
   float head = 0.0;
+  bool written = false;
   uint hc = hashCell(ivec2(ic.x, 7919));
   float col = float(hc & 0xffffu) / 65535.0;
   if (col < uGlyphRain) {
@@ -116,16 +140,41 @@ vec3 restGlyph(vec2 cell, float P, float t) {
       // Fade over a third of the trail, so the trail length shows (exp(-d/4) at the default of 12).
       presence = max(presence, exp(-d / (trail / 3.0)));
       head = 1.0 - smoothstep(0.0, 1.5, d);
+    } else if (uFx.z > 0.5 && speed > 0.0) {
+      // Writing streams: the head leaves a glyph behind that fades over tau seconds once the trail has
+      // passed. Above the head, the last pass left it (one wrap of the column ago).
+      float dd = d < 0.0 ? d + rows : d;
+      float tSince = (dd - trail) / speed;
+      float tau = mix(1.0, 3.0, hash01(ic * 11 + 7));
+      float w = exp(-tSince / tau);
+      if (w > presence) {
+        presence = w;
+        written = true;
+      }
     }
   }
   if (presence < 0.12) return vec3(0.0);
+  float top = clamp(floor(uGlyphRestTop + 0.5), 1.0, 6.0);
+  // A written glyph is the pattern's own level, held still, not churned.
+  if (written) return vec3(min(1.0 + floor(P * top), top), mix(0.5, 1.0, presence), 0.0);
   // Stepped, not continuous: a rate that varies smoothly with head would scale the absolute clock t
   // and make heads flicker at frame rate, worse the longer the page is open.
   float rate = uGlyphChurn * mix(0.4, 1.6, hash01(ic * 3 + 1)) * (head > 0.5 ? 3.0 : 1.0);
-  int tick = int(floor(t * rate + 7.0 * hash01(ic + ivec2(13, 5))));
-  float pick = float(hashCell(ic + ivec2(tick * 7919, tick * 104729)) & 0xffffu) / 65535.0;
-  float top = clamp(floor(uGlyphRestTop + 0.5), 1.0, 6.0);
-  float level = min(1.0 + floor(pow(pick, 1.6) * top), top);
+  float level;
+  if (uFx.y > 0.5 && rate > 1e-3) {
+    // Flurries: each cell's period (2 to 5 s) opens with a burst at four times its rate for a quarter
+    // of the period, then holds the burst's last glyph. The average rate is unchanged. Ticks run on
+    // without gaps across periods, so the no-repeat rule also holds from a hold into the next burst.
+    float period = mix(2.0, 5.0, hash01(ic * 7 + 2));
+    float cyc = t / period + hash01(ic + ivec2(13, 5));
+    float phase = fract(cyc);
+    int n = int(max(1.0, floor(period * rate)));
+    int k = min(int(floor(phase * 4.0 * float(n))), n - 1);
+    level = flurryLevel(ic, int(floor(cyc)) * n + k, top);
+  } else {
+    int tick = int(floor(t * rate + 7.0 * hash01(ic + ivec2(13, 5))));
+    level = churnLevel(ic, tick, top);
+  }
   return vec3(level, mix(0.5, 1.0, presence), 0.6 * head);
 }
 
@@ -150,9 +199,24 @@ vec3 glyphs(vec2 tl, float px) {
   float E2 = E * E;
   float P = glyphPattern(cell, uGlyphT, uGlyphMutate * h);
   float shape = 0.35 + 0.65 * P;
+  // Fringes: rest presence leans toward the moiré's interference phase at the cell, so rest glyphs
+  // gather where the two screens fall into register.
+  if (uFx.x > 0.5) {
+    vec2 ph = moirePhases(ctr);
+    float fringe = 0.5 + 0.5 * cos(TAU * (ph.y - ph.x));
+    P = mix(P, fringe, 0.65 * uFx.x);
+  }
   // No rest glyphs in the copy column: beside monospace type they read as stray punctuation.
   vec3 rg = inColumn ? vec3(0.0) : restGlyph(cell, P, uChurnT);
-  float lift = (uGlyphWake * E2 + glyphBand(ctr)) * shape;
+  // Wave edges: the energy gradient across a cell lifts the burst's expanding edge into a crisp ring.
+  // Scaled by the burst control's wake, so burst 0 still draws no wake and the default is unscaled.
+  float edge = 0.0;
+  if (uFx.w > 0.5) {
+    float gx = fieldE(ctr + vec2(CELL, 0.0)) - fieldE(ctr - vec2(CELL, 0.0));
+    float gy = fieldE(ctr + vec2(0.0, CELL)) - fieldE(ctr - vec2(0.0, CELL));
+    edge = uFx.w * smoothstep(0.04, 0.25, length(vec2(gx, gy))) * 0.9 * min(uGlyphWake / 2.0, 1.0);
+  }
+  float lift = (uGlyphWake * E2 + glyphBand(ctr) + edge) * shape;
   // Neighbouring cells pass through the ramp at different moments; only in the wake.
   float stagger = (hash01(ivec2(cell)) - 0.5) * 0.6 * clamp(3.0 * lift, 0.0, 1.0);
   float xw = clamp(9.0 * clamp(lift, 0.0, 1.0) + stagger, 0.0, dCopy < 3.0 * CELL ? 7.0 : 9.0);

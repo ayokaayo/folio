@@ -14,7 +14,11 @@ export type Param = (
   | { key: string; label: string; type: 'color'; default: string }
   | { key: string; label: string; type: 'toggle'; default: boolean }
   | { key: string; label: string; type: 'select'; options: string[]; default: string }
-) & { hidden?: boolean }
+) & {
+  hidden?: boolean
+  /** Visible params only: a heading shown above the first param of each group. */
+  group?: string
+}
 
 export interface VariantMeta {
   id: string

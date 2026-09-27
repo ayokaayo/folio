@@ -188,20 +188,24 @@ export default function Lab() {
                 <div className="space-y-3 pt-1">
                   {entry.meta.params
                     .filter(p => !p.hidden)
-                    .map(p => (
-                      <Control
-                        key={p.key}
-                        param={p}
-                        value={values[p.key]}
-                        onChange={v =>
-                          update(q => {
-                            // Moving a visible control drops every hidden raw value, so a stale raw
-                            // key can't override what the control now sets.
-                            for (const h of entry.meta.params) if (h.hidden) q.delete(`p.${h.key}`)
-                            q.set(`p.${p.key}`, encodeValue(v))
-                          })
-                        }
-                      />
+                    .map((p, i, shown) => (
+                      <div key={p.key}>
+                        {p.group && p.group !== shown[i - 1]?.group && (
+                          <div className="pt-3 pb-2 uppercase tracking-[0.08em] text-white/40 border-t border-white/10">{p.group}</div>
+                        )}
+                        <Control
+                          param={p}
+                          value={values[p.key]}
+                          onChange={v =>
+                            update(q => {
+                              // Moving a visible control drops every hidden raw value, so a stale raw
+                              // key can't override what the control now sets.
+                              for (const h of entry.meta.params) if (h.hidden) q.delete(`p.${h.key}`)
+                              q.set(`p.${p.key}`, encodeValue(v))
+                            })
+                          }
+                        />
+                      </div>
                     ))}
                 </div>
               )}

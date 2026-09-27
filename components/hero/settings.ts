@@ -53,4 +53,9 @@ export const HERO_SETTINGS: HeroValues = {
   ...expandGlyphMacros(GLYPH_MACROS),
   // Rest glyphs stop at level 3 (the colon), as in the look Miguel locked on 2026-09-26.
   glyphRestTop: 3,
+  // Upgrades under comparison in the lab (spec amendment 2026-09-26), all off in production.
+  fxFringe: false,
+  fxFlurry: false,
+  fxWrite: false,
+  fxEdges: false,
 }

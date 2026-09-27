@@ -148,6 +148,7 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
         uStreamSpeed: { value: 1 },
         uStreamTrail: { value: 12 },
         uBand: { value: new THREE.Vector3(0, 0, BAND_SIGMA) },
+        uFx: { value: new THREE.Vector4(0, 0, 0, 0) },
         uInkDeep: { value: hexToVec3('#184937') },
         uPivot: { value: new THREE.Vector2(0, 0) },
       },
@@ -277,6 +278,8 @@ export function useMoire({ sectionRef, copyRef, canvasRef, values, reducedMotion
       u.uGlyphKeep.value = Number(vals.glyphKeep)
       u.uStreamSpeed.value = Number(vals.glyphStreamSpeed)
       u.uStreamTrail.value = Number(vals.glyphTrail)
+      // Lab upgrades (spec amendment 2026-09-26): fringes, flurries, writing streams, wave edges.
+      u.uFx.value.set(vals.fxFringe ? 1 : 0, vals.fxFlurry ? 1 : 0, vals.fxWrite ? 1 : 0, vals.fxEdges ? 1 : 0)
       u.uInkDeep.value.copy(hexToVec3(colour('@accent-deep')))
       // Scroll: sampled each frame while the hero is live; null frames forget the position.
       const live = activeRef.current && !rm.current

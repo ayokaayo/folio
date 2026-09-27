@@ -18,6 +18,67 @@ void main() {
 }
 `
 
+// The moiré's phase field, emitted twice from one source: moireAt for main, moireAtCell for the glyph
+// layer. One GLSL function called from both places changes how the compiler treats main, which moved
+// ruling pixels with glyphs off; separate copies keep main's arithmetic exactly as it was.
+const moireFunction = (name: string) => /* glsl */ `
+Moire ${name}(vec2 p, vec2 tl, vec2 pixel) {
+  vec2 res = max(uRes, vec2(1.0));
+  float pitch = max(uPitch, 4.0 * max(pixel.x, pixel.y));
+  vec2 direction = vec2(sin(uTheta), cos(uTheta));
+  float pitch2 = pitch * max(uScale, 0.05);
+
+  // Phase field F = (value in cycles, d/dpx, d/dpy) in centred, y-up CSS px.
+  float radius = max(uRadius, 1.0);
+  vec2 centre = uCenter - 0.5 * res;
+  centre.y = -centre.y;
+  vec3 lat = latent((p - centre) / radius);
+  vec3 F = uLatentAmp * vec3(lat.x, lat.yz / radius);
+
+  if (uBump.w != 0.0) {
+    vec2 b = uBump.xy - 0.5 * res;
+    b.y = -b.y;
+    vec2 q = (p - b) / max(uBump.z, 1.0);
+    float g = exp(-dot(q, q));
+    F += uBump.w * vec3(g, -2.0 * q * g / max(uBump.z, 1.0));
+  }
+
+  float energy = 0.0;
+  if (uFieldAmp != 0.0) {
+    vec2 e = uFieldTexel;
+    float h = fieldH(tl);
+    float dx = (fieldH(tl + vec2(e.x, 0.0)) - fieldH(tl - vec2(e.x, 0.0))) / (2.0 * e.x);
+    float dy = (fieldH(tl - vec2(0.0, e.y)) - fieldH(tl + vec2(0.0, e.y))) / (2.0 * e.y); // y up
+    F += uFieldAmp * vec3(h, dx, dy);
+    vec2 uv = vec2(tl.x / res.x, 1.0 - tl.y / res.y);
+    energy = texture2D(uField, uv).g;
+  }
+
+  // Screen 2 turns about the pivot, so the screens stay in register near it.
+  vec2 piv = uPivot - 0.5 * res;
+  piv.y = -piv.y;
+
+  // Screen angle: rotate the whole ruling (positions, phase gradients, pivot) into the
+  // screen frame. The pixel footprint stays an axis-aligned box of the same size there,
+  // a close approximation to the rotated box at these pitches.
+  float ca = cos(uAngle), sa = sin(uAngle);
+  mat2 R = mat2(ca, -sa, sa, ca);
+  p = R * p;
+  F.yz = R * F.yz;
+  piv = R * piv;
+  Moire m;
+  m.p = p;
+  m.F = F;
+  m.energy = energy;
+  m.pitch = pitch;
+  m.pitch2 = pitch2;
+  m.direction = direction;
+  m.phase1 = p.y / pitch;
+  m.phase2 = dot(p - piv, direction) / pitch2 + piv.y / pitch + F.x + uDrift;
+  return m;
+}
+`
+
 export const fragment = /* glsl */ `
 precision highp float;
 varying vec2 vUv;
@@ -83,6 +144,7 @@ uniform vec3 uBand;      // scroll band: y (CSS px), strength, sigma (CSS px)
 uniform vec3 uInkDeep;      // --accent-deep
 uniform vec4 uCtaBox;       // CTA, CSS px from top-left
 uniform vec4 uCopyCol;      // copy column x0, x1 and the copy block's top and the CTA's bottom
+uniform vec4 uFx;           // lab upgrades, 0 or 1: fringes, flurries, writing streams, wave edges
          // screen 2 rotates about this point, CSS px from top-left
 
 // Area of a unit box for which a*x + b*y <= t, with x,y in [-.5,.5].
@@ -191,6 +253,31 @@ float fieldH(vec2 tl) {
   return (texture2D(uField, uv).r - 0.5) * 2.0;
 }
 
+// The moiré's phase field at a point: p is centred, y up (CSS px), tl the same point from the top-left.
+// main passes its own p rather than one rebuilt from tl, so the ruling keeps its exact arithmetic.
+struct Moire {
+  vec2 p;         // p in the screen frame (rotated by the screen angle)
+  vec3 F;         // phase field (cycles, d/dpx, d/dpy), rotated into the screen frame
+  float energy;   // wave field energy at tl
+  float pitch;
+  float pitch2;
+  vec2 direction;
+  float phase1;
+  float phase2;
+};
+
+${moireFunction('moireAt')}
+${moireFunction('moireAtCell')}
+
+// (phase1, phase2) of the two screens at tl (CSS px from the top-left), for the glyph layer.
+vec2 moirePhases(vec2 tl) {
+  vec2 res = max(uRes, vec2(1.0));
+  vec2 backing = max(floor(res * max(uDpr, 0.25)), vec2(1.0));
+  vec2 pixel = res / backing;
+  Moire m = moireAtCell(vec2(tl.x - 0.5 * res.x, 0.5 * res.y - tl.y), tl, pixel);
+  return vec2(m.phase1, m.phase2);
+}
+
 ${colour}
 ${glyphs}
 
@@ -251,51 +338,15 @@ void main() {
   // instead of returning early its ink is zeroed.
   float rule = (duty > 0.0 && a0 > 0.001) ? 1.0 : 0.0;
 
-  float pitch = max(uPitch, 4.0 * max(pixel.x, pixel.y));
-  vec2 direction = vec2(sin(uTheta), cos(uTheta));
-  float pitch2 = pitch * max(uScale, 0.05);
-
-  // Phase field F = (value in cycles, d/dpx, d/dpy) in centred, y-up CSS px.
-  float radius = max(uRadius, 1.0);
-  vec2 centre = uCenter - 0.5 * res;
-  centre.y = -centre.y;
-  vec3 lat = latent((p - centre) / radius);
-  vec3 F = uLatentAmp * vec3(lat.x, lat.yz / radius);
-
-  if (uBump.w != 0.0) {
-    vec2 b = uBump.xy - 0.5 * res;
-    b.y = -b.y;
-    vec2 q = (p - b) / max(uBump.z, 1.0);
-    float g = exp(-dot(q, q));
-    F += uBump.w * vec3(g, -2.0 * q * g / max(uBump.z, 1.0));
-  }
-
-  float energy = 0.0;
-  if (uFieldAmp != 0.0) {
-    vec2 e = uFieldTexel;
-    float h = fieldH(tl);
-    float dx = (fieldH(tl + vec2(e.x, 0.0)) - fieldH(tl - vec2(e.x, 0.0))) / (2.0 * e.x);
-    float dy = (fieldH(tl - vec2(0.0, e.y)) - fieldH(tl + vec2(0.0, e.y))) / (2.0 * e.y); // y up
-    F += uFieldAmp * vec3(h, dx, dy);
-    vec2 uv = vec2(tl.x / res.x, 1.0 - tl.y / res.y);
-    energy = texture2D(uField, uv).g;
-  }
-
-  // Screen 2 turns about the pivot, so the screens stay in register near it.
-  vec2 piv = uPivot - 0.5 * res;
-  piv.y = -piv.y;
-
-  // Screen angle: rotate the whole ruling (positions, phase gradients, pivot) into the
-  // screen frame. The pixel footprint stays an axis-aligned box of the same size there,
-  // a close approximation to the rotated box at these pitches.
-  float ca = cos(uAngle), sa = sin(uAngle);
-  mat2 R = mat2(ca, -sa, sa, ca);
-  p = R * p;
-  F.yz = R * F.yz;
-  piv = R * piv;
-  float phase1 = p.y / pitch;
-  float step1 = pixel.y / pitch;
-  float phase2 = dot(p - piv, direction) / pitch2 + piv.y / pitch + F.x + uDrift;
+  Moire m = moireAt(p, tl, pixel);
+  p = m.p;
+  vec3 F = m.F;
+  float energy = m.energy;
+  float pitch2 = m.pitch2;
+  vec2 direction = m.direction;
+  float phase1 = m.phase1;
+  float step1 = pixel.y / m.pitch;
+  float phase2 = m.phase2;
   vec2 step2 = (direction / pitch2 + F.yz) * pixel;
 
   float cover2 = pulseBox(phase2, step2, duty);
