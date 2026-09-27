@@ -6,7 +6,7 @@ export default function StructuredData() {
     '@type': 'Person',
     name: 'Miguel Angelo',
     jobTitle: 'Intelligent Systems Designer',
-    description: 'Intelligent Systems Designer turning LLMs into tools that teams can trust: agent harnesses, design systems, and evals, plus the adoption work that makes them stick. Led design through 15× revenue growth at Fast Track AI.',
+    description: 'Intelligent Systems Designer converting raw compute into trustworthy tools and products for the new era.',
     url: SITE.URL,
     email: SITE.EMAIL,
     sameAs: [

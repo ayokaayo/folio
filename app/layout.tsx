@@ -22,7 +22,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: 'Miguel Angelo · Intelligent Systems Designer',
-  description: 'Intelligent Systems Designer turning LLMs into tools that teams can trust. Over a decade of highly regulated B2B products, from iGaming and localisation to enterprise software.',
+  description: 'Intelligent Systems Designer converting raw compute into trustworthy tools and products for the new era.',
   keywords: 'intelligent systems design, AI systems design, agent harnesses, evals, design systems, product design, B2B SaaS, iGaming, enterprise software, localisation',
   authors: [{ name: 'Miguel Angelo' }],
   creator: 'Miguel Angelo',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Miguel Angelo · Intelligent Systems Designer',
-    description: 'Turning LLMs into tools that teams can trust, after over a decade of highly regulated B2B products, from iGaming and localisation to enterprise software.',
+    description: 'Intelligent Systems Designer converting raw compute into trustworthy tools and products for the new era.',
     url: SITE.URL,
     siteName: 'Miguel Angelo Portfolio',
     locale: 'en_US',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Miguel Angelo · Intelligent Systems Designer',
-    description: 'Turning LLMs into tools that teams can trust, after over a decade of highly regulated B2B products, from iGaming and localisation to enterprise software.',
+    description: 'Intelligent Systems Designer converting raw compute into trustworthy tools and products for the new era.',
     images: [`${SITE.URL}${SITE.OG_IMAGE}`],
   },
   robots: {

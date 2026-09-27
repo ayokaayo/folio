@@ -39,7 +39,7 @@ export function getProjectRoute(id: string): string {
 export const SITE = {
   NAME: 'Miguel Angelo',
   TITLE: 'Miguel Angelo · Intelligent Systems Designer',
-  DESCRIPTION: 'Intelligent Systems Designer turning LLMs into tools that teams can trust. Over a decade of highly regulated B2B products, from iGaming and localisation to enterprise software.',
+  DESCRIPTION: 'Intelligent Systems Designer converting raw compute into trustworthy tools and products for the new era.',
   URL: 'https://miguelangelo.tech',
   EMAIL: 'hi@miguelangelo.tech',
   LINKEDIN: 'https://linkedin.com/in/ferreiramiguelangelo',
