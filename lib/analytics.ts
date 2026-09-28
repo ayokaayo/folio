@@ -36,7 +36,8 @@ declare global {
 }
 
 /** The Umami website ID; with none set, no script loads. */
-export const UMAMI_WEBSITE_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || ''
+// The site's Umami website ID (public by design: it appears in every page's source). An env var overrides it.
+export const UMAMI_WEBSITE_ID = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID || 'acc5c18d-50cf-494a-a9c9-5715294c24b3'
 /** Hostnames that count. Overridable only so the production test build can count localhost. */
 export const UMAMI_DOMAINS = process.env.NEXT_PUBLIC_UMAMI_DOMAINS || 'miguelangelo.tech,www.miguelangelo.tech'
 /** The tracker loads only in a production build with an ID. */
