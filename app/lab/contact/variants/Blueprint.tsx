@@ -8,12 +8,11 @@
  */
 
 import { useRef, type FormEvent, type ReactNode } from 'react'
-import { LIMITS, type ContactField } from '@/lib/contact'
-import { FAILED, useAutoGrow, type VariantProps } from './shared'
+import { FAILED, LAB_LIMITS as LIMITS, useAutoGrow, type LabField, type VariantProps } from './shared'
 
 export default function Blueprint({ draft, uid }: VariantProps) {
   const { values, errors, status } = draft
-  const refs = useRef<Partial<Record<ContactField, HTMLInputElement | HTMLTextAreaElement | null>>>({})
+  const refs = useRef<Partial<Record<LabField, HTMLInputElement | HTMLTextAreaElement | null>>>({})
   const message = useRef<HTMLTextAreaElement | null>(null)
   useAutoGrow(message, values.message, 32, 0, 5)
 
@@ -24,9 +23,9 @@ export default function Blueprint({ draft, uid }: VariantProps) {
     if (first) refs.current[first]?.focus()
   }
 
-  const id = (f: ContactField) => `${uid}-${f}`
+  const id = (f: LabField) => `${uid}-${f}`
 
-  const field = (f: ContactField, index: string, label: string, control: ReactNode) => (
+  const field = (f: LabField, index: string, label: string, control: ReactNode) => (
     <div className="cl-bp-field" data-invalid={errors[f] ? '' : undefined}>
       <label htmlFor={id(f)} className="cl-bp-tab">
         <span className="cl-bp-index">{index}</span>
@@ -41,7 +40,7 @@ export default function Blueprint({ draft, uid }: VariantProps) {
     </div>
   )
 
-  const input = (f: Exclude<ContactField, 'message'>) => (
+  const input = (f: Exclude<LabField, 'message'>) => (
     <input
       id={id(f)}
       ref={el => {

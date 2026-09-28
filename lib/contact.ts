@@ -43,14 +43,13 @@ export const MIN_FILL_MS = 3000
 /** A request that has not answered by then counts as a network failure, so the button never hangs. */
 export const REQUEST_TIMEOUT_MS = 15000
 
-export type ContactField = 'name' | 'email' | 'company' | 'message'
+export type ContactField = 'name' | 'email' | 'message'
 export type ContactValues = Record<ContactField, string>
 export type ContactErrors = Partial<Record<ContactField, string>>
 
 export const LIMITS = {
   name: 100,
   email: 254,
-  company: 100,
   messageMin: 10,
   message: 4000,
 } as const
@@ -69,9 +68,6 @@ export function validateField(field: ContactField, raw: string): string {
       if (!value) return 'Add your email address, so I can reply.'
       if (value.length > LIMITS.email || !EMAIL.test(value)) return "That email address doesn't look right."
       return ''
-    case 'company':
-      if (value.length > LIMITS.company) return `Keep this under ${LIMITS.company} characters.`
-      return ''
     case 'message':
       if (!value) return 'Write a message.'
       if (value.length < LIMITS.messageMin) return `Write at least ${LIMITS.messageMin} characters.`
@@ -80,7 +76,8 @@ export function validateField(field: ContactField, raw: string): string {
   }
 }
 
-export const FIELDS: ContactField[] = ['name', 'email', 'company', 'message']
+/** In the order the form shows them: the message first, then who it is from. */
+export const FIELDS: ContactField[] = ['message', 'name', 'email']
 
 export function validate(values: ContactValues): ContactErrors {
   const errors: ContactErrors = {}
@@ -98,7 +95,6 @@ export function buildPayload(key: string, values: ContactValues) {
     access_key: key,
     name,
     email: values.email.trim(),
-    company: values.company.trim(),
     message: values.message.trim(),
     subject: `Portfolio message from ${name}`,
     from_name: 'miguelangelo.tech',

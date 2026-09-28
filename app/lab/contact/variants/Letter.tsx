@@ -8,10 +8,9 @@
  */
 
 import { useRef, type CSSProperties, type FormEvent } from 'react'
-import type { ContactField } from '@/lib/contact'
-import { FAILED, useAutoGrow, type VariantProps } from './shared'
+import { FAILED, useAutoGrow, type LabField, type VariantProps } from './shared'
 
-const PLACEHOLDER: Record<ContactField, string> = {
+const PLACEHOLDER: Record<LabField, string> = {
   name: 'your name',
   company: 'company or role, optional',
   message: "what you'd like to talk about",
@@ -20,7 +19,7 @@ const PLACEHOLDER: Record<ContactField, string> = {
 
 export default function Letter({ draft, uid }: VariantProps) {
   const { values, errors, status } = draft
-  const refs = useRef<Partial<Record<ContactField, HTMLInputElement | HTMLTextAreaElement | null>>>({})
+  const refs = useRef<Partial<Record<LabField, HTMLInputElement | HTMLTextAreaElement | null>>>({})
   const message = useRef<HTMLTextAreaElement | null>(null)
   useAutoGrow(message, values.message, 32, 0, 3)
 
@@ -49,10 +48,10 @@ export default function Letter({ draft, uid }: VariantProps) {
     )
   }
 
-  const id = (f: ContactField) => `${uid}-${f}`
-  const errorIds = (Object.keys(errors) as ContactField[]).map(f => `${id(f)}-error`)
+  const id = (f: LabField) => `${uid}-${f}`
+  const errorIds = (Object.keys(errors) as LabField[]).map(f => `${id(f)}-error`)
 
-  const blank = (field: Exclude<ContactField, 'message'>, label: string) => {
+  const blank = (field: Exclude<LabField, 'message'>, label: string) => {
     const width = Math.max(values[field].length, PLACEHOLDER[field].length) + 1
     return (
       <>
@@ -107,7 +106,7 @@ export default function Letter({ draft, uid }: VariantProps) {
 
       {errorIds.length > 0 && (
         <p className="cl-letter-errors">
-          {(['name', 'company', 'message', 'email'] as ContactField[])
+          {(['name', 'company', 'message', 'email'] as LabField[])
             .filter(f => errors[f])
             .map(f => (
               <span key={f} id={`${id(f)}-error`}>

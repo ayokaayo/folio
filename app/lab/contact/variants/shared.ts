@@ -8,21 +8,37 @@
  */
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react'
-import {
-  FIELDS,
-  validate,
-  validateField,
-  type ContactErrors,
-  type ContactField,
-  type ContactValues,
-} from '@/lib/contact'
+import { LIMITS, validateField, type ContactField } from '@/lib/contact'
 
 export type Status = 'idle' | 'sending' | 'sent' | 'error'
 export type Preview = 'live' | 'sent' | 'error'
 
-export const EMPTY: ContactValues = { name: '', email: '', company: '', message: '' }
+export type LabField = ContactField | 'company'
+export type LabValues = Record<LabField, string>
+export type LabErrors = Partial<Record<LabField, string>>
 
-export const SAMPLE: ContactValues = {
+export const LAB_LIMITS = { ...LIMITS, company: 100 } as const
+
+/** The order the first error is looked for in (for focus), unless a variant passes its own. */
+const LAB_FIELDS: LabField[] = ['name', 'email', 'company', 'message']
+
+function labValidateField(field: LabField, value: string): string {
+  if (field !== 'company') return validateField(field, value)
+  return value.trim().length > LAB_LIMITS.company ? `Keep this under ${LAB_LIMITS.company} characters.` : ''
+}
+
+function labValidate(values: LabValues): LabErrors {
+  const errors: LabErrors = {}
+  for (const f of LAB_FIELDS) {
+    const e = labValidateField(f, values[f])
+    if (e) errors[f] = e
+  }
+  return errors
+}
+
+export const EMPTY: LabValues = { name: '', email: '', company: '', message: '' }
+
+export const SAMPLE: LabValues = {
   name: 'Ada Lovelace',
   email: 'ada@example.com',
   company: 'Analytical Engines',
@@ -32,42 +48,42 @@ export const SAMPLE: ContactValues = {
 export const FAILED = "That didn't go through. Try again, or copy my email above."
 
 export interface Draft {
-  values: ContactValues
-  errors: ContactErrors
+  values: LabValues
+  errors: LabErrors
   status: Status
-  set: (field: ContactField, value: string) => void
-  /** Validates; returns the first invalid field (for focus) or null when it "sends". */
-  trySend: () => ContactField | null
+  set: (field: LabField, value: string) => void
+  /** Validates; returns the first invalid field in `order` (for focus) or null when it "sends". */
+  trySend: (order?: LabField[]) => LabField | null
   preview: (p: Preview) => void
   fillSample: () => void
   reset: () => void
 }
 
 export function useDraft(): Draft {
-  const [values, setValues] = useState<ContactValues>(EMPTY)
-  const [errors, setErrors] = useState<ContactErrors>({})
+  const [values, setValues] = useState<LabValues>(EMPTY)
+  const [errors, setErrors] = useState<LabErrors>({})
   const [status, setStatus] = useState<Status>('idle')
   const timer = useRef<ReturnType<typeof setTimeout>>()
 
   useEffect(() => () => clearTimeout(timer.current), [])
 
-  const set = useCallback((field: ContactField, value: string) => {
+  const set = useCallback((field: LabField, value: string) => {
     setValues(v => ({ ...v, [field]: value }))
     // As in the live form: errors appear on send, then update as the field is edited.
     setErrors(prev => {
       if (!prev[field]) return prev
       const next = { ...prev }
-      const e = validateField(field, value)
+      const e = labValidateField(field, value)
       if (e) next[field] = e
       else delete next[field]
       return next
     })
   }, [])
 
-  const trySend = useCallback(() => {
-    const found = validate(values)
+  const trySend = useCallback((order: LabField[] = LAB_FIELDS) => {
+    const found = labValidate(values)
     setErrors(found)
-    const first = FIELDS.find(f => found[f]) ?? null
+    const first = order.find(f => found[f]) ?? null
     if (first) return first
     clearTimeout(timer.current)
     setStatus('sending')

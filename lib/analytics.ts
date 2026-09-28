@@ -18,6 +18,7 @@ export type AnalyticsEvent =
   | 'proof_open'
   | 'hero_play'
   | 'not_found'
+  | 'contact_open' // the footer form unfolded, once per page view; no properties
   | 'contact_sent'
   | 'contact_failed' // { reason: 'network' | 'server' | 'validation' }; never field contents
 

@@ -285,73 +285,224 @@ a {
     color: var(--quiet-text-hover);
   }
 
-  /* Contact form (components/ContactForm.tsx). Every box is whole 16px cells: label and one-line error
-     rows two, inputs three, the textarea eight. Paper fields on the surface, a subtle border, and the
-     site's accent focus ring. */
-  .contact-label,
-  .contact-row-2 {
+  /* Contact form (components/ContactForm.tsx), folded into one line that opens. Every box is whole
+     16px cells: the CTA three (.btn-tertiary), labels two, inputs and Send three, the message 16px of
+     padding and border plus 32px lines. The layout answers the column's width, not the viewport's, so
+     the same rules serve the footer at every breakpoint and the dev lab's phone mock-ups. */
+  .contact-fold {
+    container: contact-fold / inline-size;
+  }
+
+  .contact-fold-cta {
+    cursor: pointer;
+  }
+
+  .contact-fold[data-open] .contact-fold-cta .arrow {
+    transform: none;
+  }
+
+  /* The fold: grid rows 0fr to 1fr animates to the content's own height. */
+  .contact-fold-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  }
+
+  .contact-fold[data-open] .contact-fold-panel {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.24s ease 0.08s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-fold-panel,
+    .contact-fold[data-open] .contact-fold-panel {
+      transition: none;
+    }
+  }
+
+  /* 4px of room on every side for focus rings, which the fold would otherwise clip, given back by the
+     negative margin so the form's own box stays on the lattice. */
+  .contact-fold-inner {
+    min-height: 0;
+    overflow: hidden;
+    margin: -4px;
+    padding: 4px;
+  }
+
+  /* Scrolled into view clear of the fixed 80px navigation. */
+  .contact-fold-form {
+    padding-top: 32px;
+    scroll-margin: 96px 0 16px;
+    font-family: var(--font-ibm-plex-mono), monospace;
+    font-size: var(--text-body);
+  }
+
+  .contact-fold-form ::placeholder {
+    color: var(--text-tertiary);
+    opacity: 1;
+  }
+
+  .contact-fold-head {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: space-between;
     height: 32px;
   }
 
-  .contact-field {
+  .contact-fold-label {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    font-size: var(--text-label);
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+  }
+
+  .contact-fold-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    height: 32px;
+    padding: 0 0 0 16px;
+    font-size: var(--text-label);
+    color: var(--text-tertiary);
+    border-radius: 4px;
+    transition: color 0.15s ease;
+  }
+
+  .contact-fold-close:hover {
+    color: var(--text-primary);
+  }
+
+  .contact-fold-message,
+  .contact-fold-input {
     display: block;
     box-sizing: border-box;
     width: 100%;
-    height: 48px;
     margin: 0;
-    padding: 0 16px;
-    appearance: none;
+    font: inherit;
+    color: var(--text-primary);
+    background: transparent;
     border: 1px solid var(--border-subtle);
     border-radius: 4px;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    font-family: var(--font-ibm-plex-mono), monospace;
-    font-size: var(--text-body);
-    line-height: 24px;
-    box-shadow: none;
-    transition: border-color 0.15s ease;
+    outline: none;
+    appearance: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
 
-  textarea.contact-field {
-    height: 128px;
-    min-height: 128px;
-    padding: 12px 16px;
-    resize: vertical;
+  /* 7px padding and a 1px border above and below, then 32px lines: 16 + 32n (the component sets the
+     height as the text grows, three lines to eight). */
+  .contact-fold-message {
+    min-height: 112px;
+    padding: 7px 15px;
+    line-height: 32px;
+    resize: none;
+    overflow-y: auto;
   }
 
-  .contact-field:hover {
+  .contact-fold-input {
+    height: 48px;
+    padding: 0 15px;
+    line-height: 46px;
+  }
+
+  .contact-fold-message:hover,
+  .contact-fold-input:hover {
     border-color: var(--quiet-border-hover);
   }
 
-  .contact-field:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+  /* The accent border doubled by a 1px ring: the field's own focus mark, in place of the outline. */
+  .contact-fold-message:focus,
+  .contact-fold-input:focus {
     border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
   }
 
-  .contact-field[aria-invalid='true'] {
+  .contact-fold-message[aria-invalid='true'],
+  .contact-fold-input[aria-invalid='true'] {
     border-color: var(--danger);
   }
 
+  .contact-fold-message[aria-invalid='true']:focus,
+  .contact-fold-input[aria-invalid='true']:focus {
+    box-shadow: 0 0 0 1px var(--danger);
+  }
+
   /* No autofill tint: keep the paper and the ink. */
-  .contact-field:-webkit-autofill,
-  .contact-field:-webkit-autofill:hover,
-  .contact-field:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px var(--bg-primary) inset;
+  .contact-fold-input:-webkit-autofill,
+  .contact-fold-input:-webkit-autofill:hover,
+  .contact-fold-input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-surface) inset;
     -webkit-text-fill-color: var(--text-primary);
     caret-color: var(--text-primary);
   }
 
+  .contact-fold-input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-surface) inset, 0 0 0 1px var(--accent);
+  }
+
+  /* Narrow columns (phones, and the footer between 768px and 1023px): one field per row, then Send two
+     lattice columns wide, measured as .cta-2col-track measures it. */
+  .contact-fold-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    align-items: end;
+    margin-top: 16px;
+  }
+
+  .contact-fold-cell {
+    min-width: 0;
+  }
+
+  .contact-fold-send {
+    width: calc((100% - 48px) / 4 * 2 + 16px);
+  }
+
+  @media (min-width: 768px) and (max-width: 1023.98px) {
+    .contact-fold-send {
+      width: 100%;
+    }
+  }
+
+  /* The Close button's hit area grows to 48px, its label still centred on the Message label's line. */
+  @container contact-fold (max-width: 399.98px) {
+    .contact-fold-head {
+      height: 48px;
+    }
+    .contact-fold-close {
+      height: 48px;
+      margin-bottom: -8px;
+    }
+  }
+
+  /* Wide columns (432px at 1440): name, email and an 80px Send share a row. The name takes 45% of what
+     is left, rounded down to whole cells, so both fields end on lattice lines. */
+  @container contact-fold (min-width: 400px) {
+    .contact-fold-row {
+      grid-template-columns: round(down, (100% - 112px) * 0.45, 16px) minmax(0, 1fr) 80px;
+    }
+    .contact-fold-send {
+      width: 80px;
+    }
+  }
+
+  .contact-fold-errors {
+    padding-top: 16px;
+  }
+
   .contact-error {
-    padding: 8px 0;
+    font-size: var(--text-label);
     line-height: 16px;
     color: var(--danger);
   }
 
   .contact-status:not(:empty) {
     padding-top: 16px;
+    font-size: var(--text-label);
     line-height: 16px;
     color: var(--danger);
   }
@@ -368,13 +519,18 @@ a {
 
   .contact-send {
     box-sizing: border-box;
+    justify-content: space-between;
     height: 48px;
     padding: 0 16px;
     white-space: nowrap;
   }
 
   .contact-send .contact-send-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
     flex: none;
+    width: 16px;
     transition: transform 0.15s ease;
   }
 
@@ -393,8 +549,43 @@ a {
     transform: none;
   }
 
+  /* While sending, the arrow's cell holds three dots that fill in turn (still under reduced motion). */
+  .contact-send-dots {
+    width: 12px;
+    height: 2px;
+    background: radial-gradient(circle closest-side, currentColor 90%, transparent) 0 0 / 4px 2px repeat-x;
+    animation: contact-dots 0.9s steps(3, jump-none) infinite;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  @keyframes contact-dots {
+    from {
+      clip-path: inset(0 66% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact-send-dots {
+      animation: none;
+      clip-path: none;
+    }
+  }
+
+  /* The confirmation: one 48px line (it wraps in 32px lines), then Send another as a 48px target. */
   .contact-confirm {
+    font-family: var(--font-ibm-plex-mono), monospace;
+    font-size: var(--text-body);
     line-height: 32px;
+    color: var(--text-primary);
+  }
+
+  .contact-confirm-line {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
   }
 
   .contact-confirm:focus {
@@ -412,16 +603,17 @@ a {
     height: 48px;
     font-family: var(--font-ibm-plex-mono), monospace;
     font-size: var(--text-label);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
     color: var(--accent-dark);
     text-decoration: underline;
+    text-decoration-color: rgb(var(--accent-rgb) / 0.35);
     text-underline-offset: 4px;
-    transition: color 0.15s ease;
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
   }
 
   .contact-link:hover {
     color: var(--accent-deep);
+    text-decoration-color: currentColor;
   }
 
   /* Tag Button: neutral small button style, no hover state (not actionable) */

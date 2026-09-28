@@ -1,26 +1,26 @@
 'use client'
 
 /**
- * C. Folded: one line that opens. The footer keeps a single tertiary CTA; pressing it unfolds a
- * compact form (grid rows 0fr to 1fr with a fade, instant under reduced motion). The message comes
- * first in a hairline box, then name and email share a row with Send at its end. Company is left
- * out to keep the fold short. Close folds it back and returns focus to the CTA.
+ * C. Folded: one line that opens. This is the direction the live footer uses (components/ContactForm.tsx),
+ * kept here as its own copy so the lab never sends anything and its toggles can force the Sent and Error
+ * states. The styles are the live ones (.contact-fold and friends in app/globals.css), so the preview
+ * cannot drift from the footer; only the delivery, spam traps and analytics are left out.
  */
 
-import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react'
-import { LIMITS, type ContactField } from '@/lib/contact'
-import { FAILED, useAutoGrow, type VariantProps } from './shared'
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent, type KeyboardEvent } from 'react'
+import { LIMITS } from '@/lib/contact'
+import { FAILED, useAutoGrow, type LabField, type VariantProps } from './shared'
 
 const CTA = 'Start a conversation'
+const ORDER: LabField[] = ['message', 'name', 'email']
 
 export default function Folded({ draft, uid }: VariantProps) {
   const { values, errors, status } = draft
   const [open, setOpen] = useState(false)
-  const refs = useRef<Partial<Record<ContactField, HTMLInputElement | HTMLTextAreaElement | null>>>({})
+  const refs = useRef<Partial<Record<LabField, HTMLInputElement | HTMLTextAreaElement | null>>>({})
   const message = useRef<HTMLTextAreaElement | null>(null)
   const cta = useRef<HTMLButtonElement>(null)
   const opened = useRef(false)
-  const panel = useRef<HTMLDivElement>(null)
   // 7px + 1px border above and below, then 32px lines: 16 + 32n, always whole cells.
   useAutoGrow(message, values.message, 32, 16, 3)
 
@@ -28,11 +28,6 @@ export default function Folded({ draft, uid }: VariantProps) {
   useEffect(() => {
     if (status === 'error') setOpen(true)
   }, [status])
-
-  // A folded panel is out of the tab order and the accessibility tree (set directly, as React 18 has no inert prop).
-  useEffect(() => {
-    panel.current?.toggleAttribute('inert', !open)
-  }, [open])
 
   // Focus the message once the fold has opened by hand.
   useEffect(() => {
@@ -48,45 +43,52 @@ export default function Folded({ draft, uid }: VariantProps) {
   }
 
   const fold = () => {
-    setOpen(false)
     cta.current?.focus()
+    setOpen(false)
+  }
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && open) {
+      e.preventDefault()
+      fold()
+    }
   }
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
     if (status === 'sending') return
-    const first = draft.trySend()
+    const first = draft.trySend(ORDER)
     if (first) refs.current[first]?.focus()
   }
 
-  const id = (f: ContactField) => `${uid}-${f}`
+  const id = (f: LabField) => `${uid}-${f}`
   const panelId = `${uid}-panel`
 
   if (status === 'sent') {
     return (
-      <div className="cl-fold-sent" role="status">
-        <p>
-          <span>
-            Sent. I&apos;ll reply to <span className="text-accent-dark">{values.email.trim()}</span>.
+      <div className="contact-confirm" role="status">
+        <p className="contact-confirm-line">
+          <span className="min-w-0 break-words">
+            Message sent. I&apos;ll reply to <span className="text-accent-dark">{values.email.trim()}</span>.
           </span>
         </p>
         <button
           type="button"
-          className="cl-link"
+          className="contact-link"
           onClick={() => {
             draft.reset()
-            setOpen(false)
+            unfold()
           }}
         >
-          Start another
+          Send another
         </button>
       </div>
     )
   }
 
   const input = (f: 'name' | 'email', label: string) => (
-    <div className="cl-fold-cell" data-field={f}>
-      <label htmlFor={id(f)} className="cl-fold-label">
+    <div className="contact-fold-cell" data-field={f}>
+      <label htmlFor={id(f)} className="contact-fold-label">
         {label}
       </label>
       <input
@@ -94,7 +96,7 @@ export default function Folded({ draft, uid }: VariantProps) {
         ref={el => {
           refs.current[f] = el
         }}
-        className="cl-fold-input"
+        className="contact-fold-input"
         type={f === 'email' ? 'email' : 'text'}
         inputMode={f === 'email' ? 'email' : undefined}
         spellCheck={f === 'email' ? false : undefined}
@@ -108,14 +110,15 @@ export default function Folded({ draft, uid }: VariantProps) {
     </div>
   )
 
-  const shownErrors = (['message', 'name', 'email'] as ContactField[]).filter(f => errors[f])
+  const shownErrors = ORDER.filter(f => errors[f])
+  const sending = status === 'sending'
 
   return (
-    <div className="cl-fold" data-open={open ? '' : undefined}>
+    <div className="contact-fold" data-open={open ? '' : undefined} onKeyDown={onKeyDown}>
       <button
         ref={cta}
         type="button"
-        className="btn-tertiary group cl-fold-cta"
+        className="btn-tertiary contact-fold-cta"
         style={{ '--chars': CTA.length } as CSSProperties}
         aria-expanded={open}
         aria-controls={panelId}
@@ -127,14 +130,14 @@ export default function Folded({ draft, uid }: VariantProps) {
         </span>
       </button>
 
-      <div ref={panel} className="cl-fold-panel" id={panelId}>
-        <div className="cl-fold-inner">
-          <form className="cl-fold-form" noValidate onSubmit={onSubmit} aria-label="Contact form">
-            <div className="cl-fold-head">
-              <label htmlFor={id('message')} className="cl-fold-label">
+      <div className="contact-fold-panel" id={panelId} {...(open ? {} : ({ inert: '' } as unknown as { inert: boolean }))}>
+        <div className="contact-fold-inner">
+          <form className="contact-fold-form" noValidate onSubmit={onSubmit} aria-label="Contact form">
+            <div className="contact-fold-head">
+              <label htmlFor={id('message')} className="contact-fold-label">
                 Message
               </label>
-              <button type="button" className="cl-fold-close" onClick={fold} aria-label="Close the message form">
+              <button type="button" className="contact-fold-close" onClick={fold} aria-label="Close the message form">
                 <span aria-hidden>Close</span>
                 <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden>
                   <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
@@ -147,7 +150,7 @@ export default function Folded({ draft, uid }: VariantProps) {
                 refs.current.message = el
                 message.current = el
               }}
-              className="cl-fold-message"
+              className="contact-fold-message"
               rows={1}
               maxLength={LIMITS.message}
               placeholder="What's on your mind?"
@@ -156,26 +159,26 @@ export default function Folded({ draft, uid }: VariantProps) {
               aria-describedby={errors.message ? `${id('message')}-error` : undefined}
               onChange={e => draft.set('message', e.target.value)}
             />
-            <div className="cl-fold-row">
+            <div className="contact-fold-row">
               {input('name', 'Your name')}
               {input('email', 'Email')}
-              <button type="submit" className="btn-primary cl-send cl-fold-send" aria-disabled={status === 'sending' || undefined}>
-                <span>{status === 'sending' ? 'Sending' : 'Send'}</span>
-                <span className="cl-send-arrow" aria-hidden>
-                  →
+              <button type="submit" className="btn-primary contact-send contact-fold-send" aria-disabled={sending || undefined}>
+                <span>Send</span>
+                <span className="contact-send-arrow" aria-hidden>
+                  {sending ? <span className="contact-send-dots" /> : '→'}
                 </span>
               </button>
             </div>
             {shownErrors.length > 0 && (
-              <div className="cl-fold-errors">
+              <div className="contact-fold-errors">
                 {shownErrors.map(f => (
-                  <p key={f} id={`${id(f)}-error`}>
+                  <p key={f} id={`${id(f)}-error`} className="contact-error">
                     {errors[f]}
                   </p>
                 ))}
               </div>
             )}
-            <p aria-live="polite" className="cl-status">
+            <p aria-live="polite" className="contact-status">
               {status === 'error' && FAILED}
             </p>
           </form>
