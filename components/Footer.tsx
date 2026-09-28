@@ -15,6 +15,7 @@ import { SITE } from '@/lib/constants'
 import { GRID_GAP } from './ExposedGrid'
 import { REVEAL } from '@/lib/reveal'
 import { track } from '@/lib/analytics'
+import ContactForm from './ContactForm'
 
 export default function Footer() {
   const [copied, setCopied] = useState(false)
@@ -70,6 +71,9 @@ export default function Footer() {
                 <span className="text-[var(--quiet-arrow)] group-hover:text-[var(--quiet-text-hover)] transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-1">→</span>
               </a>
             </div>
+
+            {/* Renders nothing until a Web3Forms key is set (lib/contact.ts). */}
+            <ContactForm />
           </div>
 
           {/* Resources - 4 columns */}

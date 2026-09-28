@@ -2,8 +2,8 @@
  * Cookieless analytics (Umami). See app/privacy/page.tsx for what visitors are told.
  *
  * Only the event names below are ever sent, each with a few predefined properties. Never pass free
- * text, email addresses, clipboard contents or full URLs with query strings: use sanitiseUrl() or a
- * hostname. Every payload the tracker sends (page views too) passes through beforeSend(), which strips
+ * text, email addresses, clipboard contents, contact form contents or full URLs with query strings:
+ * use sanitiseUrl() or a hostname. Every payload the tracker sends (page views too) passes through beforeSend(), which strips
  * query strings and fragments. Umami keeps nothing in cookies or storage, and when the script is absent
  * (no website ID, development, a blocker, Do Not Track, or another domain) track() does nothing.
  */
@@ -18,6 +18,8 @@ export type AnalyticsEvent =
   | 'proof_open'
   | 'hero_play'
   | 'not_found'
+  | 'contact_sent'
+  | 'contact_failed' // { reason: 'network' | 'server' | 'validation' }; never field contents
 
 export type AnalyticsData = Record<string, string | number>
 

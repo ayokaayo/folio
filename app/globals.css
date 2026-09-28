@@ -51,6 +51,9 @@
   /* Borders */
   --border-subtle: #E5E0D8;
   --border-accent: var(--accent);
+
+  /* Form errors (ContactForm): 6:1 on the surface, quiet enough to sit beside the sage. */
+  --danger: #A8321F;
   
   /* Typography Scale: All Mono */
   --text-display: clamp(40px, 5vw, 72px);
@@ -280,6 +283,145 @@ a {
   .btn-tertiary:hover .arrow {
     transform: translateX(4px);
     color: var(--quiet-text-hover);
+  }
+
+  /* Contact form (components/ContactForm.tsx). Every box is whole 16px cells: label and one-line error
+     rows two, inputs three, the textarea eight. Paper fields on the surface, a subtle border, and the
+     site's accent focus ring. */
+  .contact-label,
+  .contact-row-2 {
+    display: flex;
+    align-items: center;
+    height: 32px;
+  }
+
+  .contact-field {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 48px;
+    margin: 0;
+    padding: 0 16px;
+    appearance: none;
+    border: 1px solid var(--border-subtle);
+    border-radius: 4px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-ibm-plex-mono), monospace;
+    font-size: var(--text-body);
+    line-height: 24px;
+    box-shadow: none;
+    transition: border-color 0.15s ease;
+  }
+
+  textarea.contact-field {
+    height: 128px;
+    min-height: 128px;
+    padding: 12px 16px;
+    resize: vertical;
+  }
+
+  .contact-field:hover {
+    border-color: var(--quiet-border-hover);
+  }
+
+  .contact-field:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-color: var(--accent);
+  }
+
+  .contact-field[aria-invalid='true'] {
+    border-color: var(--danger);
+  }
+
+  /* No autofill tint: keep the paper and the ink. */
+  .contact-field:-webkit-autofill,
+  .contact-field:-webkit-autofill:hover,
+  .contact-field:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px var(--bg-primary) inset;
+    -webkit-text-fill-color: var(--text-primary);
+    caret-color: var(--text-primary);
+  }
+
+  .contact-error {
+    padding: 8px 0;
+    line-height: 16px;
+    color: var(--danger);
+  }
+
+  .contact-status:not(:empty) {
+    padding-top: 16px;
+    line-height: 16px;
+    color: var(--danger);
+  }
+
+  /* Off-screen honeypot: never seen, never focused. */
+  .contact-trap {
+    position: absolute;
+    left: -10000px;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .contact-send {
+    box-sizing: border-box;
+    height: 48px;
+    padding: 0 16px;
+    white-space: nowrap;
+  }
+
+  .contact-send .contact-send-arrow {
+    flex: none;
+    transition: transform 0.15s ease;
+  }
+
+  .contact-send:hover .contact-send-arrow,
+  .contact-send:focus-visible .contact-send-arrow {
+    transform: translateX(2px);
+  }
+
+  .contact-send[aria-disabled='true'] {
+    background-color: var(--accent-hover);
+    cursor: progress;
+    transform: none;
+  }
+
+  .contact-send[aria-disabled='true'] .contact-send-arrow {
+    transform: none;
+  }
+
+  .contact-confirm {
+    line-height: 32px;
+  }
+
+  .contact-confirm:focus {
+    outline: none;
+  }
+
+  .contact-confirm:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    font-family: var(--font-ibm-plex-mono), monospace;
+    font-size: var(--text-label);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color 0.15s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--accent-deep);
   }
 
   /* Tag Button: neutral small button style, no hover state (not actionable) */
@@ -583,6 +725,31 @@ a {
 
   @media (max-width: 639.98px) {
     .cta-2col {
+      width: calc((100% - 48px) / 4 * 2 + 16px);
+    }
+  }
+
+  /* The contact form's button: 2 lattice columns, measured against a footer column. That column is the
+     full lattice width below 768px (4 columns, then 6), 2 of 6 columns from 768px (so the whole column),
+     and 4 of 12 from 1024px. */
+  .cta-2col-track {
+    width: calc((100% - 48px) / 4 * 2 + 16px);
+  }
+
+  @media (min-width: 640px) {
+    .cta-2col-track {
+      width: calc((100% - 80px) / 6 * 2 + 16px);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cta-2col-track {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cta-2col-track {
       width: calc((100% - 48px) / 4 * 2 + 16px);
     }
   }

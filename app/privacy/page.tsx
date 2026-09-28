@@ -39,6 +39,10 @@ export default function PrivacyPage() {
           <p>Data is kept for a limited period, set by the analytics provider.</p>
           <p>Browsers that send Do Not Track are not counted.</p>
           <p>
+            Messages sent through the contact form go straight to my inbox via Web3Forms, which keeps them for up to
+            30 days; the site itself stores nothing.
+          </p>
+          <p>
             Questions: reach me via{' '}
             <a
               href={SITE.LINKEDIN}
