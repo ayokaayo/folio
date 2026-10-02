@@ -2,7 +2,7 @@ import type { CaseStudy } from './types'
 
 export const nexus: CaseStudy = {
   id: 'nexus',
-  title: 'Only 3% of styles followed the system',
+  title: 'The design system won its product back',
   kicker: 'Nexus · Design debt remediation',
   subtitle: 'A live product had drifted from its own design system: 22,050 style rules, only 3% on the system. Nexus measures the debt, lets AI pay it down at scale, and proves every change pixel by pixel while people make the judgement calls.',
   hashtag: '#Design Systems',
@@ -10,8 +10,8 @@ export const nexus: CaseStudy = {
   year: '2026',
   linkText: 'Read case study',
   cardSummary: 'A design system management tool made to measure drift and safely erase debt.',
-  imageUrl: '/img/nexus/cover-drift.jpg',
-  imageAlt: 'Nexus cover: on a dark field, faint grey mono glyphs with about three percent lit in pine green, over the kicker Nexus, design debt remediation, and the title Only 3% of styles followed the system',
+  imageUrl: '/img/nexus/cover-reclaim.jpg',
+  imageAlt: 'Nexus cover: on a dark field, mono glyphs sweep from faint grey drift on the left to dense glowing pine green on the right, labelled drift and on the system, over the kicker Nexus, design debt remediation, and the title The design system won its product back',
   timeline: 'September 2026',
   team: 'Built solo; shipped to the product through an ordinary pull request',
 
