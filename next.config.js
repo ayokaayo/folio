@@ -11,7 +11,7 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/work/xpdna', destination: '/work/dna', permanent: true },
-      { source: '/img/xpdna/cover.jpg', destination: '/img/dna/cover-paper.jpg', permanent: true },
+      { source: '/img/xpdna/cover.jpg', destination: '/img/dna/cover-field-dark.jpg', permanent: true },
     ]
   },
 }

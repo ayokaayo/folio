@@ -8,6 +8,7 @@ export interface ImageWithCaption {
 export interface CaseStudy {
   id: string
   title: string
+  kicker?: string // Short product-name label shown above the title (e.g. 'Nexus · Design debt remediation')
   subtitle: string
   hashtag: string
   company: string

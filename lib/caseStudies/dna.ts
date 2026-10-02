@@ -2,17 +2,16 @@ import type { CaseStudy } from './types'
 
 export const dna: CaseStudy = {
   id: 'dna',
-  title: 'DNA',
-  subtitle: 'A Design System Workstation: an AI harness that changes how an entire organisation prototypes, where anyone with a terminal turns an idea into a working prototype built from production code, safe and compliant by design, and the same path runs all the way into the live platform.',
+  title: 'Designers ship code, engineers ship design',
+  kicker: 'DNA · Design system workstation',
+  subtitle: 'An AI harness where anyone with an idea builds working, on brand prototypes from the product\'s real production code, shipped through the same review as engineers. Building stopped belonging to one discipline.',
   hashtag: '#AI Experience',
   company: 'Fast Track AI',
   year: '2026',
   linkText: 'Read case study',
   cardSummary: 'A product design harness enabling anyone with an idea to build and prototype from the product\'s own code. Safe, compliant, on brand.',
-  // Cover: the neon alternative is '/img/dna/cover-neon.jpg' with its alt below
-  imageUrl: '/img/dna/cover-paper.jpg',
-  imageAlt: 'DNA cover: the DNA emoji and the DNA wordmark over the tagline design system workstation, on a light paper field faintly sketched with a browser window, a terminal, a chat panel and design system components',
-  // imageAlt (neon): 'DNA cover: a glowing magenta and cyan double helix whose rungs are design system components and code brackets, on a dark technical grid, above the DNA wordmark and the tagline design system workstation',
+  imageUrl: '/img/dna/cover-field-dark.jpg',
+  imageAlt: 'DNA cover: on a dark field, mono glyphs from dots to diamonds converge into a glowing column of pine green marks at the centre, over the kicker DNA, design system workstation, and the title Designers ship code, engineers ship design',
   timeline: 'February 2026 to present (ongoing)',
   team: 'Built solo; used across the organisation by designers, non-technical teammates and engineers',
 

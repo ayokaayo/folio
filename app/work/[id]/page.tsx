@@ -78,6 +78,11 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
               {caseStudy.company} ({caseStudy.year})
             </span>
           </div>
+          {caseStudy.kicker && (
+            <p className="font-mono text-sm uppercase tracking-wide text-text/60 mb-3">
+              {caseStudy.kicker}
+            </p>
+          )}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-6">
             {caseStudy.title}
           </h1>

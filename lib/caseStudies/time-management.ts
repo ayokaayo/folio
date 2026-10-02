@@ -2,8 +2,9 @@ import type { CaseStudy } from './types'
 
 export const timeManagement: CaseStudy = {
   id: 'time-management',
-  title: 'Time Management & Localisation Tools',
-  subtitle: 'Enabled 24/7 global operations and unlocked 3 major markets',
+  title: 'A CRM that slept while customers worked',
+  kicker: 'Time and Localisation · Global CRM foundations',
+  subtitle: 'A CRM built for one timezone and one language could not run round the clock or enter new markets. Dual timezone display and full interface localisation opened Brazil, LatAm and APAC.',
   hashtag: '#Growth design',
   company: 'Fast Track AI',
   year: '2024',

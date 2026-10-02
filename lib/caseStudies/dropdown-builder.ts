@@ -2,8 +2,9 @@ import type { CaseStudy } from './types'
 
 export const dropdownBuilder: CaseStudy = {
   id: 'dropdown-builder',
-  title: 'Advanced Dropdown Builder',
-  subtitle: 'From 200+ option chaos to intelligent progressive disclosure',
+  title: '200 options is not a choice',
+  kicker: 'Advanced Dropdown Builder · Progressive disclosure picker',
+  subtitle: 'A field picker with 200+ options had become endless scroll chaos. The rebuild groups options by category and shows context before selection, so finding the right field takes seconds.',
   hashtag: '#New Feature',
   company: 'Fast Track AI',
   year: '2025',

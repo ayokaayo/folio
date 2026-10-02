@@ -2,15 +2,16 @@ import type { CaseStudy } from './types'
 
 export const nexus: CaseStudy = {
   id: 'nexus',
-  title: 'Nexus',
-  subtitle: 'Design debt and drift management for a live product, and the focused remediation work inside the [DNA tool](/work/dna): a harness that measures a product\'s own style rules against the design system, lets AI pay the debt down at scale, and generates the evidence behind every change, with a built-in approval and validation flow that lets whole teams review and sign off together.',
+  title: 'Only 3% of styles followed the system',
+  kicker: 'Nexus · Design debt remediation',
+  subtitle: 'A live product had drifted from its own design system: 22,050 style rules, only 3% on the system. Nexus measures the debt, lets AI pay it down at scale, and proves every change pixel by pixel while people make the judgement calls.',
   hashtag: '#Design Systems',
   company: 'Fast Track AI',
   year: '2026',
   linkText: 'Read case study',
   cardSummary: 'A design system management tool made to measure drift and safely erase debt.',
-  imageUrl: '/img/nexus/cover-emoji.jpg',
-  imageAlt: 'Nexus cover: a glossy magenta and cyan magnifying glass emoji beside the Nexus wordmark and the tagline design debt and drift management, on a light paper field faintly sketched with before and after screens, a pixel grid and a type scale',
+  imageUrl: '/img/nexus/cover-drift.jpg',
+  imageAlt: 'Nexus cover: on a dark field, faint grey mono glyphs with about three percent lit in pine green, over the kicker Nexus, design debt remediation, and the title Only 3% of styles followed the system',
   timeline: 'September 2026',
   team: 'Built solo; shipped to the product through an ordinary pull request',
 

@@ -2,8 +2,9 @@ import type { CaseStudy } from './types'
 
 export const smsCharacters: CaseStudy = {
   id: 'sms-characters',
-  title: 'SMS Characters: Count & Preview',
-  subtitle: 'Preventing costly messaging errors through accurate counting and multi-language support',
+  title: 'One emoji can double the bill',
+  kicker: 'SMS Characters · Live encoding detection',
+  subtitle: 'Emoji and unicode characters silently inflated SMS counts and triggered costly billing disputes. Real time encoding detection with a live mobile preview makes the count right before anything is sent.',
   hashtag: '#Risk elimination',
   company: 'Fast Track AI',
   year: '2024',
