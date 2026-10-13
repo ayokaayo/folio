@@ -8,6 +8,10 @@ const nextConfig = {
   // `*.dev.tsx` routes (the hero lab) exist only in development; production never builds them.
   // `dev.tsx` must come before `tsx`, or `page.dev.tsx` is read as a page named `page.dev`.
   pageExtensions: [...(process.env.NODE_ENV !== 'production' ? ['dev.tsx'] : []), 'tsx', 'ts', 'jsx', 'js'],
+  // The DNA design system library is one static page built in the dna repo (scripts/publish-folio.sh there).
+  async rewrites() {
+    return [{ source: '/dna', destination: '/dna/index.html' }]
+  },
   async redirects() {
     return [
       { source: '/work/xpdna', destination: '/work/dna', permanent: true },
