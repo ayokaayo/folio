@@ -26,7 +26,7 @@ import { ROUTES } from '@/lib/constants'
 export default function Home() {
   // Selected works for homepage
   const selectedWorks = useMemo(() => {
-    const order = ['nexus', 'dna', 'fast-track-ai']
+    const order = ['design-native-agent', 'nexus', 'dna']
     return order
       .map(id => caseStudies.find(cs => cs.id === id))
       .filter((cs): cs is NonNullable<typeof cs> => cs !== undefined)

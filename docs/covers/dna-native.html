@@ -1,0 +1,187 @@
+<!doctype html>
+<!--
+  Design-native contracts: the exact DNA mark resolved into lit glyphs above
+  five increasingly dense bands, with loose guesses drifting in from the left.
+  Renders to public/img/dna-native/cover.jpg
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+  :root {
+    --ground: #16171B;
+    --grid: #22242B;
+    --ink: #ECEAE4;
+    --accent: #54AB8B;
+    --accent-bright: #6FC9A5;
+    --accent-dark: #338467;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1600px; height: 1000px; overflow: hidden; }
+  body {
+    position: relative;
+    background:
+      repeating-linear-gradient(0deg, transparent 0 39px, var(--grid) 39px 40px),
+      repeating-linear-gradient(90deg, transparent 0 39px, var(--grid) 39px 40px),
+      var(--ground);
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--ink);
+  }
+  .gridwash { position: absolute; inset: 0; background: var(--ground); opacity: 0.5; }
+  #field { position: absolute; inset: 0; z-index: 1; }
+  .g { position: absolute; font-size: 22px; line-height: 1; transform: translate(-50%, -50%); user-select: none; }
+  .vignette {
+    position: absolute; inset: 0; z-index: 2;
+    background: radial-gradient(130% 115% at 14% 86%, rgba(22,23,27,0.97) 0%, rgba(22,23,27,0.86) 26%, rgba(22,23,27,0) 54%);
+  }
+  .corner { position: absolute; z-index: 4; width: 26px; height: 26px; border: 0 solid #4A4D56; opacity: .8; }
+  .tl { top: 44px; left: 44px; border-top-width: 2px; border-left-width: 2px; }
+  .tr { top: 44px; right: 44px; border-top-width: 2px; border-right-width: 2px; }
+  .bl { bottom: 44px; left: 44px; border-bottom-width: 2px; border-left-width: 2px; }
+  .br { bottom: 44px; right: 44px; border-bottom-width: 2px; border-right-width: 2px; }
+  .axis {
+    position: absolute; z-index: 3; top: 56px; left: 96px; right: 96px;
+    display: flex; justify-content: space-between;
+    font-size: 15px; letter-spacing: 0.18em; text-transform: uppercase; color: #8A8C94;
+  }
+  .axis span {
+    background: rgba(16,17,21,0.82);
+    padding: 7px 12px;
+    border: 1px solid rgba(74,77,86,0.4);
+  }
+  .axis .on { color: var(--accent-bright); border-color: rgba(84,171,139,0.45); }
+  .copy { position: absolute; z-index: 3; left: 96px; bottom: 150px; max-width: 1050px; }
+  .kicker {
+    font-size: 20px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 26px;
+  }
+  .kicker .dot { color: var(--accent-bright); }
+  h1 { font-weight: 500; font-size: 60px; white-space: nowrap; line-height: 1.08; letter-spacing: -0.02em; color: var(--ink); }
+  h1 .hl { color: var(--accent-bright); font-weight: 600; }
+  .meta { position: absolute; z-index: 3; left: 96px; bottom: 96px; font-size: 17px; letter-spacing: 0.04em; color: #7D7F88; }
+</style>
+</head>
+<body>
+  <div class="gridwash"></div>
+  <div id="field"></div>
+  <div class="vignette"></div>
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+
+  <div class="axis"><span>GUIDELINES</span><span class="on">CONTRACTS</span></div>
+
+  <div class="copy">
+    <div class="kicker">DNA <span class="dot">·</span> Design-Native Agent</div>
+    <h1>DNA, the <span class="hl">intelligence-first</span><br>Design System</h1>
+  </div>
+  <div class="meta">65 components, each one a contract</div>
+
+<script>
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  const rnd = mulberry32(20261016);
+  const ramp = ['·',':','+','×','◇','┼','╬'];
+  const W = 1600, H = 1000;
+  const field = document.getElementById('field');
+  const frag = document.createDocumentFragment();
+  function smooth(a,b,x){const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);}
+
+  // Exact plain-filled paths from the brand DNA.svg, including its detached
+  // lobe transform. Rasterise offscreen; the source SVG's blur is not applied.
+  const mask = document.createElement('canvas');
+  mask.width = W; mask.height = H;
+  const ctx = mask.getContext('2d', { willReadFrequently: true });
+  ctx.fillStyle = '#fff';
+  ctx.translate(650, -30);
+  ctx.scale(0.76, 0.76);
+  ctx.fill(new Path2D('M 473.500 294.056 C 405.479 300.719, 331.142 338.463, 288.724 387.875 C 229.482 456.887, 222.609 553.501, 271.749 626.500 C 297.406 664.613, 335.379 690.085, 380.898 699.714 C 399.493 703.648, 428.568 703.634, 447.256 699.683 C 472.472 694.351, 500.853 682.400, 524 667.366 C 545.229 653.578, 570.706 642.274, 590.500 637.861 C 601.065 635.506, 624.650 636.268, 636.337 639.342 C 672.098 648.747, 701.854 675.051, 716.351 710.072 C 723.986 728.517, 726.564 743.331, 727.475 774 C 728.504 808.665, 731.996 830.741, 740.048 853.500 C 754.202 893.504, 781.075 920.624, 817.500 931.662 C 830.798 935.692, 860.460 935.738, 875.228 931.752 C 957.507 909.544, 1019.690 818.556, 1011.057 733 C 1004.689 669.883, 969.726 625.514, 915.140 611.276 C 898.792 607.011, 869.902 607.232, 852.782 611.752 C 831.357 617.409, 813.110 626.526, 789.500 643.368 C 775.300 653.498, 768.934 657.047, 759.538 660.070 C 727.012 670.536, 688.392 647.011, 667.158 603.796 C 650.615 570.128, 646.146 536.619, 652.515 494 C 669.333 381.454, 598.871 292.176, 494 293.156 C 487.125 293.220, 477.900 293.625, 473.500 294.056'));
+  ctx.translate(937, 365);
+  ctx.rotate(-27 * Math.PI / 180);
+  ctx.scale(115, 132);
+  ctx.fill(new Path2D('M 0 -1 C .58 -1.08 1.03 -.53 1 .04 C .97 .63 .45 1.05 -.12 .98 C -.72 .91 -1.05 .48 -.98 -.1 C -.92 -.67 -.48 -.99 0 -1 Z'));
+  const pixels = ctx.getImageData(0, 0, W, H).data;
+  function inside(x,y) {
+    x = Math.round(x); y = Math.round(y);
+    return x >= 0 && x < W && y >= 0 && y < H && pixels[(y*W+x)*4+3] > 127;
+  }
+  // Distance rings give the glyphs outside the edge a soft, finite halo,
+  // while preserving the negative space around the detached upper lobe.
+  function halo(x,y) {
+    for (const r of [7,14,23,34]) {
+      for (let a=0; a<16; a++) {
+        const angle = a*Math.PI/8;
+        if (inside(x+Math.cos(angle)*r,y+Math.sin(angle)*r))
+          return Math.exp(-r*r/(2*13*13));
+      }
+    }
+    return 0;
+  }
+  function glyph(x,y,char,size,color,opacity=1,lit=false) {
+    const el = document.createElement('span');
+    el.className = 'g';
+    el.textContent = char;
+    el.style.left = x+'px'; el.style.top = y+'px';
+    el.style.fontSize = size+'px'; el.style.color = color;
+    el.style.opacity = opacity.toFixed(3);
+    if (lit) {
+      el.style.fontWeight = '600';
+      el.style.textShadow = '0 0 10px rgba(84,171,139,0.55), 0 0 22px rgba(84,171,139,0.28)';
+    }
+    frag.appendChild(el);
+  }
+
+  // Unresolved guesses: irregular spacing, missing cells and low-level glyphs.
+  for (let y=20;y<H;y+=33) {
+    for (let x=18;x<W;x+=33) {
+      const px=x+(rnd()-.5)*29, py=y+(rnd()-.5)*29;
+      if (rnd()>0.62*(1-smooth(650,1510,px)) || inside(px,py) || halo(px,py)>0) continue;
+      if (py>550 && px>650) continue;
+      glyph(px,py,ramp[Math.floor(rnd()*4)],14+rnd()*7,
+        rnd()>.5?'#3D4048':'#2C2E35',0.45+rnd()*0.45);
+    }
+  }
+
+  // Five bands, atoms through ecosystems. Each step adds regularity and
+  // density; the left edge still drifts before locking to evenly spaced rows.
+  const bands = [
+    { y:584, step:60, rows:1, char:'·' },
+    { y:664, step:44, rows:1, char:':' },
+    { y:744, step:34, rows:2, char:'+' },
+    { y:824, step:27, rows:2, char:'┼' },
+    { y:904, step:22, rows:3, char:'╬' },
+  ];
+  bands.forEach((band,i) => {
+    for (let row=0;row<band.rows;row++) {
+      for (let x=530;x<1545;x+=band.step) {
+        const order=smooth(530,1060,x);
+        const px=x+(rnd()-.5)*36*(1-order);
+        const py=band.y+(row-(band.rows-1)/2)*22+(rnd()-.5)*42*(1-order);
+        if (rnd()>0.3+order*0.7 || inside(px,py) || halo(px,py)>0) continue;
+        glyph(px,py,band.char,18,'#455B52',0.48+i*0.055);
+      }
+    }
+  });
+
+  // A tighter lattice resolves the thin connecting neck and all three lobes.
+  // Only the top of the series' ramp is used inside the logo silhouette.
+  for (let y=108;y<724;y+=17) {
+    for (let x=782;x<1490;x+=17) {
+      if (inside(x,y)) {
+        const bright=rnd();
+        glyph(x,y,ramp[4+Math.floor(rnd()*3)],19+rnd()*3,
+          bright>0.32?'#6FC9A5':'#54AB8B',0.88+rnd()*0.12,true);
+      } else {
+        const edge=halo(x,y);
+        if (edge>0) glyph(x,y,edge>0.6?'◇':'·',16,'#338467',edge*0.6,true);
+      }
+    }
+  }
+  field.appendChild(frag);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { window.__ready = true; });
+  } else { window.__ready = true; }
+</script>
+</body>
+</html>

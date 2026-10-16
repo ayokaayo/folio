@@ -12,6 +12,7 @@ const jobs = [
   // DNA ships the dark variant (cover-field-dark.jpg); the light one is kept as an alternate.
   { html: 'docs/covers/dna-dark.html', out: 'public/img/dna/cover-field-dark.jpg' },
   { html: 'docs/covers/dna.html', out: 'public/img/dna/cover-field.jpg' },
+  { html: 'docs/covers/dna-native.html', out: 'public/img/dna-native/cover.jpg' },
   // Nexus ships the reclaim sweep (cover-reclaim.jpg); nexus.html (the 3% drift
   // version) is kept as an alternate source.
   { html: 'docs/covers/nexus-reclaim.html', out: 'public/img/nexus/cover-reclaim.jpg' },
