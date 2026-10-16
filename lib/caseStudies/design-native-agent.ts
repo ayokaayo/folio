@@ -4,7 +4,7 @@ export const designNativeAgent: CaseStudy = {
   id: 'design-native-agent',
   title: 'DNA, the intelligence-first Design System',
   kicker: 'DNA · Design-Native Agent',
-  subtitle: 'Design systems were written for people to read, but agents now build the screens, so DNA turns every component into a contract an agent is checked against as it writes, and the whole system is [live to explore](https://dna.miguelangelo.tech), from the [component library](https://dna.miguelangelo.tech/#/library/catalog) to the [live canvas](https://dna.miguelangelo.tech/#/canvas) and the [system checks](https://dna.miguelangelo.tech/#/checks), as a separate project from the [Fast Track DNA workstation](/work/dna).',
+  subtitle: 'Traditional design systems were written for people to read, as guides a designer interprets with care and judgement. Agents now build more and more of the screens, and they read those guides literally, guess at every gap and turn out work that looks right while quietly breaking the rules underneath. DNA closes that gap by turning every component into a contract, a set of rules written in code that an agent is checked against as it writes, and the whole system is [live to explore](https://dna.miguelangelo.tech).',
   hashtag: '#Design Systems',
   company: 'Personal project',
   year: '2026',
@@ -13,26 +13,27 @@ export const designNativeAgent: CaseStudy = {
   imageUrl: '/img/dna-native/cover.jpg',
   imageAlt: 'DNA cover: on a dark grid, the three-lobe DNA logo, one cell dividing in two with a third lobe floating above, drawn in glowing pine green glyphs, while faint scattered marks labelled guidelines settle into ordered bands labelled contracts, over the kicker DNA, design-native agent, and the title DNA, the intelligence-first Design System',
   timeline: '2026',
-  team: 'Designed and directed solo, with Claude and Codex as builders and independent reviewers',
+  team: 'Solo',
+  techStack: ['Claude Code', 'Codex', 'React', 'React Native', 'TypeScript', 'Tailwind CSS', 'Zod', 'Vercel'],
 
   impact: {
     title: 'Impact',
     items: [
-      'A [live design system](https://dna.miguelangelo.tech) built for people and agents together: 65 components, each one a typed contract with its own rules, examples and accessibility promise, drawn on the web and on the phone from the same source',
-      'In a test of ten screen briefs, the same agent building with DNA produced no automated accessibility findings in light or dark mode, against an average of 32 affected elements per screen in light mode and 14 in dark when it worked with no design system, even though every run was told to keep its contrast readable in both modes',
-      'Twenty components made for working with agents, from approvals and plans to questions, change reviews and background runs, so a product never has to improvise how an agent asks for permission or shows what it did',
-      'Themes are generated, not hand-picked: about twenty parameters produce more than two hundred tokens, and every text colour is proved against its background in both modes before a theme can ship, with the evidence on the [checks page](https://dna.miguelangelo.tech/#/checks)',
+      'A [working design system](https://dna.miguelangelo.tech) that people and agents use together: a base kit of 65 ready-made building blocks, from buttons to whole page layouts, built once for the web and for phone apps, with a five-component expansion on the way',
+      'When an agent built ten test screens with DNA, an automatic accessibility check found nothing to flag, in light or dark mode, while the same agent working without it left an average of 32 problems per screen in light mode and 14 in dark, such as text too faint to read',
+      'Twenty building blocks made for working with agents, so a product has a ready, consistent way for an agent to ask permission, show its plan or explain what it changed',
+      'A new brand look comes from a short list of about twenty choices, such as colour, font and spacing, and the system checks that every text colour is readable against its background in both modes before the look goes live',
     ],
     quickItems: [
-      'A live design system built for people and agents together',
-      '65 components, each one a set of rules an agent is checked against',
-      'No automated accessibility findings in agent-built screens, across a ten-brief test',
-      'Components for working with agents, such as approvals and plans',
+      'A live design system that people and agents use together',
+      'A base kit of 65 building blocks for the web and phones, with five more on the way',
+      'Automatic checks found no accessibility problems in screens an agent built with it',
+      'Ready-made ways for an agent to ask permission and show its work',
     ],
     deepItems: [
-      'Eval of 15 October 2026, one agent (Codex, CLI defaults): 30 of 30 runs rendered and valid; mean axe affected nodes (light / dark) 32.4 / 13.8 for plain React, 0 / 0 for React with DNA and 0 / 0 for DNA screen specs',
-      'Raw styling values in the source: 532.2 per run for plain React (allowed in that condition, so a description of style, not a defect score) against 0 for both DNA conditions',
-      'Themes compile from about twenty parameters to DTCG tokens, CSS variables and a native JSON theme; the default theme carries 46 contrast checks, and the release CI ran about a thousand automated tests and six screen spec validations',
+      'The test: ten screen briefs, each built three ways by the same agent (Codex), thirty screens in all and every one of them rendered and passed its code checks; average accessibility problems per screen in light and dark mode were 32.4 and 13.8 without DNA, and 0 and 0 with it',
+      'Without DNA the agent typed colours and sizes by hand about 530 times per screen, which is allowed but hard to keep consistent; with DNA it typed none, because every value came from the system',
+      'The latest release ran about a thousand automated tests, and the default look passes 46 readability checks across light and dark mode',
     ],
     images: [
       {
@@ -149,38 +150,37 @@ export const designNativeAgent: CaseStudy = {
   implementation: {
     title: 'Implementation',
     technical: [
-      'Contracts: one Zod schema per component through defineContract, carrying intent, typed props, slots with accepted components and limits, placement and composition rules, events, a loading ghost, an accessibility promise and examples',
-      'Layer taxonomy enforced in the validator: a slot accepts only contracts of its own rank or below (atom, molecule, compound, organism, ecosystem)',
-      'A dna command that validates screen specs with stable issue codes, paths and suggestions, writes the agent catalogue (llms.txt and one JSON file per component), previews and screenshots any screen on web and phone, and checks, exports and mints themes',
-      'Renderers: React 19 with React Aria Components and Tailwind on the web; React Native with react-native-svg on the phone, previewed through react-native-web; axe on every web example',
-      'Guardrails: an ESLint rule that refuses raw colours, raw lengths and arbitrary Tailwind values; strict TypeScript on every prop; contrast proved inside the theme generator',
-      'An Agent Skill of one page that Claude Code and Codex both pick up, and a hosted studio (library, canvas, checks) whose assistant runs locally on the owner\'s machine and stays off on the public site until it is given its own credentials',
+      'Contracts: every component is described in code, with what it is for, the options it accepts, what can go inside it, how it is announced to screen readers and worked examples',
+      'A checker that reads a screen an agent describes in DNA\'s format and returns each mistake with its exact location and, where it can, a suggested fix',
+      'One set of components drawn twice, with React on the web and React Native on the phone',
+      'A theme generator that turns about twenty brand choices into a full set of colours, fonts and spacing, and proves every text colour is readable',
+      'A one-page guide that Claude Code and Codex both read to use the system, and a live studio with the library, the canvas and the checks',
     ],
     quickTechnical: [
-      'Every component is a contract written in code',
-      'A checker that tells an agent exactly what is wrong and where',
-      'Themes generated from about twenty choices, with contrast proved',
-      'The same components drawn on the web and on the phone',
+      'Every component described in code',
+      'A checker that tells an agent what is wrong and where',
+      'The same components on the web and on phones',
+      'A brand look generated from about twenty choices',
     ],
     rollout: [
       {
         phase: 'Foundations',
         activities: [
-          'Token pipeline, the first contracts and a theme generator with a live playground',
+          'The first components, and the generator that turns brand choices into a full look',
         ],
       },
       {
         phase: 'The Vocabulary',
         activities: [
-          'Navigation, page structures and the twenty components for working with agents, built on web and phone',
-          'A direction review by two independent agents that set the order as evidence first, then themes, then one complete workflow, and dropped the idea of a framework',
+          'Navigation, page layouts and the twenty components for working with agents, on the web and the phone',
+          'An independent review by two agents that put evidence first and kept DNA a toolkit rather than a framework',
         ],
       },
       {
         phase: 'The Evidence',
         activities: [
-          'Validation with codes and suggestions, the agent catalogue and the Agent Skill',
-          'The eval: ten briefs, three conditions, thirty runs, and three contrasting themes on the same screens',
+          'The checker, the guide agents read and the catalogue of every component',
+          'The ten-brief test, and three very different brand looks on the same screens',
         ],
       },
       {
