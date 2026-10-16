@@ -2,7 +2,7 @@ import type { CaseStudy } from './types'
 
 export const designNativeAgent: CaseStudy = {
   id: 'design-native-agent',
-  title: 'The design system agents can\'t ignore',
+  title: 'DNA, the intelligence-first Design System',
   kicker: 'DNA · Design-Native Agent',
   subtitle: 'Design systems were written for people to read, but agents now build the screens, so DNA turns every component into a contract an agent is checked against as it writes, and the whole system is [live to explore](https://dna.miguelangelo.tech), from the [component library](https://dna.miguelangelo.tech/#/library/catalog) to the [live canvas](https://dna.miguelangelo.tech/#/canvas) and the [system checks](https://dna.miguelangelo.tech/#/checks), as a separate project from the [Fast Track DNA workstation](/work/dna).',
   hashtag: '#Design Systems',
@@ -11,8 +11,8 @@ export const designNativeAgent: CaseStudy = {
   linkText: 'Read case study',
   cardSummary: 'An agent-first design system: components as checkable contracts, so the screens agents build stay on the system.',
   imageUrl: '/img/dna-native/cover.jpg',
-  imageAlt: 'DNA cover: on a dark grid, the three-lobe DNA logo, one cell dividing in two with a third lobe floating above, drawn in glowing pine green glyphs, while faint scattered marks labelled guidelines settle into ordered bands labelled contracts, over the kicker DNA, design-native agent, and the title The design system agents can\'t ignore',
-  timeline: 'October 2026: first commit on 12 October, live on 16 October',
+  imageAlt: 'DNA cover: on a dark grid, the three-lobe DNA logo, one cell dividing in two with a third lobe floating above, drawn in glowing pine green glyphs, while faint scattered marks labelled guidelines settle into ordered bands labelled contracts, over the kicker DNA, design-native agent, and the title DNA, the intelligence-first Design System',
+  timeline: '2026',
   team: 'Designed and directed solo, with Claude and Codex as builders and independent reviewers',
 
   impact: {
@@ -164,27 +164,27 @@ export const designNativeAgent: CaseStudy = {
     ],
     rollout: [
       {
-        phase: '12 October: Foundations',
+        phase: 'Foundations',
         activities: [
           'Token pipeline, the first contracts and a theme generator with a live playground',
         ],
       },
       {
-        phase: '13 to 14 October: The Vocabulary',
+        phase: 'The Vocabulary',
         activities: [
           'Navigation, page structures and the twenty components for working with agents, built on web and phone',
           'A direction review by two independent agents that set the order as evidence first, then themes, then one complete workflow, and dropped the idea of a framework',
         ],
       },
       {
-        phase: '15 October: The Evidence',
+        phase: 'The Evidence',
         activities: [
           'Validation with codes and suggestions, the agent catalogue and the Agent Skill',
           'The eval: ten briefs, three conditions, thirty runs, and three contrasting themes on the same screens',
         ],
       },
       {
-        phase: '16 October: Live',
+        phase: 'Live',
         activities: [
           'The studio published at dna.miguelangelo.tech, with the library, canvas and checks',
         ],
@@ -251,14 +251,14 @@ export const designNativeAgent: CaseStudy = {
       },
       {
         challenge: 'The project drifted towards becoming a framework, with a runtime, a platform and support for other organisations',
-        solution: 'I narrowed it to a kit that never calls a model and works with any agent, and wrote down what it would not become, which kept five days of work pointed at one clear outcome.',
+        solution: 'I narrowed it to a kit that never calls a model and works with any agent, and wrote down what it would not become, which kept every piece of work pointed at one clear outcome.',
       },
       {
         challenge: 'Clean results can hide unmet briefs, because a screen can pass every check and still leave out what was asked for',
         solution: 'Every stored screenshot was reviewed against its brief, the omissions are recorded beside the numbers, and the limits are stated as plainly as the wins.',
       },
       {
-        challenge: 'Five days of work by one author has no adoption to show yet, beyond one pilot app built on it',
+        challenge: 'A new system by one author has no adoption to show yet, beyond one pilot app built on it',
         solution: 'I treat the live site as the invitation rather than the proof, with the next gates written down: a complete workflow on a real phone, and a person who has never seen DNA finishing it without help.',
       },
     ],
