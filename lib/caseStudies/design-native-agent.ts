@@ -4,7 +4,7 @@ export const designNativeAgent: CaseStudy = {
   id: 'design-native-agent',
   title: 'DNA, the intelligence-first Design System',
   kicker: 'DNA · Design-Native Agent',
-  subtitle: 'Traditional design systems were written for people to read. With agents now building the screens, DNA turns every component into a contract, a set of rules written in code, that an agent is checked against as it writes, and the whole system is [live to explore](https://dna.miguelangelo.tech).',
+  subtitle: 'Traditional design systems were written for people to read, as guides a designer interprets with care and judgement. Agents now build more and more of the screens, and they read those guides literally, guess at every gap and turn out work that looks right while quietly breaking the rules underneath. DNA closes that gap by turning every component into a contract, a set of rules written in code that an agent is checked against as it writes, and the whole system is [live to explore](https://dna.miguelangelo.tech).',
   hashtag: '#Design Systems',
   company: 'Personal project',
   year: '2026',
@@ -19,14 +19,14 @@ export const designNativeAgent: CaseStudy = {
   impact: {
     title: 'Impact',
     items: [
-      'A [working design system](https://dna.miguelangelo.tech) that people and agents use together: 65 ready-made building blocks, from buttons to whole page layouts, built once for the web and for phone apps',
+      'A [working design system](https://dna.miguelangelo.tech) that people and agents use together: a base kit of 65 ready-made building blocks, from buttons to whole page layouts, built once for the web and for phone apps, with a five-component expansion on the way',
       'When an agent built ten test screens with DNA, an automatic accessibility check found nothing to flag, in light or dark mode, while the same agent working without it left an average of 32 problems per screen in light mode and 14 in dark, such as text too faint to read',
       'Twenty building blocks made for working with agents, so a product has a ready, consistent way for an agent to ask permission, show its plan or explain what it changed',
       'A new brand look comes from a short list of about twenty choices, such as colour, font and spacing, and the system checks that every text colour is readable against its background in both modes before the look goes live',
     ],
     quickItems: [
       'A live design system that people and agents use together',
-      '65 building blocks that work on the web and on phones',
+      'A base kit of 65 building blocks for the web and phones, with five more on the way',
       'Automatic checks found no accessibility problems in screens an agent built with it',
       'Ready-made ways for an agent to ask permission and show its work',
     ],
