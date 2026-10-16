@@ -6,13 +6,15 @@ import { timeManagement } from './time-management'
 import { fastTrackAI } from './fast-track-ai'
 import { dna } from './dna'
 import { nexus } from './nexus'
+import { designNativeAgent } from './design-native-agent'
 import type { CaseStudy } from './types'
 
 // Export individual case studies for potential direct imports
-export { dna, nexus, dropdownBuilder, smsCharacters, timeManagement, fastTrackAI }
+export { designNativeAgent, dna, nexus, dropdownBuilder, smsCharacters, timeManagement, fastTrackAI }
 
 // Export aggregated array
 export const caseStudies: CaseStudy[] = [
+  designNativeAgent,
   nexus,
   dna,
   fastTrackAI,
