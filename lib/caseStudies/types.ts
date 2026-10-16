@@ -90,5 +90,6 @@ export interface CaseStudy {
   }
   timeline: string
   team: string
+  techStack?: string[] // Optional tools shown as tags under timeline and team
 }
 

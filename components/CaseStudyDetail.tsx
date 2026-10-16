@@ -316,7 +316,7 @@ export default function CaseStudyDetail({
             </>
           )
         })()}
-        <TimelineTeam timeline={caseStudy.timeline} team={caseStudy.team} />
+        <TimelineTeam timeline={caseStudy.timeline} team={caseStudy.team} techStack={caseStudy.techStack} />
       </motion.section>
 
       {/* Problem */}
