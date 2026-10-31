@@ -130,7 +130,7 @@ export default function Folded({ draft, uid }: VariantProps) {
         </span>
       </button>
 
-      <div className="contact-fold-panel" id={panelId} {...(open ? {} : ({ inert: '' } as unknown as { inert: boolean }))}>
+      <div className="contact-fold-panel" id={panelId} inert={!open}>
         <div className="contact-fold-inner">
           <form className="contact-fold-form" noValidate onSubmit={onSubmit} aria-label="Contact form">
             <div className="contact-fold-head">

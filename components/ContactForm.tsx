@@ -281,14 +281,13 @@ export default function ContactForm() {
         </span>
       </button>
 
-      {/* Folded, the panel is out of the tab order and the accessibility tree. React 18 has no inert
-          prop, so the attribute is passed as a string. */}
+      {/* Folded, the panel is out of the tab order and the accessibility tree. */}
       <div
         ref={panel}
         id={panelId}
         className="contact-fold-panel"
         onTransitionEnd={onTransitionEnd}
-        {...(open ? {} : ({ inert: '' } as unknown as { inert: boolean }))}
+        inert={!open}
       >
         <div className="contact-fold-inner">
           <form
