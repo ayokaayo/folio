@@ -6,7 +6,7 @@
 // Run: node scripts/checks/analytics-prod.check.mjs   (commit first; it builds HEAD)
 import { chromium } from 'playwright-core'
 import { execFileSync, spawn, spawnSync } from 'node:child_process'
-import { mkdtempSync, rmSync, symlinkSync } from 'node:fs'
+import { mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 
@@ -32,7 +32,8 @@ let browser
 
 try {
   execFileSync('git', ['-C', ROOT, 'worktree', 'add', '--detach', wt, REF], { stdio: 'ignore' })
-  symlinkSync(join(ROOT, 'node_modules'), join(wt, 'node_modules'))
+  // Turbopack won't resolve through a node_modules symlink that leaves the project, so clone it (copy-on-write on APFS).
+  execFileSync('cp', ['-cR', join(ROOT, 'node_modules'), join(wt, 'node_modules')])
   const env = { ...process.env, NODE_ENV: 'production', NEXT_PUBLIC_UMAMI_WEBSITE_ID: 'test-id', NEXT_PUBLIC_UMAMI_DOMAINS: 'localhost' }
   console.log(`building ${REF} in ${wt} ...`)
   const build = spawnSync('npx', ['next', 'build'], { cwd: wt, env, encoding: 'utf8' })
