@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type RefObject } from 'react'
 
 /** True while the element is on screen and the tab is visible. Use it to pause render loops. */
-export function useActive(ref: RefObject<Element>): boolean {
+export function useActive(ref: RefObject<Element | null>): boolean {
   const [onScreen, setOnScreen] = useState(true)
   const [visible, setVisible] = useState(true)
 

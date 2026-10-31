@@ -63,7 +63,7 @@ export function useDraft(): Draft {
   const [values, setValues] = useState<LabValues>(EMPTY)
   const [errors, setErrors] = useState<LabErrors>({})
   const [status, setStatus] = useState<Status>('idle')
-  const timer = useRef<ReturnType<typeof setTimeout>>()
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
 
   useEffect(() => () => clearTimeout(timer.current), [])
 
@@ -122,7 +122,7 @@ export function useDraft(): Draft {
  * Grows a textarea with its content in whole steps of `line`, starting from `base` (padding and
  * borders), so its height is always base + n lines and stays on the lattice.
  */
-export function useAutoGrow(ref: RefObject<HTMLTextAreaElement>, value: string, line: number, base: number, minLines: number) {
+export function useAutoGrow(ref: RefObject<HTMLTextAreaElement | null>, value: string, line: number, base: number, minLines: number) {
   useLayoutEffect(() => {
     const el = ref.current
     if (!el) return

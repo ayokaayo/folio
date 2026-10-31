@@ -38,9 +38,9 @@ export interface Frame {
 }
 
 interface Options {
-  sectionRef: RefObject<HTMLElement>
-  copyRef: RefObject<HTMLDivElement>
-  canvasRef: RefObject<HTMLCanvasElement>
+  sectionRef: RefObject<HTMLElement | null>
+  copyRef: RefObject<HTMLDivElement | null>
+  canvasRef: RefObject<HTMLCanvasElement | null>
   values: HeroValues
   reducedMotion: boolean
   step: (f: Frame) => boolean
@@ -469,7 +469,7 @@ export interface PointerState {
  * that stays 120 ms becomes the pointer and a 450 ms hold is a press, so a scroll (which
  * cancels within ~100 ms) never disturbs the page.
  */
-export function usePointer(sectionRef: RefObject<HTMLElement>, kick: RefObject<() => void>, onPlay?: RefObject<(kind: 'pointer' | 'touch') => void>) {
+export function usePointer(sectionRef: RefObject<HTMLElement | null>, kick: RefObject<() => void>, onPlay?: RefObject<(kind: 'pointer' | 'touch') => void>) {
   const state = useRef<PointerState>({ x: 0, y: 0, inside: false, down: false, speed: 0, path: [], taps: [] })
   useEffect(() => {
     const section = sectionRef.current

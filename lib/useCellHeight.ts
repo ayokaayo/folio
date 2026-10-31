@@ -10,7 +10,7 @@ const PHONE = '(max-width: 639.98px)'
  * (plus the 1px border overhang, see .figma-frame in globals.css) so whatever follows stays on the
  * lattice. From 640px up, card heights are fixed in CSS and this does nothing.
  */
-export function useCellHeight(ref: RefObject<HTMLElement>) {
+export function useCellHeight(ref: RefObject<HTMLElement | null>) {
   useEffect(() => {
     const el = ref.current
     if (!el) return

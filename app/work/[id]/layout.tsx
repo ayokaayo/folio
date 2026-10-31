@@ -5,9 +5,9 @@ import { SITE } from '@/lib/constants'
 
 interface WorkDetailLayoutProps {
   children: React.ReactNode
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 // Every id is known at build time; any other renders the root not-found page at routing time, with a 404
@@ -18,8 +18,9 @@ export function generateStaticParams() {
   return caseStudies.map(cs => ({ id: cs.id }))
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const caseStudy = caseStudies.find((cs) => cs.id === params.id)
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params
+  const caseStudy = caseStudies.find((cs) => cs.id === id)
 
   // Unreachable for unknown ids (dynamicParams = false); narrows the type.
   if (!caseStudy) notFound()
@@ -31,12 +32,12 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     title: `${caseStudy.title} - Miguel Angelo`,
     description: plainSubtitle,
     alternates: {
-      canonical: `${SITE.URL}/work/${params.id}`,
+      canonical: `${SITE.URL}/work/${id}`,
     },
     openGraph: {
       title: `${caseStudy.title} - Miguel Angelo`,
       description: plainSubtitle,
-      url: `${SITE.URL}/work/${params.id}`,
+      url: `${SITE.URL}/work/${id}`,
       images: [
         {
           url: caseStudy.imageUrl ? `${SITE.URL}${caseStudy.imageUrl}` : `${SITE.URL}${SITE.OG_IMAGE}`,

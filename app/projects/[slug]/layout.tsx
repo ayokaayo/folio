@@ -5,9 +5,9 @@ import { SITE } from '@/lib/constants'
 
 interface ProjectDetailLayoutProps {
   children: React.ReactNode
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 // Every slug is known at build time; any other renders the root not-found page at routing time, with a 404
@@ -18,8 +18,9 @@ export function generateStaticParams() {
   return projects.map(p => ({ slug: p.id }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const project = getProjectBySlug(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const project = getProjectBySlug(slug)
 
   // Unreachable for unknown ids (dynamicParams = false); narrows the type.
   if (!project) notFound()
@@ -32,12 +33,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title,
     description,
     alternates: {
-      canonical: `${SITE.URL}/projects/${params.slug}`,
+      canonical: `${SITE.URL}/projects/${slug}`,
     },
     openGraph: {
       title,
       description,
-      url: `${SITE.URL}/projects/${params.slug}`,
+      url: `${SITE.URL}/projects/${slug}`,
       images: [
         {
           url: imageUrl,

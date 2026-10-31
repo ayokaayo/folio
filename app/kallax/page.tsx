@@ -37,8 +37,8 @@ export default function KallaxPage() {
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <motion.div
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.SLOW }}
         >
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-text mb-8 leading-tight">
             Kallax
@@ -56,9 +56,9 @@ export default function KallaxPage() {
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16">
         <motion.div
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: VIEWPORT.ONCE }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.SLOW }}
         >
           <MobilePhoneMockup>
             {isLoading ? (
@@ -122,7 +122,7 @@ export default function KallaxPage() {
                       </a>
                     ),
                     img: ({ src, alt }) => {
-                      if (!src) return null
+                      if (typeof src !== 'string' || !src) return null
 
                       const lowerSrc = src.toLowerCase()
 
@@ -167,9 +167,9 @@ export default function KallaxPage() {
       <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-12 md:py-16 border-t border-text/10">
         <motion.div
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: VIEWPORT.ONCE }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.SLOW }}
         >
           <p className="text-base md:text-lg text-text/80">
             BPM info, powered by{' '}

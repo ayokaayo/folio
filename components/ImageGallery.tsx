@@ -50,9 +50,9 @@ export default function ImageGallery({ images, className = '' }: ImageGalleryPro
           <motion.figure
             key={`image-${index}-${image.url}`}
             initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-            transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
             className="w-full cursor-pointer"
             onClick={() => setSelectedImage(image)}
           >

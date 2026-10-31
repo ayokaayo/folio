@@ -257,9 +257,9 @@ export default function CaseStudyDetail({
       {/* Impact */}
       <motion.section
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: VIEWPORT.ONCE }}
-        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL }}
         className="mb-16"
       >
         <h2 className="text-2xl font-serif font-bold text-text mb-6">
@@ -288,9 +288,9 @@ export default function CaseStudyDetail({
                       {isAwardsItem && awardsImage && (
                         <motion.figure
                           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                          whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-                          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: 0.2 }}
+                          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: 0.2 }}
                           className="mt-6 mb-8 w-full cursor-pointer"
                           onClick={() => setSelectedImage(awardsImage)}
                         >
@@ -322,9 +322,9 @@ export default function CaseStudyDetail({
       {/* Problem */}
       <motion.section
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: VIEWPORT.ONCE }}
-        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.SMALL }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.SMALL }}
         className="mb-16 border-t border-text/10 pt-16"
       >
         <h2 className="text-2xl font-serif font-bold text-text mb-6">
@@ -391,9 +391,9 @@ export default function CaseStudyDetail({
       {/* Approach */}
       <motion.section
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: VIEWPORT.ONCE }}
-        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.MEDIUM }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.MEDIUM }}
         className="mb-16 border-t border-text/10 pt-16"
       >
         <h2 className="text-2xl font-serif font-bold text-text mb-6">
@@ -422,9 +422,9 @@ export default function CaseStudyDetail({
       {densityMode === 'deep' && caseStudy.designDecisions && caseStudy.designDecisions.length > 0 && (
         <motion.section
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: VIEWPORT.ONCE }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE }}
           className="mb-16 border-t border-text/10 pt-16"
         >
           <h2 className="text-2xl font-serif font-bold text-text mb-6">
@@ -458,9 +458,9 @@ export default function CaseStudyDetail({
       {/* Implementation */}
       <motion.section
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: VIEWPORT.ONCE }}
-        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.MEDIUM * 2 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.MEDIUM * 2 }}
         className="mb-16 border-t border-text/10 pt-16"
       >
         <h2 className="text-2xl font-serif font-bold text-text mb-6">
@@ -532,11 +532,11 @@ export default function CaseStudyDetail({
       {densityMode === 'deep' && caseStudy.process && (
         <motion.section
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: VIEWPORT.ONCE }}
           transition={
             prefersReducedMotion
-              ? {}
+              ? { duration: 0 }
               : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.MEDIUM * 2.5 }
           }
           className="mb-16 border-t border-text/10 pt-16"
@@ -570,9 +570,9 @@ export default function CaseStudyDetail({
       {/* Validation */}
       <motion.section
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: VIEWPORT.ONCE }}
-        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE * 2 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE * 2 }}
         className="mb-16 border-t border-text/10 pt-16"
       >
         <h2 className="text-2xl font-serif font-bold text-text mb-6">
@@ -651,9 +651,9 @@ export default function CaseStudyDetail({
       {/* What I Learned */}
       <motion.section
         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: VIEWPORT.ONCE }}
-        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE * 3 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE * 3 }}
         className="mb-16 border-t border-text/10 pt-16"
       >
         <h2 className="text-2xl font-serif font-bold text-text mb-6">
@@ -715,9 +715,9 @@ export default function CaseStudyDetail({
       {caseStudy.images && caseStudy.images.length > 0 && (
         <motion.section
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: VIEWPORT.ONCE }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE * 4 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: ANIMATION.DELAY.LARGE * 4 }}
           className="mb-16 border-t border-text/10 pt-16"
         >
           <ImageGallery images={caseStudy.images} />

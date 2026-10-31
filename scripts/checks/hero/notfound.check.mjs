@@ -58,22 +58,23 @@ async function scatter(page, b, rows = 5) {
   }
 }
 
-// 1. Status and copy on each route, with the path escaped and long paths shortened.
+// 1. Status and copy on each route, with the path escaped and long paths shortened. The page is prerendered
+// once, so the HTML can't know the path: the copy is read after hydration.
 const ROUTES = [
   ['/this-does-not-exist', 'This page drifted off the grid'],
   ['/work/nope', 'This case study drifted off the grid'],
   ['/projects/nope', 'This project drifted off the grid'],
 ]
-for (const [path, headline] of ROUTES) {
-  const res = await fetch(BASE + path)
-  const html = await res.text()
-  assert(res.status === 404, `${path} answers 404 (${res.status})`)
-  assert(html.includes(headline), `${path} renders "${headline}"`)
-  assert(html.includes(`Nothing lives at ${path}.`), `${path} renders "Nothing lives at ${path}."`)
-  assert(html.includes('<title>Not found · Miguel Angelo</title>'), `${path} has the not-found title`)
-}
 {
   const { browser, page } = await launch()
+  for (const [path, headline] of ROUTES) {
+    const res = await openNotFound(page, path)
+    const h1 = await page.evaluate(() => document.querySelector('h1').textContent)
+    assert(res.status() === 404, `${path} answers 404 (${res.status()})`)
+    assert(h1.includes(headline), `${path} renders "${headline}"`)
+    assert(h1.includes(`Nothing lives at ${path}.`), `${path} renders "Nothing lives at ${path}."`)
+    assert((await page.title()) === 'Not found · Miguel Angelo', `${path} has the not-found title`)
+  }
   await openNotFound(page, '/%3Cb%3Ebold%3C%2Fb%3E')
   const h1 = await page.evaluate(() => ({ text: document.querySelector('h1').textContent, tags: document.querySelector('h1').querySelectorAll('b').length }))
   assert(h1.text.includes('Nothing lives at /<b>bold</b>.') && h1.tags === 0, `the path renders as text, not markup (${JSON.stringify(h1)})`)
