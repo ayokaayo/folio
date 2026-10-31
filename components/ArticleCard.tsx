@@ -22,9 +22,9 @@ export default function ArticleCard({ article, index = 0 }: ArticleCardProps) {
   return (
     <motion.div
       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: VIEWPORT.ONCE, margin: VIEWPORT.MARGIN }}
-      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * ANIMATION.DELAY.STAGGER }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: index * ANIMATION.DELAY.STAGGER }}
       className="border-b border-text/10 pb-6 last:border-b-0"
     >
       <div className="flex items-start gap-4 mb-2">

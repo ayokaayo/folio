@@ -1,7 +1,7 @@
 'use client'
 
 import { notFound } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { use, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { caseStudies } from '@/lib/caseStudies'
 import CaseStudyDetail from '@/components/CaseStudyDetail'
@@ -15,14 +15,15 @@ import NextItemCard from '@/components/NextItemCard'
 import { parseMarkdownLinks } from '@/lib/utils/parseMarkdownLinks'
 
 interface WorkDetailPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default function WorkDetailPage({ params }: WorkDetailPageProps) {
   const prefersReducedMotion = useReducedMotion()
-  const caseStudy = caseStudies.find((cs) => cs.id === params.id)
+  const { id } = use(params)
+  const caseStudy = caseStudies.find((cs) => cs.id === id)
   const [densityMode, setDensityMode] = useState<'quick' | 'deep'>('deep')
 
   // Get next case study for navigation
@@ -48,8 +49,8 @@ export default function WorkDetailPage({ params }: WorkDetailPageProps) {
       <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <motion.div
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.SLOW }}
         >
           {/* Top bar with back button */}
           <div className="flex items-center justify-end mb-8">

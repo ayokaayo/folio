@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { notFound } from 'next/navigation'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -18,9 +18,9 @@ import TestimonialCarousel from '@/components/TestimonialCarousel'
 import { liveProductHost, track } from '@/lib/analytics'
 
 interface ProjectDetailPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 /** Icon for project link by label (e.g. Google Play, Website, App Store) */
@@ -65,7 +65,8 @@ function ProjectLinkIcon({ label }: { label: string }) {
 
 export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
   const prefersReducedMotion = useReducedMotion()
-  const project = getProjectBySlug(params.slug)
+  const { slug } = use(params)
+  const project = getProjectBySlug(slug)
   const [selectedImage, setSelectedImage] = useState<{ url: string; alt: string; caption?: string } | null>(null)
   const [densityMode, setDensityMode] = useState<'quick' | 'deep'>('deep')
 
@@ -97,8 +98,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 py-8 md:py-12">
         <motion.div
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.SLOW }}
         >
           {/* Top bar with back button */}
           <div className="flex items-center justify-end mb-10">
@@ -341,8 +342,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       <section className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pb-20 pt-4">
         <motion.div
           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.SLOW, delay: 0.1 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.SLOW, delay: 0.1 }}
           className="space-y-12"
         >
           {/* Mission Section */}
@@ -445,9 +446,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                           {feature.image.isZoomable ? (
                             <motion.div
                               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                              whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                              whileInView={{ opacity: 1, y: 0 }}
                               viewport={{ once: true, margin: '-100px' }}
-                              transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                              transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL }}
                               className="mt-6 w-full"
                             >
                               <ZoomableImage
@@ -459,9 +460,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                           ) : (
                             <motion.figure
                               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                              whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                              whileInView={{ opacity: 1, y: 0 }}
                               viewport={{ once: true, margin: '-100px' }}
-                              transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                              transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL }}
                               className="mt-6 w-full cursor-pointer"
                               onClick={() => setSelectedImage({ url: feature.image!.url, alt: feature.image!.alt, caption: feature.image!.caption })}
                             >
@@ -499,9 +500,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                         <motion.div
                           key={index}
                           initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                          whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                          whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true, margin: '-100px' }}
-                          transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                          transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
                           className="w-full"
                         >
                           <ZoomableImage
@@ -517,9 +518,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       <motion.figure
                         key={index}
                         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-100px' }}
-                        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
                         className={`${isReadingImage ? "w-full max-w-[400px] mx-auto" : "w-full"} cursor-pointer`}
                         onClick={() => setSelectedImage({ url: img.url, alt: img.alt, caption: img.caption })}
                       >
@@ -579,9 +580,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   {project.craft.image.isZoomable ? (
                     <motion.div
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                      whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-100px' }}
-                      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL }}
                       className="mt-6 w-full"
                     >
                       <ZoomableImage
@@ -593,9 +594,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   ) : (
                     <motion.figure
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                      whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-100px' }}
-                      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL }}
                       className="mt-6 w-full cursor-pointer"
                       onClick={() => setSelectedImage({ url: project.craft!.image!.url, alt: project.craft!.image!.alt, caption: project.craft!.image!.caption })}
                     >
@@ -648,9 +649,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
               {project.outcome.image && (
                 <motion.figure
                   initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                  whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-100px' }}
-                  transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL }}
                   className="mt-6 w-full m-0 cursor-pointer"
                   onClick={() => setSelectedImage({ url: project.outcome!.image!.url, alt: project.outcome!.image!.alt, caption: project.outcome!.image!.caption })}
                 >
@@ -738,9 +739,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       <motion.div
                         key={index}
                         initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                        whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-100px' }}
-                        transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
                         className="md:col-span-2 w-full"
                       >
                         <ZoomableImage
@@ -756,9 +757,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                     <motion.figure
                       key={index}
                       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                      whileInView={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+                      whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-100px' }}
-                      transition={prefersReducedMotion ? {} : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { duration: ANIMATION.DURATION.NORMAL, delay: index * 0.1 }}
                       className={`w-full m-0 ${isMobileImage ? 'md:col-span-2 max-w-[400px] mx-auto' : ''} cursor-pointer`}
                       onClick={() => setSelectedImage({ url: img.url, alt: img.alt, caption: img.caption })}
                     >

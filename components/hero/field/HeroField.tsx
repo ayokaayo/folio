@@ -100,8 +100,8 @@ class WaveField {
 }
 
 export interface HeroFieldProps {
-  sectionRef: RefObject<HTMLElement>
-  copyRef: RefObject<HTMLDivElement>
+  sectionRef: RefObject<HTMLElement | null>
+  copyRef: RefObject<HTMLDivElement | null>
   values: HeroValues
   reducedMotion: boolean
   /** Text drawn as dense glyphs (the not-found pages); see HeroSection. */
