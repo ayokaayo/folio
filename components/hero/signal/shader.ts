@@ -15,7 +15,8 @@
  * turning, a cell dividing, each large and cropped by the edges, lit like a sphere and coloured in a soft
  * psychedelic gradient, drawn as dense 1-bit bitmap in ordered dither with a grain of pixel noise, mostly
  * white; one dissolves into the next.
- * Scrolling away (uExit) dissolves it all in ordered dither from the foot up while the words leave.
+ * Scrolling away, each part leaves as it slides up under the nav: the words drift off and the field
+ * dissolves there in ordered dither (uExit, uTop), so what is still in view stays whole.
  */
 
 /** The pointer's trail slots. */
@@ -62,7 +63,9 @@ uniform vec3 uGrey;       // the greys: mid (the words stepped back)
 uniform vec3 uGreyLight;  // and light (the resting marks)
 uniform vec3 uIri[6];     // the evolving forms' light: a loop of soft pastels
 uniform float uEvoS;      // their strength: 1 soft, more for a denser, stronger tone
-uniform float uExit;      // scrolled away, 0 to 1
+uniform float uExit;      // leaving: the dissolve under the nav, 0 off to 1 on
+uniform float uTop;       // the section's top in the viewport, CSS px
+uniform float uNav;       // the nav's height, CSS px
 uniform vec3 uExitW;      // each word leaving, 0 to 1
 uniform vec3 uSysCol;     // systems' colour, its hue turning with the register
 uniform vec2 uCenter;
@@ -577,9 +580,10 @@ void main() {
     col = mix(col, uInk, clamp((3.4 * uBit - rp) * uDpr + 0.5, 0.0, 1.0));
   }
 
-  // Leaving: as the hero scrolls away, its dots go back to paper in ordered dither, from the foot up.
+  // Leaving: as the hero slides up under the nav, its dots go back to paper in ordered dither there, and
+  // only there, so what is still in view stays whole.
   if (uExit > 0.0) {
-    float k = uExit * 1.6 - (1.0 - c.y / uRes.y) * 0.6;
+    float k = clamp((uNav + 24.0 - (c.y + uTop)) / 96.0, 0.0, 1.0) * uExit;
     col = mix(col, uPaper, step(bayer(ci + ivec2(3, 1)), k));
   }
 
