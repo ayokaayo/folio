@@ -297,10 +297,15 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
     let alive = true
     let dirty = true
 
-    // Measures after the fonts load, as the foot's copy can rewrap and move the space the title gets.
+    // Measures after the fonts load, as the foot's copy can rewrap and move the space the title gets. Only the
+    // real face is loaded: next/font's fallback face points at a local font (Courier New) that Android lacks,
+    // and asking for the whole stack rejects there. A failed load still lays out, in whatever face there is.
+    const face = family.split(',')[0].trim()
     const resize = async () => {
-      await document.fonts.ready
-      await document.fonts.load(`700 100px ${family}`)
+      try {
+        await document.fonts.ready
+        await document.fonts.load(`700 100px ${face}`)
+      } catch {}
       if (!alive) return
       const r = section.getBoundingClientRect()
       const probe = probeRef.current!.getBoundingClientRect()
