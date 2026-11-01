@@ -11,7 +11,7 @@ export const meta: VariantMeta = {
     { key: 'speed', label: 'Speed', type: 'range', min: 0.25, max: 2, step: 0.05, default: 1 },
     { key: 'hold', label: 'Title hold (s)', type: 'range', min: 3, max: 40, step: 1, default: 6 },
     { key: 'once', label: 'Play once, then hold', type: 'toggle', default: false },
-    { key: 'intro', label: 'Opening once a session', type: 'toggle', default: true },
+    { key: 'intro', label: 'Opening once a session, then idle', type: 'toggle', default: true },
     { key: 'dot', label: 'Dot pitch (px)', type: 'range', min: 2, max: 8, step: 1, default: 4, group: 'Dither' },
     { key: 'dotFill', label: 'Dot size', type: 'range', min: 0.3, max: 1.2, step: 0.05, default: 0.8 },
     { key: 'round', label: 'Roundness', type: 'range', min: 0, max: 1, step: 0.05, default: 1 },

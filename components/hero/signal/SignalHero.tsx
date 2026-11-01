@@ -373,10 +373,13 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
     let last = performance.now()
     let loopT = 0
     let fieldT = 0
-    // The opening plays once a session: on a later view the loop starts on the set title.
+    // The opening plays once a session. Coming back to the page, the title stands set and stays: the words
+    // play only under the pointer, and the field keeps its slow drift.
+    let idle = false
     try {
       if (v.current.intro !== false && sessionStorage.getItem('signal:intro')) {
         loopT = AT.form + 2.2
+        idle = true
       }
       sessionStorage.setItem('signal:intro', '1')
     } catch {}
@@ -432,7 +435,7 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       if (frozen !== null) {
         t = frozen
       } else {
-        if (!still && over < 0) loopT += dt * speed
+        if (!still && !idle && over < 0) loopT += dt * speed
         const restAt = AT.hold + hold * 0.5
         if (vals.once && loopT > restAt) loopT = restAt
         if (loopT >= L) loopT -= L
@@ -558,7 +561,8 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
           const u = Math.min(1, Math.max(0, (t - starts[i]) / (starts[i + 1] - starts[i])))
           if (fill) fill.style.transform = `scaleX(${u})`
         })
-        bar.style.opacity = showBarRef.current ? '1' : '0'
+        // Idle, there is no sequence to show progress through.
+        bar.style.opacity = showBarRef.current && !idle ? '1' : '0'
       }
       const pb = pauseRef.current
       if (pb) {
