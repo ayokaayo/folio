@@ -112,31 +112,18 @@ function FixedColumns() {
 export function GhostHome() {
   return (
     <main id="main-content" aria-busy="true">
+      {/* The signal hero (components/hero/signal): its title is drawn by the canvas, so only the foot has a ghost. */}
       <section className="relative" style={{ minHeight: 'calc(clamp(560px, 74vh, 780px) + 80px)' }}>
-        <div className="pt-36 pb-16 md:pt-44 md:pb-24">
-          <div className="lattice">
-            <div className="w-full lg:w-[round(calc((100%-11*16px)/12*8+7*16px),1px)] lg:[container-type:inline-size]">
-              <h1 className="font-mono font-medium text-headline lg:text-[length:min(48px,calc(100cqw/16.4))]">
-                {HERO_COPY.headline.map((line, i) => (
-                  <span key={i}>
-                    {i > 0 && (
-                      <>
-                        {' '}
-                        <br />
-                      </>
-                    )}
-                    <span className={i === 0 ? 'lg:whitespace-nowrap' : 'font-light'}><Words>{line}</Words></span>
-                  </span>
-                ))}
-              </h1>
-              <p className="font-mono text-subhead mt-6">
-                <Words>{HERO_COPY.subhead.join(' ')}</Words>
-              </p>
-              <div className="mt-12">
-                <span className="ghost cta-2col inline-block rounded" style={{ height: 40 }} />
-              </div>
-            </div>
+        <div className="lattice absolute inset-x-0 bottom-16 flex flex-col items-start gap-6">
+          <div className="md:w-[round(calc((100%-11*16px)/12*7+6*16px),1px)]">
+            <p className="font-mono text-[17px] md:text-subhead leading-[1.3]">
+              <Words>{`${HERO_COPY.headline[1]}.`}</Words>
+            </p>
+            <p className="mt-2 font-mono text-[14px] md:text-[15px] leading-[1.5]">
+              <Words>{HERO_COPY.subhead[0]}</Words>
+            </p>
           </div>
+          <span className="ghost cta-2col inline-block rounded" style={{ height: 40 }} />
         </div>
       </section>
       <section className="relative" style={{ paddingTop: 64, paddingBottom: 96 }}>

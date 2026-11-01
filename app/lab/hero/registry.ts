@@ -2,6 +2,8 @@ import type { ComponentType } from 'react'
 import type { VariantMeta, VariantProps } from './types'
 import { meta as current } from './variants/current/meta'
 import { meta as wake } from './variants/moire-wake/meta'
+import { meta as signalPromo } from './variants/signal-promo/meta'
+import { meta as signal } from './variants/signal/meta'
 
 /**
  * Gallery order. Metas load eagerly (tiny); components load lazily so a heavy
@@ -15,4 +17,6 @@ export interface RegistryEntry {
 export const REGISTRY: RegistryEntry[] = [
   { meta: current, load: () => import('./variants/current') },
   { meta: wake, load: () => import('./variants/moire-wake') },
+  { meta: signalPromo, load: () => import('./variants/signal-promo') },
+  { meta: signal, load: () => import('./variants/signal') },
 ]

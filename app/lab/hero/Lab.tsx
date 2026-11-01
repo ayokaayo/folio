@@ -337,7 +337,7 @@ function NextSectionPeek() {
             <GridLabelMuted size="md">005</GridLabelMuted>
           </div>
         </GridRow>
-        <div className="h-[240px]" />
+        <div className="h-[70vh]" />
       </div>
     </section>
   )

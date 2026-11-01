@@ -8,14 +8,14 @@
  * MONO EDITION:
  * - All typography: IBM Plex Mono
  * - Accent: site accent token (--accent), blue or sage
- * - Hero: moiré wake field (components/hero)
+ * - Hero: signal title sequence (components/hero/signal)
  */
 
 import { useMemo } from 'react'
 import CaseStudyCard from '@/components/CaseStudyCard'
 import ProjectCard from '@/components/ProjectCard'
 import { GridRow } from '@/components/ExposedGrid'
-import HeroSection from '@/components/hero/HeroSection'
+import SignalHero from '@/components/hero/signal/SignalHero'
 import MillimetricPaper from '@/components/MillimetricPaper'
 import GridLabel, { GridLabelMuted } from '@/components/GridLabel'
 import GridCta from '@/components/GridCta'
@@ -42,8 +42,8 @@ export default function Home() {
 
   return (
     <main id="main-content">
-      {/* HERO: moiré wake field behind server-rendered copy (components/hero) */}
-      <HeroSection />
+      {/* HERO: signal title sequence behind server-rendered copy (components/hero/signal) */}
+      <SignalHero />
 
       {/* PROJECTS & SELECTED WORKS - Single continuous millimetric grid */}
       <section className="relative" style={{ paddingTop: '64px', paddingBottom: '96px' }}>
