@@ -37,3 +37,16 @@ export function cappedDpr(max = 2): number {
   if (typeof window === 'undefined') return 1
   return Math.min(window.devicePixelRatio || 1, max)
 }
+
+/** Follows the OS reduced-motion setting. */
+export function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const on = () => setReduced(mq.matches)
+    on()
+    mq.addEventListener('change', on)
+    return () => mq.removeEventListener('change', on)
+  }, [])
+  return reduced
+}
