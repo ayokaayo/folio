@@ -56,6 +56,8 @@ function sysColour(step: number): string {
 
 /** Seconds a point of the pointer's trail lives. */
 const WAKE_LIFE = 1.6
+/** The nav's height, CSS px: the hero runs up behind it, and leaves as it slides under it. */
+const NAV = 80
 /** Plex Mono's cap height, em. */
 const CAP_EM = 0.698
 
@@ -100,9 +102,12 @@ interface Counts {
 /** Counts what the shader will draw, from mask A (device px): a dot wherever its centre is inside a letter. */
 function count(l: Layout, mask: HTMLCanvasElement, dpr: number, dot: number): Counts {
   const ctx = mask.getContext('2d')!
+  // Reads back only the band the first two lines stand in: a readback stalls the main thread.
+  const y0 = Math.max(0, Math.floor(l.lines[0].capTop * dpr) - 2)
+  const y1 = Math.min(mask.height, Math.ceil(l.lines[1].baseline * dpr) + 2)
   const W = mask.width
-  const px = ctx.getImageData(0, 0, W, mask.height).data
-  const at = (x: number, y: number, ch: number) => px[(Math.round(y * dpr) * W + Math.round(x * dpr)) * 4 + ch] > 127
+  const px = ctx.getImageData(0, y0, W, Math.max(1, y1 - y0)).data
+  const at = (x: number, y: number, ch: number) => px[((Math.round(y * dpr) - y0) * W + Math.round(x * dpr)) * 4 + ch] > 127
   let dots = 0
   const li = l.lines[0]
   for (let y = Math.ceil(li.capTop / dot) * dot; y <= li.baseline; y += dot) {
@@ -225,32 +230,48 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       setGlFailed(true)
       return
     }
-    const compile = (type: number, src: string) => {
-      const s = gl.createShader(type)!
-      gl.shaderSource(s, src)
-      gl.compileShader(s)
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) ?? 'shader')
-      return s
-    }
-    let prog: WebGLProgram
-    try {
-      prog = gl.createProgram()!
-      gl.attachShader(prog, compile(gl.VERTEX_SHADER, vertex))
-      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fragment))
-      gl.linkProgram(prog)
-      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog) ?? 'link')
-    } catch (e) {
-      console.error('[signal]', e)
-      setGlFailed(true)
-      return
-    }
-    gl.useProgram(prog)
+    // A lost context (a phone's GPU reset, or too many contexts) leaves a blank canvas: set the title as type.
+    const onLost = () => setGlFailed(true)
+    canvas.addEventListener('webglcontextlost', onLost)
+    const shaders = [
+      [gl.VERTEX_SHADER, vertex],
+      [gl.FRAGMENT_SHADER, fragment],
+    ].map(([type, src]) => {
+      const sh = gl.createShader(type as number)!
+      gl.shaderSource(sh, src as string)
+      gl.compileShader(sh)
+      return sh
+    })
+    const prog = gl.createProgram()!
+    shaders.forEach(sh => gl.attachShader(prog, sh))
+    gl.linkProgram(prog)
+    // The shader is large: where the browser can, it compiles off the main thread, and the loop waits for it
+    // rather than blocking on the status.
+    const parallel = gl.getExtension('KHR_parallel_shader_compile')
+    let linked = false
     const buf = gl.createBuffer()
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf)
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW)
-    const aPos = gl.getAttribLocation(prog, 'aPos')
-    gl.enableVertexAttribArray(aPos)
-    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0)
+    // True once the program is linked and set up; false while it compiles, or for good when it failed.
+    const ready = () => {
+      if (linked) return true
+      if (parallel && !gl.getProgramParameter(prog, parallel.COMPLETION_STATUS_KHR)) return false
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        if (!gl.isContextLost()) {
+          console.error('[signal]', shaders.map(sh => gl.getShaderInfoLog(sh)).join('\n') || gl.getProgramInfoLog(prog))
+          setGlFailed(true)
+        }
+        return false
+      }
+      linked = true
+      gl.useProgram(prog)
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf)
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW)
+      const aPos = gl.getAttribLocation(prog, 'aPos')
+      gl.enableVertexAttribArray(aPos)
+      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0)
+      gl.uniform1i(U('uMaskA'), 0)
+      gl.uniform1i(U('uMaskB'), 1)
+      return true
+    }
 
     const locs: Record<string, WebGLUniformLocation | null> = {}
     const U = (name: string) => (name in locs ? locs[name] : (locs[name] = gl.getUniformLocation(prog, name)))
@@ -268,8 +289,6 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 255]))
       return t
     })
-    gl.uniform1i(U('uMaskA'), 0)
-    gl.uniform1i(U('uMaskB'), 1)
 
     const family = display.style.fontFamily
     let size = { w: 1, h: 1, dpr: 1 }
@@ -286,9 +305,10 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       const r = section.getBoundingClientRect()
       const probe = probeRef.current!.getBoundingClientRect()
       const foot = footRef.current!.getBoundingClientRect()
-      const dpr = cappedDpr(2)
       const w = Math.round(r.width)
       const h = Math.round(r.height)
+      // Phones get a lighter fill: the dither is drawn in CSS px, so it holds at 1.5.
+      const dpr = cappedDpr(w < 768 ? 1.5 : 2)
       size = { w, h, dpr }
       canvas.width = Math.round(w * dpr)
       canvas.height = Math.round(h * dpr)
@@ -348,12 +368,10 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
     let last = performance.now()
     let loopT = 0
     let fieldT = 0
-    let first = true
     // The opening plays once a session: on a later view the loop starts on the set title.
     try {
       if (v.current.intro !== false && sessionStorage.getItem('signal:intro')) {
         loopT = AT.form + 2.2
-        first = false
       }
       sessionStorage.setItem('signal:intro', '1')
     } catch {}
@@ -363,6 +381,10 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
     // The readout's eased state: the shown number and its key.
     let readKey = ''
     let shownN = 0
+    // Under reduced motion the loop draws only when something changed: the setting itself (the OS answer
+    // arrives after the first frames), or the layout.
+    let lastReduced = rm.current
+    let lastLay = layRef.current
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw)
@@ -374,8 +396,13 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
         lastDot = vals.dot
         void resize()
       }
-      if (!activeRef.current) return
+      if (!activeRef.current || !ready()) return
       const reduced = rm.current
+      if (reduced !== lastReduced || layRef.current !== lastLay) {
+        lastReduced = reduced
+        lastLay = layRef.current
+        dirty = true
+      }
       if (reduced && !dirty) return
       dirty = false
 
@@ -399,15 +426,11 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       let t: number
       if (frozen !== null) {
         t = frozen
-        first = false
       } else {
         if (!still && over < 0) loopT += dt * speed
         const restAt = AT.hold + hold * 0.5
         if (vals.once && loopT > restAt) loopT = restAt
-        if (loopT >= L) {
-          loopT -= L
-          first = false
-        }
+        if (loopT >= L) loopT -= L
         t = loopT
       }
 
@@ -430,17 +453,19 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
         const lead = hov.indexOf(Math.max(...hov))
         if (hov[lead] > 0.5) f.scene = (['intelligent', 'systems', 'designer'] as const)[lead]
       }
-      // Leaving: how far the hero has scrolled away, and each word's share of it, staggered. Intelligent
-      // drifts off left, designer right, and systems runs its register as they dissolve.
+      // Leaving: nothing goes while it is still in view. Each part leaves as it slides up under the nav, by
+      // its own place on screen, so the hero never empties ahead of the page: intelligent drifts off left,
+      // designer right, systems runs its register, and the field dissolves under the nav in ordered dither.
       const top = section.getBoundingClientRect().top
-      const exit = vals.exit === false || reduced ? 0 : Math.min(1, Math.max(0, -top / (h * 0.8)))
-      const exitW = [0, 1, 2].map(i => easeIO(Math.min(1, Math.max(0, (exit - 0.08 - i * 0.08) / 0.55))))
+      const leaving = vals.exit !== false && !reduced
+      const leave = (y0: number, y1: number) => (leaving ? Math.min(1, Math.max(0, (NAV + 24 - (top + y0)) / (y1 - y0 + 24))) : 0)
+      const exitW = l ? l.lines.map(line => easeIO(leave(line.capTop, line.baseline))) : [0, 0, 0]
       const sysExit = exitW[1] > f.sys
       if (sysExit) {
         f.sys = exitW[1]
         f.step = 3 * exitW[1]
       }
-      const off = l ? l.apart.map((a, i) => a * f.apart[i] + [-0.14, 0, 0.14][i] * w * exitW[i]) : [0, 0, 0]
+      const off = l ? l.apart.map((a, i) => a * f.apart[i] + [-0.08, 0, 0.08][i] * w * exitW[i]) : [0, 0, 0]
       const fr = footBox.current
 
       gl.viewport(0, 0, canvas.width, canvas.height)
@@ -460,7 +485,10 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       gl.uniform3fv(U('uIri'), (vivid ? IRI_VIVID : IRI).flatMap(rgb))
       f1('uEvoS', vivid ? 1.3 : 1)
       gl.uniform3f(U('uDim'), ...f.dim)
-      f1('uExit', exit)
+      // The dissolve under the nav comes in over the first few px of scroll, so the hero at rest is untouched.
+      f1('uExit', leaving ? band(-top, 0, 40) : 0)
+      f1('uTop', top)
+      f1('uNav', NAV)
       gl.uniform3f(U('uExitW'), exitW[0], exitW[1], exitW[2])
       // Designer's fill: one colour, turning ink to ink from when the fill comes in (or while hovered).
       const inks = PALETTES[String(vals.palette)] ?? PALETTES.brand
@@ -498,7 +526,7 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       const evoX = l ? l.x0 + Math.round(((l.x1 - l.x0) * (l.desktop ? 0.84 : 0.86)) / l.grid) * l.grid : 0
       const evoY = l ? l.lines[0].capTop + Math.round((blockH * 0.32) / l.grid) * l.grid : 0
       gl.uniform3f(U('uEvo'), evoX, evoY, blockH * (l?.desktop ? 1.15 : 1.3))
-      f1('uEvoA', Math.min(1, f.bloomR / Math.max(1, reach)) * (1 - band(exit, 0.05, 0.35)))
+      f1('uEvoA', Math.min(1, f.bloomR / Math.max(1, reach)))
       f1('uEvoT', fieldT)
       f1('uGridStep', l ? l.grid : 64)
       gl.uniform2f(U('uGridOrigin'), l ? l.x0 : 0, 0)
@@ -525,11 +553,11 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
           const u = Math.min(1, Math.max(0, (t - starts[i]) / (starts[i + 1] - starts[i])))
           if (fill) fill.style.transform = `scaleX(${u})`
         })
-        bar.style.opacity = String(showBarRef.current ? 1 - band(exit, 0, 0.2) : 0)
+        bar.style.opacity = showBarRef.current ? '1' : '0'
       }
       const pb = pauseRef.current
       if (pb) {
-        pb.style.opacity = String(reduced ? 0 : 1 - band(exit, 0, 0.2))
+        pb.style.opacity = reduced ? '0' : '1'
         pb.style.visibility = reduced ? 'hidden' : ''
       }
 
@@ -572,30 +600,22 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
         const px = l.desktop ? Math.max(24, Math.min((2 * l.grid) / CAP_EM, room / (8.8 * 0.6))) : Math.max(20, (1.25 * l.grid) / CAP_EM)
         const fs = `${px.toFixed(1)}px`
         if (rv.style.fontSize !== fs) rv.style.fontSize = fs
-        const slide = (band(exit, 0.05, 0.4) * 48).toFixed(1)
+        const readTop = l.desktop ? l.lines[2].capTop - 0.177 * px : l.lines[2].baseline + 2 * l.grid - 0.177 * px
+        const gone = easeIO(leave(readTop, readTop + px + 24))
+        const slide = (gone * 48).toFixed(1)
+        read.style.top = `${readTop}px`
         if (l.desktop) {
-          read.style.top = `${l.lines[2].capTop - 0.177 * px}px`
           read.style.left = ''
           read.style.right = `${l.w - l.x1}px`
           read.style.transform = `translateX(${slide}px)`
         } else {
-          read.style.top = `${l.lines[2].baseline + 2 * l.grid - 0.177 * px}px`
           read.style.left = `${l.x0}px`
           read.style.right = ''
           read.style.transform = `translateX(${slide}px)`
         }
         read.style.textAlign = l.desktop ? 'right' : 'left'
         rv.style.justifyContent = l.desktop ? 'flex-end' : 'flex-start'
-        read.style.opacity = String(1 - band(exit, 0.05, 0.35))
-      }
-
-      // Leaving, in order: the foot lifts away first, then the readout, then the words.
-      const foot = footRef.current
-      if (foot) {
-        const k = band(exit, 0, 0.3)
-        foot.style.opacity = String(Math.min(1, (first ? t : 1) / 1.2) * (1 - k))
-        foot.style.transform = k > 0 ? `translateY(${(-k * 48).toFixed(1)}px)` : ''
-        foot.style.filter = k > 0 ? `blur(${(k * 6).toFixed(1)}px)` : ''
+        read.style.opacity = String(1 - gone)
       }
     }
     raf = requestAnimationFrame(draw)
@@ -606,6 +626,7 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       ro.disconnect()
       section.removeEventListener('pointermove', onMove)
       section.removeEventListener('pointerleave', onLeave)
+      canvas.removeEventListener('webglcontextlost', onLost)
       // Free what this effect made; losing the context would break the next mount on the same canvas.
       tex.forEach(t => gl.deleteTexture(t))
       gl.deleteBuffer(buf)
@@ -706,11 +727,8 @@ export default function SignalHero({ values = SIGNAL_SETTINGS, reducedMotion: fo
       <div
         ref={footRef}
         className="lattice absolute inset-x-0 bottom-16 z-10 flex flex-col items-start gap-6 font-normal"
-        // The loop fades the foot in; without WebGL there is no loop, so it simply shows.
-        style={{
-          opacity: glFailed ? 1 : 0,
-          fontFamily: 'var(--font-ibm-plex-mono)',
-        }}
+        // Shown from the first paint, with or without the loop: it is the page's first real content.
+        style={{ fontFamily: 'var(--font-ibm-plex-mono)' }}
       >
         <div className="md:w-[round(calc((100%-11*16px)/12*7+6*16px),1px)]">
           <p className="font-mono text-[17px] md:text-subhead leading-[1.3] text-text-primary">{copy.headline[1]}.</p>
